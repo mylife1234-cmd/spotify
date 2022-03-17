@@ -14,7 +14,7 @@ class FilterButton extends StatelessWidget {
         border: Border.all(width: 1.5, color: Colors.white54),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-      margin: const EdgeInsets.only(right: 10, top: 10),
+      margin: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
     );
   }
 }

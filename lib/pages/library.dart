@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/components/library/filter_button.dart';
 import 'package:spotify/components/library/header.dart';
+import 'package:spotify/components/library/view_mode.dart';
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({Key? key}) : super(key: key);
@@ -30,7 +31,8 @@ class _LibraryPageState extends State<LibraryPage> {
                         .map((option) => FilterButton(title: option))
                         .toList(),
                   ),
-                )
+                ),
+                const ViewModeSection()
               ],
             ),
           ),
