@@ -11,7 +11,7 @@ class LibraryHeader extends StatelessWidget {
           CircleAvatar(
             foregroundImage: AssetImage(
                 'assets/images/avatar.png'),
-            radius: 25,
+            radius: 22,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
