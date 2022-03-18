@@ -139,28 +139,44 @@ class _LibraryPageState extends State<LibraryPage> {
   }
 
   _buildListView() {
+    final list = playlists
+        .where((element) =>
+            _currentFilterOption == -1 ||
+            filterOptions[_currentFilterOption]
+                .toLowerCase()
+                .contains(element['type']!))
+        .toList();
+
     return ListView.builder(
-      itemCount: playlists.length,
+      itemCount: list.length,
       itemBuilder: (context, index) {
-        final cover = playlists[index]['cover'];
+        final item = list[index];
 
         return ListItem(
-          title: playlists[index]['title']!,
-          subtitle: playlists[index]['subtitle']!,
-          coverUrl: cover!,
-          isSquareCover: playlists[index]['type']! == 'playlist',
+          title: item['title']!,
+          subtitle: item['subtitle']!,
+          coverUrl: item['cover']!,
+          isSquareCover: item['type']! == 'playlist',
         );
       },
     );
   }
 
   _buildGridView() {
+    final list = playlists
+        .where((element) =>
+            _currentFilterOption == -1 ||
+            filterOptions[_currentFilterOption]
+                .toLowerCase()
+                .contains(element['type']!))
+        .toList();
+
     return GridView.count(
       crossAxisCount: 2,
       crossAxisSpacing: 15,
       mainAxisSpacing: 15,
       childAspectRatio: 0.75,
-      children: playlists
+      children: list
           .map(
             (item) => GridItem(
               title: item['title']!,
