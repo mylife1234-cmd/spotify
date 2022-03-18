@@ -29,23 +29,23 @@ class MyApp extends StatelessWidget {
         ),
       ),
       themeMode: ThemeMode.dark,
-      home: const MyHomePage(),
+      home: const Main(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class Main extends StatefulWidget {
+  const Main({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Main> createState() => _MainState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
-
+class _MainState extends State<Main> {
   final pages = [const HomePage(), const SearchPage(), const LibraryPage()];
+
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Stack(children: [
-        pages[_currentIndex],
+        Padding(
+          padding: const EdgeInsets.only(bottom: 50),
+          child: pages[_currentIndex],
+        ),
         const Align(
           child: MiniPlayer(),
           alignment: Alignment.bottomCenter,
