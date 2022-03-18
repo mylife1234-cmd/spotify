@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/components/library/close_button.dart';
 import 'package:spotify/components/library/filter_button.dart';
+import 'package:spotify/components/library/grid_item.dart';
 import 'package:spotify/components/library/header.dart';
+import 'package:spotify/components/library/list_item.dart';
 import 'package:spotify/components/library/view_mode.dart';
 
 class LibraryPage extends StatefulWidget {
@@ -53,7 +55,9 @@ class _LibraryPageState extends State<LibraryPage> {
     },
   ];
 
-  int currentFilterOption = -1;
+  int _currentFilterOption = -1;
+
+  bool _showAsList = true;
 
   @override
   Widget build(BuildContext context) {
@@ -69,64 +73,79 @@ class _LibraryPageState extends State<LibraryPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
-                    children: currentFilterOption == -1
+                    children: _currentFilterOption == -1
                         ? filterOptions
-                        .map((option) => GestureDetector(
-                      child: FilterButton(
-                        title: option,
-                        active: false,
-                      ),
-                      onTap: () => setState(() {
-                        currentFilterOption =
-                            filterOptions.indexOf(option);
-                      }),
-                    ))
-                        .toList()
+                            .map((option) => GestureDetector(
+                                  child: FilterButton(
+                                    title: option,
+                                    active: false,
+                                  ),
+                                  onTap: () => setState(() {
+                                    _currentFilterOption =
+                                        filterOptions.indexOf(option);
+                                  }),
+                                ))
+                            .toList()
                         : [
-                      GestureDetector(
-                        child: const CustomCloseButton(),
-                        onTap: () => setState(() {
-                          currentFilterOption = -1;
-                        }),
-                      ),
-                      GestureDetector(
-                        child: FilterButton(
-                          title: filterOptions[currentFilterOption],
-                          active: true,
-                        ),
-                        onTap: () => setState(() {
-                          currentFilterOption = -1;
-                        }),
-                      )
-                    ],
+                            GestureDetector(
+                              child: const CustomCloseButton(),
+                              onTap: () => setState(() {
+                                _currentFilterOption = -1;
+                              }),
+                            ),
+                            GestureDetector(
+                              child: FilterButton(
+                                title: filterOptions[_currentFilterOption],
+                                active: true,
+                              ),
+                              onTap: () => setState(() {
+                                _currentFilterOption = -1;
+                              }),
+                            )
+                          ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: ViewModeSection(),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: ViewModeSection(
+                    handleViewModeChange: () => setState(() {
+                      _showAsList = !_showAsList;
+                    }),
+                    showAsList: _showAsList,
+                  ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: playlists.length,
-                    itemBuilder: (context, index) {
-                      final cover = playlists[index]['cover'];
+                  child: _showAsList
+                      ? ListView.builder(
+                          itemCount: playlists.length,
+                          itemBuilder: (context, index) {
+                            final cover = playlists[index]['cover'];
 
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 3.0),
-                        child: ListTile(
-                          title: Text(playlists[index]['title']!),
-                          subtitle: Text(playlists[index]['subtitle']!),
-                          leading: playlists[index]['type']! == 'playlist'
-                              ? Image.asset(cover!)
-                              : CircleAvatar(
-                            foregroundImage: AssetImage(cover!),
-                            radius: 28,
-                          ),
-                          contentPadding: EdgeInsets.zero,
+                            return ListItem(
+                              title: playlists[index]['title']!,
+                              subtitle: playlists[index]['subtitle']!,
+                              coverUrl: cover!,
+                              isSquareCover:
+                                  playlists[index]['type']! == 'playlist',
+                            );
+                          },
+                        )
+                      : GridView.count(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 15,
+                          childAspectRatio: 0.75,
+                          children: playlists
+                              .map(
+                                (item) => GridItem(
+                                  title: item['title']!,
+                                  subtitle: item['subtitle']!,
+                                  coverUrl: item['cover']!,
+                                  isSquareCover: item['type']! == 'playlist',
+                                ),
+                              )
+                              .toList(),
                         ),
-                      );
-                    },
-                  ),
                 )
               ],
             ),
@@ -136,4 +155,3 @@ class _LibraryPageState extends State<LibraryPage> {
     );
   }
 }
-
