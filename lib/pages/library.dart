@@ -59,6 +59,8 @@ class _LibraryPageState extends State<LibraryPage> {
 
   bool _showAsList = true;
 
+  int _sortOption = 0;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -124,10 +126,14 @@ class _LibraryPageState extends State<LibraryPage> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: ViewModeSection(
-        handleViewModeChange: () => setState(() {
+        handleViewMode: () => setState(() {
           _showAsList = !_showAsList;
         }),
         showAsList: _showAsList,
+        handleSortOption: (newOption) => setState(() {
+          _sortOption = newOption;
+        }),
+        sortOption: _sortOption,
       ),
     );
   }
