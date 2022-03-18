@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spotify/components/miniplayer.dart';
+import 'package:spotify/components/player/miniplayer.dart';
 import 'package:spotify/pages/home.dart';
 import 'package:spotify/pages/library.dart';
 import 'package:spotify/pages/search.dart';

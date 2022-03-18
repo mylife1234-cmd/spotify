@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:spotify/pages/player.dart';
 
 class MiniPlayer extends StatelessWidget {
   const MiniPlayer({Key? key}) : super(key: key);
@@ -35,6 +37,15 @@ class MiniPlayer extends StatelessWidget {
         horizontalTitleGap: 12,
         visualDensity: VisualDensity.compact,
         minVerticalPadding: 12,
+        onTap: () {
+          showMaterialModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return const MusicPlayer();
+            },
+            duration: const Duration(milliseconds: 250),
+          );
+        },
       ),
     );
   }
