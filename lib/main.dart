@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify/components/miniplayer.dart';
 import 'package:spotify/pages/home.dart';
 import 'package:spotify/pages/library.dart';
 import 'package:spotify/pages/search.dart';
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white54,
-          backgroundColor: Colors.black
-        )
+          backgroundColor: Colors.black,
+        ),
       ),
       themeMode: ThemeMode.dark,
       home: const MyHomePage(),
@@ -62,7 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.library_music), label: 'Your Library')
         ],
       ),
-      body: pages[_currentIndex],
+      body: Stack(children: [
+        pages[_currentIndex],
+        const Align(
+          child: MiniPlayer(),
+          alignment: Alignment.bottomCenter,
+        )
+      ]),
     );
   }
 }
