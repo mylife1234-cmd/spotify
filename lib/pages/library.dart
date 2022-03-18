@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:spotify/components/library/close_button.dart';
 import 'package:spotify/components/library/filter_button.dart';
 import 'package:spotify/components/library/grid_item.dart';
 import 'package:spotify/components/library/header.dart';
 import 'package:spotify/components/library/list_item.dart';
 import 'package:spotify/components/library/view_mode.dart';
+import 'package:spotify/pages/playlist_creation.dart';
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class LibraryPage extends StatefulWidget {
 class _LibraryPageState extends State<LibraryPage> {
   final filterOptions = ['Playlists', 'Artists', 'Albums'];
 
-  final playlists = [
+  List playlists = [
     {
       'title': 'Liked Songs',
       'subtitle': 'Playlist',
@@ -71,7 +73,23 @@ class _LibraryPageState extends State<LibraryPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const LibraryHeader(),
+                LibraryHeader(
+                  handleAdding: () {
+                    showCupertinoModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return PlaylistCreationPage(
+                          handlePlaylistCreation: (newPlaylist) {
+                            setState(() {
+                              playlists = [...playlists, newPlaylist];
+                            });
+                          },
+                        );
+                      },
+                      duration: const Duration(milliseconds: 250),
+                    );
+                  },
+                ),
                 _buildFiltersSection(),
                 _buildViewModesSection(),
                 Expanded(
@@ -139,7 +157,7 @@ class _LibraryPageState extends State<LibraryPage> {
   }
 
   _buildListView() {
-    final list = playlists
+    final filteredList = playlists
         .where((element) =>
             _currentFilterOption == -1 ||
             filterOptions[_currentFilterOption]
@@ -148,9 +166,9 @@ class _LibraryPageState extends State<LibraryPage> {
         .toList();
 
     return ListView.builder(
-      itemCount: list.length,
+      itemCount: filteredList.length,
       itemBuilder: (context, index) {
-        final item = list[index];
+        final item = filteredList[index];
 
         return ListItem(
           title: item['title']!,
@@ -163,7 +181,7 @@ class _LibraryPageState extends State<LibraryPage> {
   }
 
   _buildGridView() {
-    final list = playlists
+    final filteredList = playlists
         .where((element) =>
             _currentFilterOption == -1 ||
             filterOptions[_currentFilterOption]
@@ -176,7 +194,7 @@ class _LibraryPageState extends State<LibraryPage> {
       crossAxisSpacing: 15,
       mainAxisSpacing: 15,
       childAspectRatio: 0.75,
-      children: list
+      children: filteredList
           .map(
             (item) => GridItem(
               title: item['title']!,

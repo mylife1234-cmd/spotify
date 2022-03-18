@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LibraryHeader extends StatelessWidget {
-  const LibraryHeader({Key? key}) : super(key: key);
+  const LibraryHeader({Key? key, this.handleAdding}) : super(key: key);
+
+  final void Function()? handleAdding;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class LibraryHeader extends StatelessWidget {
         ],
       ),
       GestureDetector(
-        onTap: () {},
+        onTap: handleAdding,
         child: const Icon(
           Icons.add,
           size: 30,

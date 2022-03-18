@@ -19,7 +19,10 @@ class ListItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 3.0),
       child: ListTile(
-        title: Text(title),
+        title: Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.w500),
+        ),
         subtitle: Text(subtitle),
         leading: isSquareCover
             ? Image.asset(coverUrl)
