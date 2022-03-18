@@ -70,88 +70,100 @@ class _LibraryPageState extends State<LibraryPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const LibraryHeader(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
-                    children: _currentFilterOption == -1
-                        ? filterOptions
-                            .map((option) => GestureDetector(
-                                  child: FilterButton(
-                                    title: option,
-                                    active: false,
-                                  ),
-                                  onTap: () => setState(() {
-                                    _currentFilterOption =
-                                        filterOptions.indexOf(option);
-                                  }),
-                                ))
-                            .toList()
-                        : [
-                            GestureDetector(
-                              child: const CustomCloseButton(),
-                              onTap: () => setState(() {
-                                _currentFilterOption = -1;
-                              }),
-                            ),
-                            GestureDetector(
-                              child: FilterButton(
-                                title: filterOptions[_currentFilterOption],
-                                active: true,
-                              ),
-                              onTap: () => setState(() {
-                                _currentFilterOption = -1;
-                              }),
-                            )
-                          ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: ViewModeSection(
-                    handleViewModeChange: () => setState(() {
-                      _showAsList = !_showAsList;
-                    }),
-                    showAsList: _showAsList,
-                  ),
-                ),
+                _buildFiltersSection(),
+                _buildViewModesSection(),
                 Expanded(
-                  child: _showAsList
-                      ? ListView.builder(
-                          itemCount: playlists.length,
-                          itemBuilder: (context, index) {
-                            final cover = playlists[index]['cover'];
-
-                            return ListItem(
-                              title: playlists[index]['title']!,
-                              subtitle: playlists[index]['subtitle']!,
-                              coverUrl: cover!,
-                              isSquareCover:
-                                  playlists[index]['type']! == 'playlist',
-                            );
-                          },
-                        )
-                      : GridView.count(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 15,
-                          mainAxisSpacing: 15,
-                          childAspectRatio: 0.75,
-                          children: playlists
-                              .map(
-                                (item) => GridItem(
-                                  title: item['title']!,
-                                  subtitle: item['subtitle']!,
-                                  coverUrl: item['cover']!,
-                                  isSquareCover: item['type']! == 'playlist',
-                                ),
-                              )
-                              .toList(),
-                        ),
-                )
+                  child: _showAsList ? _buildListView() : _buildGridView(),
+                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  _buildFiltersSection() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Row(
+        children: _currentFilterOption == -1
+            ? filterOptions
+                .map((option) => GestureDetector(
+                      child: FilterButton(
+                        title: option,
+                        active: false,
+                      ),
+                      onTap: () => setState(() {
+                        _currentFilterOption = filterOptions.indexOf(option);
+                      }),
+                    ))
+                .toList()
+            : [
+                GestureDetector(
+                  child: const CustomCloseButton(),
+                  onTap: () => setState(() {
+                    _currentFilterOption = -1;
+                  }),
+                ),
+                GestureDetector(
+                  child: FilterButton(
+                    title: filterOptions[_currentFilterOption],
+                    active: true,
+                  ),
+                  onTap: () => setState(() {
+                    _currentFilterOption = -1;
+                  }),
+                ),
+              ],
+      ),
+    );
+  }
+
+  _buildViewModesSection() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: ViewModeSection(
+        handleViewModeChange: () => setState(() {
+          _showAsList = !_showAsList;
+        }),
+        showAsList: _showAsList,
+      ),
+    );
+  }
+
+  _buildListView() {
+    return ListView.builder(
+      itemCount: playlists.length,
+      itemBuilder: (context, index) {
+        final cover = playlists[index]['cover'];
+
+        return ListItem(
+          title: playlists[index]['title']!,
+          subtitle: playlists[index]['subtitle']!,
+          coverUrl: cover!,
+          isSquareCover: playlists[index]['type']! == 'playlist',
+        );
+      },
+    );
+  }
+
+  _buildGridView() {
+    return GridView.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 15,
+      mainAxisSpacing: 15,
+      childAspectRatio: 0.75,
+      children: playlists
+          .map(
+            (item) => GridItem(
+              title: item['title']!,
+              subtitle: item['subtitle']!,
+              coverUrl: item['cover']!,
+              isSquareCover: item['type']! == 'playlist',
+            ),
+          )
+          .toList(),
     );
   }
 }
