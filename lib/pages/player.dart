@@ -10,8 +10,8 @@ class MusicPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff2f2215),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        physics: const ClampingScrollPhysics(),
         children: [
           PlayerHeader(
             onDismissed: () {
@@ -45,7 +45,7 @@ class MusicPlayer extends StatelessWidget {
             child: MusicController(),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [

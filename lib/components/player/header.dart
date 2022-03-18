@@ -7,8 +7,15 @@ class PlayerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 50),
+      padding: EdgeInsets.only(
+        left: 15,
+        right: 15,
+        top: 6,
+        bottom: size.height / 16,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
