@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify/components/library/close_button.dart';
 import 'package:spotify/components/library/filter_button.dart';
 import 'package:spotify/components/library/header.dart';
 import 'package:spotify/components/library/view_mode.dart';
@@ -52,6 +53,8 @@ class _LibraryPageState extends State<LibraryPage> {
     },
   ];
 
+  int currentFilterOption = -1;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,9 +69,36 @@ class _LibraryPageState extends State<LibraryPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
-                    children: filterOptions
-                        .map((option) => FilterButton(title: option))
-                        .toList(),
+                    children: currentFilterOption == -1
+                        ? filterOptions
+                        .map((option) => GestureDetector(
+                      child: FilterButton(
+                        title: option,
+                        active: false,
+                      ),
+                      onTap: () => setState(() {
+                        currentFilterOption =
+                            filterOptions.indexOf(option);
+                      }),
+                    ))
+                        .toList()
+                        : [
+                      GestureDetector(
+                        child: const CustomCloseButton(),
+                        onTap: () => setState(() {
+                          currentFilterOption = -1;
+                        }),
+                      ),
+                      GestureDetector(
+                        child: FilterButton(
+                          title: filterOptions[currentFilterOption],
+                          active: true,
+                        ),
+                        onTap: () => setState(() {
+                          currentFilterOption = -1;
+                        }),
+                      )
+                    ],
                   ),
                 ),
                 const Padding(
@@ -89,9 +119,9 @@ class _LibraryPageState extends State<LibraryPage> {
                           leading: playlists[index]['type']! == 'playlist'
                               ? Image.asset(cover!)
                               : CircleAvatar(
-                                  foregroundImage: AssetImage(cover!),
-                                  radius: 28
-                                ),
+                            foregroundImage: AssetImage(cover!),
+                            radius: 28,
+                          ),
                           contentPadding: EdgeInsets.zero,
                         ),
                       );
@@ -106,3 +136,4 @@ class _LibraryPageState extends State<LibraryPage> {
     );
   }
 }
+

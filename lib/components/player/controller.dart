@@ -25,7 +25,7 @@ class _MusicControllerState extends State<MusicController> {
         ),
         GestureDetector(
           child: Icon(
-            _playing
+            !_playing
                 ? CupertinoIcons.play_circle_fill
                 : CupertinoIcons.pause_circle_fill,
             size: 70,
@@ -46,3 +46,4 @@ class _MusicControllerState extends State<MusicController> {
     );
   }
 }
+
