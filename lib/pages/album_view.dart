@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify/components/album/ablum_component.dart';
+import 'package:spotify/components/album/play_button.dart';
+import 'package:spotify/components/album/shuffle_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
-import 'package:spotify/components/home/ablum_component.dart';
 
 import '../models/song.dart';
 
@@ -126,14 +128,7 @@ class _AlbumViewState extends State<AlbumView> {
                           ],
                         ),
                       )),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: songList.map((item) {
-                      return SongTile(
-                          song: Song(item['name']!, item['description']!,
-                              item['coverUrl']!));
-                    }).toList(),
-                  )
+                  _buildListSong(),
                 ],
               ),
             ),
@@ -187,34 +182,9 @@ class _AlbumViewState extends State<AlbumView> {
                             126 - containerHeight.clamp(160.0, double.infinity),
                         child: Stack(
                           alignment: Alignment.bottomRight,
-                          children: [
-                            Container(
-                              width: 48,
-                              height: 48,
-                              alignment: Alignment.center,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.green,
-                              ),
-                              child: const Icon(
-                                Icons.play_arrow,
-                                size: 35,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Container(
-                              width: 20,
-                              height: 20,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color(0xff2a2a2a),
-                              ),
-                              child: const Icon(
-                                CupertinoIcons.shuffle,
-                                color: Colors.green,
-                                size: 12,
-                              ),
-                            )
+                          children: const [
+                            PLayButton(),
+                            ShuffleButton(),
                           ],
                         ),
                       )
@@ -228,6 +198,16 @@ class _AlbumViewState extends State<AlbumView> {
       ),
     );
   }
+}
+
+_buildListSong() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: songList.map((item) {
+      return SongTile(
+          song: Song(item['name']!, item['description']!, item['coverUrl']!));
+    }).toList(),
+  );
 }
 
 final songList = [
