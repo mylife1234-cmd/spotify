@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/components/home/album_card.dart';
+import 'package:spotify/components/home/home_header.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -40,27 +41,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(top: 24.0, bottom: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Recently Played',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Icon(Icons.notifications),
-                          SizedBox(width: 15),
-                          Icon(Icons.history),
-                          SizedBox(width: 15),
-                          Icon(Icons.settings),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                const HomeHeader(),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
@@ -129,29 +110,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// class RowAlbumCard extends StatelessWidget {
-//   final String label;
-//   final ImageProvider image;
-
-//   const RowAlbumCard({
-//     Key? key,
-//     required this.label,
-//     required this.image,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Image(image: image, width: 120, height: 120, fit: BoxFit.cover),
-//         const SizedBox(height: 12),
-//         Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold))
-//       ],
-//     );
-//   }
-// }
 
 final recentList = [
   {
