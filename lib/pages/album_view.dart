@@ -89,7 +89,7 @@ class _AlbumViewState extends State<AlbumView> {
                   ),
                 ),
                 const SizedBox(
-                  height: 150,
+                  height: 155,
                 ),
               ],
             ),
@@ -209,7 +209,7 @@ class _AlbumViewState extends State<AlbumView> {
                   // alignment: Alignment.center,
                   child: Stack(
                     clipBehavior: Clip.none,
-                    alignment: Alignment.centerLeft,
+                    alignment: Alignment.center,
                     children: [
                       Positioned(
                         left: 5,
