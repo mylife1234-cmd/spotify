@@ -22,7 +22,7 @@ class AlbumCard extends StatelessWidget {
           ),
         );
       },
-      child: Container(
+      child: SizedBox(
         width: 120,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

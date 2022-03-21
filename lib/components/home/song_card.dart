@@ -15,7 +15,7 @@ class SongCard extends StatelessWidget {
       onTap: () {
         context.read<MusicProvider>().playNewSong(song);
       },
-      child: Container(
+      child: SizedBox(
         width: 120,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
