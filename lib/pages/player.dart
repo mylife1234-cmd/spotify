@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:spotify/components/player/controller.dart';
 import 'package:spotify/components/player/header.dart';
 import 'package:spotify/components/player/slider.dart';
+import 'package:spotify/models/song.dart';
 
 class MusicPlayer extends StatelessWidget {
-  const MusicPlayer({Key? key}) : super(key: key);
+  const MusicPlayer({Key? key, required this.song}) : super(key: key);
+
+  final Song song;
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +23,20 @@ class MusicPlayer extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(24),
-            child: Image.asset('assets/images/cam-on.jpg'),
+            child: Image.asset(song.coverUrl),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Text(
-              'Cảm ơn',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+              song.name,
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
             child: Text(
-              'Đen, Biên',
-              style: TextStyle(color: Colors.white54),
+              song.description,
+              style: const TextStyle(color: Colors.white54),
             ),
           ),
           const Padding(

@@ -4,6 +4,8 @@ import 'package:spotify/pages/home.dart';
 import 'package:spotify/pages/library.dart';
 import 'package:spotify/pages/search.dart';
 
+import 'models/song.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -47,6 +49,17 @@ class _MainState extends State<Main> {
 
   int _currentIndex = 0;
 
+  Song? _currentSong;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      _currentSong = Song('Cảm ơn', 'Đen, Biên', 'assets/images/cam-on.jpg');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,16 +75,18 @@ class _MainState extends State<Main> {
               icon: Icon(Icons.library_music), label: 'Your Library')
         ],
       ),
-      body: Stack(children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 60),
-          child: pages[_currentIndex],
-        ),
-        const Align(
-          child: MiniPlayer(),
-          alignment: Alignment.bottomCenter,
-        )
-      ]),
+      body: _currentSong == null
+          ? pages[_currentIndex]
+          : Stack(children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 60),
+                child: pages[_currentIndex],
+              ),
+              Align(
+                child: MiniPlayer(song: _currentSong!),
+                alignment: Alignment.bottomCenter,
+              )
+            ]),
     );
   }
 }
