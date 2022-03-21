@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:spotify/providers/music_provider.dart';
 
 class MusicController extends StatefulWidget {
   const MusicController({Key? key}) : super(key: key);
@@ -9,8 +11,6 @@ class MusicController extends StatefulWidget {
 }
 
 class _MusicControllerState extends State<MusicController> {
-  bool _playing = false;
-
   @override
   void initState() {
     super.initState();
@@ -28,6 +28,8 @@ class _MusicControllerState extends State<MusicController> {
 
   @override
   Widget build(BuildContext context) {
+    var playing = context.watch<MusicProvider>().playing;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -41,14 +43,18 @@ class _MusicControllerState extends State<MusicController> {
         ),
         GestureDetector(
           child: Icon(
-            !_playing
+            !playing
                 ? CupertinoIcons.play_circle_fill
                 : CupertinoIcons.pause_circle_fill,
             size: 70,
           ),
-          onTap: () => setState(() {
-            _playing = !_playing;
-          }),
+          onTap: () {
+            if (playing) {
+              context.read<MusicProvider>().pause();
+            } else {
+              context.read<MusicProvider>().play();
+            }
+          },
         ),
         const Icon(
           CupertinoIcons.forward_end_fill,

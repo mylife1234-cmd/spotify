@@ -7,8 +7,25 @@ class MusicProvider extends ChangeNotifier {
 
   Song? get currentSong => _currentSong;
 
+  bool _playing = false;
+
+  bool get playing => _playing;
+
   playNewSong(Song newSong) {
     _currentSong = newSong;
+
+    play();
+
+    notifyListeners();
+  }
+
+  play() {
+    _playing = true;
+    notifyListeners();
+  }
+
+  pause() {
+    _playing = false;
     notifyListeners();
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/pages/player.dart';
+import 'package:spotify/providers/music_provider.dart';
 
 import '../../models/song.dart';
 
@@ -11,6 +13,8 @@ class MiniPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var playing = context.watch<MusicProvider>().playing;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -29,10 +33,17 @@ class MiniPlayer extends StatelessWidget {
           child: Image.asset(song.coverUrl),
         ),
         trailing: GestureDetector(
-          child: const Icon(
-            Icons.play_arrow,
+          child: Icon(
+            !playing ? Icons.play_arrow : Icons.pause,
             size: 28,
           ),
+          onTap: () {
+            if (playing) {
+              context.read<MusicProvider>().pause();
+            } else {
+              context.read<MusicProvider>().play();
+            }
+          },
         ),
         contentPadding: EdgeInsets.zero,
         dense: true,
