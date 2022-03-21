@@ -31,7 +31,7 @@ class AlbumCard extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               label,
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
             )

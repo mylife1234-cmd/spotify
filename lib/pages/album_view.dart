@@ -17,7 +17,7 @@ class _AlbumViewState extends State<AlbumView> {
   double imageSize = 0;
   double initialImageSize = 220;
   double containerHeight = 500;
-  double containerinitalHeight = 500;
+  double containerInitialHeight = 500;
   double imageOpacity = 1;
   bool showTopBar = false;
 
@@ -30,7 +30,7 @@ class _AlbumViewState extends State<AlbumView> {
         if (imageSize < 0) {
           imageSize = 0;
         }
-        containerHeight = containerinitalHeight - scrollController.offset;
+        containerHeight = containerInitialHeight - scrollController.offset;
         if (containerHeight < 0) {
           containerHeight = 0;
         }
@@ -191,7 +191,7 @@ class _AlbumViewState extends State<AlbumView> {
                 duration: Duration(milliseconds: 300),
                 color: showTopBar
                     ? Color.fromARGB(251, 82, 71, 71).withOpacity(1)
-                    : Color(0xFFC858585).withOpacity(0),
+                    : Color(0xffc858585).withOpacity(0),
                 padding: EdgeInsets.symmetric(
                   horizontal: 7,
                   vertical: 7,
