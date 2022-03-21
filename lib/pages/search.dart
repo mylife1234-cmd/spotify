@@ -9,7 +9,7 @@ class SearchPage extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 20.0, left: 20.0
+              padding: const EdgeInsets.only(top: 20.0, left: 20.0
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,14 +29,14 @@ class SearchPage extends StatelessWidget {
               ),
 
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
                 textAlign: TextAlign.left,
-                style: TextStyle(
+                style: const TextStyle(
                     height:0.9,
                     fontSize: 20.0,
                     color: Colors.black,
@@ -44,7 +44,7 @@ class SearchPage extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: 'Search for something',
                   fillColor: Colors.white,
-                  prefixIcon: Icon(Icons.search, color:Colors.black,size: 18.0),
+                  prefixIcon: const Icon(Icons.search, color:Colors.black,size: 18.0),
                   filled: true,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0)
@@ -52,10 +52,10 @@ class SearchPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 17.0,
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
                 'Your top genres',
@@ -65,61 +65,54 @@ class SearchPage extends StatelessWidget {
                     color: Colors.white),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                      height: 90.0,
-                      width: 180.0,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment(0.8, 0.0),
-                          colors: [
-                            Colors.teal,
-                            Colors.tealAccent,
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Stack(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(bottom: 15, left: 10),
-                                child: Text(
-                                  'Dance/\nElectronic',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 15, left: 10),
-                                child: new RotationTransition(
-                                  turns: new AlwaysStoppedAnimation(15 / 360),
-                                  child: Image.asset(
-                                    'assets/images/den-vau.jpeg',
-                                    height: 70,
-                                    width: 70,
-                                  ),
-                                )
-                              ),
-                            ],
-                          )
+                ClipRRect(
+                  child: Container(
+                    height: 90.0,
+                    width: 180.0,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment(0.8, 0.0),
+                        colors: [
+                          Colors.teal,
+                          Colors.tealAccent,
                         ],
                       ),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                  ],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 15, left: 10),
+                          child: const Text(
+                            'Dance/\nElectronic',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 15, left: 10),
+                          child: RotationTransition(
+                            turns: const AlwaysStoppedAnimation(15 / 360),
+                            child: Image.asset(
+                              'assets/images/den-vau.jpeg',
+                              height: 70,
+                              width: 70,
+                            ),
+                          )
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
 
                 Column(
@@ -129,7 +122,7 @@ class SearchPage extends StatelessWidget {
                       height: 90.0,
                       width: 180.0,
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment(0.8, 0.0),
                             colors: [
@@ -144,8 +137,8 @@ class SearchPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.only(bottom: 15, left: 10),
-                                child: Text(
+                                margin: const EdgeInsets.only(bottom: 15, left: 10),
+                                child: const Text(
                                   'Pop',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -154,9 +147,9 @@ class SearchPage extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                  child: new RotationTransition(
-                                    turns: new AlwaysStoppedAnimation(15 / 360),
+                                margin: const EdgeInsets.only(top: 10, left: 10),
+                                  child: RotationTransition(
+                                    turns: const AlwaysStoppedAnimation(15 / 360),
                                     child: Image.asset(
                                       'assets/images/den-vau.jpeg',
                                       height: 70,
@@ -173,7 +166,7 @@ class SearchPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -184,7 +177,7 @@ class SearchPage extends StatelessWidget {
                       height: 90.0,
                       width: 180.0,
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment(0.8, 0.0),
                             colors: [
@@ -199,8 +192,8 @@ class SearchPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.only(bottom: 15, left: 10),
-                                child: Text(
+                                margin: const EdgeInsets.only(bottom: 15, left: 10),
+                                child: const Text(
                                   'Hip Hop',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -209,9 +202,9 @@ class SearchPage extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                  child: new RotationTransition(
-                                    turns: new AlwaysStoppedAnimation(15 / 360),
+                                margin: const EdgeInsets.only(top: 10, left: 10),
+                                  child: RotationTransition(
+                                    turns: const AlwaysStoppedAnimation(15 / 360),
                                     child: Image.asset(
                                       'assets/images/den-vau.jpeg',
                                       height: 70,
@@ -241,8 +234,8 @@ class SearchPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.only(bottom: 15, left: 10),
-                                child: Text(
+                                margin: const EdgeInsets.only(bottom: 15, left: 10),
+                                child: const Text(
                                   'Pop',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -251,9 +244,9 @@ class SearchPage extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                  child: new RotationTransition(
-                                    turns: new AlwaysStoppedAnimation(15 / 360),
+                                margin: const EdgeInsets.only(top: 10, left: 10),
+                                  child: RotationTransition(
+                                    turns: const AlwaysStoppedAnimation(15 / 360),
                                     child: Image.asset(
                                       'assets/images/den-vau.jpeg',
                                       height: 70,
@@ -270,10 +263,10 @@ class SearchPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
                 'Browse all',
@@ -283,7 +276,7 @@ class SearchPage extends StatelessWidget {
                     color: Colors.white),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             Row(
@@ -296,7 +289,7 @@ class SearchPage extends StatelessWidget {
                       height: 90.0,
                       width: 180.0,
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment(0.8, 0.0),
                             colors: [
@@ -311,8 +304,8 @@ class SearchPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.only(bottom: 15, left: 10),
-                                child: Text(
+                                margin: const EdgeInsets.only(bottom: 15, left: 10),
+                                child: const Text(
                                   '2020\nWrapped',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -321,9 +314,9 @@ class SearchPage extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                  child: new RotationTransition(
-                                    turns: new AlwaysStoppedAnimation(15 / 360),
+                                margin: const EdgeInsets.only(top: 10, left: 10),
+                                  child: RotationTransition(
+                                    turns: const AlwaysStoppedAnimation(15 / 360),
                                     child: Image.asset(
                                       'assets/images/den-vau.jpeg',
                                       height: 70,
@@ -345,7 +338,7 @@ class SearchPage extends StatelessWidget {
                       height: 90.0,
                       width: 180.0,
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment(0.8, 0.0),
                             colors: [
@@ -360,8 +353,8 @@ class SearchPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.only(bottom: 15, left: 10),
-                                child: Text(
+                                margin: const EdgeInsets.only(bottom: 15, left: 10),
+                                child: const Text(
                                   'Bollywood',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -370,9 +363,9 @@ class SearchPage extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                  child: new RotationTransition(
-                                    turns: new AlwaysStoppedAnimation(15 / 360),
+                                margin: const EdgeInsets.only(top: 10, left: 10),
+                                  child: RotationTransition(
+                                    turns: const AlwaysStoppedAnimation(15 / 360),
                                     child: Image.asset(
                                       'assets/images/den-vau.jpeg',
                                       height: 70,
@@ -389,7 +382,7 @@ class SearchPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -400,7 +393,7 @@ class SearchPage extends StatelessWidget {
                       height: 90.0,
                       width: 180.0,
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment(0.8, 0.0),
                             colors: [
@@ -415,8 +408,8 @@ class SearchPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.only(bottom: 15, left: 10),
-                                child: Text(
+                                margin: const EdgeInsets.only(bottom: 15, left: 10),
+                                child: const Text(
                                   'Punjabi',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -425,9 +418,9 @@ class SearchPage extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                  child: new RotationTransition(
-                                    turns: new AlwaysStoppedAnimation(15 / 360),
+                                margin: const EdgeInsets.only(top: 10, left: 10),
+                                  child: RotationTransition(
+                                    turns: const AlwaysStoppedAnimation(15 / 360),
                                     child: Image.asset(
                                       'assets/images/den-vau.jpeg',
                                       height: 70,
@@ -449,7 +442,7 @@ class SearchPage extends StatelessWidget {
                       height: 90.0,
                       width: 180.0,
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment(0.8, 0.0),
                             colors: [
@@ -464,8 +457,8 @@ class SearchPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.only(bottom: 15, left: 10),
-                                child: Text(
+                                margin: const EdgeInsets.only(bottom: 15, left: 10),
+                                child: const Text(
                                   'Tamil',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -474,9 +467,9 @@ class SearchPage extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                  child: new RotationTransition(
-                                    turns: new AlwaysStoppedAnimation(15 / 360),
+                                margin: const EdgeInsets.only(top: 10, left: 10),
+                                  child: RotationTransition(
+                                    turns: const AlwaysStoppedAnimation(15 / 360),
                                     child: Image.asset(
                                       'assets/images/den-vau.jpeg',
                                       height: 70,
@@ -493,7 +486,7 @@ class SearchPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             Row(
@@ -506,7 +499,7 @@ class SearchPage extends StatelessWidget {
                       height: 90.0,
                       width: 180.0,
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment(0.8, 0.0),
                             colors: [
@@ -521,8 +514,8 @@ class SearchPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.only(bottom: 15, left: 10),
-                                child: Text(
+                                margin: const EdgeInsets.only(bottom: 15, left: 10),
+                                child: const Text(
                                   'Telugu',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -531,9 +524,9 @@ class SearchPage extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                  child: new RotationTransition(
-                                    turns: new AlwaysStoppedAnimation(15 / 360),
+                                margin: const EdgeInsets.only(top: 10, left: 10),
+                                  child: RotationTransition(
+                                    turns: const AlwaysStoppedAnimation(15 / 360),
                                     child: Image.asset(
                                       'assets/images/den-vau.jpeg',
                                       height: 70,
@@ -555,7 +548,7 @@ class SearchPage extends StatelessWidget {
                       height: 90.0,
                       width: 180.0,
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment(0.8, 0.0),
                             colors: [
@@ -571,8 +564,8 @@ class SearchPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.only(bottom: 15, left: 10),
-                                child: Text(
+                                margin: const EdgeInsets.only(bottom: 15, left: 10),
+                                child: const Text(
                                   'Indie',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -581,9 +574,9 @@ class SearchPage extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                  child: new RotationTransition(
-                                    turns: new AlwaysStoppedAnimation(15 / 360),
+                                margin: const EdgeInsets.only(top: 10, left: 10),
+                                  child: RotationTransition(
+                                    turns: const AlwaysStoppedAnimation(15 / 360),
                                     child: Image.asset(
                                       'assets/images/den-vau.jpeg',
                                       height: 70,
@@ -600,7 +593,7 @@ class SearchPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
           ],

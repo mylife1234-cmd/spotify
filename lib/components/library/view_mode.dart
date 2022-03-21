@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -32,7 +33,7 @@ class ViewModeSection extends StatelessWidget {
         GestureDetector(
           child: Row(
             children: [
-              const Icon(Icons.arrow_downward, size: 18),
+              const Icon(CupertinoIcons.arrow_up_arrow_down, size: 14),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(

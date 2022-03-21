@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AlbumView extends StatefulWidget {
@@ -159,18 +160,18 @@ class _AlbumViewState extends State<AlbumView> {
                                     Row(
                                       children: [
                                         Icon(
-                                          Icons.favorite,
-                                          size: 18,
+                                          Icons.favorite_outline_rounded,
+                                          size: 22,
                                         ),
                                         SizedBox(width: 15),
                                         Icon(
-                                          Icons.download,
-                                          size: 18,
+                                          CupertinoIcons.arrow_down_circle,
+                                          size: 22,
                                         ),
                                         SizedBox(width: 15),
                                         Icon(
                                           Icons.more_horiz,
-                                          size: 18,
+                                          size: 22,
                                         ),
                                       ],
                                     )
@@ -255,11 +256,11 @@ class _AlbumViewState extends State<AlbumView> {
                               height: 20,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.white,
+                                color: Color(0xff2a2a2a),
                               ),
                               child: Icon(
-                                Icons.shuffle,
-                                color: Colors.black,
+                                CupertinoIcons.shuffle,
+                                color: Colors.green,
                                 size: 12,
                               ),
                             )
