@@ -202,7 +202,7 @@ class _AlbumViewState extends State<AlbumView> {
               ),
               child: SafeArea(
                 child: Container(
-                  height: 45,
+                  height: 38,
                   width: MediaQuery.of(context).size.width,
                   // alignment: Alignment.center,
                   child: Stack(
@@ -225,10 +225,11 @@ class _AlbumViewState extends State<AlbumView> {
                         duration: Duration(milliseconds: 200),
                         opacity: showTopBar ? 1 : 0,
                         child: Container(
-                          padding: EdgeInsets.only(left: 50),
+                          padding: EdgeInsets.only(left: 50, right: 50),
                           child: Text(
                             widget.label,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            // style: Theme.of(context).textTheme.headline6,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, letterSpacing: 0.4),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
