@@ -17,11 +17,12 @@ class MiniPlayer extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       width: double.infinity,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: const Color(0xff2f2215)),
+        borderRadius: BorderRadius.circular(5),
+        color: const Color(0xff2f2215),
+      ),
       child: ListTile(
         title: Text(
           song.name,

@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
         SafeArea(
           child: SingleChildScrollView(
             // physics: BouncingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 17),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             scrollDirection: Axis.vertical,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

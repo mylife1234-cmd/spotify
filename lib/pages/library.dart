@@ -71,7 +71,7 @@ class _LibraryPageState extends State<LibraryPage> {
       child: Scaffold(
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

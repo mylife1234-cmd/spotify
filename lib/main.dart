@@ -73,7 +73,7 @@ class _MainState extends State<Main> {
           ? pages[_currentIndex]
           : Stack(children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 60),
+                padding: const EdgeInsets.only(bottom: 64),
                 child: pages[_currentIndex],
               ),
               Align(
