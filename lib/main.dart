@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/player/miniplayer.dart';
 import 'package:spotify/pages/home.dart';
 import 'package:spotify/pages/library.dart';
 import 'package:spotify/pages/search.dart';
+import 'package:spotify/providers/music_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<MusicProvider>(
+    child: const MyApp(),
+    create: (_) => MusicProvider(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -49,6 +54,8 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
+    var _currentSong = context.watch<MusicProvider>().currentSong;
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -62,16 +69,18 @@ class _MainState extends State<Main> {
               icon: Icon(Icons.library_music), label: 'Your Library')
         ],
       ),
-      body: Stack(children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 50),
-          child: pages[_currentIndex],
-        ),
-        const Align(
-          child: MiniPlayer(),
-          alignment: Alignment.bottomCenter,
-        )
-      ]),
+      body: _currentSong == null
+          ? pages[_currentIndex]
+          : Stack(children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 60),
+                child: pages[_currentIndex],
+              ),
+              Align(
+                child: MiniPlayer(song: _currentSong),
+                alignment: Alignment.bottomCenter,
+              )
+            ]),
     );
   }
 }

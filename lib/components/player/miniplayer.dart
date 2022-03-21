@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/pages/player.dart';
+import 'package:spotify/providers/music_provider.dart';
+
+import '../../models/song.dart';
 
 class MiniPlayer extends StatelessWidget {
-  const MiniPlayer({Key? key}) : super(key: key);
+  const MiniPlayer({Key? key, required this.song}) : super(key: key);
+
+  final Song song;
 
   @override
   Widget build(BuildContext context) {
+    var playing = context.watch<MusicProvider>().playing;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -15,22 +23,27 @@ class MiniPlayer extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           color: const Color(0xff2f2215)),
       child: ListTile(
-        title: const Text(
-          'Cảm ơn',
-          style: TextStyle(fontWeight: FontWeight.w500),
+        title: Text(
+          song.name,
+          style: const TextStyle(fontWeight: FontWeight.w500),
         ),
-        subtitle: const Text('Đen, Biên'),
+        subtitle: Text(song.description),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(5),
-          child: Image.asset(
-            'assets/images/cam-on.jpg',
-          ),
+          child: Image.asset(song.coverUrl),
         ),
         trailing: GestureDetector(
-          child: const Icon(
-            Icons.play_arrow,
+          child: Icon(
+            !playing ? Icons.play_arrow : Icons.pause,
             size: 28,
           ),
+          onTap: () {
+            if (playing) {
+              context.read<MusicProvider>().pause();
+            } else {
+              context.read<MusicProvider>().play();
+            }
+          },
         ),
         contentPadding: EdgeInsets.zero,
         dense: true,
@@ -41,7 +54,7 @@ class MiniPlayer extends StatelessWidget {
           showMaterialModalBottomSheet(
             context: context,
             builder: (context) {
-              return const MusicPlayer();
+              return MusicPlayer(song: song);
             },
             duration: const Duration(milliseconds: 250),
           );

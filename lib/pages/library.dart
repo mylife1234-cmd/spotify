@@ -8,6 +8,8 @@ import 'package:spotify/components/library/list_item.dart';
 import 'package:spotify/components/library/view_mode.dart';
 import 'package:spotify/pages/playlist_creation.dart';
 
+import 'album_view.dart';
+
 class LibraryPage extends StatefulWidget {
   const LibraryPage({Key? key}) : super(key: key);
 
@@ -170,11 +172,24 @@ class _LibraryPageState extends State<LibraryPage> {
       itemBuilder: (context, index) {
         final item = filteredList[index];
 
-        return ListItem(
-          title: item['title']!,
-          subtitle: item['subtitle']!,
-          coverUrl: item['cover']!,
-          isSquareCover: item['type']! == 'playlist',
+        return GestureDetector(
+          child: ListItem(
+            title: item['title']!,
+            subtitle: item['subtitle']!,
+            coverUrl: item['cover']!,
+            isSquareCover: item['type']! == 'playlist',
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AlbumView(
+                  image: AssetImage(item['cover']),
+                  label: item['title'],
+                ),
+              ),
+            );
+          },
         );
       },
     );
@@ -196,11 +211,24 @@ class _LibraryPageState extends State<LibraryPage> {
       childAspectRatio: 0.75,
       children: filteredList
           .map(
-            (item) => GridItem(
-              title: item['title']!,
-              subtitle: item['subtitle']!,
-              coverUrl: item['cover']!,
-              isSquareCover: item['type']! == 'playlist',
+            (item) => GestureDetector(
+              child: GridItem(
+                title: item['title']!,
+                subtitle: item['subtitle']!,
+                coverUrl: item['cover']!,
+                isSquareCover: item['type']! == 'playlist',
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AlbumView(
+                      image: AssetImage(item['cover']),
+                      label: item['title'],
+                    ),
+                  ),
+                );
+              },
             ),
           )
           .toList(),
