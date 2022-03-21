@@ -64,7 +64,7 @@ class _MainState extends State<Main> {
       ),
       body: Stack(children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 50),
+          padding: const EdgeInsets.only(bottom: 60),
           child: pages[_currentIndex],
         ),
         const Align(
