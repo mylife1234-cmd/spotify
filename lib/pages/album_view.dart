@@ -202,7 +202,7 @@ class _AlbumViewState extends State<AlbumView> {
                   // alignment: Alignment.center,
                   child: Stack(
                     clipBehavior: Clip.none,
-                    alignment: Alignment.center,
+                    alignment: Alignment.centerLeft,
                     children: [
                       Positioned(
                         left: 0,
