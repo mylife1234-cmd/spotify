@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class AlbumView extends StatefulWidget {
   final AssetImage image;
   final String label;
+
   const AlbumView({Key? key, required this.image, required this.label})
       : super(key: key);
 
@@ -42,8 +43,8 @@ class _AlbumViewState extends State<AlbumView> {
           showTopBar = false;
         }
 
-        print("ScrollController:");
-        print(scrollController.offset);
+        // print("ScrollController:");
+        // print(scrollController.offset);
         // print("Container_Height:");
         // print(containerHeight);
         setState(() {});
@@ -53,47 +54,47 @@ class _AlbumViewState extends State<AlbumView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            Container(
-              height: containerHeight,
-              width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              color: Colors.white54,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Opacity(
-                    opacity: imageOpacity.clamp(0, 1.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.6),
-                            offset: Offset(0, 10),
-                            blurRadius: 22,
-                            spreadRadius: 12,
-                          )
-                        ],
-                      ),
-                      child: Image(
-                        // image: widget.image,
-                        image: widget.image,
-                        width: imageSize,
-                        height: imageSize,
-                        fit: BoxFit.cover,
-                      ),
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            height: containerHeight,
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+            color: Colors.white54,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Opacity(
+                  opacity: imageOpacity.clamp(0, 1.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.6),
+                          offset: Offset(0, 10),
+                          blurRadius: 22,
+                          spreadRadius: 12,
+                        )
+                      ],
+                    ),
+                    child: Image(
+                      // image: widget.image,
+                      image: widget.image,
+                      width: imageSize,
+                      height: imageSize,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(
-                    height: 150,
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  height: 150,
+                ),
+              ],
             ),
-            SingleChildScrollView(
+          ),
+          SafeArea(
+            child: SingleChildScrollView(
               controller: scrollController,
               scrollDirection: Axis.vertical,
               physics: BouncingScrollPhysics(),
@@ -187,16 +188,19 @@ class _AlbumViewState extends State<AlbumView> {
                 ],
               ),
             ),
-            Positioned(
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 300),
-                color: showTopBar
-                    ? Color.fromARGB(251, 82, 71, 71).withOpacity(1)
-                    : Color(0xffc858585).withOpacity(0),
-                padding: EdgeInsets.symmetric(
-                  horizontal: 7,
-                  vertical: 7,
-                ),
+          ),
+          Positioned(
+              child: Container(
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              color: showTopBar
+                  ? Color.fromARGB(251, 82, 71, 71).withOpacity(1)
+                  : Color(0xffc858585).withOpacity(0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 7,
+                vertical: 7,
+              ),
+              child: SafeArea(
                 child: Container(
                   height: 45,
                   width: MediaQuery.of(context).size.width,
@@ -271,9 +275,9 @@ class _AlbumViewState extends State<AlbumView> {
                   ),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          ))
+        ],
       ),
     );
   }
