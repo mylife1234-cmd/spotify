@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/player/miniplayer.dart';
@@ -48,7 +49,15 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  final pages = [const HomePage(), const SearchPage(), const LibraryPage()];
+  final _tabs = [const HomePage(), const SearchPage(), const LibraryPage()];
+
+  final _tabNavKeys = [
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+  ];
+
+  final _tabController = CupertinoTabController(initialIndex: 0);
 
   int _currentIndex = 0;
 
@@ -56,31 +65,53 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     var _currentSong = context.watch<MusicProvider>().currentSong;
 
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
+    return CupertinoTabScaffold(
+      controller: _tabController,
+      tabBar: CupertinoTabBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() {
           _currentIndex = index;
         }),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.library_music), label: 'Your Library')
+            icon: Icon(Icons.home_filled),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.library_music),
+            label: 'Your Library',
+          )
         ],
+        iconSize: 24,
+        activeColor: Colors.white,
+        backgroundColor: Colors.black,
       ),
-      body: _currentSong == null
-          ? pages[_currentIndex]
-          : Stack(children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 64),
-                child: pages[_currentIndex],
-              ),
-              Align(
-                child: MiniPlayer(song: _currentSong),
-                alignment: Alignment.bottomCenter,
+      tabBuilder: (context, index) {
+        return _currentSong == null
+            ? CupertinoTabView(
+                navigatorKey: _tabNavKeys[index],
+                builder: (context) =>
+                    CupertinoPageScaffold(child: _tabs[index]),
               )
-            ]),
+            : Stack(children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 64),
+                  child: CupertinoTabView(
+                    navigatorKey: _tabNavKeys[index],
+                    builder: (context) =>
+                        CupertinoPageScaffold(child: _tabs[index]),
+                  ),
+                ),
+                Align(
+                  child: Card(child: MiniPlayer(song: _currentSong)),
+                  alignment: Alignment.bottomCenter,
+                )
+              ]);
+      },
     );
   }
 }
