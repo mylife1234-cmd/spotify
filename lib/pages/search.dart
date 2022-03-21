@@ -32,19 +32,21 @@ class SearchPage extends StatelessWidget {
             const SizedBox(
               height: 10.0,
             ),
-            Padding(
+            Container(
+              height: 35,
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
                 textAlign: TextAlign.left,
                 style: const TextStyle(
-                    height:0.9,
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                     color: Colors.black,
                     fontFamily: 'SpotifyFont'),
                 decoration: InputDecoration(
                   hintText: 'Search for something',
+                  hintStyle: TextStyle(fontSize: 18.0, color: Colors.black),
                   fillColor: Colors.white,
                   prefixIcon: const Icon(Icons.search, color:Colors.black,size: 18.0),
+                  contentPadding: EdgeInsets.symmetric(vertical: 8),
                   filled: true,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0)
