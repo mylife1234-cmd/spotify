@@ -10,7 +10,7 @@ class SearchPage extends StatelessWidget {
           child: ListView(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(top: 20.0, left: 20.0
+                padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -23,7 +23,6 @@ class SearchPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
                         Icon(Icons.camera_enhance_outlined),
-                        SizedBox(width: 20),
                       ],
                     )
                   ],
@@ -35,7 +34,7 @@ class SearchPage extends StatelessWidget {
               ),
               Container(
                 height: 38,
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextField(
                   textAlign: TextAlign.left,
                   style: const TextStyle(
@@ -59,7 +58,7 @@ class SearchPage extends StatelessWidget {
                 height: 17.0,
               ),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
                   'Your top genres',
                   style: TextStyle(
@@ -93,7 +92,7 @@ class SearchPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 10),
+                            margin: const EdgeInsets.only(bottom: 15, left: 10.0, right: 10.0),
                             child: const Text(
                               'Dance/\nElectronic',
                               style: TextStyle(
@@ -103,7 +102,7 @@ class SearchPage extends StatelessWidget {
                             ),
                           ),
                           Container(
-                              margin: const EdgeInsets.only(top: 15, left: 10),
+                              margin: const EdgeInsets.only(top: 15, left: 10.0),
                               child: RotationTransition(
                                 turns: const AlwaysStoppedAnimation(15 / 360),
                                 child: Image.asset(
@@ -137,7 +136,7 @@ class SearchPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 10),
+                            margin: const EdgeInsets.only(bottom: 15, left: 10.0, right: 10.0),
                             child: const Text(
                               'Nhạc\nViệt',
                               style: TextStyle(
@@ -163,7 +162,7 @@ class SearchPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 10.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -186,7 +185,7 @@ class SearchPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 10),
+                            margin: const EdgeInsets.only(bottom: 15, left: 10.0, right: 10.0),
                             child: const Text(
                               'Hip\nHop',
                               style: TextStyle(
@@ -229,7 +228,7 @@ class SearchPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 10),
+                            margin: const EdgeInsets.only(bottom: 15, left: 10.0, right: 10.0),
                             child: const Text(
                               'Pop',
                               style: TextStyle(
@@ -259,7 +258,7 @@ class SearchPage extends StatelessWidget {
                 height: 20.0,
               ),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
                   'Browse all',
                   style: TextStyle(
@@ -293,7 +292,7 @@ class SearchPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 10),
+                            margin: const EdgeInsets.only(bottom: 15, left: 10.0, right: 10.0),
                             child: const Text(
                               '2020\nWarp',
                               style: TextStyle(
@@ -336,9 +335,9 @@ class SearchPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 10),
+                            margin: const EdgeInsets.only(bottom: 15, left: 10.0, right: 10.0),
                             child: const Text(
-                              'BollyWood',
+                              'Nhạc\nẤn Độ',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 17,
@@ -362,7 +361,7 @@ class SearchPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 10.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -385,7 +384,7 @@ class SearchPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 10),
+                            margin: const EdgeInsets.only(bottom: 15, left: 10.0, right: 10.0),
                             child: const Text(
                               'Nhạc/\nChâu Âu',
                               style: TextStyle(
@@ -428,7 +427,7 @@ class SearchPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 10),
+                            margin: const EdgeInsets.only(bottom: 15, left: 10.0, right: 10.0),
                             child: const Text(
                               'Tamil',
                               style: TextStyle(
@@ -455,7 +454,7 @@ class SearchPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 20.0,
+                height: 10.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -479,7 +478,7 @@ class SearchPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 10),
+                            margin: const EdgeInsets.only(bottom: 15, left: 10.0, right: 10.0),
                             child: const Text(
                               'Podcast\n Việt',
                               style: TextStyle(
@@ -522,7 +521,7 @@ class SearchPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 10),
+                            margin: const EdgeInsets.only(bottom: 10, left: 10.0, right: 10.0),
                             child: const Text(
                               'Indie',
                               style: TextStyle(
