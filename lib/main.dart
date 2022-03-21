@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/player/miniplayer.dart';
 import 'package:spotify/pages/home.dart';
 import 'package:spotify/pages/library.dart';
 import 'package:spotify/pages/search.dart';
-
-import 'models/song.dart';
+import 'package:spotify/providers/music_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<MusicProvider>(
+    child: const MyApp(),
+    create: (_) => MusicProvider(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -49,19 +52,10 @@ class _MainState extends State<Main> {
 
   int _currentIndex = 0;
 
-  Song? _currentSong;
-
-  @override
-  void initState() {
-    super.initState();
-
-    setState(() {
-      _currentSong = Song('Cảm ơn', 'Đen, Biên', 'assets/images/cam-on.jpg');
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    var _currentSong = context.watch<MusicProvider>().currentSong;
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -83,7 +77,7 @@ class _MainState extends State<Main> {
                 child: pages[_currentIndex],
               ),
               Align(
-                child: MiniPlayer(song: _currentSong!),
+                child: MiniPlayer(song: _currentSong),
                 alignment: Alignment.bottomCenter,
               )
             ]),

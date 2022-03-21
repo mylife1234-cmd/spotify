@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:spotify/providers/music_provider.dart';
 
 import '../../models/song.dart';
 
@@ -11,19 +13,7 @@ class SongCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => MiniPlayer(),
-        //   ),
-        // );
-        // showMaterialModalBottomSheet(
-        //   context: context,
-        //   builder: (context) {
-        //     return MusicPlayer(song: song);
-        //   },
-        //   duration: const Duration(milliseconds: 200),
-        // );
+        context.read<MusicProvider>().playNewSong(song);
       },
       child: Container(
         width: 120,
