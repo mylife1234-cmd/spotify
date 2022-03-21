@@ -1,13 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:spotify/components/album/song_title.dart';
-import 'package:spotify/components/player/miniplayer.dart';
+import 'package:spotify/components/album/song_tile.dart';
 
 import '../models/song.dart';
-import '../providers/music_provider.dart';
 
 class AlbumView extends StatefulWidget {
   final AssetImage image;
@@ -60,7 +55,6 @@ class _AlbumViewState extends State<AlbumView> {
 
   @override
   Widget build(BuildContext context) {
-    var _currentSong = context.watch<MusicProvider>().currentSong;
     return Scaffold(
       body: Stack(
         children: [
@@ -79,7 +73,7 @@ class _AlbumViewState extends State<AlbumView> {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.6),
-                          offset: Offset(0, 10),
+                          offset: const Offset(0, 10),
                           blurRadius: 22,
                           spreadRadius: 12,
                         )
@@ -94,7 +88,7 @@ class _AlbumViewState extends State<AlbumView> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 150,
                 ),
               ],
@@ -104,7 +98,7 @@ class _AlbumViewState extends State<AlbumView> {
             child: SingleChildScrollView(
               controller: scrollController,
               scrollDirection: Axis.vertical,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Container(
@@ -128,7 +122,8 @@ class _AlbumViewState extends State<AlbumView> {
                           children: [
                             SizedBox(height: initialImageSize + 20),
                             Padding(
-                              padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 0),
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 20, bottom: 0),
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -140,10 +135,10 @@ class _AlbumViewState extends State<AlbumView> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.only(top: 15),
+                                      padding: const EdgeInsets.only(top: 15),
                                       child: Row(
                                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
+                                        children: const [
                                           Image(
                                             image: AssetImage(
                                                 "assets/images/logo_spotify.png"),
@@ -158,15 +153,15 @@ class _AlbumViewState extends State<AlbumView> {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 12),
+                                    const SizedBox(height: 12),
                                     Text(
                                       "1,999,890 likes 9h 56m",
                                       style:
                                           Theme.of(context).textTheme.caption,
                                     ),
-                                    SizedBox(height: 10),
+                                    const SizedBox(height: 10),
                                     Row(
-                                      children: [
+                                      children: const [
                                         Icon(
                                           Icons.favorite_outline_rounded,
                                           size: 22,
@@ -183,24 +178,17 @@ class _AlbumViewState extends State<AlbumView> {
                                         ),
                                       ],
                                     )
-
                                   ]),
                             ),
                           ],
                         ),
                       )),
-
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: songList.map((item) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 0, bottom: 5),
-                        child: SongTitle(
-                          song: Song
-
-                          (item['name'] !, item['description'] !, item['coverUrl']!)
-                        ),
-                      );
+                      return SongTile(
+                          song: Song(item['name']!, item['description']!,
+                              item['coverUrl']!));
                     }).toList(),
                   )
                 ],
@@ -208,19 +196,15 @@ class _AlbumViewState extends State<AlbumView> {
             ),
           ),
           Positioned(
-              child: Container(
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               color: showTopBar
-                  ? Color.fromARGB(251, 82, 71, 71).withOpacity(1)
-                  : Color(0xffc858585).withOpacity(0),
-              padding: EdgeInsets.symmetric(
-                horizontal: 7,
-                vertical: 7,
-              ),
+                  ? const Color.fromARGB(251, 82, 71, 71).withOpacity(1)
+                  : const Color(0xffc858585).withOpacity(0),
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
               child: SafeArea(
-                child: Container(
-                  height: 38,
+                child: SizedBox(
+                  height: 40,
                   width: MediaQuery.of(context).size.width,
                   // alignment: Alignment.center,
                   child: Stack(
@@ -228,29 +212,27 @@ class _AlbumViewState extends State<AlbumView> {
                     alignment: Alignment.centerLeft,
                     children: [
                       Positioned(
-                        left: 0,
+                        left: 5,
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: Icon(
-                            Icons.keyboard_arrow_left,
-                            size: 35,
-                          ),
+                          child: const Icon(CupertinoIcons.chevron_back),
                         ),
                       ),
                       AnimatedOpacity(
-                        duration: Duration(milliseconds: 200),
+                        duration: const Duration(milliseconds: 200),
                         opacity: showTopBar ? 1 : 0,
                         child: Container(
-                          padding: EdgeInsets.only(left: 50, right: 50),
+                          padding: const EdgeInsets.only(left: 50, right: 50),
                           child: Text(
                             widget.label,
                             // style: Theme.of(context).textTheme.headline6,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.4),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.4,
+                            ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -267,11 +249,11 @@ class _AlbumViewState extends State<AlbumView> {
                               width: 48,
                               height: 48,
                               alignment: Alignment.center,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.green,
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.play_arrow,
                                 size: 35,
                                 color: Colors.black,
@@ -280,11 +262,11 @@ class _AlbumViewState extends State<AlbumView> {
                             Container(
                               width: 20,
                               height: 20,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color(0xff2a2a2a),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 CupertinoIcons.shuffle,
                                 color: Colors.green,
                                 size: 12,
@@ -298,23 +280,15 @@ class _AlbumViewState extends State<AlbumView> {
                 ),
               ),
             ),
-          )),
-
-          // _currentSong == null  ? AlbumView(image: widget.image, label: widget.label):
-          //   Align(
-          //     child: MiniPlayer(song: _currentSong),
-          //     alignment: Alignment.bottomCenter,
-          //   )
-          //
+          ),
         ],
       ),
     );
   }
 }
 
- final songList =
- [
-   {
+final songList = [
+  {
     'name': "K/DA",
     'description': "Riot",
     'coverUrl': "assets/images/home/kda.jpg",
@@ -349,19 +323,19 @@ class _AlbumViewState extends State<AlbumView> {
     'description': "Album2",
     'coverUrl': "assets/images/home/album2.jpg",
   },
-   {
-     'name': "Mang tiền về cho mẹ",
-     'description': "Đen vâu",
-     'coverUrl': "assets/images/den-vau.jpeg",
-   },
-   {
-     'name': "Maroon5",
-     'description': "Binz",
-     'coverUrl': "assets/images/maroon5.jpeg",
-   },
-   {
-     'name': "Cảm ơn",
-     'description': "Đen",
-     'coverUrl': "assets/images/cam-on.jpg",
-   },
+  {
+    'name': "Mang tiền về cho mẹ",
+    'description': "Đen vâu",
+    'coverUrl': "assets/images/den-vau.jpeg",
+  },
+  {
+    'name': "Maroon5",
+    'description': "Binz",
+    'coverUrl': "assets/images/maroon5.jpeg",
+  },
+  {
+    'name': "Cảm ơn",
+    'description': "Đen",
+    'coverUrl': "assets/images/cam-on.jpg",
+  },
 ];
