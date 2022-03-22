@@ -97,9 +97,6 @@ class _AlbumViewState extends State<AlbumView> {
                     ),
                   ),
                 ),
-                // const SizedBox(
-                //   height: 170,
-                // ),
               ],
             ),
           ),

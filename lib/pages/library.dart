@@ -9,6 +9,7 @@ import 'package:spotify/components/library/view_mode.dart';
 import 'package:spotify/pages/playlist_creation.dart';
 
 import 'album_view.dart';
+import 'artist_view.dart';
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({Key? key}) : super(key: key);
@@ -183,7 +184,7 @@ class _LibraryPageState extends State<LibraryPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AlbumView(
+                builder: (context) => ArtistView(
                   image: AssetImage(item['cover']),
                   label: item['title'],
                 ),
