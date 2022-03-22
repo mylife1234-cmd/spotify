@@ -129,7 +129,7 @@ class SearchPage extends StatelessWidget {
               children: <Widget>[
                 Container(
                   margin: const EdgeInsets.only(bottom: 15, left: 10.0, right: 10.0),
-                  child: Text(text,
+                  child: Text(text2,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 17,
