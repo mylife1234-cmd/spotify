@@ -28,7 +28,7 @@ class _AlbumViewState extends State<AlbumView> {
   double imageOpacity = 1;
   bool showTopBar = false;
 
-  Color? _color;
+  Color? _color = Colors.black;
 
   @override
   void initState() {
@@ -49,7 +49,6 @@ class _AlbumViewState extends State<AlbumView> {
         } else {
           showTopBar = false;
         }
-
         // print("ScrollController:");
         // print(scrollController.offset);
         // print("Container_Height:");
@@ -57,7 +56,6 @@ class _AlbumViewState extends State<AlbumView> {
         setState(() {});
       });
     super.initState();
-
     PaletteGenerator.fromImageProvider(widget.image).then((generator) {
       setState(() {
         _color = generator.mutedColor!.color;
@@ -74,7 +72,7 @@ class _AlbumViewState extends State<AlbumView> {
             height: containerHeight,
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.center,
-            color: Colors.white54,
+            color: _color!.withOpacity(.9),
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -89,10 +87,10 @@ class _AlbumViewState extends State<AlbumView> {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.6),
+                            color:Colors.black.withOpacity(.6),
                             offset: const Offset(0, 10),
-                            blurRadius: 22,
-                            spreadRadius: 12,
+                            blurRadius: 20,
+                            spreadRadius: 10,
                           )
                         ],
                       ),
@@ -113,7 +111,7 @@ class _AlbumViewState extends State<AlbumView> {
             child: SingleChildScrollView(
               controller: scrollController,
               scrollDirection: Axis.vertical,
-              physics: const BouncingScrollPhysics(),
+              // physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Container(
@@ -124,10 +122,12 @@ class _AlbumViewState extends State<AlbumView> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Colors.black.withOpacity(0),
-                            Colors.black.withOpacity(0.2),
-                            Colors.black.withOpacity(1),
-                          ],
+                            _color!.withOpacity(0.1),
+                            _color!.withOpacity(0.1),
+                            _color!.withOpacity(0.1),
+                            // _color!.withOpacity(0.1),
+                            _color!.withOpacity(0.1),
+                          ]
                         ),
                       ),
                       child: Padding(
@@ -149,8 +149,8 @@ class _AlbumViewState extends State<AlbumView> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               color: showTopBar
-                  ? const Color.fromARGB(251, 82, 71, 71).withOpacity(1)
-                  : const Color(0xffc858585).withOpacity(0),
+                  ? _color!.withOpacity(1)
+                  : _color!.withOpacity(0),
               padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
               child: SafeArea(
                 child: SizedBox(
