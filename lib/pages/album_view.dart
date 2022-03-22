@@ -116,7 +116,6 @@ class _AlbumViewState extends State<AlbumView> {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width,
-                      // height: 550,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
