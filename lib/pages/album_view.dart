@@ -69,7 +69,7 @@ class _AlbumViewState extends State<AlbumView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Opacity(
+                SafeArea(child: Opacity(
                   opacity: imageOpacity.clamp(0, 1.0),
                   child: Container(
                     decoration: BoxDecoration(
@@ -91,8 +91,9 @@ class _AlbumViewState extends State<AlbumView> {
                     ),
                   ),
                 ),
+                ),
                 const SizedBox(
-                  height: 155,
+                  height: 185,
                 ),
               ],
             ),
@@ -123,7 +124,7 @@ class _AlbumViewState extends State<AlbumView> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(height: initialImageSize + 20),
+                            SizedBox(height: initialImageSize),
                             AlbumComponent(label: widget.label),
                           ],
                         ),
@@ -179,7 +180,7 @@ class _AlbumViewState extends State<AlbumView> {
                       Positioned(
                         right: 5,
                         bottom:
-                            126 - containerHeight.clamp(160.0, double.infinity),
+                            140 - containerHeight.clamp(170.0, double.infinity),
                         child: Stack(
                           alignment: Alignment.bottomRight,
                           children: const [
