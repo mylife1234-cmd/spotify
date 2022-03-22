@@ -9,17 +9,17 @@ class ArtistComponent extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.white.withOpacity(0),
-              Colors.white.withOpacity(0.2),
-              Colors.white.withOpacity(0.3),
-            ],
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   gradient: LinearGradient(
+        //     begin: Alignment.topCenter,
+        //     end: Alignment.bottomCenter,
+        //     colors: [
+        //       Colors.white.withOpacity(0),
+        //       Colors.white.withOpacity(0.2),
+        //       Colors.white.withOpacity(0.3),
+        //     ],
+        //   ),
+        // ),
         child: Padding(
           padding:
               const EdgeInsets.only(left: 13, right: 20, top: 20, bottom: 10),

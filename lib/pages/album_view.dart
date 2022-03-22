@@ -39,6 +39,10 @@ class _AlbumViewState extends State<AlbumView> {
         if (imageSize < 0) {
           imageSize = 0;
         }
+
+        // if (imageSize > MediaQuery.of(context).size.width - 10) {
+        //   imageSize = MediaQuery.of(context).size.width;
+        // }
         containerHeight = containerInitialHeight - scrollController.offset;
         if (containerHeight < 0) {
           containerHeight = 0;
@@ -49,10 +53,7 @@ class _AlbumViewState extends State<AlbumView> {
         } else {
           showTopBar = false;
         }
-        // print("ScrollController:");
-        // print(scrollController.offset);
-        // print("Container_Height:");
-        // print(containerHeight);
+        print(imageSize);
         setState(() {});
       });
     super.initState();
