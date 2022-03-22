@@ -67,12 +67,17 @@ class _AlbumViewState extends State<AlbumView> {
             alignment: Alignment.center,
             color: Colors.white54,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
+
               children: [
+                const SizedBox(
+                  height: 19,
+                ),
                 SafeArea(
                   child: Opacity(
                     opacity: imageOpacity.clamp(0, 1.0),
                     child: Container(
+
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
@@ -93,9 +98,9 @@ class _AlbumViewState extends State<AlbumView> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 170,
-                ),
+                // const SizedBox(
+                //   height: 170,
+                // ),
               ],
             ),
           ),
