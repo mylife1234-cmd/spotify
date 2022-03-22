@@ -153,12 +153,13 @@ class _AlbumViewState extends State<AlbumView> {
                     alignment: Alignment.center,
                     children: [
                       Positioned(
-                        left: 5,
-                        child: GestureDetector(
-                          onTap: () {
+                        left: -5,
+                        child: IconButton(
+                          splashColor: Colors.transparent,
+                          onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Icon(CupertinoIcons.chevron_back),
+                          icon: const Icon(CupertinoIcons.chevron_back),
                         ),
                       ),
                       AnimatedOpacity(

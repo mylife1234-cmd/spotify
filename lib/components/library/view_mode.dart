@@ -45,6 +45,7 @@ class ViewModeSection extends StatelessWidget {
           ),
           onTap: () async {
             final opt = await showCupertinoModalBottomSheet(
+              useRootNavigator: true,
               context: context,
               builder: (context) {
                 return ConstrainedBox(

@@ -79,6 +79,7 @@ class _LibraryPageState extends State<LibraryPage> {
                 LibraryHeader(
                   handleAdding: () {
                     showCupertinoModalBottomSheet(
+                      useRootNavigator: true,
                       context: context,
                       builder: (context) {
                         return PlaylistCreationPage(
