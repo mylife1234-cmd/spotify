@@ -18,7 +18,7 @@ class MiniPlayer extends StatelessWidget {
     var color = context.watch<MusicProvider>().color;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
@@ -35,9 +35,12 @@ class MiniPlayer extends StatelessWidget {
           child: Image.asset(song.coverUrl),
         ),
         trailing: GestureDetector(
-          child: Icon(
-            !playing ? Icons.play_arrow : Icons.pause,
-            size: 28,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: Icon(
+              !playing ? Icons.play_arrow : Icons.pause,
+              size: 28,
+            ),
           ),
           onTap: () {
             if (playing) {
@@ -50,13 +53,13 @@ class MiniPlayer extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         dense: true,
         horizontalTitleGap: 12,
-        visualDensity: VisualDensity.compact,
+        visualDensity: VisualDensity.comfortable,
         minVerticalPadding: 12,
         onTap: () {
           showMaterialModalBottomSheet(
             context: context,
             builder: (context) {
-              return MusicPlayer(song: song);
+              return MusicPlayer(song: song, color: color);
             },
             duration: const Duration(milliseconds: 250),
           );

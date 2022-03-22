@@ -5,14 +5,20 @@ import 'package:spotify/components/player/slider.dart';
 import 'package:spotify/models/song.dart';
 
 class MusicPlayer extends StatelessWidget {
-  const MusicPlayer({Key? key, required this.song}) : super(key: key);
+  const MusicPlayer({
+    Key? key,
+    required this.song,
+    required this.color,
+  }) : super(key: key);
 
   final Song song;
+
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff2f2215),
+      backgroundColor: color,
       body: ListView(
         physics: const ClampingScrollPhysics(),
         children: [

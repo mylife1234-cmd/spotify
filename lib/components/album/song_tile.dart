@@ -12,7 +12,7 @@ class SongTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
@@ -42,6 +42,7 @@ class SongTile extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         dense: true,
         visualDensity: VisualDensity.standard,
+        horizontalTitleGap: 12,
         onTap: () {
           context.read<MusicProvider>().playNewSong(song);
         },
