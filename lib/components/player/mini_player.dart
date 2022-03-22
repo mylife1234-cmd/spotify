@@ -15,12 +15,14 @@ class MiniPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     var playing = context.watch<MusicProvider>().playing;
 
+    var color = context.watch<MusicProvider>().color;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        color: const Color(0xff2f2215),
+        color: color,
       ),
       child: ListTile(
         title: Text(

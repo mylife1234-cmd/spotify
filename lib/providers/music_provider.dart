@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 import '../models/song.dart';
 
@@ -11,12 +12,16 @@ class MusicProvider extends ChangeNotifier {
 
   bool get playing => _playing;
 
+  Color _color = const Color(0xff2f2215);
+
+  Color get color => _color;
+
   playNewSong(Song newSong) {
     _currentSong = newSong;
 
     play();
 
-    notifyListeners();
+    updateColor(newSong);
   }
 
   play() {
@@ -27,5 +32,13 @@ class MusicProvider extends ChangeNotifier {
   pause() {
     _playing = false;
     notifyListeners();
+  }
+
+  updateColor(Song newSong) {
+    PaletteGenerator.fromImageProvider(AssetImage(newSong.coverUrl)).then((generator) {
+      _color = generator.mutedColor!.color;
+
+      notifyListeners();
+    });
   }
 }
