@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:palette_generator/palette_generator.dart';
 import 'package:spotify/components/album/ablum_component.dart';
 import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/shuffle_button.dart';
@@ -26,6 +27,8 @@ class _AlbumViewState extends State<AlbumView> {
   double containerInitialHeight = 500;
   double imageOpacity = 1;
   bool showTopBar = false;
+
+  Color? _color;
 
   @override
   void initState() {
@@ -54,6 +57,12 @@ class _AlbumViewState extends State<AlbumView> {
         setState(() {});
       });
     super.initState();
+
+    PaletteGenerator.fromImageProvider(widget.image).then((generator) {
+      setState(() {
+        _color = generator.mutedColor!.color;
+      });
+    });
   }
 
   @override
