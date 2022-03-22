@@ -68,7 +68,6 @@ class _AlbumViewState extends State<AlbumView> {
             color: Colors.white54,
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
-
               children: [
                 const SizedBox(
                   height: 19,
