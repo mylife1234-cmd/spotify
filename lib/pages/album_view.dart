@@ -72,7 +72,22 @@ class _AlbumViewState extends State<AlbumView> {
             height: containerHeight,
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.center,
-            color: _color!.withOpacity(.9),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    _color!.withOpacity(1),
+                    _color!.withOpacity(0.7),
+                    _color!.withOpacity(0.5),
+                    _color!.withOpacity(0.3),
+                    // Colors.black.withOpacity(0.1),
+                    // Colors.transparent,
+                    Colors.black.withOpacity(0.5),
+                    Colors.black.withOpacity(1),
+                  ]
+              ),
+            ),
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -111,7 +126,7 @@ class _AlbumViewState extends State<AlbumView> {
             child: SingleChildScrollView(
               controller: scrollController,
               scrollDirection: Axis.vertical,
-              // physics: const BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Container(
@@ -121,11 +136,9 @@ class _AlbumViewState extends State<AlbumView> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            _color!.withOpacity(0.1),
-                            _color!.withOpacity(0.1),
-                            _color!.withOpacity(0.1),
-                            // _color!.withOpacity(0.1),
-                            _color!.withOpacity(0.1),
+                            _color!.withOpacity(0),
+                            _color!.withOpacity(0),
+                            _color!.withOpacity(0),
                           ]
                         ),
                       ),
