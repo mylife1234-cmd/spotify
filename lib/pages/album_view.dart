@@ -177,7 +177,7 @@ class _AlbumViewState extends State<AlbumView> {
                         ),
                       ),
                       Positioned(
-                        right: 10,
+                        right: 5,
                         bottom:
                             126 - containerHeight.clamp(160.0, double.infinity),
                         child: Stack(
