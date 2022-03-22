@@ -69,31 +69,32 @@ class _AlbumViewState extends State<AlbumView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SafeArea(child: Opacity(
-                  opacity: imageOpacity.clamp(0, 1.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.6),
-                          offset: const Offset(0, 10),
-                          blurRadius: 22,
-                          spreadRadius: 12,
-                        )
-                      ],
-                    ),
-                    child: Image(
-                      // image: widget.image,
-                      image: widget.image,
-                      width: imageSize,
-                      height: imageSize,
-                      fit: BoxFit.cover,
+                SafeArea(
+                  child: Opacity(
+                    opacity: imageOpacity.clamp(0, 1.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.6),
+                            offset: const Offset(0, 10),
+                            blurRadius: 22,
+                            spreadRadius: 12,
+                          )
+                        ],
+                      ),
+                      child: Image(
+                        // image: widget.image,
+                        image: widget.image,
+                        width: imageSize,
+                        height: imageSize,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-                ),
                 const SizedBox(
-                  height: 185,
+                  height: 170,
                 ),
               ],
             ),
