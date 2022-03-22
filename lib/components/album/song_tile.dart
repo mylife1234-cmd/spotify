@@ -14,23 +14,16 @@ class SongTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: Colors.black,
-      ),
+      color: Colors.black,
       child: ListTile(
         title: Text(
           song.name,
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         subtitle: Text(song.description),
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(0),
-          // child: Image.asset(song.coverUrl),
-          child: Image(
-            image: AssetImage(song.coverUrl),
-            fit: BoxFit.cover,
-          ),
+        leading: Image(
+          image: AssetImage(song.coverUrl),
+          fit: BoxFit.cover,
         ),
         trailing: GestureDetector(
           child: const Icon(
