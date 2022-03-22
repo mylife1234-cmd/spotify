@@ -5,6 +5,8 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -96,36 +98,35 @@ class SearchPage extends StatelessWidget {
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Stack(
                               children: <Widget>[
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                    bottom: 15,
-                                    left: 10.0,
-                                    right: 10.0,
-                                  ),
-                                  child: Text(
-                                    item['text']!,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
+                                Positioned(
+                                  top: 15,
+                                  left: 15,
+                                  child: ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                      maxWidth: size.width / 4.5,
+                                    ),
+                                    child: Text(
+                                      item['text']!,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                    top: 15,
-                                    left: 10,
-                                  ),
+                                Positioned(
+                                  top: 30,
+                                  right: -20,
                                   child: RotationTransition(
                                     turns:
-                                        const AlwaysStoppedAnimation(15 / 360),
+                                        const AlwaysStoppedAnimation(25 / 360),
                                     child: Image.asset(
                                       item['image']!,
-                                      height: 70,
-                                      width: 70,
+                                      height: 80,
+                                      width: 80,
                                     ),
                                   ),
                                 ),
