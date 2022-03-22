@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/player/mini_player.dart';
 import 'package:spotify/pages/home.dart';
@@ -8,6 +9,10 @@ import 'package:spotify/pages/search.dart';
 import 'package:spotify/providers/music_provider.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarBrightness: Brightness.dark
+  ));
+
   runApp(ChangeNotifierProvider<MusicProvider>(
     child: const MyApp(),
     create: (_) => MusicProvider(),
