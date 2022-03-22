@@ -145,56 +145,56 @@ final listMusic = [
     'text': "K/DA",
     'image': "assets/images/home/kda.jpg",
     "colors": [
-      Colors.red,
-      Colors.redAccent,
+      Color(0xFFD4AF37),
+      Color(0xFFCFB53B),
     ],
   },
   {
     'text': "Bigcityboi",
     'image': "assets/images/home/big-city-boi.jpg",
     "colors": [
-      Colors.blue,
-      Colors.blueAccent,
+      Color(0xFFD4AF37),
+      Color(0xFFCFB53B),
     ]
   },
   {
     'text': "DNA",
     'image': "assets/images/home/dna.jpg",
     "colors": [
-      Colors.red,
-      Colors.redAccent,
+      Color(0xFFD4AF37),
+      Color(0xFFCFB53B),
     ]
   },
   {
     'text': "Latata",
     'image': "assets/images/home/latata.jpg",
     "colors": [
-      Colors.red,
-      Colors.redAccent,
+      Color(0xFFD4AF37),
+      Color(0xFFCFB53B),
     ]
   },
   {
     'text': "Chilled",
     'image': "assets/images/home/chilled.jpg",
     "colors": [
-      Colors.red,
-      Colors.redAccent,
+      Color(0xFFD4AF37),
+      Color(0xFFCFB53B),
     ]
   },
   {
     'text': "Ái Nộ",
     'image': "assets/images/home/ai-no.jpg",
     "colors": [
-      Colors.red,
-      Colors.redAccent,
+      Color(0xFFD4AF37),
+      Color(0xFFCFB53B),
     ]
   },
   {
     'text': "Relax",
     'image': "assets/images/home/album2.jpg",
     "colors": [
-      Colors.red,
-      Colors.redAccent,
+      Color(0xFFD4AF37),
+      Color(0xFFCFB53B),
     ]
   },
 ];
