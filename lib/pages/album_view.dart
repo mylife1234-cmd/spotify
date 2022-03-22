@@ -156,6 +156,7 @@ class _AlbumViewState extends State<AlbumView> {
                         left: -5,
                         child: IconButton(
                           splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                           onPressed: () {
                             Navigator.pop(context);
                           },

@@ -25,6 +25,7 @@ class _PlaylistCreationPageState extends State<PlaylistCreationPage> {
             top: 5,
             child: IconButton(
               splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               onPressed: () {
                 Navigator.pop(context);
               },

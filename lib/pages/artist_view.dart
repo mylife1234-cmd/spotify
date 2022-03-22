@@ -138,12 +138,14 @@ class _ArtistViewState extends State<ArtistView> {
                     alignment: Alignment.center,
                     children: [
                       Positioned(
-                        left: 5,
-                        child: GestureDetector(
-                          onTap: () {
+                        left: -5,
+                        child: IconButton(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Icon(CupertinoIcons.chevron_back),
+                          icon: const Icon(CupertinoIcons.chevron_back),
                         ),
                       ),
                       AnimatedOpacity(
