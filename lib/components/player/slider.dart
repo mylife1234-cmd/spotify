@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MusicSlider extends StatefulWidget {
   const MusicSlider({Key? key}) : super(key: key);
@@ -9,6 +10,21 @@ class MusicSlider extends StatefulWidget {
 
 class _MusicSliderState extends State<MusicSlider> {
   double _currentDuration = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+      SystemUiOverlay.top,
+      SystemUiOverlay.bottom,
+    ]);
+    super.dispose();
+  }
   
   @override
   Widget build(BuildContext context) {

@@ -1,29 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:spotify/components/player/play_button.dart';
 
-class ControllerSection extends StatefulWidget {
+class ControllerSection extends StatelessWidget {
   const ControllerSection({Key? key}) : super(key: key);
-
-  @override
-  State<ControllerSection> createState() => _ControllerSectionState();
-}
-
-class _ControllerSectionState extends State<ControllerSection> {
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-  }
-
-  @override
-  void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.top,
-      SystemUiOverlay.bottom,
-    ]);
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
