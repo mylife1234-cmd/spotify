@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:spotify/components/player/favorite_button.dart';
 import 'package:spotify/pages/player.dart';
 import 'package:spotify/providers/music_provider.dart';
 
@@ -37,7 +38,7 @@ class MiniPlayer extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.favorite_outline_rounded, size: 23),
+            const FavoriteButton(size: 23),
             GestureDetector(
               child: Padding(
                 padding: const EdgeInsets.only(right: 5, left: 10),

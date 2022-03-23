@@ -16,6 +16,10 @@ class MusicProvider extends ChangeNotifier {
 
   Color get color => _color;
 
+  bool _isFavorite = false;
+
+  bool get isFavorite => _isFavorite;
+
   playNewSong(Song newSong) {
     _currentSong = newSong;
 
@@ -40,5 +44,11 @@ class MusicProvider extends ChangeNotifier {
 
       notifyListeners();
     });
+  }
+
+  toggleFavorite() {
+    _isFavorite = !_isFavorite;
+
+    notifyListeners();
   }
 }
