@@ -20,6 +20,10 @@ class MusicProvider extends ChangeNotifier {
 
   bool get isFavorite => _isFavorite;
 
+  bool _shuffling = false;
+
+  bool get shuffling => _shuffling;
+
   playNewSong(Song newSong) {
     _currentSong = newSong;
 
@@ -48,6 +52,12 @@ class MusicProvider extends ChangeNotifier {
 
   toggleFavorite() {
     _isFavorite = !_isFavorite;
+
+    notifyListeners();
+  }
+
+  toggleShuffle() {
+    _shuffling = !_shuffling;
 
     notifyListeners();
   }

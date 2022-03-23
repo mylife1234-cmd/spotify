@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:spotify/components/player/play_button.dart';
+import 'package:spotify/components/player/shuffle_button.dart';
 
 class ControllerSection extends StatelessWidget {
   const ControllerSection({Key? key}) : super(key: key);
@@ -9,10 +10,7 @@ class ControllerSection extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: const [
-        Icon(
-          CupertinoIcons.shuffle,
-          size: 20,
-        ),
+        ShuffleButton(size: 20),
         Icon(
           CupertinoIcons.backward_end_fill,
           size: 30,
