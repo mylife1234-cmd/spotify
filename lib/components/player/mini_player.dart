@@ -34,21 +34,27 @@ class MiniPlayer extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           child: Image.asset(song.coverUrl),
         ),
-        trailing: GestureDetector(
-          child: Padding(
-            padding: const EdgeInsets.only(right: 5),
-            child: Icon(
-              !playing ? Icons.play_arrow : Icons.pause,
-              size: 28,
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.favorite_outline_rounded, size: 23),
+            GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 5, left: 10),
+                child: Icon(
+                  !playing ? Icons.play_arrow : Icons.pause,
+                  size: 28,
+                ),
+              ),
+              onTap: () {
+                if (playing) {
+                  context.read<MusicProvider>().pause();
+                } else {
+                  context.read<MusicProvider>().play();
+                }
+              },
             ),
-          ),
-          onTap: () {
-            if (playing) {
-              context.read<MusicProvider>().pause();
-            } else {
-              context.read<MusicProvider>().play();
-            }
-          },
+          ],
         ),
         contentPadding: EdgeInsets.zero,
         dense: true,

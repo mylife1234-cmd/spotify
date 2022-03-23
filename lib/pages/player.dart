@@ -32,17 +32,30 @@ class MusicPlayer extends StatelessWidget {
             child: Image.asset(song.coverUrl),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Text(
-              song.name,
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-            child: Text(
-              song.description,
-              style: const TextStyle(color: Colors.white54),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      song.name,
+                      style: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.w700),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        song.description,
+                        style: const TextStyle(color: Colors.white54),
+                      ),
+                    ),
+                  ],
+                ),
+                const Icon(Icons.favorite_outline_rounded, size: 28),
+              ],
             ),
           ),
           const Padding(
