@@ -24,6 +24,10 @@ class MusicProvider extends ChangeNotifier {
 
   bool get shuffling => _shuffling;
 
+  RepeatMode _repeatMode = RepeatMode.off;
+
+  RepeatMode get repeatMode => _repeatMode;
+
   playNewSong(Song newSong) {
     _currentSong = newSong;
 
@@ -61,4 +65,16 @@ class MusicProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  toggleRepeatMode() {
+    final currentIndex = RepeatMode.values.indexOf(_repeatMode);
+
+    final next = (currentIndex + 1) % RepeatMode.values.length;
+
+    _repeatMode = RepeatMode.values[next];
+
+    notifyListeners();
+  }
 }
+
+enum RepeatMode { off, all, one }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:spotify/components/player/play_button.dart';
+import 'package:spotify/components/player/repeat_button.dart';
 import 'package:spotify/components/player/shuffle_button.dart';
 
 class ControllerSection extends StatelessWidget {
@@ -24,10 +25,7 @@ class ControllerSection extends StatelessWidget {
           CupertinoIcons.forward_end_fill,
           size: 30,
         ),
-        Icon(
-          CupertinoIcons.repeat,
-          size: 20,
-        )
+        RepeatButton(size: 20),
       ],
     );
   }
