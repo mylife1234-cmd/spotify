@@ -11,6 +11,10 @@ class SongTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var currentSong = context.watch<MusicProvider>().currentSong;
+
+    final isCurrent = currentSong!.name == song.name;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       width: double.infinity,
@@ -18,7 +22,10 @@ class SongTile extends StatelessWidget {
       child: ListTile(
         title: Text(
           song.name,
-          style: const TextStyle(fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w600,
+            color: isCurrent ? Colors.green : Colors.white,
+          ),
         ),
         subtitle: Text(song.description),
         leading: Image(
