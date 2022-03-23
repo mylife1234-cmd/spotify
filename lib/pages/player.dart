@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spotify/components/player/controller.dart';
+import 'package:spotify/components/player/controller_section.dart';
 import 'package:spotify/components/player/header.dart';
 import 'package:spotify/components/player/info_section.dart';
 import 'package:spotify/components/player/slider.dart';
@@ -42,7 +42,7 @@ class MusicPlayer extends StatelessWidget {
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 26, vertical: 16),
-            child: MusicController(),
+            child: ControllerSection(),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),

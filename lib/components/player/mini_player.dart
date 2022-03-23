@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/player/favorite_button.dart';
+import 'package:spotify/components/player/play_button.dart';
 import 'package:spotify/pages/player.dart';
 import 'package:spotify/providers/music_provider.dart';
 
@@ -14,8 +15,6 @@ class MiniPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var playing = context.watch<MusicProvider>().playing;
-
     var color = context.watch<MusicProvider>().color;
 
     return Container(
@@ -37,23 +36,15 @@ class MiniPlayer extends StatelessWidget {
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            const FavoriteButton(size: 23),
-            GestureDetector(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 5, left: 10),
-                child: Icon(
-                  !playing ? Icons.play_arrow : Icons.pause,
-                  size: 28,
-                ),
+          children: const [
+            FavoriteButton(size: 23),
+            Padding(
+              padding: EdgeInsets.only(right: 5, left: 10),
+              child: PlayButton(
+                playIcon: Icons.play_arrow,
+                pauseIcon: Icons.pause,
+                size: 28,
               ),
-              onTap: () {
-                if (playing) {
-                  context.read<MusicProvider>().pause();
-                } else {
-                  context.read<MusicProvider>().play();
-                }
-              },
             ),
           ],
         ),
