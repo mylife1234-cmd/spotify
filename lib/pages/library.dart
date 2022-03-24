@@ -7,6 +7,7 @@ import 'package:spotify/components/library/header.dart';
 import 'package:spotify/components/library/list_item.dart';
 import 'package:spotify/components/library/view_mode.dart';
 import 'package:spotify/pages/playlist_creation.dart';
+import 'package:spotify/pages/playlist_view.dart';
 
 import 'album_view.dart';
 import 'artist_view.dart';
@@ -182,15 +183,25 @@ class _LibraryPageState extends State<LibraryPage> {
             isSquareCover: item['type']! == 'playlist',
           ),
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ArtistView(
-                  image: AssetImage(item['cover']),
-                  label: item['title'],
-                ),
-              ),
-            );
+            item['type'] == 'playlist'
+                ? Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PlaylistView(
+                        image: AssetImage(item['cover']),
+                        label: item['title'],
+                      ),
+                    ),
+                  )
+                : Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ArtistView(
+                        image: AssetImage(item['cover']),
+                        label: item['title'],
+                      ),
+                    ),
+                  );
           },
         );
       },
@@ -221,15 +232,25 @@ class _LibraryPageState extends State<LibraryPage> {
                 isSquareCover: item['type']! == 'playlist',
               ),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AlbumView(
-                      image: AssetImage(item['cover']),
-                      label: item['title'],
-                    ),
-                  ),
-                );
+                item['type'] == 'playlist'
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PlaylistView(
+                            image: AssetImage(item['cover']),
+                            label: item['title'],
+                          ),
+                        ),
+                      )
+                    : Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ArtistView(
+                            image: AssetImage(item['cover']),
+                            label: item['title'],
+                          ),
+                        ),
+                      );
               },
             ),
           )
