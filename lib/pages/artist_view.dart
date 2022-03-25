@@ -9,7 +9,6 @@ import '../models/song.dart';
 
 import 'package:palette_generator/palette_generator.dart';
 
-
 class ArtistView extends StatefulWidget {
   final AssetImage image;
   final String label;
@@ -88,8 +87,7 @@ class _ArtistViewState extends State<ArtistView> {
                     // Colors.transparent,
                     Colors.black.withOpacity(0.5),
                     Colors.black.withOpacity(1),
-                  ]
-              ),
+                  ]),
             ),
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
@@ -101,11 +99,10 @@ class _ArtistViewState extends State<ArtistView> {
                   child: Opacity(
                     opacity: imageOpacity.clamp(0, 1.0),
                     child: Container(
-
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color:Colors.black.withOpacity(.6),
+                            color: Colors.black.withOpacity(.6),
                             offset: const Offset(0, 10),
                             blurRadius: 20,
                             spreadRadius: 10,
@@ -142,8 +139,7 @@ class _ArtistViewState extends State<ArtistView> {
                               _color!.withOpacity(0),
                               _color!.withOpacity(0),
                               _color!.withOpacity(0),
-                            ]
-                        ),
+                            ]),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
@@ -163,9 +159,8 @@ class _ArtistViewState extends State<ArtistView> {
           Positioned(
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              color: showTopBar
-                  ? _color!.withOpacity(1)
-                  : _color!.withOpacity(0),
+              color:
+                  showTopBar ? _color!.withOpacity(1) : _color!.withOpacity(0),
               padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
               child: SafeArea(
                 child: SizedBox(
@@ -208,7 +203,7 @@ class _ArtistViewState extends State<ArtistView> {
                       Positioned(
                         right: 5,
                         bottom:
-                        140 - containerHeight.clamp(170.0, double.infinity),
+                            140 - containerHeight.clamp(170.0, double.infinity),
                         child: Stack(
                           alignment: Alignment.bottomRight,
                           children: const [
@@ -228,7 +223,6 @@ class _ArtistViewState extends State<ArtistView> {
     );
   }
 }
-
 
 // class ArtistView extends StatefulWidget {
 //   final AssetImage image;
@@ -425,53 +419,59 @@ _buildListSong() {
 
 final songList = [
   {
-    'name': "K/DA",
-    'description': "Riot",
-    'coverUrl': "assets/images/home/kda.jpg",
+    'name': 'Anh Đếch Cần Gì Nhiều Ngoài Em',
+    'description': 'Đen, Vũ',
+    'url': 'assets/music/Anh Dech Can Gi Nhieu Ngoai Em - Den_ Vu.mp3',
+    'coverUrl': 'assets/music/Anh Dech Can Gi Nhieu Ngoai Em - Den_ Vu.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/98/97369.jpg'
   },
   {
-    'name': "Big City Boi",
-    'description': "Binz",
-    'coverUrl': "assets/images/home/big-city-boi.jpg",
+    'name': 'Cảm ơn',
+    'description': 'Đen, Biên',
+    'url': 'assets/music/Cam On - Den_ Bien.mp3',
+    'coverUrl': 'assets/music/Cam On - Den_ Bien.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/112/111275.jpg'
   },
   {
-    'name': "DNA",
-    'description': "BTS",
-    'coverUrl': "assets/images/home/dna.jpg",
+    'name': 'Cho Tôi Lang Thang',
+    'description': 'Ngọt, Đen',
+    'url': 'assets/music/Cho Toi Lang Thang - Ngot_ Den.mp3',
+    'coverUrl': 'assets/music/Cho Toi Lang Thang - Ngot_ Den.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/70/69769.jpg'
   },
   {
-    'name': "Latata",
-    'description': "G(I)-DLE",
-    'coverUrl': "assets/images/home/latata.jpg",
+    'name': 'Đi Về Nhà',
+    'description': 'Đen, JustaTee',
+    'url': 'assets/music/Di Ve Nha - Den_ JustaTee.mp3',
+    'coverUrl': 'assets/music/Di Ve Nha - Den_ JustaTee.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/133/132896.jpg'
   },
   {
-    'name': "Chilled",
-    'description': "Nhạc nhẹ",
-    'coverUrl': "assets/images/home/chilled.jpg",
+    'name': 'Hai Triệu Năm',
+    'description': 'Đen, Biên',
+    'url': 'assets/music/Hai Trieu Nam - Den_ Bien.mp3',
+    'coverUrl': 'assets/music/Hai Trieu Nam - Den_ Bien.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/107/106262.jpg'
   },
   {
-    'name': "Ái nộ",
-    'description': "Masew",
-    'coverUrl': "assets/images/home/ai-no.jpg",
+    'name': 'một triệu like',
+    'description': 'Đen, Thành Đồng',
+    'url': 'assets/music/Mot Trieu Like - Den_ Thanh Dong.mp3',
+    'coverUrl': 'assets/music/Mot Trieu Like - Den_ Thanh Dong.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/134/133432.jpg'
   },
   {
-    'name': "Relax",
-    'description': "Album2",
-    'coverUrl': "assets/images/home/album2.jpg",
+    'name': 'Tình Đắng Như Ly Cà Phê',
+    'description': 'Nân, Ngơ',
+    'url': 'assets/music/Tinh Dang Nhu Ly Ca Phe - Nan_ Ngo.mp3',
+    'coverUrl': 'assets/music/Tinh Dang Nhu Ly Ca Phe - Nan_ Ngo.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/110/109024.jpg'
   },
   {
-    'name': "Mang tiền về cho mẹ",
-    'description': "Đen vâu",
-    'coverUrl': "assets/images/den-vau.jpeg",
-  },
-  {
-    'name': "Maroon5",
-    'description': "Binz",
-    'coverUrl': "assets/images/maroon5.jpeg",
-  },
-  {
-    'name': "Cảm ơn",
-    'description': "Đen",
-    'coverUrl': "assets/images/cam-on.jpg",
+    'name': 'Trời hôm nay nhiều mây cực!',
+    'description': 'Đen',
+    'url': 'assets/music/Troi Hom Nay Nhieu May Cuc_ - Den.mp3',
+    'coverUrl': 'assets/music/Troi Hom Nay Nhieu May Cuc_ - Den.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/126/125234.jpg'
   },
 ];

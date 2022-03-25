@@ -1,6 +1,8 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/player/mini_player.dart';
 import 'package:spotify/pages/home.dart';
@@ -8,10 +10,18 @@ import 'package:spotify/pages/library.dart';
 import 'package:spotify/pages/search.dart';
 import 'package:spotify/providers/music_provider.dart';
 
-void main() {
+import 'utils/music/audio_handler.dart';
+
+GetIt getIt = GetIt.instance;
+
+void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarBrightness: Brightness.dark
   ));
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  getIt.registerSingleton<AudioHandler>(await initAudioService());
 
   runApp(ChangeNotifierProvider<MusicProvider>(
     child: const MyApp(),

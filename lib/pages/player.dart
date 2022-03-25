@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/player/controller_section.dart';
 import 'package:spotify/components/player/header.dart';
 import 'package:spotify/components/player/info_section.dart';
 import 'package:spotify/components/player/slider.dart';
-import 'package:spotify/models/song.dart';
+
+import '../providers/music_provider.dart';
 
 class MusicPlayer extends StatelessWidget {
-  const MusicPlayer({
-    Key? key,
-    required this.song,
-    required this.color,
-  }) : super(key: key);
-
-  final Song song;
-
-  final Color color;
+  const MusicPlayer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var color = context.watch<MusicProvider>().color.withOpacity(0.7);
+
+    var song = context.watch<MusicProvider>().currentSong;
+
     return Scaffold(
       backgroundColor: color,
       body: ListView(
@@ -30,7 +28,7 @@ class MusicPlayer extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(24),
-            child: Image.asset(song.coverUrl),
+            child: Image.asset(song!.coverUrl),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),

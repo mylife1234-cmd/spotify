@@ -15,7 +15,7 @@ class MiniPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = context.watch<MusicProvider>().color;
+    var color = context.watch<MusicProvider>().color.withOpacity(0.7);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -57,7 +57,7 @@ class MiniPlayer extends StatelessWidget {
           showMaterialModalBottomSheet(
             context: context,
             builder: (context) {
-              return MusicPlayer(song: song, color: color);
+              return const MusicPlayer();
             },
             duration: const Duration(milliseconds: 250),
           );
