@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:spotify/components/album/ablum_component.dart';
 import 'package:spotify/components/album/play_button.dart';
+import 'package:spotify/components/album/shuffle_button.dart';
+import 'package:spotify/components/album/song_tile.dart';
 
-import '../components/album/shuffle_button.dart';
-import '../components/album/song_tile.dart';
-import '../components/artist/artist_component.dart';
 import '../models/song.dart';
 
 class PlaylistView extends StatefulWidget {
@@ -21,7 +21,7 @@ class PlaylistView extends StatefulWidget {
 class _PlaylistViewState extends State<PlaylistView> {
   late ScrollController scrollController;
   double imageSize = 0;
-  double initialImageSize = 200;
+  double initialImageSize = 250;
   double containerHeight = 500;
   double containerInitialHeight = 500;
   double imageOpacity = 1;
@@ -145,7 +145,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(height: initialImageSize + 31),
-                            ArtistComponent(label: widget.label),
+                            AlbumComponent(label: widget.label),
                           ],
                         ),
                       )),

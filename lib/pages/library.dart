@@ -183,25 +183,20 @@ class _LibraryPageState extends State<LibraryPage> {
             isSquareCover: item['type']! == 'playlist',
           ),
           onTap: () {
-            item['type'] == 'playlist'
-                ? Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PlaylistView(
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => item['type'] == 'playlist'
+                    ? PlaylistView(
+                        image: AssetImage(item['cover']),
+                        label: item['title'],
+                      )
+                    : ArtistView(
                         image: AssetImage(item['cover']),
                         label: item['title'],
                       ),
-                    ),
-                  )
-                : Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ArtistView(
-                        image: AssetImage(item['cover']),
-                        label: item['title'],
-                      ),
-                    ),
-                  );
+              ),
+            );
           },
         );
       },
@@ -232,25 +227,20 @@ class _LibraryPageState extends State<LibraryPage> {
                 isSquareCover: item['type']! == 'playlist',
               ),
               onTap: () {
-                item['type'] == 'playlist'
-                    ? Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PlaylistView(
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => item['type'] == 'playlist'
+                        ? PlaylistView(
+                            image: AssetImage(item['cover']),
+                            label: item['title'],
+                          )
+                        : ArtistView(
                             image: AssetImage(item['cover']),
                             label: item['title'],
                           ),
-                        ),
-                      )
-                    : Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ArtistView(
-                            image: AssetImage(item['cover']),
-                            label: item['title'],
-                          ),
-                        ),
-                      );
+                  ),
+                );
               },
             ),
           )
