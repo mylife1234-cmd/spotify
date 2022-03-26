@@ -77,7 +77,7 @@ class _MainState extends State<Main> {
 
   int _currentIndex = 0;
 
-  bool authenticated = false;
+  bool authenticated = true;
 
   @override
   Widget build(BuildContext context) {

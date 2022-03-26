@@ -65,6 +65,7 @@ class _InputFieldState extends State<InputField> {
                     }),
                   )
                 : null,
+            contentPadding: const EdgeInsets.fromLTRB(12, 16, 12, 16)
           ),
           cursorColor: const Color(0xff57b660),
           obscureText: _showPassword,
