@@ -7,6 +7,7 @@ import 'package:spotify/components/album/shuffle_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
 
 import '../models/song.dart';
+import '../providers/music_provider.dart';
 
 class PlaylistView extends StatefulWidget {
   const PlaylistView({Key? key, required this.image, required this.label})
@@ -27,7 +28,7 @@ class _PlaylistViewState extends State<PlaylistView> {
   double imageOpacity = 1;
   bool showTopBar = false;
 
-  Color? _color = Color.fromRGBO(233, 83, 83, 1);
+  Color? _color = const Color.fromRGBO(233, 83, 83, 1);
 
   @override
   void initState() {
@@ -227,60 +228,7 @@ _buildListSong() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: songList.map((item) {
       return SongTile(
-          song: Song(item['name']!, item['description']!, item['coverUrl']!));
+          song: Song(item['title']!, item['desc']!, item['coverUrl']!));
     }).toList(),
   );
 }
-
-final songList = [
-  {
-    'name': "K/DA",
-    'description': "Riot",
-    'coverUrl': "assets/images/home/kda.jpg",
-  },
-  {
-    'name': "Big City Boi",
-    'description': "Binz",
-    'coverUrl': "assets/images/home/big-city-boi.jpg",
-  },
-  {
-    'name': "DNA",
-    'description': "BTS",
-    'coverUrl': "assets/images/home/dna.jpg",
-  },
-  {
-    'name': "Latata",
-    'description': "G(I)-DLE",
-    'coverUrl': "assets/images/home/latata.jpg",
-  },
-  {
-    'name': "Chilled",
-    'description': "Nhạc nhẹ",
-    'coverUrl': "assets/images/home/chilled.jpg",
-  },
-  {
-    'name': "Ái nộ",
-    'description': "Masew",
-    'coverUrl': "assets/images/home/ai-no.jpg",
-  },
-  {
-    'name': "Relax",
-    'description': "Album2",
-    'coverUrl': "assets/images/home/album2.jpg",
-  },
-  {
-    'name': "Mang tiền về cho mẹ",
-    'description': "Đen vâu",
-    'coverUrl': "assets/images/den-vau.jpeg",
-  },
-  {
-    'name': "Maroon5",
-    'description': "Binz",
-    'coverUrl': "assets/images/maroon5.jpeg",
-  },
-  {
-    'name': "Cảm ơn",
-    'description': "Đen",
-    'coverUrl': "assets/images/cam-on.jpg",
-  },
-];

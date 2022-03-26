@@ -7,6 +7,7 @@ import 'package:spotify/components/album/shuffle_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
 
 import '../models/song.dart';
+import '../providers/music_provider.dart';
 
 class AlbumView extends StatefulWidget {
   final AssetImage image;
@@ -228,66 +229,7 @@ _buildListSong() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: songList.map((item) {
       return SongTile(
-          song: Song(item['name']!, item['description']!, item['coverUrl']!));
+          song: Song(item['title']!, item['desc']!, item['coverUrl']!));
     }).toList(),
   );
 }
-
-final songList = [
-  {
-    'name': 'Anh Đếch Cần Gì Nhiều Ngoài Em',
-    'description': 'Đen, Vũ',
-    'url': 'assets/music/Anh Dech Can Gi Nhieu Ngoai Em - Den_ Vu.mp3',
-    'coverUrl': 'assets/music/Anh Dech Can Gi Nhieu Ngoai Em - Den_ Vu.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/98/97369.jpg'
-  },
-  {
-    'name': 'Cảm ơn',
-    'description': 'Đen, Biên',
-    'url': 'assets/music/Cam On - Den_ Bien.mp3',
-    'coverUrl': 'assets/music/Cam On - Den_ Bien.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/112/111275.jpg'
-  },
-  {
-    'name': 'Cho Tôi Lang Thang',
-    'description': 'Ngọt, Đen',
-    'url': 'assets/music/Cho Toi Lang Thang - Ngot_ Den.mp3',
-    'coverUrl': 'assets/music/Cho Toi Lang Thang - Ngot_ Den.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/70/69769.jpg'
-  },
-  {
-    'name': 'Đi Về Nhà',
-    'description': 'Đen, JustaTee',
-    'url': 'assets/music/Di Ve Nha - Den_ JustaTee.mp3',
-    'coverUrl': 'assets/music/Di Ve Nha - Den_ JustaTee.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/133/132896.jpg'
-  },
-  {
-    'name': 'Hai Triệu Năm',
-    'description': 'Đen, Biên',
-    'url': 'assets/music/Hai Trieu Nam - Den_ Bien.mp3',
-    'coverUrl': 'assets/music/Hai Trieu Nam - Den_ Bien.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/107/106262.jpg'
-  },
-  {
-    'name': 'một triệu like',
-    'description': 'Đen, Thành Đồng',
-    'url': 'assets/music/Mot Trieu Like - Den_ Thanh Dong.mp3',
-    'coverUrl': 'assets/music/Mot Trieu Like - Den_ Thanh Dong.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/134/133432.jpg'
-  },
-  {
-    'name': 'Tình Đắng Như Ly Cà Phê',
-    'description': 'Nân, Ngơ',
-    'url': 'assets/music/Tinh Dang Nhu Ly Ca Phe - Nan_ Ngo.mp3',
-    'coverUrl': 'assets/music/Tinh Dang Nhu Ly Ca Phe - Nan_ Ngo.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/110/109024.jpg'
-  },
-  {
-    'name': 'Trời hôm nay nhiều mây cực!',
-    'description': 'Đen',
-    'url': 'assets/music/Troi Hom Nay Nhieu May Cuc_ - Den.mp3',
-    'coverUrl': 'assets/music/Troi Hom Nay Nhieu May Cuc_ - Den.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/126/125234.jpg'
-  },
-];

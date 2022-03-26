@@ -6,7 +6,7 @@ import '../main.dart';
 import '../models/song.dart';
 
 class MusicProvider extends ChangeNotifier {
-  Song? _currentSong = Song('Cảm ơn', 'Đen, Biên', 'assets/images/cam-on.jpg');
+  Song? _currentSong;
 
   Song? get currentSong => _currentSong;
 
@@ -45,12 +45,18 @@ class MusicProvider extends ChangeNotifier {
 
   ProgressState get progressState => _progressState;
 
+  List<MediaItem> _currentPlaylist = [];
+
+  List<MediaItem> get currentPlaylist => _currentPlaylist;
+
   MusicProvider() {
     _initialize();
   }
 
   _initialize() {
     _initializePlaylist();
+
+    _playlistListener();
 
     _playbackListener();
 
@@ -62,16 +68,32 @@ class MusicProvider extends ChangeNotifier {
   }
 
   _initializePlaylist() {
-    final mediaItems = list
-        .map((song) => MediaItem(
-            id: list.indexOf(song).toString().padLeft(3, '0'),
+    final mediaItems = songList
+        .map(
+          (song) => MediaItem(
+            id: songList.indexOf(song).toString().padLeft(3, '0'),
             title: song['title']!,
             artist: song['desc'],
             artUri: Uri.parse(song['artUrl']!),
-            extras: {'url': song['url'], 'coverUrl': song['coverUrl']}))
+            extras: {'url': song['url'], 'coverUrl': song['coverUrl']},
+          ),
+        )
         .toList();
 
     _audioHandler.addQueueItems(mediaItems);
+  }
+
+  void _playlistListener() {
+    _audioHandler.queue.listen((playlist) {
+      if (playlist.isEmpty) {
+        _currentPlaylist = [];
+        _currentSong = null;
+      } else {
+        _currentPlaylist = playlist.map((song) => song).toList();
+      }
+
+      _updateSkipButtons();
+    });
   }
 
   void _playbackListener() {
@@ -129,7 +151,7 @@ class MusicProvider extends ChangeNotifier {
     // updateColor(newSong);
 
     final index =
-        list.indexWhere((element) => element['title'] == newSong.name);
+        _currentPlaylist.indexWhere((element) => element.title == newSong.name);
 
     playWithIndex(index);
   }
@@ -238,6 +260,7 @@ class MusicProvider extends ChangeNotifier {
   @override
   void dispose() {
     _audioHandler.stop();
+    super.dispose();
   }
 
   void _updateSkipButtons() {
@@ -267,7 +290,7 @@ class ProgressState {
 
 enum RepeatMode { off, all, one }
 
-final list = [
+final songList = [
   {
     'title': 'Anh Đếch Cần Gì Nhiều Ngoài Em',
     'desc': 'Đen, Vũ',
