@@ -8,6 +8,7 @@ import 'package:spotify/components/player/mini_player.dart';
 import 'package:spotify/pages/home.dart';
 import 'package:spotify/pages/library.dart';
 import 'package:spotify/pages/search.dart';
+import 'package:spotify/pages/start.dart';
 import 'package:spotify/providers/music_provider.dart';
 
 import 'utils/music/audio_handler.dart';
@@ -76,8 +77,14 @@ class _MainState extends State<Main> {
 
   int _currentIndex = 0;
 
+  bool authenticated = false;
+
   @override
   Widget build(BuildContext context) {
+    if (!authenticated) {
+      return const StartPage();
+    }
+
     var _currentSong = context.watch<MusicProvider>().currentSong;
 
     return CupertinoTabScaffold(

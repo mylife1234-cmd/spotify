@@ -70,6 +70,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/home/
+    - assets/images/brands/
     - assets/music/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
