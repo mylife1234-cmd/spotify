@@ -6,12 +6,14 @@ class InputField extends StatefulWidget {
     required this.label,
     this.helperText,
     this.obscure,
+    this.controller,
     this.onChanged,
   }) : super(key: key);
 
   final String label;
   final String? helperText;
   final bool? obscure;
+  final TextEditingController? controller;
   final void Function(String)? onChanged;
 
   @override
@@ -44,6 +46,7 @@ class _InputFieldState extends State<InputField> {
           ),
         ),
         TextField(
+          controller: widget.controller,
           decoration: InputDecoration(
             fillColor: const Color(0xff414141),
             filled: true,
@@ -65,7 +68,14 @@ class _InputFieldState extends State<InputField> {
                     }),
                   )
                 : null,
-            contentPadding: const EdgeInsets.fromLTRB(12, 16, 12, 16)
+            contentPadding: const EdgeInsets.fromLTRB(0, 16, 12, 16),
+            helperText: widget.helperText,
+            helperStyle: const TextStyle(color: Color(0xffcfcfcf)),
+            prefixIcon: const SizedBox(width: 0),
+            prefixIconConstraints: const BoxConstraints(
+              maxWidth: 15,
+              minWidth: 15,
+            ),
           ),
           cursorColor: const Color(0xff57b660),
           obscureText: _showPassword,

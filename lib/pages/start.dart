@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/components/auth/login_button.dart';
 import 'package:spotify/pages/login.dart';
+import 'package:spotify/pages/signup.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -61,10 +62,18 @@ class StartPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const LoginButton(
+                  LoginButton(
                     text: 'Sign up free',
-                    color: Color(0xff1ed760),
+                    color: const Color(0xff1ed760),
                     textColor: Colors.black,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return const SignUpPage();
+                        }),
+                      );
+                    },
                   ),
                   LoginButton(
                     text: 'Continue with Google',
@@ -119,7 +128,7 @@ class StartPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) {
-                          return LoginPage();
+                          return const LoginPage();
                         }),
                       );
                     },

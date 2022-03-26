@@ -46,10 +46,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 50),
               NextButton(
+                label: 'Login',
                 color: (_email.isNotEmpty && _password.isNotEmpty)
                     ? Colors.white
                     : const Color(0xff4d4d4d),
-                onTap: () {},
+                onTap:
+                    !(_email.isNotEmpty && _password.isNotEmpty) ? null : () {},
               )
             ],
           ),
