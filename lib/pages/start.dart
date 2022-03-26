@@ -7,16 +7,36 @@ class StartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SafeArea(
-          child: Stack(
-            children: [
-              Column(
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/images/welcome.png',
+            fit: BoxFit.cover,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.2),
+                  Colors.black.withOpacity(0.4),
+                  Colors.black.withOpacity(0.6),
+                  Colors.black.withOpacity(0.8),
+                  Colors.black
+                ],
+              ),
+            ),
+          ),
+          Center(
+            child: SafeArea(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
-                    child: Image.asset('assets/images/white-logo.png', width: 60),
+                    child:
+                        Image.asset('assets/images/white-logo.png', width: 60),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
@@ -78,7 +98,7 @@ class StartPage extends StatelessWidget {
                       left: 15,
                       child: Image.asset(
                         'assets/images/brands/apple.png',
-                        width: 22,
+                        width: 21,
                       ),
                     ),
                   ),
@@ -91,9 +111,9 @@ class StartPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
