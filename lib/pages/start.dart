@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/components/auth/login_button.dart';
+import 'package:spotify/pages/login.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -35,23 +36,29 @@ class StartPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
-                    child:
-                        Image.asset('assets/images/white-logo.png', width: 60),
+                    child: Image.asset(
+                      'assets/images/white-logo.png',
+                      width: 60,
+                    ),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
                       'Millions of Songs.',
-                      style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.w800),
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                   const Padding(
                     padding: EdgeInsets.only(bottom: 30),
                     child: Text(
                       'Free on Spotify.',
-                      style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.w800),
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                   const LoginButton(
@@ -102,12 +109,20 @@ class StartPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const LoginButton(
+                  LoginButton(
                     text: 'Log in',
                     color: Colors.black,
                     textColor: Colors.white,
                     borderColor: Colors.black,
-                    margin: EdgeInsets.only(bottom: 20),
+                    margin: const EdgeInsets.only(bottom: 20),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return LoginPage();
+                        }),
+                      );
+                    },
                   ),
                 ],
               ),
