@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../components/auth/input_field.dart';
@@ -37,6 +38,8 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   ];
 
+  final carouselController = CarouselController();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -63,16 +66,29 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+              padding: const EdgeInsets.only(top: 10),
               child: Column(
                 children: [
-                  InputField(
-                    controller: _controller,
-                    label: options[_currentOption]['label']!,
-                    onChanged: (value) => setState(() {
-                      results[options[_currentOption]['name']!] = value;
-                    }),
-                    helperText: options[_currentOption]['helper'],
+                  CarouselSlider(
+                    items: options.map((option) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: InputField(
+                          controller: _controller,
+                          label: option['label']!,
+                          onChanged: (value) => setState(() {
+                            results[option['name']!] = value;
+                          }),
+                          helperText: option['helper'],
+                        ),
+                      );
+                    }).toList(),
+                    options: CarouselOptions(
+                      viewportFraction: 1,
+                      height: 110,
+                      scrollPhysics: const NeverScrollableScrollPhysics(),
+                    ),
+                    carouselController: carouselController,
                   ),
                   const SizedBox(height: 50),
                   NextButton(
@@ -88,6 +104,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         ? null
                         : () {
                             if (_currentOption < options.length - 1) {
+                              carouselController.nextPage();
+
                               if (results.length - 1 >= _currentOption + 1 &&
                                   results.values
                                       .elementAt(_currentOption + 1)
@@ -123,6 +141,8 @@ class _SignUpPageState extends State<SignUpPage> {
       setState(() {
         _currentOption--;
       });
+
+      carouselController.previousPage();
     }
   }
 }
