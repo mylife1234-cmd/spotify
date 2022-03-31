@@ -1,17 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 import '../../models/song.dart';
 import '../../pages/share_page.dart';
 
 class ShareButton extends StatelessWidget {
   final Song song;
-  final Color color;
+  Color color = Colors.black;
   final double size;
-  const ShareButton({Key? key, required this.song, required this.color, required this.size}) : super(key: key);
+  ShareButton({Key? key, required this.song, required this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    PaletteGenerator.fromImageProvider(AssetImage(song.coverUrl))
+        .then((generator) {
+      color = generator.mutedColor!.color.withOpacity(.7);
+    });
     return IconButton(
       icon:  Icon(
         Icons.ios_share,

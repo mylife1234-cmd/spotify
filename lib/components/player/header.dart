@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:spotify/components/actions/action_button.dart';
+
+import '../../models/song.dart';
 
 class PlayerHeader extends StatelessWidget {
-  const PlayerHeader({Key? key, required this.onDismissed}) : super(key: key);
-
+  const PlayerHeader({Key? key, required this.onDismissed, required this.song}) : super(key: key);
+  final Song song;
   final void Function()? onDismissed;
 
   @override
@@ -27,9 +30,7 @@ class PlayerHeader extends StatelessWidget {
             'Playlist 1',
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
-          GestureDetector(
-            child: const Icon(Icons.more_horiz),
-          )
+          ActionButton(song: song, size: 20)
         ],
       ),
     );
