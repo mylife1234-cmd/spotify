@@ -1,10 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify/components/actions/add_playlist_tile.dart';
+import 'package:spotify/components/actions/add_queue_tile.dart';
+import 'package:spotify/components/actions/like_tile.dart';
+import 'package:spotify/components/actions/share_tile.dart';
+import 'package:spotify/components/actions/view_artist_tile.dart';
 
+import '../components/actions/view_album_tile.dart';
 import '../models/song.dart';
 
 class SongAction extends StatefulWidget {
-  const SongAction({Key? key, required this.color, required this.song}) : super(key: key);
+  const SongAction({Key? key, required this.color, required this.song})
+      : super(key: key);
   final Color color;
   final Song song;
   @override
@@ -12,7 +19,6 @@ class SongAction extends StatefulWidget {
 }
 
 class _SongActionState extends State<SongAction> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,11 +36,13 @@ class _SongActionState extends State<SongAction> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
+                      widget.color.withOpacity(0.5),
                       widget.color.withOpacity(0.4),
                       widget.color.withOpacity(0.3),
-                      widget.color.withOpacity(0.2),
-                      // Colors.black.withOpacity(0.1),
-                      // Colors.transparent,
+                      // widget.color.withOpacity(0.3),
+                      Colors.black.withOpacity(0.2),
+                      Colors.black.withOpacity(0.3),
+                      Colors.black.withOpacity(0.4),
                       Colors.black.withOpacity(0.5),
                       Colors.black.withOpacity(1),
                     ]),
@@ -44,18 +52,8 @@ class _SongActionState extends State<SongAction> {
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 24),
-                      child: Text(
-                        "Share",
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 35),
+                      padding: const EdgeInsets.only(top: 44),
                       child: Image(
                         image: AssetImage(widget.song.coverUrl),
                         width: 200,
@@ -78,20 +76,36 @@ class _SongActionState extends State<SongAction> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 15,  bottom: 30),
+                      padding: const EdgeInsets.only(top: 15, bottom: 30),
                       child: Text(
                         widget.song.description,
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ),
-
+                    Column(
+                      children: [
+                        const LikeTile(),
+                        ViewArtistTile(
+                          song: widget.song,
+                        ),
+                        const AddPlaylistTile(),
+                        const AddToQueueTile(),
+                        ShareTile(
+                          song: widget.song,
+                          color: widget.color,
+                        ),
+                        ViewAlbumTile(
+                          song: widget.song,
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
             ),
           ),
           Positioned(
-            top:9,
+            top: 29,
             child: SafeArea(
               child: IconButton(
                 splashColor: Colors.transparent,
