@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:spotify/components/player/controller_section.dart';
 import 'package:spotify/components/player/header.dart';
 import 'package:spotify/components/player/info_section.dart';
+import 'package:spotify/components/player/share_button.dart';
 import 'package:spotify/components/player/slider.dart';
 import 'package:spotify/pages/share_page.dart';
 
@@ -48,22 +49,7 @@ class MusicPlayer extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.ios_share,
-                    size: 22,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SharePage(
-                            color: color,
-                            song: song,
-                          ),
-                        ));
-                  },
-                ),
+                ShareButton(song: song ,color: color),
                 Icon(
                   Icons.playlist_play_rounded,
                   size: 26,
