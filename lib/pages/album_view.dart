@@ -40,10 +40,6 @@ class _AlbumViewState extends State<AlbumView> {
         if (imageSize < 0) {
           imageSize = 0;
         }
-
-        // if (imageSize > MediaQuery.of(context).size.width - 10) {
-        //   imageSize = MediaQuery.of(context).size.width;
-        // }
         containerHeight = containerInitialHeight - scrollController.offset;
         if (containerHeight < 0) {
           containerHeight = 0;
@@ -64,7 +60,11 @@ class _AlbumViewState extends State<AlbumView> {
       });
     });
   }
-
+  @override
+  void dispose(){
+    scrollController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

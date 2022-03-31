@@ -7,7 +7,7 @@ class ArtistComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Container(
+      SizedBox(
         width: MediaQuery.of(context).size.width,
         // decoration: BoxDecoration(
         //   gradient: LinearGradient(
@@ -28,7 +28,10 @@ class ArtistComponent extends StatelessWidget {
                 fontSize: 45,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 0.3,
-              )),
+              ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
         ),
       ),
       Padding(

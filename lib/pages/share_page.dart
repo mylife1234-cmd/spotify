@@ -152,11 +152,11 @@ final listMedia = [
   },
   {
     'text': "Messenger",
-    'icon': 'assets/images/brands/messenger1.png',
+    'icon': 'assets/images/brands/messenger.png',
   },
   {
     'text': "Instagram",
-    'icon': 'assets/images/brands/instagram.png',
+    'icon': 'assets/images/brands/instagram2.png',
   },
   {
     'text': "WhatsApp",

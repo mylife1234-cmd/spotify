@@ -292,6 +292,48 @@ enum RepeatMode { off, all, one }
 
 final songList = [
   {
+    'title': 'Quảng Hàn Dao (广寒谣)',
+    'desc': 'Y Cách Tái Thính, Bất Kháo Phổ Tổ Hợp',
+    'url': 'assets/music/Quang Han Dao - Y Cach Tai Thinh_ Bat Kh.mp3',
+    'coverUrl': 'assets/music/quang han dao.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/136/135040.jpg'
+  },
+  {
+    'title': 'Xuy Diệt Tiểu Sơn Hà (吹灭小山河)',
+    'desc': 'Quốc Phong Đường, Tư Nam',
+    'url': 'assets/music/Xuy Diet Tieu Son Ha - Quoc Phong Duong_.mp3',
+    'coverUrl': 'assets/music/xuy diet tieu son ha.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/135/134128.jpg'
+  },
+  {
+    'title': 'Âm Thanh Của Nỗi Nhớ Anh',
+    'desc': 'Ngạo Thất Gia',
+    'url': 'assets/music/Am Thanh Cua Noi Nho Anh DJ.mp3',
+    'coverUrl': 'assets/music/am thanh cua noi nho anh.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/128/127142.jpg'
+  },
+  {
+    'title': 'Gió Lay Nhành Đào (风过谢桃花)',
+    'desc': 'Tư Nam, Tịch Âm Xã',
+    'url': 'assets/music/Gio Lay Nhanh Dao- Tu Nam Tich Am Xa.mp3',
+    'coverUrl': 'assets/music/gio lay nhanh dao.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/139/138222.jpg'
+  },
+  {
+    'title': 'Senbonzakura',
+    'desc': 'Lindsey Stirling',
+    'url': 'assets/music/Senbonzakura - Lindsey Stirling.mp3',
+    'coverUrl': 'assets/music/senbonzakura.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/46/45786.jpg'
+  },
+  {
+    'title': 'Sen Động Dưới Thuyền Cá (莲动下渔舟)',
+    'desc': 'Dao Quân',
+    'url': 'assets/music/Sen Dong Duoi Thuyen Ca - Dao Quan.mp3',
+    'coverUrl': 'assets/music/sen dong duoi thuyen danh ca.jpg',
+    'artUrl': 'https://data.chiasenhac.com/data/cover/139/138173.jpg'
+  },
+  {
     'title': 'Anh Đếch Cần Gì Nhiều Ngoài Em',
     'desc': 'Đen, Vũ',
     'url': 'assets/music/Anh Dech Can Gi Nhieu Ngoai Em - Den_ Vu.mp3',

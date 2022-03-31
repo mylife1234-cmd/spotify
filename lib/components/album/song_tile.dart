@@ -26,7 +26,10 @@ class SongTile extends StatelessWidget {
           style: TextStyle(
             fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w600,
             color: isCurrent ? Colors.green : Colors.white,
+
           ),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
         ),
         subtitle: Text(song.description),
         leading: Image(

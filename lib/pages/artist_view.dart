@@ -42,10 +42,6 @@ class _ArtistViewState extends State<ArtistView> {
         if (imageSize < 0) {
           imageSize = 0;
         }
-
-        // if (imageSize > MediaQuery.of(context).size.width - 10) {
-        //   imageSize = MediaQuery.of(context).size.width;
-        // }
         containerHeight = containerInitialHeight - scrollController.offset;
         if (containerHeight < 0) {
           containerHeight = 0;
@@ -65,6 +61,11 @@ class _ArtistViewState extends State<ArtistView> {
         _color = generator.mutedColor!.color;
       });
     });
+  }
+  @override
+  void dispose(){
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
