@@ -49,8 +49,8 @@ class MusicPlayer extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ShareButton(song: song ,color: color),
-                Icon(
+                ShareButton(song: song ,color: color, size: 22),
+                const Icon(
                   Icons.playlist_play_rounded,
                   size: 26,
                 )

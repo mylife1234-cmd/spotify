@@ -7,14 +7,15 @@ import '../../pages/share_page.dart';
 class ShareButton extends StatelessWidget {
   final Song song;
   final Color color;
-  const ShareButton({Key? key, required this.song, required this.color}) : super(key: key);
+  final double size;
+  const ShareButton({Key? key, required this.song, required this.color, required this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: const Icon(
+      icon:  Icon(
         Icons.ios_share,
-        size: 22,
+        size: size,
       ),
       onPressed: () {
         Navigator.push(
