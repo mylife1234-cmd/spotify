@@ -7,14 +7,15 @@ import '../../models/song.dart';
 
 class ActionButton extends StatelessWidget {
   final Song song;
-  Color color = Colors.black;
+  // Color color = Colors.black;
   final double size;
 
 
-  ActionButton({Key? key, required this.song, required this.size}) : super(key: key);
+  const ActionButton({Key? key, required this.song, required this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var color = Colors.black;
     PaletteGenerator.fromImageProvider(AssetImage(song.coverUrl))
         .then((generator) {
       color = generator.mutedColor!.color.withOpacity(1);
@@ -35,6 +36,6 @@ class ActionButton extends StatelessWidget {
             ),
           ));
     },
-  );return Container();
+  );
   }
 }

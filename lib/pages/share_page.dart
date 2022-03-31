@@ -55,7 +55,17 @@ class _SharePageState extends State<SharePage> {
                         ),
                       ),
                     ),
-                    Padding(
+                    Container(
+                      // decoration: BoxDecoration(
+                      //   boxShadow: [
+                      //     BoxShadow(
+                      //       color: Colors.black.withOpacity(.6),
+                      //       offset: const Offset(0, 18),
+                      //       blurRadius: 30,
+                      //       spreadRadius: 10,
+                      //     )
+                      //   ],
+                      // ),
                       padding: const EdgeInsets.only(top: 35),
                       child: Image(
                         image: AssetImage(widget.song.coverUrl),

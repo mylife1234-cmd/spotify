@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
 
@@ -7,15 +6,16 @@ import '../../pages/share_page.dart';
 
 class ShareButton extends StatelessWidget {
   final Song song;
-  Color color = Colors.black;
+  // Color color = Colors.black;
   final double size;
   ShareButton({Key? key, required this.song, required this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var color = Colors.black;
     PaletteGenerator.fromImageProvider(AssetImage(song.coverUrl))
         .then((generator) {
-      color = generator.mutedColor!.color.withOpacity(.7);
+      color = generator.mutedColor!.color.withOpacity(1);
     });
     return IconButton(
       icon:  Icon(

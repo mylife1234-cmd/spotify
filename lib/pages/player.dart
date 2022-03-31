@@ -3,10 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:spotify/components/player/controller_section.dart';
 import 'package:spotify/components/player/header.dart';
 import 'package:spotify/components/player/info_section.dart';
-import 'package:spotify/components/actions/share_button.dart';
 import 'package:spotify/components/player/slider.dart';
-import 'package:spotify/pages/share_page.dart';
 
+import '../components/player/share_button.dart';
 import '../providers/music_provider.dart';
 
 class MusicPlayer extends StatelessWidget {
