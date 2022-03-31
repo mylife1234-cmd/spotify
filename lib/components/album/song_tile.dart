@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:spotify/components/actions/action_button.dart';
 
 import '../../models/song.dart';
 import '../../providers/music_provider.dart';
@@ -32,13 +33,7 @@ class SongTile extends StatelessWidget {
           image: AssetImage(song.coverUrl),
           fit: BoxFit.cover,
         ),
-        trailing: GestureDetector(
-          child: const Icon(
-            CupertinoIcons.ellipsis,
-            size: 20,
-          ),
-          onTap: () {},
-        ),
+        trailing: ActionButton(song: song, size: 20),
         contentPadding: EdgeInsets.zero,
         dense: true,
         visualDensity: VisualDensity.standard,
