@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
-import 'package:spotify/components/actions/add_playlist_tile.dart';
-import 'package:spotify/components/actions/add_queue_tile.dart';
-import 'package:spotify/components/actions/like_tile.dart';
-import 'package:spotify/components/actions/share_tile.dart';
-import 'package:spotify/components/actions/view_artist_tile.dart';
+import 'package:spotify/pages/share_page.dart';
 
-import '../components/actions/view_album_tile.dart';
 import '../models/song.dart';
+import '../providers/music_provider.dart';
+import 'album_view.dart';
+import 'artist_view.dart';
 
 class SongAction extends StatefulWidget {
   const SongAction({Key? key, required this.color, required this.song})
       : super(key: key);
   final Color color;
   final Song song;
+
   @override
   _SongActionState createState() => _SongActionState();
 }
@@ -22,6 +22,60 @@ class SongAction extends StatefulWidget {
 class _SongActionState extends State<SongAction> {
   @override
   Widget build(BuildContext context) {
+    var isFavorite = context.watch<MusicProvider>().isFavorite;
+
+    final listAction = [
+      Action(
+        'Like',
+        Icon(
+          isFavorite ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
+          size: 22,
+          color: isFavorite ? Colors.green : Colors.white,
+        ),
+            () => _doActionLike(context),
+      ),
+      Action(
+        'Share',
+        const Icon(
+          Icons.ios_share,
+          size: 22,
+        ),
+            () => _doActionShare(context),
+      ),
+      Action(
+        'View artist',
+        const Icon(
+          CupertinoIcons.person,
+          size: 22,
+        ),
+            () => _doActionViewArtist(context),
+      ),
+      Action(
+        'Add to playlist',
+        const Icon(
+          CupertinoIcons.music_note_list,
+          size: 22,
+        ),
+            () => _doActionAddPlaylist(),
+      ),
+      Action(
+        'Add to queue',
+        const Icon(
+          CupertinoIcons.text_badge_plus,
+          size: 22,
+        ),
+            () => _doActionAddToQueue(),
+      ),
+      Action(
+        'View album',
+        const Icon(
+          CupertinoIcons.music_albums,
+          size: 22,
+        ),
+            () => _doActionViewAlbum(context),
+      )
+    ];
+
     return Scaffold(
       body: Stack(
         children: [
@@ -104,9 +158,11 @@ class _SongActionState extends State<SongAction> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: listAction.map((item) {
                         return ActionTile(
+                          title: item.title,
+                          leading: item.leading,
                           color: widget.color,
-                          action: item['text']!,
                           song: widget.song,
+                          onTap: item.onTap,
                         );
                       }).toList(),
                     )
@@ -132,25 +188,53 @@ class _SongActionState extends State<SongAction> {
       ),
     );
   }
+
+  _doActionLike(BuildContext context) {
+    context.read<MusicProvider>().toggleFavorite();
+  }
+
+  _doActionShare(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SharePage(
+            color: widget.color,
+            song: widget.song,
+          ),
+        ));
+  }
+
+  _doActionAddToQueue() {}
+
+  _doActionAddPlaylist() {}
+
+  _doActionViewAlbum(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AlbumView(
+            image: AssetImage(widget.song.coverUrl),
+            label: widget.song.description,
+          ),
+        ));
+  }
+
+  _doActionViewArtist(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ArtistView(
+            image: AssetImage(widget.song.coverUrl),
+            label: widget.song.description,
+          ),
+        ));
+  }
 }
 
-final listAction = [
-  {
-    'text': "Like",
-  },
-  {
-    'text': "Share",
-  },
-  {
-    'text': "View artist",
-  },
-  {
-    'text': "Add to playlist",
-  },
-  {
-    'text': "Add to queue",
-  },
-  {
-    'text': "View album",
-  },
-];
+class Action {
+  Action(this.title, this.leading, this.onTap);
+
+  final String title;
+  final Widget leading;
+  final void Function() onTap;
+}
