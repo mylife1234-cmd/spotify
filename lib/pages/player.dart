@@ -29,7 +29,7 @@ class MusicPlayer extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(24),
-            child: Image.asset(song!.coverUrl),
+            child: Image.asset(song.coverUrl),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),

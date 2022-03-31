@@ -56,7 +56,7 @@ class _ArtistViewState extends State<ArtistView> {
         } else {
           showTopBar = false;
         }
-        print(imageSize);
+        // print(imageSize);
         setState(() {});
       });
     super.initState();
@@ -224,6 +224,15 @@ class _ArtistViewState extends State<ArtistView> {
       ),
     );
   }
+}
+_buildListSong() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: songList.map((item) {
+      return SongTile(
+          song: Song(item['title']!, item['desc']!, item['coverUrl']!));
+    }).toList(),
+  );
 }
 
 // class ArtistView extends StatefulWidget {
@@ -409,12 +418,3 @@ class _ArtistViewState extends State<ArtistView> {
 //   }
 // }
 
-_buildListSong() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: songList.map((item) {
-      return SongTile(
-          song: Song(item['title']!, item['desc']!, item['coverUrl']!));
-    }).toList(),
-  );
-}

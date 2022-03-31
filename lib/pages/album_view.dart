@@ -54,7 +54,7 @@ class _AlbumViewState extends State<AlbumView> {
         } else {
           showTopBar = false;
         }
-        print(imageSize);
+        // print(imageSize);
         setState(() {});
       });
     super.initState();

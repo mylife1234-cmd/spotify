@@ -53,7 +53,7 @@ class _PlaylistViewState extends State<PlaylistView> {
         } else {
           showTopBar = false;
         }
-        print(imageSize);
+        // print(imageSize);
         setState(() {});
       });
     super.initState();

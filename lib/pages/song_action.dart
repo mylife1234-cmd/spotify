@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/actions/add_playlist_tile.dart';
 import 'package:spotify/components/actions/add_queue_tile.dart';
 import 'package:spotify/components/actions/like_tile.dart';
@@ -76,28 +77,38 @@ class _SongActionState extends State<SongAction> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 30),
+                      padding: const EdgeInsets.only(top: 15, bottom: 10),
                       child: Text(
                         widget.song.description,
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ),
+                    // Column(
+                    //   children: [
+                    //     const LikeTile(),
+                    //     ViewArtistTile(
+                    //       song: widget.song,
+                    //     ),
+                    //     const AddPlaylistTile(),
+                    //     const AddToQueueTile(),
+                    //     ShareTile(
+                    //       song: widget.song,
+                    //       color: widget.color,
+                    //     ),
+                    //     ViewAlbumTile(
+                    //       song: widget.song,
+                    //     ),
+                    //   ],
+                    // )
                     Column(
-                      children: [
-                        const LikeTile(),
-                        ViewArtistTile(
-                          song: widget.song,
-                        ),
-                        const AddPlaylistTile(),
-                        const AddToQueueTile(),
-                        ShareTile(
-                          song: widget.song,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: listAction.map((item) {
+                        return ActionTile(
                           color: widget.color,
-                        ),
-                        ViewAlbumTile(
+                          action: item['text']!,
                           song: widget.song,
-                        ),
-                      ],
+                        );
+                      }).toList(),
                     )
                   ],
                 ),
@@ -122,3 +133,24 @@ class _SongActionState extends State<SongAction> {
     );
   }
 }
+
+final listAction = [
+  {
+    'text': "Like",
+  },
+  {
+    'text': "Share",
+  },
+  {
+    'text': "View artist",
+  },
+  {
+    'text': "Add to playlist",
+  },
+  {
+    'text': "Add to queue",
+  },
+  {
+    'text': "View album",
+  },
+];
