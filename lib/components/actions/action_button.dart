@@ -15,11 +15,6 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = Colors.black;
-    PaletteGenerator.fromImageProvider(AssetImage(song.coverUrl))
-        .then((generator) {
-      color = generator.mutedColor!.color.withOpacity(1);
-    });
     return IconButton(
     icon:  Icon(
       // Icons.more_horiz,
@@ -27,6 +22,11 @@ class ActionButton extends StatelessWidget {
       size: size,
     ),
     onPressed: () {
+      var color = Colors.black;
+      PaletteGenerator.fromImageProvider(AssetImage(song.coverUrl))
+          .then((generator) {
+        color = generator.mutedColor!.color.withOpacity(1);
+      });
       Navigator.push(
           context,
           MaterialPageRoute(

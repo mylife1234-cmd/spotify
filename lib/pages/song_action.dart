@@ -137,23 +137,6 @@ class _SongActionState extends State<SongAction> {
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ),
-                    // Column(
-                    //   children: [
-                    //     const LikeTile(),
-                    //     ViewArtistTile(
-                    //       song: widget.song,
-                    //     ),
-                    //     const AddPlaylistTile(),
-                    //     const AddToQueueTile(),
-                    //     ShareTile(
-                    //       song: widget.song,
-                    //       color: widget.color,
-                    //     ),
-                    //     ViewAlbumTile(
-                    //       song: widget.song,
-                    //     ),
-                    //   ],
-                    // )
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: listAction.map((item) {
