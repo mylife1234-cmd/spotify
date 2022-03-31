@@ -31,7 +31,7 @@ class _ArtistViewState extends State<ArtistView> {
   double imageOpacity = 1;
   bool showTopBar = false;
 
-  Color? _color = Colors.black;
+  Color _color = Colors.black;
 
   @override
   void initState() {
@@ -81,10 +81,10 @@ class _ArtistViewState extends State<ArtistView> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    _color!.withOpacity(1),
-                    _color!.withOpacity(0.7),
-                    _color!.withOpacity(0.5),
-                    _color!.withOpacity(0.3),
+                    _color.withOpacity(1),
+                    _color.withOpacity(0.7),
+                    _color.withOpacity(0.5),
+                    _color.withOpacity(0.3),
                     // Colors.black.withOpacity(0.1),
                     // Colors.transparent,
                     Colors.black.withOpacity(0.5),
@@ -138,9 +138,9 @@ class _ArtistViewState extends State<ArtistView> {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              _color!.withOpacity(0),
-                              _color!.withOpacity(0),
-                              _color!.withOpacity(0),
+                              _color.withOpacity(0),
+                              _color.withOpacity(0),
+                              _color.withOpacity(0),
                             ]),
                       ),
                       child: Padding(
@@ -162,7 +162,7 @@ class _ArtistViewState extends State<ArtistView> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               color:
-                  showTopBar ? _color!.withOpacity(1) : _color!.withOpacity(0),
+                  showTopBar ? _color.withOpacity(1) : _color.withOpacity(0),
               padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
               child: SafeArea(
                 child: SizedBox(

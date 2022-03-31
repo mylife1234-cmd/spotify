@@ -28,7 +28,7 @@ class _PlaylistViewState extends State<PlaylistView> {
   double imageOpacity = 1;
   bool showTopBar = false;
 
-  Color? _color = const Color.fromRGBO(233, 83, 83, 1);
+  Color _color = const Color.fromRGBO(233, 83, 83, 1);
 
   @override
   void initState() {
@@ -78,10 +78,10 @@ class _PlaylistViewState extends State<PlaylistView> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    _color!.withOpacity(1),
-                    _color!.withOpacity(0.7),
-                    _color!.withOpacity(0.5),
-                    _color!.withOpacity(0.3),
+                    _color.withOpacity(1),
+                    _color.withOpacity(0.7),
+                    _color.withOpacity(0.5),
+                    _color.withOpacity(0.3),
                     // Colors.black.withOpacity(0.1),
                     // Colors.transparent,
                     Colors.black.withOpacity(0.5),
@@ -135,9 +135,9 @@ class _PlaylistViewState extends State<PlaylistView> {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              _color!.withOpacity(0),
-                              _color!.withOpacity(0),
-                              _color!.withOpacity(0),
+                              _color.withOpacity(0),
+                              _color.withOpacity(0),
+                              _color.withOpacity(0),
                             ]),
                       ),
                       child: Padding(
@@ -159,7 +159,7 @@ class _PlaylistViewState extends State<PlaylistView> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               color:
-                  showTopBar ? _color!.withOpacity(1) : _color!.withOpacity(0),
+                  showTopBar ? _color.withOpacity(1) : _color.withOpacity(0),
               padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
               child: SafeArea(
                 child: SizedBox(

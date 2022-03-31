@@ -22,16 +22,15 @@ class ActionButton extends StatelessWidget {
       size: size,
     ),
     onPressed: () {
-      var color = Colors.black;
-      PaletteGenerator.fromImageProvider(AssetImage(song.coverUrl))
-          .then((generator) {
-        color = generator.mutedColor!.color.withOpacity(1);
-      });
+      // var color = Colors.black;
+      // PaletteGenerator.fromImageProvider(AssetImage(song.coverUrl))
+      //     .then((generator) {
+      //   color = generator.mutedColor!.color;
+      // });
       Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => SongAction(
-              color: color,
               song: song,
             ),
           ));

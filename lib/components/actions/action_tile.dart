@@ -25,7 +25,7 @@ class ActionTile extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         width: MediaQuery.of(context).size.width,
-        color: Colors.black,
+        color: Colors.black.withOpacity(.6),
         child: ListTile(
           title: Text(
             title,

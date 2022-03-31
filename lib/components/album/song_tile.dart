@@ -34,11 +34,6 @@ class SongTile extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         trailing: ActionButton(song: song, size: 20),
-      //   trailing:   const Icon(
-      //   // Icons.more_horiz,
-      //   CupertinoIcons.ellipsis,
-      //   size: 20,
-      // ),
         contentPadding: EdgeInsets.zero,
         dense: true,
         visualDensity: VisualDensity.standard,

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/pages/share_page.dart';
@@ -10,9 +11,8 @@ import 'album_view.dart';
 import 'artist_view.dart';
 
 class SongAction extends StatefulWidget {
-  const SongAction({Key? key, required this.color, required this.song})
+  const SongAction({Key? key, required this.song})
       : super(key: key);
-  final Color color;
   final Song song;
 
   @override
@@ -20,6 +20,18 @@ class SongAction extends StatefulWidget {
 }
 
 class _SongActionState extends State<SongAction> {
+  Color _color = Colors.black;
+
+  @override
+  void initState() {
+
+    super.initState();
+    PaletteGenerator.fromImageProvider(AssetImage(widget.song.coverUrl)).then((generator) {
+      setState(() {
+        _color = generator.mutedColor!.color;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     var isFavorite = context.watch<MusicProvider>().isFavorite;
@@ -91,15 +103,15 @@ class _SongActionState extends State<SongAction> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      widget.color.withOpacity(0.5),
-                      widget.color.withOpacity(0.4),
-                      widget.color.withOpacity(0.3),
-                      // widget.color.withOpacity(0.3),
+                      _color.withOpacity(0.6),
+                      _color.withOpacity(0.5),
+                      _color.withOpacity(0.4),
+                      _color.withOpacity(0.3),
                       Colors.black.withOpacity(0.2),
                       Colors.black.withOpacity(0.3),
                       Colors.black.withOpacity(0.4),
                       Colors.black.withOpacity(0.5),
-                      Colors.black.withOpacity(1),
+                      Colors.black.withOpacity(0.6),
                     ]),
               ),
               child: SafeArea(
@@ -143,7 +155,7 @@ class _SongActionState extends State<SongAction> {
                         return ActionTile(
                           title: item.title,
                           leading: item.leading,
-                          color: widget.color,
+                          color: _color,
                           song: widget.song,
                           onTap: item.onTap,
                         );
@@ -181,7 +193,7 @@ class _SongActionState extends State<SongAction> {
         context,
         MaterialPageRoute(
           builder: (context) => SharePage(
-            color: widget.color,
+            color: _color,
             song: widget.song,
           ),
         ));
