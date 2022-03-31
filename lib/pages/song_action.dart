@@ -27,7 +27,7 @@ class _SongActionState extends State<SongAction> {
         children: [
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            physics: const BouncingScrollPhysics(),
+            // physics: const BouncingScrollPhysics(),
             child: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
