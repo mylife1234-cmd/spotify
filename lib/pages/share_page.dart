@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:palette_generator/palette_generator.dart';
 import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/components/share/media_button.dart';
 import 'package:spotify/components/share/song_info.dart';
 import 'package:spotify/models/song.dart';
 
 class SharePage extends StatefulWidget {
-  final Color color;
   final Song song;
-  const SharePage({Key? key, required this.color, required this.song})
+  const SharePage({Key? key, required this.song})
       : super(key: key);
 
   @override
@@ -15,6 +15,18 @@ class SharePage extends StatefulWidget {
 }
 
 class _SharePageState extends State<SharePage> {
+  Color _color = Colors.black;
+
+  @override
+  void initState() {
+    super.initState();
+    PaletteGenerator.fromImageProvider(AssetImage(widget.song.coverUrl))
+        .then((generator) {
+      setState(() {
+        _color = generator.mutedColor!.color;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +44,9 @@ class _SharePageState extends State<SharePage> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      widget.color.withOpacity(0.4),
-                      widget.color.withOpacity(0.3),
-                      widget.color.withOpacity(0.2),
+                      _color.withOpacity(0.4),
+                      _color.withOpacity(0.3),
+                      _color.withOpacity(0.2),
                       // Colors.black.withOpacity(0.1),
                       // Colors.transparent,
                       Colors.black.withOpacity(0.5),

@@ -169,7 +169,6 @@ class _SongActionState extends State<SongAction> {
         context,
         MaterialPageRoute(
           builder: (context) => SharePage(
-            color: _color,
             song: widget.song,
           ),
         ));
