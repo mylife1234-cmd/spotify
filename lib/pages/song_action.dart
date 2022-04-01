@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
@@ -11,8 +12,7 @@ import 'album_view.dart';
 import 'artist_view.dart';
 
 class SongAction extends StatefulWidget {
-  const SongAction({Key? key, required this.song})
-      : super(key: key);
+  const SongAction({Key? key, required this.song}) : super(key: key);
   final Song song;
 
   @override
@@ -24,14 +24,15 @@ class _SongActionState extends State<SongAction> {
 
   @override
   void initState() {
-
     super.initState();
-    PaletteGenerator.fromImageProvider(AssetImage(widget.song.coverUrl)).then((generator) {
+    PaletteGenerator.fromImageProvider(AssetImage(widget.song.coverUrl))
+        .then((generator) {
       setState(() {
         _color = generator.mutedColor!.color;
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     var isFavorite = context.watch<MusicProvider>().isFavorite;
@@ -44,7 +45,7 @@ class _SongActionState extends State<SongAction> {
           size: 22,
           color: isFavorite ? Colors.green : Colors.white,
         ),
-            () => _doActionLike(context),
+        () => _doActionLike(context),
       ),
       Action(
         'Share',
@@ -52,7 +53,7 @@ class _SongActionState extends State<SongAction> {
           Icons.ios_share,
           size: 22,
         ),
-            () => _doActionShare(context),
+        () => _doActionShare(context),
       ),
       Action(
         'View artist',
@@ -60,7 +61,7 @@ class _SongActionState extends State<SongAction> {
           CupertinoIcons.person,
           size: 22,
         ),
-            () => _doActionViewArtist(context),
+        () => _doActionViewArtist(context),
       ),
       Action(
         'Add to playlist',
@@ -68,7 +69,7 @@ class _SongActionState extends State<SongAction> {
           CupertinoIcons.music_note_list,
           size: 22,
         ),
-            () => _doActionAddPlaylist(),
+        () => _doActionAddPlaylist(),
       ),
       Action(
         'Add to queue',
@@ -76,7 +77,7 @@ class _SongActionState extends State<SongAction> {
           CupertinoIcons.text_badge_plus,
           size: 22,
         ),
-            () => _doActionAddToQueue(),
+        () => _doActionAddToQueue(),
       ),
       Action(
         'View album',
@@ -84,7 +85,7 @@ class _SongActionState extends State<SongAction> {
           CupertinoIcons.music_albums,
           size: 22,
         ),
-            () => _doActionViewAlbum(context),
+        () => _doActionViewAlbum(context),
       )
     ];
 
@@ -204,25 +205,45 @@ class _SongActionState extends State<SongAction> {
   _doActionAddPlaylist() {}
 
   _doActionViewAlbum(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+      SystemUiOverlay.top,
+      SystemUiOverlay.bottom,
+    ]);
+
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AlbumView(
-            image: AssetImage(widget.song.coverUrl),
-            label: widget.song.description,
-          ),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => AlbumView(
+          image: AssetImage(widget.song.coverUrl),
+          label: widget.song.description,
+        ),
+      ),
+    );
+
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+      SystemUiOverlay.top,
+    ]);
   }
 
   _doActionViewArtist(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+      SystemUiOverlay.top,
+      SystemUiOverlay.bottom,
+    ]);
+
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ArtistView(
-            image: AssetImage(widget.song.coverUrl),
-            label: widget.song.description,
-          ),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => ArtistView(
+          image: AssetImage(widget.song.coverUrl),
+          label: widget.song.description,
+        ),
+      ),
+    );
+
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+      SystemUiOverlay.top,
+    ]);
   }
 }
 
