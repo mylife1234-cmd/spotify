@@ -9,6 +9,7 @@ class PlayingSongTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var playing = context.watch<MusicProvider>().playing;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       width: double.infinity,
@@ -36,7 +37,11 @@ class PlayingSongTile extends StatelessWidget {
         visualDensity: VisualDensity.standard,
         horizontalTitleGap: 12,
         onTap: () {
-          context.read<MusicProvider>().playNewSong(song);
+          if (playing) {
+            context.read<MusicProvider>().pause();
+          } else {
+            context.read<MusicProvider>().play();
+          }
         },
       ),
     );

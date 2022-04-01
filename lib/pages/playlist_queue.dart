@@ -98,7 +98,8 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
                           _currentPlaylist
                               .removeAt(indexOfCurrentSong + 1 + oldIndex));
                     });
-                    print('newIndex ' + newIndex.toString() + "   oldIndex" + oldIndex.toString());
+                    // print('newIndex ' + newIndex.toString()
+                    //     + "   oldIndex" + oldIndex.toString());
                     // if (newIndex > oldIndex) newIndex -= 1;
                     // final Song song = _currentPlaylist.removeAt(oldIndex);
                     // _currentPlaylist.insert(newIndex, song);
