@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ViewModeSection extends StatelessWidget {
-  const ViewModeSection(
-      {Key? key,
-      this.handleViewMode,
-      this.showAsList,
-      this.handleSortOption,
-      this.sortOption})
-      : super(key: key);
+  const ViewModeSection({
+    Key? key,
+    this.handleViewMode,
+    this.showAsList,
+    this.handleSortOption,
+    this.sortOption,
+  }) : super(key: key);
 
   final void Function()? handleViewMode;
 

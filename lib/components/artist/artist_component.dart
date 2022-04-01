@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ArtistComponent extends StatelessWidget {
   final String label;
+
   const ArtistComponent({Key? key, required this.label}) : super(key: key);
 
   @override
@@ -32,20 +33,21 @@ class ArtistComponent extends StatelessWidget {
         ),
       ),
       Padding(
-          padding: const EdgeInsets.only(left: 15, right: 20, top: 10),
-          child: Row(
-            children: const [
-              Icon(
-                Icons.favorite_outline_rounded,
-                size: 22,
-              ),
-              SizedBox(width: 15),
-              Icon(
-                Icons.more_horiz,
-                size: 22,
-              ),
-            ],
-          ))
+        padding: const EdgeInsets.only(left: 15, right: 20, top: 10),
+        child: Row(
+          children: const [
+            Icon(
+              Icons.favorite_outline_rounded,
+              size: 22,
+            ),
+            SizedBox(width: 15),
+            Icon(
+              Icons.more_horiz,
+              size: 22,
+            ),
+          ],
+        ),
+      )
     ]);
   }
 }

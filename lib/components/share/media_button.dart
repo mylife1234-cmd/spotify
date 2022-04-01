@@ -5,6 +5,7 @@ class MediaButton extends StatelessWidget {
   final String text;
   final String coverUrl;
   final void Function()? onTap;
+
   const MediaButton({
     Key? key,
     required this.text,
@@ -19,10 +20,11 @@ class MediaButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image(
-              image: AssetImage(coverUrl),
-              width: 40,
-              height: 40,
-              fit: BoxFit.cover),
+            image: AssetImage(coverUrl),
+            width: 40,
+            height: 40,
+            fit: BoxFit.cover,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(

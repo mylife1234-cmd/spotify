@@ -9,7 +9,6 @@ import 'package:spotify/components/library/view_mode.dart';
 import 'package:spotify/pages/playlist_creation.dart';
 import 'package:spotify/pages/playlist_view.dart';
 
-import 'album_view.dart';
 import 'artist_view.dart';
 
 class LibraryPage extends StatefulWidget {
@@ -163,11 +162,13 @@ class _LibraryPageState extends State<LibraryPage> {
 
   _buildListView() {
     final filteredList = playlists
-        .where((element) =>
-            _currentFilterOption == -1 ||
-            filterOptions[_currentFilterOption]
-                .toLowerCase()
-                .contains(element['type']!))
+        .where(
+          (element) =>
+              _currentFilterOption == -1 ||
+              filterOptions[_currentFilterOption]
+                  .toLowerCase()
+                  .contains(element['type']!),
+        )
         .toList();
 
     return ListView.builder(

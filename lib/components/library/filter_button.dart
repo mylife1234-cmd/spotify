@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class FilterButton extends StatelessWidget {
-  const FilterButton({Key? key, required this.title, required this.active})
-      : super(key: key);
+  const FilterButton({
+    Key? key,
+    required this.title,
+    required this.active,
+  }) : super(key: key);
 
   final String title;
 

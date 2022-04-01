@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 class AnimateLabel extends StatelessWidget {
   final bool isShow;
   final String label;
+
   const AnimateLabel({Key? key, required this.label, required this.isShow})
       : super(key: key);
 

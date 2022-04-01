@@ -17,7 +17,8 @@ GetIt getIt = GetIt.instance;
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
+    const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
+  );
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -118,20 +119,22 @@ class _MainState extends State<Main> {
                 builder: (context) =>
                     CupertinoPageScaffold(child: _tabs[index]),
               )
-            : Stack(children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 64),
-                  child: CupertinoTabView(
-                    navigatorKey: _tabNavKeys[index],
-                    builder: (context) =>
-                        CupertinoPageScaffold(child: _tabs[index]),
+            : Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 64),
+                    child: CupertinoTabView(
+                      navigatorKey: _tabNavKeys[index],
+                      builder: (context) =>
+                          CupertinoPageScaffold(child: _tabs[index]),
+                    ),
                   ),
-                ),
-                Align(
-                  child: Card(child: MiniPlayer(song: _currentSong)),
-                  alignment: Alignment.bottomCenter,
-                )
-              ]);
+                  Align(
+                    child: Card(child: MiniPlayer(song: _currentSong)),
+                    alignment: Alignment.bottomCenter,
+                  )
+                ],
+              );
       },
     );
   }

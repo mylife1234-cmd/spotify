@@ -81,18 +81,19 @@ class _AlbumViewState extends State<AlbumView> {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    _color.withOpacity(1),
-                    _color.withOpacity(0.7),
-                    _color.withOpacity(0.5),
-                    _color.withOpacity(0.3),
-                    // Colors.black.withOpacity(0.1),
-                    // Colors.transparent,
-                    Colors.black.withOpacity(0.5),
-                    Colors.black.withOpacity(1),
-                  ]),
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  _color.withOpacity(1),
+                  _color.withOpacity(0.7),
+                  _color.withOpacity(0.5),
+                  _color.withOpacity(0.3),
+                  // Colors.black.withOpacity(0.1),
+                  // Colors.transparent,
+                  Colors.black.withOpacity(0.5),
+                  Colors.black.withOpacity(1),
+                ],
+              ),
             ),
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
@@ -101,11 +102,12 @@ class _AlbumViewState extends State<AlbumView> {
                   height: 19,
                 ),
                 SafeArea(
-                    child: OpacityImage(
-                  imageOpacity: imageOpacity,
-                  imageSize: imageSize,
-                  image: widget.image,
-                )),
+                  child: OpacityImage(
+                    imageOpacity: imageOpacity,
+                    imageSize: imageSize,
+                    image: widget.image,
+                  ),
+                ),
               ],
             ),
           ),
@@ -117,27 +119,29 @@ class _AlbumViewState extends State<AlbumView> {
               child: Column(
                 children: [
                   Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              _color.withOpacity(0),
-                              _color.withOpacity(0),
-                              _color.withOpacity(0),
-                            ]),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          _color.withOpacity(0),
+                          _color.withOpacity(0),
+                          _color.withOpacity(0),
+                        ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(height: initialImageSize),
-                            AlbumComponent(label: widget.label),
-                          ],
-                        ),
-                      )),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: initialImageSize),
+                          AlbumComponent(label: widget.label),
+                        ],
+                      ),
+                    ),
+                  ),
                   _buildListSong(),
                 ],
               ),
@@ -191,7 +195,8 @@ _buildListSong() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: songList.map((item) {
       return SongTile(
-          song: Song(item['title']!, item['desc']!, item['coverUrl']!));
+        song: Song(item['title']!, item['desc']!, item['coverUrl']!),
+      );
     }).toList(),
   );
 }

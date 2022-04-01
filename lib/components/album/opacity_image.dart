@@ -1,16 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OpacityImage extends StatelessWidget {
   final double imageOpacity;
   final double imageSize;
   final AssetImage image;
-  const OpacityImage(
-      {Key? key,
-      required this.imageOpacity,
-      required this.imageSize,
-      required this.image})
-      : super(key: key);
+
+  const OpacityImage({
+    Key? key,
+    required this.imageOpacity,
+    required this.imageSize,
+    required this.image,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

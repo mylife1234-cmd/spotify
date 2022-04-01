@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/song.dart';
 
 class SongInfo extends StatelessWidget {
   final Song song;
+
   const SongInfo({Key? key, required this.song}) : super(key: key);
 
   @override

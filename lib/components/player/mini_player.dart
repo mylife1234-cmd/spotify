@@ -52,7 +52,7 @@ class MiniPlayer extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         dense: true,
         horizontalTitleGap: 12,
-        visualDensity: VisualDensity.compact,
+        visualDensity: VisualDensity.comfortable,
         minVerticalPadding: 12,
         onTap: () async {
           SystemChrome.setEnabledSystemUIMode(
