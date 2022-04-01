@@ -11,8 +11,7 @@ class HomeHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text('Recently Played',
-              style: TextStyle(
-                  fontSize: 18, fontWeight: FontWeight.bold)),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [

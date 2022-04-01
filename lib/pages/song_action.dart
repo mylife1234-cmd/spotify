@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
+import 'package:spotify/components/share/song_info.dart';
 import 'package:spotify/pages/share_page.dart';
 
 import '../models/song.dart';
@@ -120,36 +121,10 @@ class _SongActionState extends State<SongAction> {
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 44),
-                      child: Image(
-                        image: AssetImage(widget.song.coverUrl),
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
+                    const SizedBox(
+                      height: 44,
                     ),
-                    Container(
-                      width: 180,
-                      padding: const EdgeInsets.only(top: 25),
-                      child: Text(
-                        widget.song.name,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            letterSpacing: 0.2,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 10),
-                      child: Text(
-                        widget.song.description,
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                    ),
+                    SongInfo(song: widget.song),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: listAction.map((item) {

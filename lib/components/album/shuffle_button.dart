@@ -17,7 +17,6 @@ class ShuffleButton extends StatelessWidget {
         CupertinoIcons.shuffle,
         color: Colors.green,
         size: 12,
-
       ),
     );
   }

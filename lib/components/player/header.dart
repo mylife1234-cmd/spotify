@@ -4,7 +4,8 @@ import 'package:spotify/components/actions/action_button.dart';
 import '../../models/song.dart';
 
 class PlayerHeader extends StatelessWidget {
-  const PlayerHeader({Key? key, required this.onDismissed, required this.song}) : super(key: key);
+  const PlayerHeader({Key? key, required this.onDismissed, required this.song})
+      : super(key: key);
   final Song song;
   final void Function()? onDismissed;
 

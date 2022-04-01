@@ -149,7 +149,7 @@ class SearchPage extends StatelessWidget {
                     GridView.builder(
                       itemCount: listMusic1.length,
                       gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 1.75,
                         mainAxisSpacing: 15,
@@ -160,7 +160,7 @@ class SearchPage extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         final item1 = listMusic1[index];
                         final colorValues =
-                        item1['colors']!.split(', ').map((e) {
+                            item1['colors']!.split(', ').map((e) {
                           return int.parse(e);
                         });
 
@@ -171,7 +171,7 @@ class SearchPage extends StatelessWidget {
                                 begin: Alignment.topLeft,
                                 end: const Alignment(0.8, 0.0),
                                 colors:
-                                colorValues.map((e) => Color(e)).toList(),
+                                    colorValues.map((e) => Color(e)).toList(),
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -199,7 +199,7 @@ class SearchPage extends StatelessWidget {
                                   right: -20,
                                   child: RotationTransition(
                                     turns:
-                                    const AlwaysStoppedAnimation(25 / 360),
+                                        const AlwaysStoppedAnimation(25 / 360),
                                     child: Image.asset(
                                       item1['image']!,
                                       height: 80,
@@ -267,5 +267,4 @@ final listMusic1 = [
     'image': "assets/images/home/latata.jpg",
     "colors": '0xFFBA68C8, 0xFFBA68C8'
   },
-
 ];

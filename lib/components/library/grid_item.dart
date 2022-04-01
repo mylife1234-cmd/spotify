@@ -17,7 +17,8 @@ class GridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: isSquareCover ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      crossAxisAlignment:
+          isSquareCover ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       children: [
         Expanded(
           child: Container(

@@ -25,7 +25,8 @@ class MusicPlayer extends StatelessWidget {
           PlayerHeader(
             onDismissed: () {
               Navigator.maybePop(context);
-            }, song: song!,
+            },
+            song: song!,
           ),
           Padding(
             padding: const EdgeInsets.all(24),

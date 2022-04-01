@@ -11,8 +11,7 @@ class LibraryHeader extends StatelessWidget {
       Row(
         children: const [
           CircleAvatar(
-            foregroundImage: AssetImage(
-                'assets/images/avatar.png'),
+            foregroundImage: AssetImage('assets/images/avatar.png'),
             radius: 22,
           ),
           Padding(

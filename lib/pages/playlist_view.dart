@@ -5,7 +5,10 @@ import 'package:spotify/components/album/ablum_component.dart';
 import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/shuffle_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
+import 'package:spotify/components/artist/back_button.dart';
 
+import '../components/album/animate_label.dart';
+import '../components/album/opacity_image.dart';
 import '../models/song.dart';
 import '../providers/music_provider.dart';
 
@@ -59,11 +62,13 @@ class _PlaylistViewState extends State<PlaylistView> {
       });
     });
   }
+
   @override
-  void dispose(){
+  void dispose() {
     scrollController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,29 +100,11 @@ class _PlaylistViewState extends State<PlaylistView> {
                   height: 50,
                 ),
                 SafeArea(
-                  child: Opacity(
-                    opacity: imageOpacity.clamp(0, 1.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(.6),
-                            offset: const Offset(0, 10),
-                            blurRadius: 20,
-                            spreadRadius: 10,
-                          )
-                        ],
-                      ),
-                      child: Image(
-                        // image: widget.image,
-                        image: widget.image,
-                        width: imageSize,
-                        height: imageSize,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
+                    child: OpacityImage(
+                  imageOpacity: imageOpacity,
+                  imageSize: imageSize,
+                  image: widget.image,
+                )),
               ],
             ),
           ),
@@ -158,8 +145,7 @@ class _PlaylistViewState extends State<PlaylistView> {
           Positioned(
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              color:
-                  showTopBar ? _color.withOpacity(1) : _color.withOpacity(0),
+              color: showTopBar ? _color.withOpacity(1) : _color.withOpacity(0),
               padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
               child: SafeArea(
                 child: SizedBox(
@@ -170,35 +156,11 @@ class _PlaylistViewState extends State<PlaylistView> {
                     clipBehavior: Clip.none,
                     alignment: Alignment.center,
                     children: [
-                      Positioned(
+                      const Positioned(
                         left: -5,
-                        child: IconButton(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(CupertinoIcons.chevron_back),
-                        ),
+                        child: BackIconButton(),
                       ),
-                      AnimatedOpacity(
-                        duration: const Duration(milliseconds: 200),
-                        opacity: showTopBar ? 1 : 0,
-                        child: Container(
-                          padding: const EdgeInsets.only(left: 50, right: 50),
-                          child: Text(
-                            widget.label,
-                            // style: Theme.of(context).textTheme.headline6,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 0.4,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                        ),
-                      ),
+                      AnimateLabel(label: widget.label, isShow: showTopBar),
                       Positioned(
                         right: 5,
                         bottom:

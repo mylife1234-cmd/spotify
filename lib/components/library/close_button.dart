@@ -16,4 +16,3 @@ class CustomCloseButton extends StatelessWidget {
     );
   }
 }
-

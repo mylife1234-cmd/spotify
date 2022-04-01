@@ -77,7 +77,8 @@ class _PlaylistCreationPageState extends State<PlaylistCreationPage> {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: _newPlaylistName != '' ? Colors.white : Colors.white54,
+                    color:
+                        _newPlaylistName != '' ? Colors.white : Colors.white54,
                   ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,

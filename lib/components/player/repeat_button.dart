@@ -18,9 +18,7 @@ class RepeatButton extends StatelessWidget {
             ? CupertinoIcons.repeat_1
             : CupertinoIcons.repeat,
         size: size,
-        color: (repeatMode == RepeatMode.off)
-            ? Colors.white
-            : Colors.green,
+        color: (repeatMode == RepeatMode.off) ? Colors.white : Colors.green,
       ),
       onTap: () {
         context.read<MusicProvider>().toggleRepeatMode();

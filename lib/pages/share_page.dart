@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/components/share/media_button.dart';
+import 'package:spotify/components/share/song_info.dart';
 import 'package:spotify/models/song.dart';
 
 class SharePage extends StatefulWidget {
@@ -55,90 +57,45 @@ class _SharePageState extends State<SharePage> {
                         ),
                       ),
                     ),
-                    Container(
-                      // decoration: BoxDecoration(
-                      //   boxShadow: [
-                      //     BoxShadow(
-                      //       color: Colors.black.withOpacity(.6),
-                      //       offset: const Offset(0, 18),
-                      //       blurRadius: 30,
-                      //       spreadRadius: 10,
-                      //     )
-                      //   ],
-                      // ),
-                      padding: const EdgeInsets.only(top: 35),
-                      child: Image(
-                        image: AssetImage(widget.song.coverUrl),
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
+                    const SizedBox(
+                      height: 35,
                     ),
-                    Container(
-                      width: 180,
-                      padding: const EdgeInsets.only(top: 25),
-                      child: Text(
-                        widget.song.name,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            letterSpacing: 0.2,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15,  bottom: 30),
-                      child: Text(
-                        widget.song.description,
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                    ),
-
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: GridView.builder(
-                        itemCount: listMedia.length,
-                          gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            mainAxisSpacing: 10,
-                            // crossAxisSpacing: 0,
-                          ),
-                          shrinkWrap: true,
-                          controller: ScrollController(keepScrollOffset: false),
-                        itemBuilder: (BuildContext context, int index) {
-                          final item1 = listMedia[index];
-
-                          return MediaButton(text: item1['text']!, coverUrl: item1['icon']!);
-                        }
-                      ),
-                    ),
-
-
+                    SongInfo(song: widget.song),
+                    _buildGridViewMedia(),
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
-            top:9,
+          const Positioned(
+            top: 9,
             child: SafeArea(
-              child: IconButton(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(CupertinoIcons.chevron_back),
-              ),
+              child: BackIconButton(),
             ),
           ),
         ],
       ),
     );
   }
+}
+
+_buildGridViewMedia() {
+  return Padding(
+    padding: const EdgeInsets.only(left: 20, right: 20),
+    child: GridView.builder(
+        itemCount: listMedia.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          mainAxisSpacing: 10,
+          // crossAxisSpacing: 0,
+        ),
+        shrinkWrap: true,
+        controller: ScrollController(keepScrollOffset: false),
+        itemBuilder: (BuildContext context, int index) {
+          final item1 = listMedia[index];
+          return MediaButton(text: item1['text']!, coverUrl: item1['icon']!);
+        }),
+  );
 }
 
 final listMedia = [
@@ -166,6 +123,4 @@ final listMedia = [
     'text': "Telegram",
     'icon': 'assets/images/brands/telegram.png',
   },
-
 ];
-

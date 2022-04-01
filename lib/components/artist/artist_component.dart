@@ -9,35 +9,26 @@ class ArtistComponent extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(
         width: MediaQuery.of(context).size.width,
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(
-        //     begin: Alignment.topCenter,
-        //     end: Alignment.bottomCenter,
-        //     colors: [
-        //       Colors.white.withOpacity(0),
-        //       Colors.white.withOpacity(0.2),
-        //       Colors.white.withOpacity(0.3),
-        //     ],
-        //   ),
-        // ),
         child: Padding(
           padding:
-              const EdgeInsets.only(left: 13, right: 20, top: 20, bottom: 10),
-          child: Text(label,
-              style: const TextStyle(
-                fontSize: 45,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
+              const EdgeInsets.only(left: 13, right: 25, top: 20, bottom: 10),
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 45,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.3,
+            ),
             overflow: TextOverflow.ellipsis,
-            maxLines: 2,
+            maxLines: 1,
           ),
         ),
       ),
       Padding(
         padding: const EdgeInsets.only(left: 15, right: 20, top: 10),
-        child: Text("3 999 999 followers",
-            style: Theme.of(context).textTheme.caption,
+        child: Text(
+          "3 999 999 followers",
+          style: Theme.of(context).textTheme.caption,
         ),
       ),
       Padding(

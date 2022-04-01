@@ -16,9 +16,8 @@ import 'utils/music/audio_handler.dart';
 GetIt getIt = GetIt.instance;
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarBrightness: Brightness.dark
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
 
   WidgetsFlutterBinding.ensureInitialized();
 
