@@ -29,7 +29,11 @@ class SongTile extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
-        subtitle: Text(song.description),
+        subtitle: Text(
+          song.description,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
         leading: Image(
           image: AssetImage(song.coverUrl),
           fit: BoxFit.cover,

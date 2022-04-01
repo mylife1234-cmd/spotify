@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:spotify/components/player/controller_section.dart';
 import 'package:spotify/components/player/header.dart';
 import 'package:spotify/components/player/info_section.dart';
+import 'package:spotify/components/player/queue_button.dart';
 import 'package:spotify/components/player/slider.dart';
 
 import '../components/player/share_button.dart';
@@ -64,10 +65,7 @@ class MusicPlayer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ShareButton(song: song, size: 22),
-                const Icon(
-                  Icons.playlist_play_rounded,
-                  size: 26,
-                )
+                QueueButton(song: song, size: 26),
               ],
             ),
           )

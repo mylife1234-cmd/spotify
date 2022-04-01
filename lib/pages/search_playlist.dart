@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:spotify/components/library/close_button.dart';
-import 'package:spotify/components/library/filter_button.dart';
 import 'package:spotify/components/library/grid_item.dart';
-import 'package:spotify/components/library/header.dart';
 import 'package:spotify/components/library/list_item.dart';
-import 'package:spotify/components/library/view_mode.dart';
-import 'package:spotify/pages/playlist_creation.dart';
 import 'package:spotify/pages/playlist_view.dart';
 import 'package:spotify/pages/search.dart';
-import 'album_view.dart';
 import 'artist_view.dart';
 
 class SearchPlayList extends StatefulWidget {
@@ -62,10 +55,10 @@ class _SearchPlayListState extends State<SearchPlayList> {
   ];
   List recentSearch = [];
   String searchString = "";
-  bool _showAsList = true;
+  final bool _showAsList = true;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -92,7 +85,7 @@ class _SearchPlayListState extends State<SearchPlayList> {
                           hintText: 'Search',
                           hintStyle: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
-                          fillColor: Color.fromRGBO(58, 58, 58, 1.0),
+                          fillColor: const Color.fromRGBO(58, 58, 58, 1.0),
                           prefixIcon: const Icon(
                             Icons.search,
                             color: Colors.white,
@@ -111,9 +104,9 @@ class _SearchPlayListState extends State<SearchPlayList> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => SearchPage()));
+                            builder: (BuildContext context) => const SearchPage()));
                       },
-                      child: Text(
+                      child: const Text(
                         'Cancel',
                         style: TextStyle(
                           fontSize: 15,
@@ -123,18 +116,18 @@ class _SearchPlayListState extends State<SearchPlayList> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+                const Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10, top: 20),
                 ),
-                Text(
+                const Text(
                   'Recent searches',
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+                const Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10, top: 20),
                 ),
                 Expanded(
                   child: _showAsList ? _buildListView() : _buildGridView(),
