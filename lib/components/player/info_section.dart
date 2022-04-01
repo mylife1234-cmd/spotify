@@ -27,21 +27,32 @@ class InfoSection extends StatelessWidget {
             SizedBox(
               width: size.width * 0.75,
               child: Marquee(
-                child: Text(name,
-                    style: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.w700)),
+                child: Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 textDirection: TextDirection.ltr,
-                animationDuration: const Duration(milliseconds: 2000),
-                backDuration: const Duration(milliseconds: 2000),
-                pauseDuration: const Duration(milliseconds: 2000),
+                animationDuration: const Duration(milliseconds: 2500),
+                backDuration: const Duration(milliseconds: 2500),
+                pauseDuration: const Duration(milliseconds: 1500),
                 directionMarguee: DirectionMarguee.TwoDirection,
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                description,
-                style: const TextStyle(color: Colors.white54),
+              child: Marquee(
+                child: Text(
+                  description,
+                  style: const TextStyle(color: Colors.white54),
+                ),
+                textDirection: TextDirection.ltr,
+                animationDuration: const Duration(milliseconds: 2500),
+                backDuration: const Duration(milliseconds: 2500),
+                pauseDuration: const Duration(milliseconds: 1500),
+                directionMarguee: DirectionMarguee.TwoDirection,
               ),
             ),
           ],

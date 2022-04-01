@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:marquee_widget/marquee_widget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/player/favorite_button.dart';
@@ -26,11 +27,25 @@ class MiniPlayer extends StatelessWidget {
         color: color,
       ),
       child: ListTile(
-        title: Text(
-          song.name,
-          style: const TextStyle(fontWeight: FontWeight.w500),
+        title: Marquee(
+          child: Text(
+            song.name,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
+          textDirection: TextDirection.ltr,
+          animationDuration: const Duration(milliseconds: 1500),
+          backDuration: const Duration(milliseconds: 1500),
+          pauseDuration: const Duration(milliseconds: 1500),
+          directionMarguee: DirectionMarguee.TwoDirection,
         ),
-        subtitle: Text(song.description),
+        subtitle: Marquee(
+          child: Text(song.description),
+          textDirection: TextDirection.ltr,
+          animationDuration: const Duration(milliseconds: 1500),
+          backDuration: const Duration(milliseconds: 1500),
+          pauseDuration: const Duration(milliseconds: 1500),
+          directionMarguee: DirectionMarguee.TwoDirection,
+        ),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(5),
           child: Image.asset(song.coverUrl),
@@ -52,7 +67,7 @@ class MiniPlayer extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         dense: true,
         horizontalTitleGap: 12,
-        visualDensity: VisualDensity.comfortable,
+        visualDensity: VisualDensity.compact,
         minVerticalPadding: 12,
         onTap: () async {
           SystemChrome.setEnabledSystemUIMode(
