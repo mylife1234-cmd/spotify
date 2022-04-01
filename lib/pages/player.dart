@@ -17,13 +17,17 @@ class MusicPlayer extends StatelessWidget {
 
     var song = context.watch<MusicProvider>().currentSong;
 
+    final size = MediaQuery.of(context).size;
+
+    final padding = size.height / 33;
+
     return Scaffold(
       backgroundColor: color,
       body: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 20),
+            padding: EdgeInsets.only(top: padding),
             child: PlayerHeader(
               onDismissed: () {
                 Navigator.maybePop(context);
@@ -32,19 +36,21 @@ class MusicPlayer extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            padding:
+                EdgeInsets.symmetric(horizontal: 24, vertical: padding * 0.8),
             child: Image.asset(song.coverUrl),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: InfoSection(name: song.name, description: song.description),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-            child: MusicSlider(),
+          Padding(
+            padding: EdgeInsets.only(
+                left: 18, right: 18, top: padding * 0.6, bottom: padding * 0.2),
+            child: const MusicSlider(),
           ),
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 26, vertical: 0),
+            padding: EdgeInsets.symmetric(horizontal: 26),
             child: ControllerSection(),
           ),
           Padding(
