@@ -1,31 +1,10 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/providers/music_provider.dart';
 
-class MusicSlider extends StatefulWidget {
+class MusicSlider extends StatelessWidget {
   const MusicSlider({Key? key}) : super(key: key);
-
-  @override
-  State<MusicSlider> createState() => _MusicSliderState();
-}
-
-class _MusicSliderState extends State<MusicSlider> {
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-  }
-
-  @override
-  void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.top,
-      SystemUiOverlay.bottom,
-    ]);
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -44,7 +44,7 @@ class MusicPlayer extends StatelessWidget {
             child: ControllerSection(),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
+            padding: const EdgeInsets.only(left: 24, right: 22, bottom: 24),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

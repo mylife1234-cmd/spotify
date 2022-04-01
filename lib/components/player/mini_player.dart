@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/player/favorite_button.dart';
@@ -53,14 +54,24 @@ class MiniPlayer extends StatelessWidget {
         horizontalTitleGap: 12,
         visualDensity: VisualDensity.comfortable,
         minVerticalPadding: 12,
-        onTap: () {
-          showMaterialModalBottomSheet(
+        onTap: () async {
+          SystemChrome.setEnabledSystemUIMode(
+            SystemUiMode.manual,
+            overlays: [],
+          );
+
+          await showMaterialModalBottomSheet(
             context: context,
             builder: (context) {
               return const MusicPlayer();
             },
             duration: const Duration(milliseconds: 250),
           );
+
+          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+            SystemUiOverlay.top,
+            SystemUiOverlay.bottom,
+          ]);
         },
       ),
     );
