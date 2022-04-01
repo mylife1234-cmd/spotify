@@ -30,7 +30,7 @@ class InfoSection extends StatelessWidget {
                 child: Text(
                   name,
                   style: const TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

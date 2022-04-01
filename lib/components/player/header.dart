@@ -15,7 +15,6 @@ class PlayerHeader extends StatelessWidget {
       padding: const EdgeInsets.only(
         left: 15,
         right: 15,
-        top: 20,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
