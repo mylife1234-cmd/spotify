@@ -88,10 +88,17 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
                   );
                 },
                 onReorder: (int oldIndex, int newIndex) async {
-                  // setState(() {
-                  //   _queue.insert(currentIndex + 1 + index,
-                  //       _queue.removeAt(currentIndex + 1 + oldIndex));
-                  // });
+                  if (oldIndex < newIndex) newIndex -= 1;
+
+                  final item = playlist[currentIndex + 1 + oldIndex];
+
+                  context
+                      .read<MusicProvider>()
+                      .removeQueueItemAt(currentIndex + 1 + oldIndex);
+
+                  context
+                      .read<MusicProvider>()
+                      .insertQueueItem(currentIndex + 1 + newIndex, item);
                 },
               )
             ],

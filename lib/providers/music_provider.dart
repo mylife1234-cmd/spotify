@@ -279,6 +279,14 @@ class MusicProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  insertQueueItem(index, item) {
+    _audioHandler.insertQueueItem(index, item);
+  }
+
+  removeQueueItemAt(index) {
+    _audioHandler.removeQueueItemAt(index);
+  }
 }
 
 class ProgressState {
