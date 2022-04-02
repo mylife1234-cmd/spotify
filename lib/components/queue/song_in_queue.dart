@@ -32,7 +32,7 @@ class SongInQueue extends StatelessWidget {
         leading: Image.asset(song.coverUrl),
         trailing: ReorderableDragStartListener(
           index: index,
-          child: const Icon(CupertinoIcons.line_horizontal_3),
+          child: const Icon(CupertinoIcons.line_horizontal_3, size: 30,),
         ),
         contentPadding: EdgeInsets.zero,
         dense: true,
