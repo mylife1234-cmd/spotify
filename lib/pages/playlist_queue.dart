@@ -75,6 +75,7 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
               ReorderableListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
+                buildDefaultDragHandles: false,
                 itemCount: remainingQueue.length,
                 itemBuilder: (context, i) {
                   final newSong = remainingQueue[i];
@@ -84,7 +85,7 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
                       await context.read<MusicProvider>().playNewSong(newSong);
                     },
                     key: ValueKey(newSong),
-                    child: SongInQueue(song: newSong),
+                    child: SongInQueue(song: newSong, index:i,),
                   );
                 },
                 onReorder: (int oldIndex, int newIndex) async {
