@@ -12,9 +12,6 @@ class SongInQueue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      width: double.infinity,
       color: Colors.black,
       child: ListTile(
         title: Text(
@@ -30,10 +27,7 @@ class SongInQueue extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(5),
-          child: Image.asset(song.coverUrl),
-        ),
+        leading: Image.asset(song.coverUrl),
         trailing: const Icon(CupertinoIcons.line_horizontal_3),
         contentPadding: EdgeInsets.zero,
         dense: true,

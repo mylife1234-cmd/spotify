@@ -14,22 +14,23 @@ class PlaylistQueue extends StatefulWidget {
 }
 
 class _PlaylistQueueState extends State<PlaylistQueue> {
-  final List<Song> _currentPlaylist = songList
-      .map((song) => Song(song['title']!, song['desc']!, song['coverUrl']!))
-      .toList();
-
   @override
   Widget build(BuildContext context) {
+    var playlist = context.watch<MusicProvider>().currentPlaylist;
+
     var currentSong = context.watch<MusicProvider>().currentSong!;
-    int indexOfCurrentSong = _currentPlaylist
-        .indexWhere((element) => element.name == currentSong.name);
-    // print('name = ' + currentSong.name);
-    // print('index = ' + indexOfCurrentSong.toString());
+
+    final queue = playlist
+        .map((e) => Song(e.title, e.artist!, e.extras!['coverUrl']))
+        .toList();
+
+    final currentIndex = queue.indexWhere((e) => e.name == currentSong.name);
+
+    final remainingQueue = queue.sublist(currentIndex + 1);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        // backgroundColor: Colors.black,
         leading: IconButton(
           iconSize: 30,
           splashColor: Colors.transparent,
@@ -60,7 +61,7 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
                   ),
                 ),
               ),
-              PlayingSongTile(song: _currentPlaylist[indexOfCurrentSong]),
+              PlayingSongTile(song: currentSong),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 15),
                 child: Text(
@@ -72,48 +73,31 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
                 ),
               ),
               ReorderableListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount:
-                      _currentPlaylist.sublist(indexOfCurrentSong + 1).length,
-                  itemBuilder: (context, i) {
-                    final newSong =
-                        _currentPlaylist.sublist(indexOfCurrentSong + 1)[i];
-                    return InkWell(
-                      onTap: () async {
-                        await context
-                            .read<MusicProvider>()
-                            .playNewSong(findSong(newSong.name));
-                        setState(() {});
-                      },
-                      key: ValueKey(newSong),
-                      child: SongInQueue(song: newSong),
-                    );
-                  },
-                  onReorder: (int oldIndex, int newIndex) async{
-                    final index = newIndex > oldIndex ? newIndex - 1 : newIndex;
-                    setState(() {
-                      _currentPlaylist.insert(
-                          indexOfCurrentSong + 1 + index,
-                          _currentPlaylist
-                              .removeAt(indexOfCurrentSong + 1 + oldIndex));
-                    });
-                    // print('newIndex ' + newIndex.toString()
-                    //     + "   oldIndex" + oldIndex.toString());
-                    // if (newIndex > oldIndex) newIndex -= 1;
-                    // final Song song = _currentPlaylist.removeAt(oldIndex);
-                    // _currentPlaylist.insert(newIndex, song);
-                  })
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: remainingQueue.length,
+                itemBuilder: (context, i) {
+                  final newSong = remainingQueue[i];
+
+                  return GestureDetector(
+                    onTap: () async {
+                      await context.read<MusicProvider>().playNewSong(newSong);
+                    },
+                    key: ValueKey(newSong),
+                    child: SongInQueue(song: newSong),
+                  );
+                },
+                onReorder: (int oldIndex, int newIndex) async {
+                  // setState(() {
+                  //   _queue.insert(currentIndex + 1 + index,
+                  //       _queue.removeAt(currentIndex + 1 + oldIndex));
+                  // });
+                },
+              )
             ],
           ),
         ),
       ),
     );
   }
-  Song findSong(findName) {
-    final currentlyPlayingSong =
-        _currentPlaylist.firstWhere(((song) => song.name == findName));
-    return currentlyPlayingSong;
-  }
 }
-
