@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:spotify/components/library/grid_item.dart';
 import 'package:spotify/components/library/list_item.dart';
 import 'package:spotify/pages/playlist_view.dart';
-import 'package:spotify/pages/search.dart';
 import 'artist_view.dart';
 
 class SearchPlayList extends StatefulWidget {
@@ -58,7 +57,7 @@ class _SearchPlayListState extends State<SearchPlayList> {
   final bool _showAsList = true;
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -69,9 +68,10 @@ class _SearchPlayListState extends State<SearchPlayList> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 33,
+                      height: 36,
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: TextField(
                         textAlign: TextAlign.left,
@@ -85,27 +85,24 @@ class _SearchPlayListState extends State<SearchPlayList> {
                           hintText: 'Search',
                           hintStyle: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
-                          fillColor: const Color.fromRGBO(58, 58, 58, 1.0),
+                          fillColor: const Color.fromRGBO(36, 36, 36, 1.0),
                           prefixIcon: const Icon(
                             Icons.search,
                             color: Colors.white,
-                            size: 15.0,
+                            size: 20,
                           ),
                           contentPadding: EdgeInsets.zero,
                           filled: true,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                                color: Colors.black, width: 0.0),
+                            borderSide: BorderSide.none,
                           ),
                         ),
+                        cursorColor: const Color(0xff57b660),
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => const SearchPage()));
-                      },
+                      onTap: () => Navigator.pop(context),
                       child: const Text(
                         'Cancel',
                         style: TextStyle(

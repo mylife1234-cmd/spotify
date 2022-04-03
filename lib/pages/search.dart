@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/pages/search_playlist.dart';
+
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
+
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
-class _SearchPageState extends State<SearchPage>{
+
+class _SearchPageState extends State<SearchPage> {
+  final _focusNode = FocusNode();
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
@@ -31,31 +37,35 @@ class _SearchPageState extends State<SearchPage>{
                   ],
                 ),
               ),
-              GestureDetector(
-                child: SizedBox(
-                  height: 50,
-                  child: TextField(
-                    onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=> SearchPlayList()));
-                    },
-                    textAlign: TextAlign.left,
-                    style: const TextStyle(
-                      fontSize: 15.0,
+              SizedBox(
+                height: 45,
+                child: TextField(
+                  focusNode: _focusNode,
+                  onTap: () {
+                    _focusNode.unfocus();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return const SearchPlayList();
+                      }),
+                    );
+                  },
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Search for something',
+                    hintStyle: const TextStyle(color: Colors.black),
+                    fillColor: Colors.white,
+                    prefixIcon: const Icon(
+                      Icons.search,
                       color: Colors.black,
                     ),
-                    decoration: InputDecoration(
-                      hintText: 'Search for something',
-                      hintStyle: const TextStyle(color: Colors.black),
-                      fillColor: Colors.white,
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: Colors.black,
-                      ),
-                      contentPadding: EdgeInsets.zero,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                    contentPadding: EdgeInsets.zero,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),
@@ -78,7 +88,7 @@ class _SearchPageState extends State<SearchPage>{
                     GridView.builder(
                       itemCount: listMusic.length,
                       gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 1.75,
                         mainAxisSpacing: 15,
@@ -90,7 +100,7 @@ class _SearchPageState extends State<SearchPage>{
                         final item = listMusic[index];
 
                         final colorValues =
-                        item['colors']!.split(', ').map((e) {
+                            item['colors']!.split(', ').map((e) {
                           return int.parse(e);
                         });
 
@@ -101,7 +111,7 @@ class _SearchPageState extends State<SearchPage>{
                                 begin: Alignment.topLeft,
                                 end: const Alignment(0.8, 0.0),
                                 colors:
-                                colorValues.map((e) => Color(e)).toList(),
+                                    colorValues.map((e) => Color(e)).toList(),
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -129,7 +139,7 @@ class _SearchPageState extends State<SearchPage>{
                                   right: -20,
                                   child: RotationTransition(
                                     turns:
-                                    const AlwaysStoppedAnimation(25 / 360),
+                                        const AlwaysStoppedAnimation(25 / 360),
                                     child: Image.asset(
                                       item['image']!,
                                       height: 80,
@@ -156,7 +166,7 @@ class _SearchPageState extends State<SearchPage>{
                     GridView.builder(
                       itemCount: listMusic1.length,
                       gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 1.75,
                         mainAxisSpacing: 15,
@@ -167,7 +177,7 @@ class _SearchPageState extends State<SearchPage>{
                       itemBuilder: (BuildContext context, int index) {
                         final item1 = listMusic1[index];
                         final colorValues =
-                        item1['colors']!.split(', ').map((e) {
+                            item1['colors']!.split(', ').map((e) {
                           return int.parse(e);
                         });
 
@@ -178,7 +188,7 @@ class _SearchPageState extends State<SearchPage>{
                                 begin: Alignment.topLeft,
                                 end: const Alignment(0.8, 0.0),
                                 colors:
-                                colorValues.map((e) => Color(e)).toList(),
+                                    colorValues.map((e) => Color(e)).toList(),
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -206,7 +216,7 @@ class _SearchPageState extends State<SearchPage>{
                                   right: -20,
                                   child: RotationTransition(
                                     turns:
-                                    const AlwaysStoppedAnimation(25 / 360),
+                                        const AlwaysStoppedAnimation(25 / 360),
                                     child: Image.asset(
                                       item1['image']!,
                                       height: 80,
@@ -274,5 +284,4 @@ final listMusic1 = [
     'image': "assets/images/home/latata.jpg",
     "colors": '0xFFBA68C8, 0xFFBA68C8'
   },
-
 ];

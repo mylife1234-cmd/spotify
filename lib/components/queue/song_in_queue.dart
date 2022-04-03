@@ -6,10 +6,14 @@ import '../../models/song.dart';
 import '../../providers/music_provider.dart';
 
 class SongInQueue extends StatelessWidget {
-  const SongInQueue({Key? key, required this.song, required this.index})
-      : super(key: key);
+  const SongInQueue({
+    Key? key,
+    required this.song,
+    required this.index,
+  }) : super(key: key);
   final Song song;
   final int index;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +36,7 @@ class SongInQueue extends StatelessWidget {
         leading: Image.asset(song.coverUrl),
         trailing: ReorderableDragStartListener(
           index: index,
-          child: const Icon(CupertinoIcons.line_horizontal_3, size: 30,),
+          child: const Icon(CupertinoIcons.line_horizontal_3, size: 30),
         ),
         contentPadding: EdgeInsets.zero,
         dense: true,
