@@ -44,9 +44,17 @@ class _SearchPageState extends State<SearchPage> {
                   onTap: () {
                     _focusNode.unfocus();
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (BuildContext context) {
-                        return const SearchPlayList();
-                      }),
+                      PageRouteBuilder(
+                        pageBuilder: (context, a1, a2) {
+                          return const SearchPlayList();
+                        },
+                        transitionsBuilder: (context, a1, a2, child) {
+                          return FadeTransition(opacity: a1, child: child);
+                        },
+                        transitionDuration: const Duration(milliseconds: 175),
+                        reverseTransitionDuration:
+                            const Duration(milliseconds: 125),
+                      ),
                     );
                   },
                   textAlign: TextAlign.left,

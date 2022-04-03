@@ -7,7 +7,9 @@ import '../models/song.dart';
 import '../providers/music_provider.dart';
 
 class PlaylistQueue extends StatefulWidget {
-  const PlaylistQueue({Key? key, song}) : super(key: key);
+  const PlaylistQueue({Key? key, song, this.title}) : super(key: key);
+
+  final String? title;
 
   @override
   _PlaylistQueueState createState() => _PlaylistQueueState();
@@ -32,16 +34,16 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         leading: IconButton(
-          iconSize: 30,
+          iconSize: 24,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.keyboard_arrow_down),
+          icon: const Icon(Icons.close),
         ),
         title: Text(
-          "Playlist",
+          widget.title ?? 'Playlist',
           style: Theme.of(context).textTheme.headline6,
         ),
       ),
@@ -85,7 +87,7 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
                       await context.read<MusicProvider>().playNewSong(newSong);
                     },
                     key: ValueKey(newSong),
-                    child: SongInQueue(song: newSong, index:i,),
+                    child: SongInQueue(song: newSong, index: i),
                   );
                 },
                 onReorder: (int oldIndex, int newIndex) async {
