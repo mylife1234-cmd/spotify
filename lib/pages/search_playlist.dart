@@ -12,8 +12,6 @@ class SearchPlayList extends StatefulWidget {
 }
 
 class _SearchPlayListState extends State<SearchPlayList> {
-  final filterOptions = [];
-
   List playlists = [
     {
       'title': 'Liked Songs',
@@ -53,6 +51,7 @@ class _SearchPlayListState extends State<SearchPlayList> {
     },
   ];
   List recentSearch = [];
+  List searchRecent = [];
   String searchString = "";
   final bool _showAsList = true;
 
