@@ -17,19 +17,13 @@ class SettingsButton extends StatelessWidget {
         Icons.settings,
         size: size,
       ),
-      onTap: () async {
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-          SystemUiOverlay.top,
-        ]);
-
-        await Navigator.push(
+      onTap: () {
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const SettingsPage(),
-          ),
+            ),
         );
-
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
       },
     );
   }

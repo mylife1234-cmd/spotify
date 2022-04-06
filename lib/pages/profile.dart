@@ -65,7 +65,7 @@ class _ProfilePagetState extends State<ProfilePage> {
             centerTitle: true,
             backgroundColor: Colors.black,
             leading: GestureDetector(
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
                 size: 15,
@@ -74,7 +74,7 @@ class _ProfilePagetState extends State<ProfilePage> {
                 Navigator.pop(context);
               },
             ),
-            actions: [
+            actions: const [
               Icon(Icons.more_vert),
             ],
           ),
@@ -84,35 +84,35 @@ class _ProfilePagetState extends State<ProfilePage> {
             padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
             child: Column(
               children: <Widget>[
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 40,
                   backgroundImage: AssetImage('assets/images/den-vau.jpeg'),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
-                Text(
+                const Text(
                   "My Profile",
                   style: TextStyle(color: Colors.white, fontSize: 15.0, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 10),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20, right: 10),
                   child: FilterButton(
                     title: "Edit profile",
                     active: false,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 Row(
                   children: <Widget>[
                     Expanded(
                       child: Column(
-                        children: <Widget>[
+                        children: const <Widget>[
                           Text(
                             "20",
                             style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold),
@@ -132,7 +132,7 @@ class _ProfilePagetState extends State<ProfilePage> {
                     ),
                     Expanded(
                       child: Column(
-                        children: <Widget>[
+                        children: const <Widget>[
                           Text(
                             "12",
                             style: TextStyle(color: Colors.white, fontSize: 13.0,fontWeight: FontWeight.bold),
@@ -152,17 +152,17 @@ class _ProfilePagetState extends State<ProfilePage> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
-                Text(
+                const Text(
                   "Playlists",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 Expanded(

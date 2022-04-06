@@ -23,7 +23,7 @@ class SettingTile extends StatelessWidget {
       child: ListTile(
         title: Text(
           song.name,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight:FontWeight.bold,
             color: Colors.white,
             fontSize: 16
@@ -48,7 +48,7 @@ class SettingTile extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
               //return const SearchPlayList();
-              return  ProfilePage();
+              return  const ProfilePage();
             }),
           );
         },

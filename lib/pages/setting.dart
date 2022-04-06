@@ -20,7 +20,7 @@ class _SettingsPageState extends State<SettingsPage> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(50.0), // here the desired height
           child: AppBar(
-            title: Text(
+            title: const Text(
               'Settings',
               style: TextStyle(
                 fontSize: 18,
@@ -30,7 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
             centerTitle: true,
             backgroundColor: Colors.black,
             leading: GestureDetector(
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
                 size: 15,
@@ -70,15 +70,15 @@ class _SettingsPageState extends State<SettingsPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Account',
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, bottom: 10),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 10, bottom: 10),
                             child: ListTile(
                               title: Text(
                                 "Email",
@@ -100,7 +100,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               contentPadding: EdgeInsets.zero,
                             ),
                           ),
-                          Text(
+                          const Text(
                             'Data Saver',
                             style: TextStyle(
                               fontSize: 15,
@@ -110,7 +110,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           Padding(
                             padding: const EdgeInsets.only(top: 10, bottom: 10),
                             child: ListTile(
-                              title: Text(
+                              title: const Text(
                                 "Audio Quality",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -119,7 +119,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                               ),
-                              subtitle: Text(
+                              subtitle: const Text(
                                 "Sets your audio quality to low (equivalend to 24kbit/s) and dissable artist",
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -141,15 +141,15 @@ class _SettingsPageState extends State<SettingsPage> {
                               contentPadding: EdgeInsets.zero,
                             ),
                           ),
-                          Text(
+                          const Text(
                             'Playback',
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5, bottom: 5),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 5, bottom: 5),
                             child: ListTile(
                               title: Text(
                                 "Crossfade",
@@ -171,21 +171,21 @@ class _SettingsPageState extends State<SettingsPage> {
                               contentPadding: EdgeInsets.zero,
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 10,
                             child: SliderTheme(
                               data: SliderThemeData(
                                 thumbColor: Colors.green,
-                                thumbShape: RoundSliderThumbShape(
+                                thumbShape: const RoundSliderThumbShape(
                                     enabledThumbRadius: 5),
                                 activeTrackColor: Colors.green.shade200,
                                 inactiveTrackColor: Colors.grey,
                               ),
                               child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 0),
+                                margin: const EdgeInsets.symmetric(horizontal: 0),
                                 child: Row(
                                   children: [
-                                    Container(
+                                    const SizedBox(
                                       width: 15,
                                       child: Text(
                                         "Off",
@@ -206,11 +206,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                             setState(() => valueBottom = value),
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 15,
                                       child: Text(
                                         max.round().toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.bold),
                                       ),
