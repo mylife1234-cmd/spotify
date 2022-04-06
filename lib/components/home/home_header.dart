@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify/components/home/settings_button.dart';
 import "package:spotify/pages/setting.dart";
 class HomeHeader extends StatelessWidget {
   const HomeHeader({Key? key}) : super(key: key);
@@ -14,13 +15,12 @@ class HomeHeader extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(Icons.notifications),
+            children: const [
+              Icon(Icons.notifications, ),
               SizedBox(width: 15),
               Icon(Icons.history),
               SizedBox(width: 15),
-              //Icon(Icons.settings,),
-              IconButton(onPressed:(){_onSearchButtonPressed(context);} , icon: Icon(Icons.settings,))
+              SettingsButton(size: 24)
             ],
           )
         ],
@@ -28,12 +28,3 @@ class HomeHeader extends StatelessWidget {
     );
   }
 }
-void _onSearchButtonPressed(BuildContext context) {
-  Navigator.of(context).push(
-    MaterialPageRoute(builder: (BuildContext context) {
-      //return const SearchPlayList();
-      return const SettingsPage();
-    }),
-  );
-}
-
