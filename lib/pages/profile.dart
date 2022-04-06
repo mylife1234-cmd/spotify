@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:spotify/components/library/grid_item.dart';
 import 'package:spotify/components/library/list_item.dart';
 import 'package:spotify/pages/playlist_view.dart';
 import 'artist_view.dart';
 import 'package:spotify/components/library/filter_button.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
@@ -50,126 +50,120 @@ class _ProfilePagetState extends State<ProfilePage> {
       'type': 'artist'
     },
   ];
-  List recentSearch = [];
-  List searchRecent = [];
-  String searchString = "";
-  final bool _showAsList = true;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50.0), // here the desired height
-          child: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.black,
-            leading: GestureDetector(
-              child: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-                size: 15,
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.black,
+          leading: GestureDetector(
+            child: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+              size: 20,
             ),
-            actions: const [
-              Icon(Icons.more_vert),
-            ],
+            onTap: () {
+              Navigator.pop(context);
+            },
           ),
+          actions: const [
+            Icon(Icons.more_horiz),
+          ],
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
-            child: Column(
-              children: <Widget>[
-                const CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('assets/images/den-vau.jpeg'),
+        body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: <Widget>[
+              const CircleAvatar(
+                radius: 40,
+                backgroundImage: AssetImage('assets/images/den-vau.jpeg'),
+              ),
+              const SizedBox(height: 10.0),
+              const Text(
+                "My Profile",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(
-                  height: 10.0,
+              ),
+              const SizedBox(height: 10.0),
+              const Padding(
+                padding: EdgeInsets.only(left: 20, right: 10),
+                child: FilterButton(
+                  title: "Edit profile",
+                  active: false,
                 ),
-                const Text(
-                  "My Profile",
-                  style: TextStyle(color: Colors.white, fontSize: 15.0, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20, right: 10),
-                  child: FilterButton(
-                    title: "Edit profile",
-                    active: false,
+              ),
+              const SizedBox(height: 10.0),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      children: const <Widget>[
+                        Text(
+                          "20",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Text(
+                          "Followers",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        children: const <Widget>[
-                          Text(
-                            "20",
-                            style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Column(
+                      children: const <Widget>[
+                        Text(
+                          "12",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13.0,
+                            fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(
-                            height: 5.0,
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Text(
+                          "Follow",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13.0,
+                            fontWeight: FontWeight.bold,
                           ),
-                          Text(
-                            "Followers",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: Column(
-                        children: const <Widget>[
-                          Text(
-                            "12",
-                            style: TextStyle(color: Colors.white, fontSize: 13.0,fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Text(
-                            "Follow",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10.0),
+              const Text(
+                "Playlists",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                const Text(
-                  "Playlists",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                Expanded(
-                  child: _showAsList ? _buildListView() : _buildGridView(),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 10.0),
+              Expanded(child: _buildListView()),
+            ],
           ),
         ),
       ),
@@ -195,55 +189,18 @@ class _ProfilePagetState extends State<ProfilePage> {
               MaterialPageRoute(
                 builder: (context) => item['type'] == 'playlist'
                     ? PlaylistView(
-                  image: AssetImage(item['cover']),
-                  label: item['title'],
-                )
+                        image: AssetImage(item['cover']),
+                        label: item['title'],
+                      )
                     : ArtistView(
-                  image: AssetImage(item['cover']),
-                  label: item['title'],
-                ),
+                        image: AssetImage(item['cover']),
+                        label: item['title'],
+                      ),
               ),
             );
           },
         );
       },
-    );
-  }
-
-  _buildGridView() {
-    return GridView.count(
-      crossAxisCount: 2,
-      crossAxisSpacing: 15,
-      mainAxisSpacing: 15,
-      childAspectRatio: 0.75,
-      children: playlists
-          .map(
-            (item) => GestureDetector(
-          child: GridItem(
-            title: item['title']!,
-            subtitle: item['subtitle']!,
-            coverUrl: item['cover']!,
-            isSquareCover: item['type']! == 'playlist',
-          ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => item['type'] == 'playlist'
-                    ? PlaylistView(
-                  image: AssetImage(item['cover']),
-                  label: item['title'],
-                )
-                    : ArtistView(
-                  image: AssetImage(item['cover']),
-                  label: item['title'],
-                ),
-              ),
-            );
-          },
-        ),
-      )
-          .toList(),
     );
   }
 }
