@@ -1,4 +1,6 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +23,8 @@ void main() async {
   );
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
 
   getIt.registerSingleton<AudioHandler>(await initAudioService());
 
@@ -77,15 +81,26 @@ class _MainState extends State<Main> {
 
   int _currentIndex = 0;
 
-  bool authenticated = true;
+  bool authenticated = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      setState(() {
+        authenticated = user != null;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    var _currentSong = context.watch<MusicProvider>().currentSong;
+
     if (!authenticated) {
       return const StartPage();
     }
-
-    var _currentSong = context.watch<MusicProvider>().currentSong;
 
     return CupertinoTabScaffold(
       controller: _tabController,
