@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:spotify/components/actions/action_button.dart';
-import 'package:spotify/components/actions/profile_button.dart';
 
 import '../../models/song.dart';
-import '../../providers/music_provider.dart';
 import 'package:spotify/pages/profile.dart';
+
 class SettingTile extends StatelessWidget {
   const SettingTile({Key? key, required this.song}) : super(key: key);
   final Song song;
 
   @override
   Widget build(BuildContext context) {
-    var currentSong = context.watch<MusicProvider>().currentSong;
-
-    final isCurrent = currentSong!.name == song.name;
-
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       width: double.infinity,
@@ -24,9 +17,9 @@ class SettingTile extends StatelessWidget {
         title: Text(
           song.name,
           style: const TextStyle(
-            fontWeight:FontWeight.bold,
+            fontWeight: FontWeight.bold,
             color: Colors.white,
-            fontSize: 16
+            fontSize: 16,
           ),
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
@@ -36,10 +29,8 @@ class SettingTile extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
-        leading:CircleAvatar(
-          backgroundImage:AssetImage(song.coverUrl),
-        ),
-        trailing: ProfileButton(song: song, size: 19),
+        leading: CircleAvatar(backgroundImage: AssetImage(song.coverUrl)),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 19),
         contentPadding: EdgeInsets.zero,
         dense: true,
         visualDensity: VisualDensity.standard,
@@ -48,7 +39,7 @@ class SettingTile extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
               //return const SearchPlayList();
-              return  const ProfilePage();
+              return const ProfilePage();
             }),
           );
         },
