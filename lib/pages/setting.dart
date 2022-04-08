@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify/components/auth/next_button.dart';
 import '../models/song.dart';
 import 'package:spotify/components/setting/setting_info.dart';
 
@@ -53,7 +55,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: songList.map((item) {
                     return SettingTile(
                       song: Song(
-                          item['title']!, item['desc']!, item['coverUrl']!),
+                        FirebaseAuth.instance.currentUser!.displayName!,
+                        item['desc']!,
+                        item['coverUrl']!,
+                      ),
                     );
                   }).toList(),
                 ),
@@ -218,6 +223,18 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 50),
+                child: Center(
+                  child: NextButton(
+                    label: 'Log out',
+                    color: Colors.white,
+                    onTap: () async {
+                      await FirebaseAuth.instance.signOut();
+                    },
+                  ),
+                ),
+              )
             ],
           ),
         ),
