@@ -81,6 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             results[option['name']!] = value;
                           }),
                           helperText: option['helper'],
+                          obscure: option['name'] == 'password',
                         ),
                       );
                     }).toList(),
