@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:spotify/components/auth/login_button.dart';
 import 'package:spotify/pages/login.dart';
-import 'package:spotify/pages/signup.dart';
+import 'package:spotify/pages/reset_password.dart';
+import 'package:spotify/pages/sign_up.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -108,33 +109,24 @@ class StartPage extends StatelessWidget {
                     },
                   ),
                   LoginButton(
-                    text: 'Continue with Facebook',
-                    color: Colors.black,
-                    textColor: Colors.white,
-                    borderColor: Colors.white,
-                    leadingIcon: Positioned(
-                      top: 13,
-                      left: 12,
-                      child: Image.asset(
-                        'assets/images/brands/facebook.png',
-                        width: 26,
-                      ),
-                    ),
-                  ),
-                  LoginButton(
-                    text: 'Continue with Apple',
+                    text: 'Reset password',
                     color: Colors.black,
                     textColor: Colors.white,
                     borderColor: Colors.white,
                     margin: const EdgeInsets.only(bottom: 5),
-                    leadingIcon: Positioned(
-                      top: 11,
-                      left: 15,
-                      child: Image.asset(
-                        'assets/images/brands/apple.png',
-                        width: 21,
-                      ),
+                    leadingIcon: const Positioned(
+                      top: 13,
+                      left: 14,
+                      child: Icon(Icons.password),
                     ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return const ResetPasswordPage();
+                        }),
+                      );
+                    },
                   ),
                   LoginButton(
                     text: 'Log in',

@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Login',
+          'Log in',
           style: TextStyle(fontWeight: FontWeight.w800),
         ),
         backgroundColor: Colors.black,
@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               InputField(
-                label: 'Email or username',
+                label: 'Email',
                 onChanged: (value) => setState(() {
                   _email = value;
                 }),
@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 50),
               NextButton(
-                label: 'Login',
+                label: 'Log in',
                 color: (_email.isNotEmpty && _password.isNotEmpty)
                     ? Colors.white
                     : const Color(0xff4d4d4d),
