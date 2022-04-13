@@ -5,6 +5,7 @@ import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/share/song_info.dart';
+import 'package:spotify/main.dart';
 import 'package:spotify/pages/share_page.dart';
 
 import '../models/song.dart';
@@ -22,6 +23,8 @@ class SongAction extends StatefulWidget {
 
 class _SongActionState extends State<SongAction> {
   Color _color = Colors.black;
+
+  final homeContext = getIt.get<BuildContext>(instanceName: 'homeContext');
 
   @override
   void initState() {
@@ -46,7 +49,7 @@ class _SongActionState extends State<SongAction> {
           size: 22,
           color: isFavorite ? Colors.green : Colors.white,
         ),
-        () => _doActionLike(context),
+        () => _doActionLike(),
       ),
       Action(
         'Share',
@@ -54,7 +57,7 @@ class _SongActionState extends State<SongAction> {
           Icons.ios_share,
           size: 22,
         ),
-        () => _doActionShare(context),
+        () => _doActionShare(),
       ),
       Action(
         'View artist',
@@ -62,7 +65,7 @@ class _SongActionState extends State<SongAction> {
           CupertinoIcons.person,
           size: 22,
         ),
-        () => _doActionViewArtist(context),
+        () => _doActionViewArtist(),
       ),
       Action(
         'Add to playlist',
@@ -86,7 +89,7 @@ class _SongActionState extends State<SongAction> {
           CupertinoIcons.music_albums,
           size: 22,
         ),
-        () => _doActionViewAlbum(context),
+        () => _doActionViewAlbum(),
       )
     ];
 
@@ -160,32 +163,37 @@ class _SongActionState extends State<SongAction> {
     );
   }
 
-  _doActionLike(BuildContext context) {
+  _doActionLike() {
     context.read<MusicProvider>().toggleFavorite();
   }
 
-  _doActionShare(BuildContext context) {
+  _doActionShare() {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SharePage(
-            song: widget.song,
-          ),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => SharePage(
+          song: widget.song,
+        ),
+      ),
+    );
   }
 
   _doActionAddToQueue() {}
 
   _doActionAddPlaylist() {}
 
-  _doActionViewAlbum(BuildContext context) {
+  _doActionViewAlbum() async {
+    Navigator.popUntil(homeContext, (route) => route.isFirst);
+
+    Navigator.popUntil(context, (route) => route.isFirst);
+
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
       SystemUiOverlay.top,
       SystemUiOverlay.bottom,
     ]);
 
-    Navigator.push(
-      context,
+    await Navigator.push(
+      homeContext,
       MaterialPageRoute(
         builder: (context) => AlbumView(
           image: AssetImage(widget.song.coverUrl),
@@ -199,14 +207,18 @@ class _SongActionState extends State<SongAction> {
     ]);
   }
 
-  _doActionViewArtist(BuildContext context) {
+  _doActionViewArtist() {
+    Navigator.popUntil(homeContext, (route) => route.isFirst);
+
+    Navigator.popUntil(context, (route) => route.isFirst);
+
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
       SystemUiOverlay.top,
       SystemUiOverlay.bottom,
     ]);
 
     Navigator.push(
-      context,
+      homeContext,
       MaterialPageRoute(
         builder: (context) => ArtistView(
           image: AssetImage(widget.song.coverUrl),

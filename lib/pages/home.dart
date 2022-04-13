@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:spotify/components/home/album_card.dart';
 import 'package:spotify/components/home/home_header.dart';
 
+import '../main.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -10,6 +12,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    getIt.registerSingleton<BuildContext>(context, instanceName: 'homeContext');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
