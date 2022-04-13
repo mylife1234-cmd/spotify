@@ -1,206 +1,189 @@
 import 'package:flutter/material.dart';
-import 'package:spotify/components/library/list_item.dart';
-import 'package:spotify/pages/playlist_view.dart';
-import 'artist_view.dart';
-import 'package:spotify/components/library/filter_button.dart';
+import 'package:palette_generator/palette_generator.dart';
+import 'package:spotify/components/profile/profile_component.dart';
+import 'package:spotify/components/album/animate_label.dart';
+import 'package:spotify/components/profile/profile_image.dart';
+import 'package:spotify/components/album/song_tile.dart';
+import 'package:spotify/components/artist/back_button.dart';
+import '../models/song.dart';
+import '../providers/music_provider.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  final AssetImage image;
+  final String label;
+
+  const ProfilePage({Key? key, required this.image, required this.label})
+      : super(key: key);
 
   @override
-  State<ProfilePage> createState() => _ProfilePagetState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePagetState extends State<ProfilePage> {
-  List playlists = [
-    {
-      'title': 'Liked Songs',
-      'subtitle': 'Playlist',
-      'cover': 'assets/images/favorite.png',
-      'type': 'playlist'
-    },
-    {
-      'title': 'Đen',
-      'subtitle': 'Artist',
-      'cover': 'assets/images/den-vau.jpeg',
-      'type': 'artist'
-    },
-    {
-      'title': 'Charlie Puth',
-      'subtitle': 'Artist',
-      'cover': 'assets/images/charlie-puth.jpeg',
-      'type': 'artist'
-    },
-    {
-      'title': 'Billie Eilish',
-      'subtitle': 'Artist',
-      'cover': 'assets/images/billie-eilish.jpeg',
-      'type': 'artist'
-    },
-    {
-      'title': 'Bích Phương',
-      'subtitle': 'Artist',
-      'cover': 'assets/images/bich-phuong.jpeg',
-      'type': 'artist'
-    },
-    {
-      'title': 'Maroon 5',
-      'subtitle': 'Artist',
-      'cover': 'assets/images/maroon5.jpeg',
-      'type': 'artist'
-    },
-  ];
+class _ProfilePageState extends State<ProfilePage> {
+  late ScrollController scrollController;
+  double imageSize = 0;
+  double initialImageSize = 150;
+  double containerHeight = 300;
+  double containerInitialHeight = 300;
+  double imageOpacity = 1;
+  bool showTopBar = false;
+
+  Color _color = Colors.black;
+
+  @override
+  void initState() {
+    imageSize = initialImageSize;
+    scrollController = ScrollController()
+      ..addListener(() {
+        imageSize = initialImageSize - scrollController.offset;
+        if (imageSize < 0) {
+          imageSize = 0;
+        }
+        containerHeight = containerInitialHeight - scrollController.offset;
+        if (containerHeight < 0) {
+          containerHeight = 0;
+        }
+        imageOpacity = imageSize / initialImageSize;
+        if (scrollController.offset > 150) {
+          showTopBar = true;
+        } else {
+          showTopBar = false;
+        }
+        // print(imageSize);
+        setState(() {});
+      });
+    super.initState();
+    PaletteGenerator.fromImageProvider(widget.image).then((generator) {
+      setState(() {
+        _color = generator.mutedColor!.color;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.black,
-          leading: GestureDetector(
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: 20,
-            ),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          actions: const [
-            Icon(Icons.more_horiz),
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: <Widget>[
-              const CircleAvatar(
-                radius: 40,
-                backgroundImage: AssetImage('assets/images/den-vau.jpeg'),
-              ),
-              const SizedBox(height: 10.0),
-              const Text(
-                "My Profile",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10.0),
-              const Padding(
-                padding: EdgeInsets.only(left: 20, right: 10),
-                child: FilterButton(
-                  title: "Edit profile",
-                  active: false,
-                ),
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      children: const <Widget>[
-                        Text(
-                          "20",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
-                        Text(
-                          "Followers",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: const <Widget>[
-                        Text(
-                          "12",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
-                        Text(
-                          "Follow",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            height: 300,
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  _color.withOpacity(1),
+                  _color.withOpacity(0.7),
+                  _color.withOpacity(0.5),
+                  _color.withOpacity(0.3),
+                  // Colors.black.withOpacity(0.1),
+                  // Colors.transparent,
+                  Colors.black.withOpacity(0.5),
+                  Colors.black.withOpacity(1),
                 ],
               ),
-              const SizedBox(height: 10.0),
-              const Text(
-                "Playlists",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
+            ),
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 19,
+                ),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 10),
+                    child: ProfileImage(
+                      imageOpacity: imageOpacity,
+                      imageSize: imageSize,
+                      image: widget.image,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SafeArea(
+            child: SingleChildScrollView(
+              controller: scrollController,
+              scrollDirection: Axis.vertical,
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          _color.withOpacity(0),
+                          _color.withOpacity(0),
+                          _color.withOpacity(0),
+                        ],
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 150),
+                          ProfileComponent(label: widget.label),
+                        ],
+                      ),
+                    ),
+                  ),
+                  _buildListSong(),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              color: showTopBar ? _color.withOpacity(1) : _color.withOpacity(0),
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+              child: SafeArea(
+                child: SizedBox(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width,
+                  // alignment: Alignment.center,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.center,
+                    children: [
+                      const Positioned(
+                        left: -5,
+                        child: BackIconButton(),
+                      ),
+                      AnimateLabel(label: widget.label, isShow: showTopBar),
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(height: 10.0),
-              Expanded(child: _buildListView()),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
+}
 
-  _buildListView() {
-    return ListView.builder(
-      itemCount: playlists.length,
-      itemBuilder: (context, index) {
-        final item = playlists[index];
-
-        return GestureDetector(
-          child: ListItem(
-            title: item['title']!,
-            subtitle: item['subtitle']!,
-            coverUrl: item['cover']!,
-            isSquareCover: item['type']! == 'playlist',
-          ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => item['type'] == 'playlist'
-                    ? PlaylistView(
-                        image: AssetImage(item['cover']),
-                        label: item['title'],
-                      )
-                    : ArtistView(
-                        image: AssetImage(item['cover']),
-                        label: item['title'],
-                      ),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
+_buildListSong() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: songList.map((item) {
+      return SongTile(
+        song: Song(item['title']!, item['desc']!, item['coverUrl']!),
+      );
+    }).toList(),
+  );
 }
