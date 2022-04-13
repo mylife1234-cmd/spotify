@@ -29,7 +29,10 @@ class NextButton extends StatelessWidget {
           ),
         ),
       ),
-      onTap: onTap,
+      onTap: () {
+        onTap!();
+        FocusScope.of(context).unfocus();
+      },
     );
   }
 }

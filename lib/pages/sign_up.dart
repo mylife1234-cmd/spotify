@@ -146,6 +146,8 @@ class _SignUpPageState extends State<SignUpPage> {
       });
 
       carouselController.previousPage();
+
+      FocusScope.of(context).unfocus();
     }
   }
 
