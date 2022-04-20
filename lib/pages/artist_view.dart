@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:palette_generator/palette_generator.dart';
 import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/shuffle_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/artist_component.dart';
 import 'package:spotify/components/artist/back_button.dart';
+
 import '../components/album/animate_label.dart';
 import '../components/album/opacity_image.dart';
 import '../models/song.dart';
-import 'package:palette_generator/palette_generator.dart';
-
 import '../providers/music_provider.dart';
 
 class ArtistView extends StatefulWidget {
-  final AssetImage image;
-  final String label;
-
   const ArtistView({Key? key, required this.image, required this.label})
       : super(key: key);
+
+  final AssetImage image;
+  final String label;
 
   @override
   State<ArtistView> createState() => _ArtistViewState();
@@ -113,7 +113,6 @@ class _ArtistViewState extends State<ArtistView> {
           SafeArea(
             child: SingleChildScrollView(
               controller: scrollController,
-              scrollDirection: Axis.vertical,
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
@@ -133,7 +132,6 @@ class _ArtistViewState extends State<ArtistView> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(height: initialImageSize),
                           ArtistComponent(label: widget.label),
@@ -189,7 +187,7 @@ class _ArtistViewState extends State<ArtistView> {
   }
 }
 
-_buildListSong() {
+Widget _buildListSong() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: songList.map((item) {

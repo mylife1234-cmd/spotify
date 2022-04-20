@@ -22,11 +22,11 @@ class PlayerHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
+            onTap: onDismissed,
             child: const Icon(
               Icons.keyboard_arrow_down,
               size: 30,
             ),
-            onTap: onDismissed,
           ),
           const Text(
             'Playlist 1',
@@ -36,7 +36,7 @@ class PlayerHeader extends StatelessWidget {
             song: song,
             size: 20,
             onPressed: () async {
-              SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+              await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
                   overlays: [
                     SystemUiOverlay.top,
                   ]);
@@ -50,7 +50,7 @@ class PlayerHeader extends StatelessWidget {
                 ),
               );
 
-              SystemChrome.setEnabledSystemUIMode(
+              await SystemChrome.setEnabledSystemUIMode(
                 SystemUiMode.manual,
                 overlays: [],
               );

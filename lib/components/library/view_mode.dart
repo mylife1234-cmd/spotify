@@ -19,11 +19,8 @@ class ViewModeSection extends StatelessWidget {
 
   final int? sortOption;
 
-  final sortOptions = const [
-    'Recently played',
-    'Recently added',
-    'Alphabetical'
-  ];
+  List<String> get sortOptions =>
+      const ['Recently played', 'Recently added', 'Alphabetical'];
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,7 @@ class ViewModeSection extends StatelessWidget {
             children: [
               const Icon(CupertinoIcons.arrow_up_arrow_down, size: 14),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
                   sortOptions[sortOption!],
                   style: const TextStyle(fontSize: 13),
@@ -125,15 +122,17 @@ class ViewModeSection extends StatelessWidget {
               duration: const Duration(milliseconds: 250),
             );
 
-            if (opt != null) handleSortOption!(opt);
+            if (opt != null) {
+              handleSortOption!(opt);
+            }
           },
         ),
         GestureDetector(
+          onTap: handleViewMode,
           child: Icon(
             showAsList! ? Icons.dashboard_outlined : Icons.format_list_bulleted,
             size: 18,
           ),
-          onTap: handleViewMode,
         )
       ],
     );

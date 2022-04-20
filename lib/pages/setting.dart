@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spotify/components/auth/next_button.dart';
-import '../models/song.dart';
-import '../models/setting.dart';
 import 'package:spotify/components/setting/setting_info.dart';
 import 'package:spotify/components/setting/setting_title.dart';
+
+import '../models/setting.dart';
+import '../models/song.dart';
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -42,13 +43,12 @@ class _SettingsPageState extends State<SettingsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SettingInfo(
                 song: Song(
                   FirebaseAuth.instance.currentUser!.displayName!,
-                  "View Profile",
-                  "assets/images/den-vau.jpeg",
+                  'View Profile',
+                  'assets/images/den-vau.jpeg',
                 ),
               ),
               Padding(
@@ -56,7 +56,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     const EdgeInsets.symmetric(vertical: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children:songList.map((item) {
                     return SettingList(
                       song: SettingTitle(

@@ -111,7 +111,6 @@ class _PlaylistViewState extends State<PlaylistView> {
           SafeArea(
             child: SingleChildScrollView(
               controller: scrollController,
-              scrollDirection: Axis.vertical,
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
@@ -131,7 +130,6 @@ class _PlaylistViewState extends State<PlaylistView> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(height: initialImageSize + 31),
                           AlbumComponent(label: widget.label),
@@ -187,7 +185,7 @@ class _PlaylistViewState extends State<PlaylistView> {
   }
 }
 
-_buildListSong() {
+Widget _buildListSong() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: songList.map((item) {

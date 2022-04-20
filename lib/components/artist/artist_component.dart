@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ArtistComponent extends StatelessWidget {
-  final String label;
-
   const ArtistComponent({Key? key, required this.label}) : super(key: key);
+
+  final String label;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ArtistComponent extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(left: 15, right: 20, top: 10),
         child: Text(
-          "3 999 999 followers",
+          '3 999 999 followers',
           style: Theme.of(context).textTheme.caption,
         ),
       ),

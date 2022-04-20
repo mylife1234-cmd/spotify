@@ -52,7 +52,7 @@ class _SearchPlayListState extends State<SearchPlayList> {
   ];
   List recentSearch = [];
   List searchRecent = [];
-  String searchString = "";
+  String searchString = '';
   final bool _showAsList = true;
 
   @override
@@ -67,16 +67,15 @@ class _SearchPlayListState extends State<SearchPlayList> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
                       height: 36,
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: TextField(
                         textAlign: TextAlign.left,
-                        onChanged: (value) => _runSearch(value),
+                        onChanged: _runSearch,
                         style: const TextStyle(
-                          fontSize: 15.0,
+                          fontSize: 15,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
@@ -84,7 +83,7 @@ class _SearchPlayListState extends State<SearchPlayList> {
                           hintText: 'Search',
                           hintStyle: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
-                          fillColor: const Color.fromRGBO(36, 36, 36, 1.0),
+                          fillColor: const Color.fromRGBO(36, 36, 36, 1),
                           prefixIcon: const Icon(
                             Icons.search,
                             color: Colors.white,
@@ -137,7 +136,7 @@ class _SearchPlayListState extends State<SearchPlayList> {
   }
 
   @override
-  initState() {
+  void initState() {
     // at the beginning, all users are shown
     recentSearch = playlists;
     super.initState();
@@ -150,7 +149,7 @@ class _SearchPlayListState extends State<SearchPlayList> {
     } else {
       results = playlists
           .where((user) =>
-              user["title"].toLowerCase().contains(keyword.toLowerCase()))
+              user['title'].toLowerCase().contains(keyword.toLowerCase()))
           .toList();
     }
     setState(() {
@@ -158,7 +157,7 @@ class _SearchPlayListState extends State<SearchPlayList> {
     });
   }
 
-  _buildListView() {
+  Widget _buildListView() {
     return ListView.builder(
       itemCount: recentSearch.length,
       itemBuilder: (context, index) {
@@ -192,7 +191,7 @@ class _SearchPlayListState extends State<SearchPlayList> {
     );
   }
 
-  _buildGridView() {
+  Widget _buildGridView() {
     return GridView.count(
       crossAxisCount: 2,
       crossAxisSpacing: 15,

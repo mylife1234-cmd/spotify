@@ -15,7 +15,7 @@ class LibraryHeader extends StatelessWidget {
             radius: 22,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               'Your Library',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),

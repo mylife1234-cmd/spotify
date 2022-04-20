@@ -25,6 +25,7 @@ class LoginButton extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return GestureDetector(
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(45),
@@ -50,7 +51,6 @@ class LoginButton extends StatelessWidget {
           ],
         ),
       ),
-      onTap: onTap,
     );
   }
 }

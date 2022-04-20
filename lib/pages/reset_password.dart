@@ -36,7 +36,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 onChanged: (value) => setState(() {
                   _email = value;
                 }),
-                helperText: 'We\'ll send you an email with a link',
+                helperText: "We'll send you an email with a link",
               ),
               const SizedBox(height: 35),
               NextButton(
@@ -44,7 +44,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 color: (_email.isNotEmpty)
                     ? Colors.white
                     : const Color(0xff4d4d4d),
-                onTap: !(_email.isNotEmpty) ? null : sendLink,
+                onTap: !_email.isNotEmpty ? null : sendLink,
               )
             ],
           ),
@@ -53,8 +53,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     );
   }
 
-  sendLink() async {
-    showDialog(
+  Future sendLink() async {
+    await showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) => const Center(

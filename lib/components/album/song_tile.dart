@@ -12,7 +12,7 @@ class SongTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var currentSong = context.watch<MusicProvider>().currentSong;
+    final currentSong = context.watch<MusicProvider>().currentSong;
 
     final isCurrent = currentSong!.name == song.name;
 
@@ -42,7 +42,7 @@ class SongTile extends StatelessWidget {
         trailing: ActionButton(
           song: song,
           size: 20,
-          onPressed: () async {
+          onPressed: () {
             Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute(
                 builder: (context) => SongAction(song: song),

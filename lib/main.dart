@@ -17,7 +17,7 @@ import 'utils/music/audio_handler.dart';
 
 GetIt getIt = GetIt.instance;
 
-void main() async {
+Future main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
   );
@@ -77,7 +77,7 @@ class _MainState extends State<Main> {
     GlobalKey<NavigatorState>(),
   ];
 
-  final _tabController = CupertinoTabController(initialIndex: 0);
+  final _tabController = CupertinoTabController();
 
   int _currentIndex = 0;
 
@@ -96,7 +96,7 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
-    var _currentSong = context.watch<MusicProvider>().currentSong;
+    final _currentSong = context.watch<MusicProvider>().currentSong;
 
     if (!authenticated) {
       return const StartPage();
@@ -145,8 +145,8 @@ class _MainState extends State<Main> {
                     ),
                   ),
                   Align(
-                    child: Card(child: MiniPlayer(song: _currentSong)),
                     alignment: Alignment.bottomCenter,
+                    child: Card(child: MiniPlayer(song: _currentSong)),
                   )
                 ],
               );

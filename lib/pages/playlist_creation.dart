@@ -68,13 +68,6 @@ class _PlaylistCreationPageState extends State<PlaylistCreationPage> {
               ),
               GestureDetector(
                 child: Container(
-                  child: const Text(
-                    'Create',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     color:
@@ -83,6 +76,13 @@ class _PlaylistCreationPageState extends State<PlaylistCreationPage> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,
                     vertical: 12,
+                  ),
+                  child: const Text(
+                    'Create',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 onTap: () {

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:spotify/components/library/filter_button.dart';
 
 class ProfileComponent extends StatelessWidget {
-  final String label;
-
   const ProfileComponent({Key? key, required this.label}) : super(key: key);
+
+  final String label;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 20, top: 10, bottom: 0),
+      padding: const EdgeInsets.only(left: 15, right: 20, top: 10),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Center(
           child: Text(
@@ -23,7 +23,7 @@ class ProfileComponent extends StatelessWidget {
           padding: EdgeInsets.only(top: 20, left: 20, right: 10),
           child: Center(
             child: FilterButton(
-              title: "Edit profile",
+              title: 'Edit profile',
               active: false,
             ),
           ),
@@ -35,21 +35,21 @@ class ProfileComponent extends StatelessWidget {
               child: Column(
                 children: const <Widget>[
                   Text(
-                    "20",
+                    '20',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 13.0,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(
-                    height: 5.0,
+                    height: 5,
                   ),
                   Text(
-                    "Followers",
+                    'Followers',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 13.0,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -60,21 +60,21 @@ class ProfileComponent extends StatelessWidget {
               child: Column(
                 children: const <Widget>[
                   Text(
-                    "12",
+                    '12',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 13.0,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(
-                    height: 5.0,
+                    height: 5,
                   ),
                   Text(
-                    "Follow",
+                    'Follow',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 13.0,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -86,10 +86,10 @@ class ProfileComponent extends StatelessWidget {
         const SizedBox(height: 10),
         const Center(
           child: Text(
-            "Playlists",
+            'Playlists',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 15.0,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -107,9 +107,9 @@ class _LibraryPageState extends State<LibraryPage> {
     );
   }
 
-  _buildFiltersSection() {
+  Widget _buildFiltersSection() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: _currentFilterOption == -1
             ? filterOptions
@@ -144,9 +144,9 @@ class _LibraryPageState extends State<LibraryPage> {
     );
   }
 
-  _buildViewModesSection() {
+  Widget _buildViewModesSection() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding: const EdgeInsets.only(bottom: 10),
       child: ViewModeSection(
         handleViewMode: () => setState(() {
           _showAsList = !_showAsList;
@@ -160,7 +160,7 @@ class _LibraryPageState extends State<LibraryPage> {
     );
   }
 
-  _buildListView() {
+  Widget _buildListView() {
     final filteredList = playlists
         .where(
           (element) =>
@@ -204,7 +204,7 @@ class _LibraryPageState extends State<LibraryPage> {
     );
   }
 
-  _buildGridView() {
+  Widget _buildGridView() {
     final filteredList = playlists
         .where((element) =>
             _currentFilterOption == -1 ||

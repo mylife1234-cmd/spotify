@@ -5,16 +5,16 @@ import 'package:spotify/pages/playlist_queue.dart';
 import '../../models/song.dart';
 
 class QueueButton extends StatelessWidget {
-  final Song song;
-
-  // Color color = Colors.black;
-  final double size;
-
   const QueueButton({
     Key? key,
     required this.song,
     required this.size,
   }) : super(key: key);
+
+  final Song song;
+
+  // Color color = Colors.black;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,16 @@ class QueueButton extends StatelessWidget {
         size: size,
       ),
       onTap: () async {
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-          SystemUiOverlay.top,
-        ]);
+        await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+            overlays: [
+              SystemUiOverlay.top,
+            ]);
 
         await Navigator.push(
           context,
           PageRouteBuilder(
             pageBuilder: (context, a1, a2) {
-              return PlaylistQueue(song: song);
+              return const PlaylistQueue();
             },
             transitionsBuilder: (context, a1, a2, child) {
               return FadeTransition(opacity: a1, child: child);
@@ -42,7 +43,8 @@ class QueueButton extends StatelessWidget {
           ),
         );
 
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+        await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+            overlays: []);
       },
     );
   }

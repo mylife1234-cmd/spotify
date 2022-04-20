@@ -10,7 +10,7 @@ class ShuffleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var shuffling = context.watch<MusicProvider>().shuffling;
+    final shuffling = context.watch<MusicProvider>().shuffling;
 
     return GestureDetector(
       child: Icon(

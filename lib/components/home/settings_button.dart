@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:spotify/pages/setting.dart';
 
 class SettingsButton extends StatelessWidget {
-  final double size;
-
   const SettingsButton({
     Key? key,
     required this.size,
   }) : super(key: key);
+
+  final double size;
 
   @override
   Widget build(BuildContext context) {

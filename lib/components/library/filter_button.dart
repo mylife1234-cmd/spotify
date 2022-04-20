@@ -14,7 +14,6 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(title, style: const TextStyle(fontSize: 12)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(45),
         border: Border.all(
@@ -25,6 +24,7 @@ class FilterButton extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
       margin: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
+      child: Text(title, style: const TextStyle(fontSize: 12)),
     );
   }
 }

@@ -17,7 +17,7 @@ class MiniPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = context.watch<MusicProvider>().color.withOpacity(0.7);
+    final color = context.watch<MusicProvider>().color.withOpacity(0.7);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -28,23 +28,19 @@ class MiniPlayer extends StatelessWidget {
       ),
       child: ListTile(
         title: Marquee(
+          animationDuration: const Duration(milliseconds: 1500),
+          backDuration: const Duration(milliseconds: 1500),
+          pauseDuration: const Duration(milliseconds: 1500),
           child: Text(
             song.name,
             style: const TextStyle(fontWeight: FontWeight.w500),
           ),
-          textDirection: TextDirection.ltr,
-          animationDuration: const Duration(milliseconds: 1500),
-          backDuration: const Duration(milliseconds: 1500),
-          pauseDuration: const Duration(milliseconds: 1500),
-          directionMarguee: DirectionMarguee.TwoDirection,
         ),
         subtitle: Marquee(
-          child: Text(song.description),
-          textDirection: TextDirection.ltr,
           animationDuration: const Duration(milliseconds: 1500),
           backDuration: const Duration(milliseconds: 1500),
           pauseDuration: const Duration(milliseconds: 1500),
-          directionMarguee: DirectionMarguee.TwoDirection,
+          child: Text(song.description),
         ),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(5),
@@ -70,7 +66,7 @@ class MiniPlayer extends StatelessWidget {
         visualDensity: VisualDensity.compact,
         minVerticalPadding: 12,
         onTap: () async {
-          SystemChrome.setEnabledSystemUIMode(
+          await SystemChrome.setEnabledSystemUIMode(
             SystemUiMode.manual,
             overlays: [],
           );
@@ -83,7 +79,7 @@ class MiniPlayer extends StatelessWidget {
             duration: const Duration(milliseconds: 250),
           );
 
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+          await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
             SystemUiOverlay.top,
             SystemUiOverlay.bottom,
           ]);

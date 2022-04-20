@@ -104,7 +104,7 @@ class StartPage extends StatelessWidget {
 
                         FirebaseAuth.instance.signInWithCredential(credential);
                       } catch (e) {
-                        print(e);
+                        debugPrint(e.toString());
                       }
                     },
                   ),

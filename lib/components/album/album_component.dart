@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AlbumComponent extends StatelessWidget {
-  final String label;
-
   const AlbumComponent({Key? key, required this.label}) : super(key: key);
+
+  final String label;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 20, top: 20, bottom: 0),
+      padding: const EdgeInsets.only(left: 15, right: 20, top: 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Center(
           child: Text(
@@ -23,19 +23,19 @@ class AlbumComponent extends StatelessWidget {
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
               Image(
-                image: AssetImage("assets/images/logo_spotify.png"),
+                image: AssetImage('assets/images/logo_spotify.png'),
                 width: 20,
                 height: 20,
               ),
               SizedBox(width: 7),
-              Text("Spotify",
+              Text('Spotify',
                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
             ],
           ),
         ),
         const SizedBox(height: 12),
         Text(
-          "1,999,890 likes 9h 56m",
+          '1,999,890 likes 9h 56m',
           style: Theme.of(context).textTheme.caption,
         ),
         const SizedBox(height: 10),

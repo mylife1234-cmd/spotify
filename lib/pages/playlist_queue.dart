@@ -7,7 +7,7 @@ import '../models/song.dart';
 import '../providers/music_provider.dart';
 
 class PlaylistQueue extends StatefulWidget {
-  const PlaylistQueue({Key? key, song, this.title}) : super(key: key);
+  const PlaylistQueue({Key? key, this.title}) : super(key: key);
 
   final String? title;
 
@@ -18,9 +18,9 @@ class PlaylistQueue extends StatefulWidget {
 class _PlaylistQueueState extends State<PlaylistQueue> {
   @override
   Widget build(BuildContext context) {
-    var playlist = context.watch<MusicProvider>().currentPlaylist;
+    final playlist = context.watch<MusicProvider>().currentPlaylist;
 
-    var currentSong = context.watch<MusicProvider>().currentSong!;
+    final currentSong = context.watch<MusicProvider>().currentSong!;
 
     final queue = playlist
         .map((e) => Song(e.title, e.artist!, e.extras!['coverUrl']))
@@ -48,7 +48,7 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,15 +83,17 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
                   final newSong = remainingQueue[i];
 
                   return GestureDetector(
-                    onTap: () async {
-                      await context.read<MusicProvider>().playNewSong(newSong);
+                    onTap: () {
+                      context.read<MusicProvider>().playNewSong(newSong);
                     },
                     key: ValueKey(newSong),
                     child: SongInQueue(song: newSong, index: i),
                   );
                 },
                 onReorder: (int oldIndex, int newIndex) async {
-                  if (oldIndex < newIndex) newIndex -= 1;
+                  if (oldIndex < newIndex) {
+                    newIndex -= 1;
+                  }
 
                   final item = playlist[currentIndex + 1 + oldIndex];
 

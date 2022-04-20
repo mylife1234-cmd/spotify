@@ -46,7 +46,9 @@ class _SignUpPageState extends State<SignUpPage> {
     return GestureDetector(
       onHorizontalDragEnd: Platform.isIOS
           ? (details) {
-              if (details.primaryVelocity! > 0) pop();
+              if (details.primaryVelocity! > 0) {
+                pop();
+              }
             }
           : null,
       child: WillPopScope(
@@ -61,8 +63,8 @@ class _SignUpPageState extends State<SignUpPage> {
             elevation: 0,
             centerTitle: true,
             leading: GestureDetector(
-              child: const BackButtonIcon(),
               onTap: pop,
+              child: const BackButtonIcon(),
             ),
           ),
           body: SafeArea(
@@ -122,7 +124,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 _currentOption++;
                               });
                             } else {
-                              print(results);
+                              debugPrint(results.toString());
                               signUp();
                             }
                           },
@@ -136,7 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  pop() {
+  void pop() {
     if (_currentOption == 0) {
       Navigator.pop(context);
     } else {
@@ -151,7 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
-  signUp() async {
+  Future signUp() async {
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -164,12 +166,12 @@ class _SignUpPageState extends State<SignUpPage> {
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        debugPrint('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        debugPrint('The account already exists for that email.');
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 }

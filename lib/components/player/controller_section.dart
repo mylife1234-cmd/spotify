@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:spotify/components/player/backward_button.dart';
 import 'package:spotify/components/player/forward_button.dart';
 import 'package:spotify/components/player/play_button.dart';
-import 'package:spotify/components/player/backward_button.dart';
 import 'package:spotify/components/player/repeat_button.dart';
 import 'package:spotify/components/player/shuffle_button.dart';
 

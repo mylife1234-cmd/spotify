@@ -19,7 +19,7 @@ class PlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var playing = context.watch<MusicProvider>().playing;
+    final playing = context.watch<MusicProvider>().playing;
 
     return GestureDetector(
       child: Icon(!playing ? playIcon : pauseIcon, size: size),

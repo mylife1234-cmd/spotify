@@ -10,7 +10,7 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isFavorite = context.watch<MusicProvider>().isFavorite;
+    final isFavorite = context.watch<MusicProvider>().isFavorite;
 
     return GestureDetector(
       child: Icon(

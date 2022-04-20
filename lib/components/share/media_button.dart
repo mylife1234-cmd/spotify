@@ -2,10 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MediaButton extends StatelessWidget {
-  final String text;
-  final String coverUrl;
-  final void Function()? onTap;
-
   const MediaButton({
     Key? key,
     required this.text,
@@ -13,11 +9,15 @@ class MediaButton extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
+  final String text;
+  final String coverUrl;
+  final void Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image(
             image: AssetImage(coverUrl),
@@ -37,7 +37,6 @@ class MediaButton extends StatelessWidget {
           ),
         ],
       ),
-      onTap: onTap,
     );
   }
 }

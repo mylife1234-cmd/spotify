@@ -14,9 +14,9 @@ class MusicPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = context.watch<MusicProvider>().color.withOpacity(0.7);
+    final color = context.watch<MusicProvider>().color.withOpacity(0.7);
 
-    var song = context.watch<MusicProvider>().currentSong;
+    final song = context.watch<MusicProvider>().currentSong;
 
     final size = MediaQuery.of(context).size;
 

@@ -10,7 +10,7 @@ class RepeatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var repeatMode = context.watch<MusicProvider>().repeatMode;
+    final repeatMode = context.watch<MusicProvider>().repeatMode;
 
     return GestureDetector(
       child: Icon(

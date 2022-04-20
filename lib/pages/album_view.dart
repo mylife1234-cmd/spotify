@@ -12,11 +12,11 @@ import '../models/song.dart';
 import '../providers/music_provider.dart';
 
 class AlbumView extends StatefulWidget {
-  final AssetImage image;
-  final String label;
-
   const AlbumView({Key? key, required this.image, required this.label})
       : super(key: key);
+
+  final AssetImage image;
+  final String label;
 
   @override
   State<AlbumView> createState() => _AlbumViewState();
@@ -113,7 +113,6 @@ class _AlbumViewState extends State<AlbumView> {
           SafeArea(
             child: SingleChildScrollView(
               controller: scrollController,
-              scrollDirection: Axis.vertical,
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
@@ -133,7 +132,6 @@ class _AlbumViewState extends State<AlbumView> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(height: initialImageSize),
                           AlbumComponent(label: widget.label),
@@ -189,7 +187,7 @@ class _AlbumViewState extends State<AlbumView> {
   }
 }
 
-_buildListSong() {
+Widget _buildListSong() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: songList.map((item) {

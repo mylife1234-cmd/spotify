@@ -1,14 +1,14 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:just_audio/just_audio.dart';
 
 Future<AudioHandler> initAudioService() async {
-  return await AudioService.init(
-    builder: () => MyAudioHandler(),
+  return AudioService.init(
+    builder: MyAudioHandler.new,
     config: const AudioServiceConfig(
       androidNotificationChannelId: 'com.int3120.group22.spotify',
       androidNotificationChannelName: 'Spotify',
       androidNotificationOngoing: true,
-      androidStopForegroundOnPause: true,
     ),
   );
 }
@@ -22,7 +22,7 @@ class MyAudioHandler extends BaseAudioHandler {
 
   late ConcatenatingAudioSource _playlist;
 
-  _initialize() async {
+  Future _initialize() async {
     _audioPlayer = AudioPlayer();
 
     _playlist = ConcatenatingAudioSource(children: []);
@@ -30,7 +30,7 @@ class MyAudioHandler extends BaseAudioHandler {
     try {
       await _audioPlayer.setAudioSource(_playlist);
     } catch (e) {
-      print('Error: $e');
+      debugPrint('Error: $e');
     }
 
     _notifyPlaybackEvents();
@@ -82,7 +82,7 @@ class MyAudioHandler extends BaseAudioHandler {
   }
 
   UriAudioSource _createAudioSource(MediaItem mediaItem) {
-    String path = mediaItem.extras!['url'];
+    final String path = mediaItem.extras!['url'];
 
     return AudioSource.uri(
       path.contains('assets') ? Uri.parse('asset:///$path') : Uri.file(path),
@@ -111,7 +111,9 @@ class MyAudioHandler extends BaseAudioHandler {
 
   @override
   Future<void> skipToQueueItem(int index) async {
-    if (index < 0 || index >= queue.value.length) return;
+    if (index < 0 || index >= queue.value.length) {
+      return;
+    }
 
     if (_audioPlayer.shuffleModeEnabled) {
       index = _audioPlayer.shuffleIndices![index];
@@ -161,7 +163,7 @@ class MyAudioHandler extends BaseAudioHandler {
         playing: playing,
         controls: [
           MediaControl.skipToPrevious,
-          playing ? MediaControl.pause : MediaControl.play,
+          if (playing) MediaControl.pause else MediaControl.play,
           MediaControl.skipToNext
         ],
         systemActions: const {MediaAction.seek},
@@ -192,7 +194,9 @@ class MyAudioHandler extends BaseAudioHandler {
       var index = _audioPlayer.currentIndex;
       final newQueue = queue.value;
 
-      if (index == null || newQueue.isEmpty) return;
+      if (index == null || newQueue.isEmpty) {
+        return;
+      }
 
       if (_audioPlayer.shuffleModeEnabled) {
         index = _audioPlayer.shuffleIndices!.indexOf(index);
@@ -210,7 +214,9 @@ class MyAudioHandler extends BaseAudioHandler {
   void _currentSongListener() {
     _audioPlayer.currentIndexStream.listen((index) {
       final playlist = queue.value;
-      if (index == null || playlist.isEmpty) return;
+      if (index == null || playlist.isEmpty) {
+        return;
+      }
 
       if (_audioPlayer.shuffleModeEnabled) {
         index = _audioPlayer.shuffleIndices!.indexOf(index);
@@ -223,7 +229,9 @@ class MyAudioHandler extends BaseAudioHandler {
   void _sequenceListener() {
     _audioPlayer.sequenceStateStream.listen((SequenceState? state) {
       final sequence = state?.effectiveSequence;
-      if (sequence == null || sequence.isEmpty) return;
+      if (sequence == null || sequence.isEmpty) {
+        return;
+      }
 
       final items = sequence.map((source) => source.tag as MediaItem);
       queue.add(items.toList());

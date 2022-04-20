@@ -8,7 +8,7 @@ class MusicSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var progress = context.watch<MusicProvider>().progressState;
+    final progress = context.watch<MusicProvider>().progressState;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),

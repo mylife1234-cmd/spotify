@@ -59,7 +59,7 @@ class _SearchPageState extends State<SearchPage> {
                   },
                   textAlign: TextAlign.left,
                   style: const TextStyle(
-                    fontSize: 15.0,
+                    fontSize: 15,
                     color: Colors.black,
                   ),
                   decoration: InputDecoration(
@@ -79,14 +79,14 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(bottom: 15),
                       child: Text(
-                        "Your top genres",
+                        'Your top genres',
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
@@ -108,18 +108,16 @@ class _SearchPageState extends State<SearchPage> {
                         final item = listMusic[index];
 
                         final colorValues =
-                            item['colors']!.split(', ').map((e) {
-                          return int.parse(e);
-                        });
+                            item['colors']!.split(', ').map(int.parse);
 
                         return ClipRRect(
                           child: Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 begin: Alignment.topLeft,
-                                end: const Alignment(0.8, 0.0),
+                                end: const Alignment(0.8, 0),
                                 colors:
-                                    colorValues.map((e) => Color(e)).toList(),
+                                    colorValues.map(Color.new).toList(),
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -164,7 +162,7 @@ class _SearchPageState extends State<SearchPage> {
                     const Padding(
                       padding: EdgeInsets.only(bottom: 15, top: 10),
                       child: Text(
-                        "Browse All",
+                        'Browse All',
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
@@ -185,18 +183,16 @@ class _SearchPageState extends State<SearchPage> {
                       itemBuilder: (BuildContext context, int index) {
                         final item1 = listMusic1[index];
                         final colorValues =
-                            item1['colors']!.split(', ').map((e) {
-                          return int.parse(e);
-                        });
+                            item1['colors']!.split(', ').map(int.parse);
 
                         return ClipRRect(
                           child: Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 begin: Alignment.topLeft,
-                                end: const Alignment(0.8, 0.0),
+                                end: const Alignment(0.8, 0),
                                 colors:
-                                    colorValues.map((e) => Color(e)).toList(),
+                                    colorValues.map(Color.new).toList(),
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -251,45 +247,45 @@ class _SearchPageState extends State<SearchPage> {
 
 final listMusic = [
   {
-    'text': "K/DA",
-    'image': "assets/images/home/kda.jpg",
-    "colors": '0xFF9C2780, 0xFFE040FB',
+    'text': 'K/DA',
+    'image': 'assets/images/home/kda.jpg',
+    'colors': '0xFF9C2780, 0xFFE040FB',
   },
   {
-    'text': "Bigcityboi",
-    'image': "assets/images/home/big-city-boi.jpg",
-    "colors": '0xff4caf50, 0xFF69F0AE'
+    'text': 'Bigcityboi',
+    'image': 'assets/images/home/big-city-boi.jpg',
+    'colors': '0xff4caf50, 0xFF69F0AE'
   },
   {
-    'text': "DNA",
-    'image': "assets/images/home/dna.jpg",
-    "colors": '0xFF2196F3, 0xFF448AFF'
+    'text': 'DNA',
+    'image': 'assets/images/home/dna.jpg',
+    'colors': '0xFF2196F3, 0xFF448AFF'
   },
   {
-    'text': "Latata",
-    'image': "assets/images/home/latata.jpg",
-    "colors": '0xfff44336, 0xFFff5252'
+    'text': 'Latata',
+    'image': 'assets/images/home/latata.jpg',
+    'colors': '0xfff44336, 0xFFff5252'
   },
 ];
 final listMusic1 = [
   {
-    'text': "Chilled",
-    'image': "assets/images/home/chilled.jpg",
-    "colors": '0xff8bca4a, 0xFFB2FF59'
+    'text': 'Chilled',
+    'image': 'assets/images/home/chilled.jpg',
+    'colors': '0xff8bca4a, 0xFFB2FF59'
   },
   {
-    'text': "Ái Nộ",
-    'image': "assets/images/home/ai-no.jpg",
-    "colors": '0xff455a64, 0xff455a64'
+    'text': 'Ái Nộ',
+    'image': 'assets/images/home/ai-no.jpg',
+    'colors': '0xff455a64, 0xff455a64'
   },
   {
-    'text': "Relax",
-    'image': "assets/images/home/album2.jpg",
-    "colors": '0xFF9CCC65, 0xFF9CCC65'
+    'text': 'Relax',
+    'image': 'assets/images/home/album2.jpg',
+    'colors': '0xFF9CCC65, 0xFF9CCC65'
   },
   {
-    'text': "Latata",
-    'image': "assets/images/home/latata.jpg",
-    "colors": '0xFFBA68C8, 0xFFBA68C8'
+    'text': 'Latata',
+    'image': 'assets/images/home/latata.jpg',
+    'colors': '0xFFBA68C8, 0xFFBA68C8'
   },
 ];

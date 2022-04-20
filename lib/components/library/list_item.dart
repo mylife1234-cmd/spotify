@@ -17,7 +17,7 @@ class ListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 3.0),
+      padding: const EdgeInsets.only(bottom: 3),
       child: ListTile(
         title: Text(
           title,

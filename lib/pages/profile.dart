@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:spotify/components/profile/profile_component.dart';
 import 'package:spotify/components/album/animate_label.dart';
-import 'package:spotify/components/profile/profile_image.dart';
 import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/back_button.dart';
+import 'package:spotify/components/profile/profile_component.dart';
+import 'package:spotify/components/profile/profile_image.dart';
+
 import '../models/song.dart';
 import '../providers/music_provider.dart';
 
 class ProfilePage extends StatefulWidget {
-  final AssetImage image;
-  final String label;
-
   const ProfilePage({Key? key, required this.image, required this.label})
       : super(key: key);
+
+  final AssetImage image;
+  final String label;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -113,7 +114,6 @@ class _ProfilePageState extends State<ProfilePage> {
           SafeArea(
             child: SingleChildScrollView(
               controller: scrollController,
-              scrollDirection: Axis.vertical,
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
@@ -133,7 +133,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const SizedBox(height: 150),
                           ProfileComponent(label: widget.label),
@@ -177,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-_buildListSong() {
+Widget _buildListSong() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: songList.map((item) {

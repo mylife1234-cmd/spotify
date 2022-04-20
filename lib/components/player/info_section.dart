@@ -19,7 +19,6 @@ class InfoSection extends StatelessWidget {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,6 +26,9 @@ class InfoSection extends StatelessWidget {
             SizedBox(
               width: size.width * 0.75,
               child: Marquee(
+                animationDuration: const Duration(milliseconds: 2500),
+                backDuration: const Duration(milliseconds: 2500),
+                pauseDuration: const Duration(milliseconds: 1500),
                 child: Text(
                   name,
                   style: const TextStyle(
@@ -34,25 +36,18 @@ class InfoSection extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                textDirection: TextDirection.ltr,
-                animationDuration: const Duration(milliseconds: 2500),
-                backDuration: const Duration(milliseconds: 2500),
-                pauseDuration: const Duration(milliseconds: 1500),
-                directionMarguee: DirectionMarguee.TwoDirection,
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Marquee(
+                animationDuration: const Duration(milliseconds: 2500),
+                backDuration: const Duration(milliseconds: 2500),
+                pauseDuration: const Duration(milliseconds: 1500),
                 child: Text(
                   description,
                   style: const TextStyle(color: Colors.white54),
                 ),
-                textDirection: TextDirection.ltr,
-                animationDuration: const Duration(milliseconds: 2500),
-                backDuration: const Duration(milliseconds: 2500),
-                pauseDuration: const Duration(milliseconds: 1500),
-                directionMarguee: DirectionMarguee.TwoDirection,
               ),
             ),
           ],

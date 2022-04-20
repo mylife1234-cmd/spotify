@@ -6,6 +6,10 @@ import '../main.dart';
 import '../models/song.dart';
 
 class MusicProvider extends ChangeNotifier {
+  MusicProvider() {
+    _initialize();
+  }
+
   Song? _currentSong;
 
   Song? get currentSong => _currentSong;
@@ -49,11 +53,7 @@ class MusicProvider extends ChangeNotifier {
 
   List<MediaItem> get currentPlaylist => _currentPlaylist;
 
-  MusicProvider() {
-    _initialize();
-  }
-
-  _initialize() {
+  void _initialize() {
     _initializePlaylist();
 
     _playlistListener();
@@ -67,7 +67,7 @@ class MusicProvider extends ChangeNotifier {
     _currentSongListener();
   }
 
-  _initializePlaylist() {
+  void _initializePlaylist() {
     final mediaItems = songList
         .map(
           (song) => MediaItem(
@@ -104,8 +104,9 @@ class MusicProvider extends ChangeNotifier {
         _playing = true;
       } else {
         // completed
-        _audioHandler.seek(Duration.zero);
-        _audioHandler.pause();
+        _audioHandler
+          ..seek(Duration.zero)
+          ..pause();
       }
 
       notifyListeners();
@@ -145,7 +146,7 @@ class MusicProvider extends ChangeNotifier {
     });
   }
 
-  playNewSong(Song newSong) {
+  void playNewSong(Song newSong) {
     // _currentSong = newSong;
 
     // updateColor(newSong);
@@ -156,7 +157,7 @@ class MusicProvider extends ChangeNotifier {
     playWithIndex(index);
   }
 
-  play() {
+  void play() {
     // _playing = true;
 
     notifyListeners();
@@ -172,7 +173,7 @@ class MusicProvider extends ChangeNotifier {
     play();
   }
 
-  pause() {
+  void pause() {
     // _playing = false;
 
     notifyListeners();
@@ -180,7 +181,7 @@ class MusicProvider extends ChangeNotifier {
     _audioHandler.pause();
   }
 
-  updateColor(Song newSong) {
+  void updateColor(Song newSong) {
     PaletteGenerator.fromImageProvider(AssetImage(newSong.coverUrl))
         .then((generator) {
       _color = generator.mutedColor!.color;
@@ -189,13 +190,13 @@ class MusicProvider extends ChangeNotifier {
     });
   }
 
-  toggleFavorite() {
+  void toggleFavorite() {
     _isFavorite = !_isFavorite;
 
     notifyListeners();
   }
 
-  toggleShuffle() {
+  void toggleShuffle() {
     _shuffling = !_shuffling;
 
     notifyListeners();
@@ -207,7 +208,7 @@ class MusicProvider extends ChangeNotifier {
     }
   }
 
-  toggleRepeatMode() {
+  void toggleRepeatMode() {
     final currentIndex = RepeatMode.values.indexOf(_repeatMode);
 
     final next = (currentIndex + 1) % RepeatMode.values.length;
@@ -280,11 +281,11 @@ class MusicProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  insertQueueItem(index, item) {
+  void insertQueueItem(index, item) {
     _audioHandler.insertQueueItem(index, item);
   }
 
-  removeQueueItemAt(index) {
+  void removeQueueItemAt(index) {
     _audioHandler.removeQueueItemAt(index);
   }
 }

@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                     : const Color(0xff4d4d4d),
                 onTap: !(_email.isNotEmpty && _password.isNotEmpty)
                     ? null
-                    : () => login(),
+                    : login,
               )
             ],
           ),
@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  login() async {
+  Future login() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _email,
@@ -72,9 +72,9 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        debugPrint('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        debugPrint('Wrong password provided for that user.');
       }
     }
   }

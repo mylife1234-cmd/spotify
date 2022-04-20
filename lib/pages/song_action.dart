@@ -39,7 +39,7 @@ class _SongActionState extends State<SongAction> {
 
   @override
   Widget build(BuildContext context) {
-    var isFavorite = context.watch<MusicProvider>().isFavorite;
+    final isFavorite = context.watch<MusicProvider>().isFavorite;
 
     final listAction = [
       Action(
@@ -49,7 +49,7 @@ class _SongActionState extends State<SongAction> {
           size: 22,
           color: isFavorite ? Colors.green : Colors.white,
         ),
-        () => _doActionLike(),
+        _doActionLike,
       ),
       Action(
         'Share',
@@ -57,7 +57,7 @@ class _SongActionState extends State<SongAction> {
           Icons.ios_share,
           size: 22,
         ),
-        () => _doActionShare(),
+        _doActionShare,
       ),
       Action(
         'View artist',
@@ -65,7 +65,7 @@ class _SongActionState extends State<SongAction> {
           CupertinoIcons.person,
           size: 22,
         ),
-        () => _doActionViewArtist(),
+        _doActionViewArtist,
       ),
       Action(
         'Add to playlist',
@@ -73,7 +73,7 @@ class _SongActionState extends State<SongAction> {
           CupertinoIcons.music_note_list,
           size: 22,
         ),
-        () => _doActionAddPlaylist(),
+        _doActionAddPlaylist,
       ),
       Action(
         'Add to queue',
@@ -81,7 +81,7 @@ class _SongActionState extends State<SongAction> {
           CupertinoIcons.text_badge_plus,
           size: 22,
         ),
-        () => _doActionAddToQueue(),
+        _doActionAddToQueue,
       ),
       Action(
         'View album',
@@ -89,7 +89,7 @@ class _SongActionState extends State<SongAction> {
           CupertinoIcons.music_albums,
           size: 22,
         ),
-        () => _doActionViewAlbum(),
+        _doActionViewAlbum,
       )
     ];
 
@@ -97,7 +97,6 @@ class _SongActionState extends State<SongAction> {
       body: Stack(
         children: [
           SingleChildScrollView(
-            scrollDirection: Axis.vertical,
             // physics: const BouncingScrollPhysics(),
             child: Container(
               // height: MediaQuery.of(context).size.height,
@@ -121,8 +120,6 @@ class _SongActionState extends State<SongAction> {
               ),
               child: SafeArea(
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(
                       height: 44,
@@ -163,11 +160,11 @@ class _SongActionState extends State<SongAction> {
     );
   }
 
-  _doActionLike() {
+  void _doActionLike() {
     context.read<MusicProvider>().toggleFavorite();
   }
 
-  _doActionShare() {
+  void _doActionShare() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -178,16 +175,16 @@ class _SongActionState extends State<SongAction> {
     );
   }
 
-  _doActionAddToQueue() {}
+  void _doActionAddToQueue() {}
 
-  _doActionAddPlaylist() {}
+  void _doActionAddPlaylist() {}
 
-  _doActionViewAlbum() async {
+  Future _doActionViewAlbum() async {
     Navigator.popUntil(homeContext, (route) => route.isFirst);
 
     Navigator.popUntil(context, (route) => route.isFirst);
 
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
       SystemUiOverlay.top,
       SystemUiOverlay.bottom,
     ]);
@@ -202,12 +199,12 @@ class _SongActionState extends State<SongAction> {
       ),
     );
 
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
       SystemUiOverlay.top,
     ]);
   }
 
-  _doActionViewArtist() {
+  void _doActionViewArtist() {
     Navigator.popUntil(homeContext, (route) => route.isFirst);
 
     Navigator.popUntil(context, (route) => route.isFirst);
