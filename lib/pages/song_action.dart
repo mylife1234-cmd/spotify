@@ -26,11 +26,23 @@ class _SongActionState extends State<SongAction> {
 
   final homeContext = getIt.get<BuildContext>(instanceName: 'homeContext');
 
+  ImageProvider? image;
+
   @override
   void initState() {
     super.initState();
-    PaletteGenerator.fromImageProvider(AssetImage(widget.song.coverUrl))
-        .then((generator) {
+
+    final url = widget.song.coverImageUrl;
+
+    setState(() {
+      if (url.startsWith('https')) {
+        image = NetworkImage(url);
+      } else {
+        image = AssetImage(url);
+      }
+    });
+
+    PaletteGenerator.fromImageProvider(image!).then((generator) {
       setState(() {
         _color = generator.mutedColor!.color;
       });
@@ -193,7 +205,7 @@ class _SongActionState extends State<SongAction> {
       homeContext,
       MaterialPageRoute(
         builder: (context) => AlbumView(
-          image: AssetImage(widget.song.coverUrl),
+          image: image!,
           label: widget.song.description,
         ),
       ),
@@ -218,7 +230,7 @@ class _SongActionState extends State<SongAction> {
       homeContext,
       MaterialPageRoute(
         builder: (context) => ArtistView(
-          image: AssetImage(widget.song.coverUrl),
+          image: image!,
           label: widget.song.description,
         ),
       ),

@@ -24,7 +24,9 @@ class PlayingSongTile extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
-        leading: Image.asset(song.coverUrl),
+        leading: song.coverImageUrl.startsWith('https')
+            ? Image.network(song.coverImageUrl)
+            : Image.asset(song.coverImageUrl),
         contentPadding: EdgeInsets.zero,
         dense: true,
         visualDensity: VisualDensity.standard,

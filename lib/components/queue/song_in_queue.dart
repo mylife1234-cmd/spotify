@@ -33,7 +33,9 @@ class SongInQueue extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
-        leading: Image.asset(song.coverUrl),
+        leading: song.coverImageUrl.startsWith('https')
+            ? Image.network(song.coverImageUrl)
+            : Image.asset(song.coverImageUrl),
         trailing: ReorderableDragStartListener(
           index: index,
           child: const Icon(CupertinoIcons.line_horizontal_3, size: 30),

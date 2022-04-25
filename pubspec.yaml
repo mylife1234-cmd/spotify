@@ -37,7 +37,11 @@ dependencies:
   modal_bottom_sheet: ^2.0.1
   provider: ^6.0.2
   palette_generator: ^0.3.3
-  just_audio: ^0.9.20
+  just_audio:
+    git:
+      url: https://github.com/ryanheise/just_audio.git
+      ref: fix/caching
+      path: ./just_audio
   audio_service: ^0.18.4
   id3: ^1.0.2
   get_it: ^7.2.0
@@ -49,6 +53,8 @@ dependencies:
   firebase_auth: ^3.3.13
   firebase_core: ^1.14.0
   google_sign_in: ^5.2.4
+  firebase_storage: ^10.2.12
+  firebase_database: ^9.0.11
 
 dev_dependencies:
   flutter_test:

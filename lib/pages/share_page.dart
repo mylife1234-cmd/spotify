@@ -20,8 +20,18 @@ class _SharePageState extends State<SharePage> {
   @override
   void initState() {
     super.initState();
-    PaletteGenerator.fromImageProvider(AssetImage(widget.song.coverUrl))
-        .then((generator) {
+
+    ImageProvider image;
+
+    final url = widget.song.coverImageUrl;
+
+    if (url.startsWith('https')) {
+      image = NetworkImage(url);
+    } else {
+      image = AssetImage(url);
+    }
+
+    PaletteGenerator.fromImageProvider(image).then((generator) {
       setState(() {
         _color = generator.mutedColor!.color;
       });

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify/models/user.dart' as model;
+import 'package:spotify/utils/firebase/db.dart';
 
 import '../components/auth/input_field.dart';
 import '../components/auth/next_button.dart';
@@ -163,6 +165,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
       credential.user!.updateDisplayName(results['name']!);
 
+      initUser(credential);
+
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -173,5 +177,27 @@ class _SignUpPageState extends State<SignUpPage> {
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+  Future<void> initUser(UserCredential credential) async {
+    final playlistIdList = await Database.getPlaylistIdList();
+
+    playlistIdList.shuffle();
+
+    final user = model.User(
+      id: credential.user!.uid,
+      name: credential.user!.displayName!,
+      coverImageUrl: credential.user!.photoURL!,
+      recentAlbumIdList: [],
+      favoriteAlbumIdList: [],
+      recentPlaylistIdList: [],
+      favoritePlaylistIdList: [],
+      recentSongIdList: [],
+      favoriteSongIdList: [],
+      customizedPlaylistIdList: [],
+      systemPlaylistIdList: playlistIdList.sublist(0, 5),
+    );
+
+    Database.setUser(user);
   }
 }

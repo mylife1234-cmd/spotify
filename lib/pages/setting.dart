@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spotify/components/auth/next_button.dart';
-import 'package:spotify/components/setting/setting_info.dart';
 import 'package:spotify/components/setting/setting_title.dart';
 
 import '../models/setting.dart';
-import '../models/song.dart';
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -44,26 +43,25 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SettingInfo(
-                song: Song(
-                  FirebaseAuth.instance.currentUser!.displayName!,
-                  'View Profile',
-                  'assets/images/den-vau.jpeg',
-                ),
-              ),
+              //temp
+              // SettingInfo(
+              //   song: Song(
+              //     FirebaseAuth.instance.currentUser!.displayName!,
+              //     'View Profile',
+              //     'assets/images/den-vau.jpeg',
+              //   ),
+              // ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:songList.map((item) {
-                    return SettingList(
-                      song: SettingTitle(
-                        item['title']!,
-                      ),
-                    );
-                  }).toList()
-                ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: songList.map((item) {
+                      return SettingList(
+                        song: SettingTitle(
+                          item['title']!,
+                        ),
+                      );
+                    }).toList()),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 50),

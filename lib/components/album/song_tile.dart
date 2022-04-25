@@ -14,7 +14,18 @@ class SongTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentSong = context.watch<MusicProvider>().currentSong;
 
-    final isCurrent = currentSong!.name == song.name;
+    final isCurrent =
+        (currentSong != null ? currentSong.name : '') == song.name;
+
+    ImageProvider image;
+
+    final url = song.coverImageUrl;
+
+    if (url.startsWith('https')) {
+      image = NetworkImage(url);
+    } else {
+      image = AssetImage(url);
+    }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -36,7 +47,7 @@ class SongTile extends StatelessWidget {
           maxLines: 1,
         ),
         leading: Image(
-          image: AssetImage(song.coverUrl),
+          image: image,
           fit: BoxFit.cover,
         ),
         trailing: ActionButton(

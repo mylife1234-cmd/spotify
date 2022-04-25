@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/album/album_component.dart';
 import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/shuffle_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/back_button.dart';
+import 'package:spotify/pages/loading.dart';
 
 import '../components/album/animate_label.dart';
 import '../components/album/opacity_image.dart';
 import '../models/song.dart';
 import '../providers/music_provider.dart';
+import '../utils/firebase/db.dart';
 
 class PlaylistView extends StatefulWidget {
-  const PlaylistView({Key? key, required this.image, required this.label})
-      : super(key: key);
-  final AssetImage image;
+  const PlaylistView({
+    Key? key,
+    this.songIdList,
+    required this.image,
+    required this.label,
+  }) : super(key: key);
+
+  final List? songIdList;
+  final ImageProvider image;
   final String label;
 
   @override
@@ -31,6 +40,8 @@ class _PlaylistViewState extends State<PlaylistView> {
   bool showTopBar = false;
 
   Color _color = const Color.fromRGBO(233, 83, 83, 1);
+
+  List<Song> songList = [];
 
   @override
   void initState() {
@@ -60,6 +71,8 @@ class _PlaylistViewState extends State<PlaylistView> {
         _color = generator.mutedColor!.color;
       });
     });
+
+    fetchSongs();
   }
 
   @override
@@ -68,8 +81,30 @@ class _PlaylistViewState extends State<PlaylistView> {
     super.dispose();
   }
 
+  Future<void> fetchSongs() async {
+    if (widget.songIdList != null) {
+      final List<Song> songs = [];
+
+      for (final id in widget.songIdList!) {
+        final song = await Database.getSongById(id);
+
+        songs.add(song);
+      }
+
+      setState(() {
+        songList = songs;
+      });
+
+      context.read<MusicProvider>().loadPlaylist(songs);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (songList.isEmpty) {
+      return const LoadingScreen();
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -137,7 +172,12 @@ class _PlaylistViewState extends State<PlaylistView> {
                       ),
                     ),
                   ),
-                  _buildListSong(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: songList.map((item) {
+                      return SongTile(song: item);
+                    }).toList(),
+                  ),
                 ],
               ),
             ),
@@ -183,15 +223,4 @@ class _PlaylistViewState extends State<PlaylistView> {
       ),
     );
   }
-}
-
-Widget _buildListSong() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: songList.map((item) {
-      return SongTile(
-        song: Song(item['title']!, item['desc']!, item['coverUrl']!),
-      );
-    }).toList(),
-  );
 }

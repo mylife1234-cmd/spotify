@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:spotify/components/home/album_card.dart';
 import 'package:spotify/components/home/home_header.dart';
+import 'package:spotify/components/home/playlist_card.dart';
+import 'package:spotify/models/playlist.dart';
 
 import '../main.dart';
 
@@ -12,11 +13,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Playlist>? systemPlaylists;
+  List<Playlist>? recentPlaylists;
+
   @override
   void initState() {
     super.initState();
 
     getIt.registerSingleton<BuildContext>(context, instanceName: 'homeContext');
+
+    //temp
+    final playlists = getIt.get<Map<String, List<Playlist>>>();
+    setState(() {
+      systemPlaylists = playlists['systemPlaylists'];
+      recentPlaylists = playlists['recentPlaylists'];
+    });
   }
 
   @override
@@ -54,12 +65,14 @@ class _HomePageState extends State<HomePage> {
                   physics: const BouncingScrollPhysics(),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: recentList.map((item) {
+                    children: recentPlaylists!.map((item) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: AlbumCard(
-                          label: item['label']!,
-                          image: AssetImage(item['image']!),
+                        child: PlaylistCard(
+                          id: item.id,
+                          label: item.name,
+                          image: NetworkImage(item.coverImageUrl),
+                          songIdList: item.songIdList,
                         ),
                       );
                     }).toList(),
@@ -69,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 15),
 
                 ...['Uniquely yours', 'Made for you'].map((e) {
-                  final shuffledList = customizedList
+                  final shuffledList = (systemPlaylists ?? [])
                     ..sublist(0)
                     ..shuffle();
 
@@ -93,13 +106,15 @@ class _HomePageState extends State<HomePage> {
                           physics: const BouncingScrollPhysics(),
                           child: Row(
                             children: shuffledList
-                                .sublist(0, customizedList.length)
+                                .sublist(0, shuffledList.length)
                                 .map((item) {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 15),
-                                child: AlbumCard(
-                                  label: item['label']!,
-                                  image: AssetImage(item['image']!),
+                                child: PlaylistCard(
+                                  id: item.id,
+                                  label: item.name,
+                                  image: NetworkImage(item.coverImageUrl),
+                                  songIdList: item.songIdList,
                                 ),
                               );
                             }).toList(),
@@ -117,65 +132,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-final recentList = [
-  {
-    'label': 'K/DA',
-    'image': 'assets/images/home/kda.jpg',
-  },
-  {
-    'label': 'Bigcityboi',
-    'image': 'assets/images/home/big-city-boi.jpg',
-  },
-  {
-    'label': 'DNA',
-    'image': 'assets/images/home/dna.jpg',
-  },
-  {
-    'label': 'Latata',
-    'image': 'assets/images/home/latata.jpg',
-  },
-  {
-    'label': 'Chilled',
-    'image': 'assets/images/home/chilled.jpg',
-  },
-  {
-    'label': 'Ái Nộ',
-    'image': 'assets/images/home/ai-no.jpg',
-  },
-  {
-    'label': 'Relax',
-    'image': 'assets/images/home/album2.jpg',
-  },
-];
-
-final customizedList = [
-  {
-    'label': 'Ed Sheeran, Big Sean, Juice WRLD, Post Malone',
-    'image': 'assets/images/home/album1.jpg',
-  },
-  {
-    'label': 'Ed Sheeran, Big Sean, Juice WRLD, Post Malone',
-    'image': 'assets/images/home/album2.jpg',
-  },
-  {
-    'label': 'Ed Sheeran, Big Sean, Juice WRLD, Post Malone',
-    'image': 'assets/images/home/chilled.jpg',
-  },
-  {
-    'label': 'Ed Sheeran, Big Sean, Juice WRLD, Post Malone',
-    'image': 'assets/images/home/latata.jpg',
-  },
-  {
-    'label': 'Ed Sheeran, Big Sean, Juice WRLD, Post Malone',
-    'image': 'assets/images/home/kda.jpg',
-  },
-  {
-    'label': 'Ed Sheeran, Big Sean, Juice WRLD, Post Malone',
-    'image': 'assets/images/home/ai-no.jpg',
-  },
-  {
-    'label': 'Ed Sheeran, Big Sean, Juice WRLD, Post Malone',
-    'image': 'assets/images/home/dna.jpg',
-  },
-];

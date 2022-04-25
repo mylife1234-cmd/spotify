@@ -11,6 +11,16 @@ class SongCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider image;
+
+    final url = song.coverImageUrl;
+
+    if (url.startsWith('https')) {
+      image = NetworkImage(url);
+    } else {
+      image = AssetImage(url);
+    }
+
     return GestureDetector(
       onTap: () {
         context.read<MusicProvider>().playNewSong(song);
@@ -21,7 +31,7 @@ class SongCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image(
-              image: AssetImage(song.coverUrl),
+              image: image,
               width: 120,
               height: 120,
               fit: BoxFit.cover,

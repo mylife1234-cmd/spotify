@@ -85,7 +85,11 @@ class MyAudioHandler extends BaseAudioHandler {
     final String path = mediaItem.extras!['url'];
 
     return AudioSource.uri(
-      path.contains('assets') ? Uri.parse('asset:///$path') : Uri.file(path),
+      path.contains('assets')
+          ? Uri.parse('asset:///$path')
+          : path.contains('https')
+              ? Uri.parse(path)
+              : Uri.file(path),
       tag: mediaItem,
     );
   }

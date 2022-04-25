@@ -7,11 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/player/mini_player.dart';
+import 'package:spotify/models/playlist.dart';
 import 'package:spotify/pages/home.dart';
 import 'package:spotify/pages/library.dart';
+import 'package:spotify/pages/loading.dart';
 import 'package:spotify/pages/search.dart';
 import 'package:spotify/pages/start.dart';
 import 'package:spotify/providers/music_provider.dart';
+import 'package:spotify/utils/firebase/db.dart';
 
 import 'utils/music/audio_handler.dart';
 
@@ -81,7 +84,9 @@ class _MainState extends State<Main> {
 
   int _currentIndex = 0;
 
-  bool authenticated = false;
+  bool _authenticated = false;
+
+  bool _loading = false;
 
   @override
   void initState() {
@@ -89,8 +94,13 @@ class _MainState extends State<Main> {
 
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       setState(() {
-        authenticated = user != null;
+        _authenticated = user != null;
+        _loading = user != null;
       });
+
+      if (user != null) {
+        getUserData(user.uid, user.displayName);
+      }
     });
   }
 
@@ -98,8 +108,12 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     final _currentSong = context.watch<MusicProvider>().currentSong;
 
-    if (!authenticated) {
+    if (!_authenticated) {
       return const StartPage();
+    }
+
+    if (_loading) {
+      return const LoadingScreen();
     }
 
     return CupertinoTabScaffold(
@@ -152,5 +166,35 @@ class _MainState extends State<Main> {
               );
       },
     );
+  }
+
+  Future<void> getUserData(String id, String? name) async {
+    final user = await Database.getUserById(id, name!);
+
+    final List<Playlist> playlists = [];
+
+    for (final id in user.systemPlaylistIdList) {
+      final playlist = await Database.getPlaylistById(id);
+
+      playlists.add(playlist);
+    }
+
+    final List<Playlist> recentPlaylists = [];
+
+    for (final id in user.recentPlaylistIdList) {
+      final playlist = await Database.getPlaylistById(id);
+
+      recentPlaylists.add(playlist);
+    }
+
+    //temp
+    getIt.registerSingleton<Map<String, List<Playlist>>>({
+      'systemPlaylists': playlists,
+      'recentPlaylists': recentPlaylists,
+    });
+
+    setState(() {
+      _loading = false;
+    });
   }
 }

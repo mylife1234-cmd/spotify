@@ -10,7 +10,7 @@ class ProfileImage extends StatelessWidget {
 
   final double imageOpacity;
   final double imageSize;
-  final AssetImage image;
+  final ImageProvider image;
 
   @override
   Widget build(BuildContext context) {

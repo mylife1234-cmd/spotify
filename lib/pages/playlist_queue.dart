@@ -23,7 +23,16 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
     final currentSong = context.watch<MusicProvider>().currentSong!;
 
     final queue = playlist
-        .map((e) => Song(e.title, e.artist!, e.extras!['coverUrl']))
+        .map((e) => Song(
+              id: e.id,
+              name: e.title,
+              artistIdList: e.extras!['artistIdList'],
+              coverImageUrl: e.extras!['coverUrl'],
+              description: e.artist!,
+              genreIdList: e.extras!['genreIdList'],
+              audioUrl: e.extras!['url'],
+              albumId: e.album!,
+            ))
         .toList();
 
     final currentIndex = queue.indexWhere((e) => e.name == currentSong.name);

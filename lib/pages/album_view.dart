@@ -5,17 +5,13 @@ import 'package:spotify/components/album/animate_label.dart';
 import 'package:spotify/components/album/opacity_image.dart';
 import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/shuffle_button.dart';
-import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/back_button.dart';
-
-import '../models/song.dart';
-import '../providers/music_provider.dart';
 
 class AlbumView extends StatefulWidget {
   const AlbumView({Key? key, required this.image, required this.label})
       : super(key: key);
 
-  final AssetImage image;
+  final ImageProvider image;
   final String label;
 
   @override
@@ -190,10 +186,5 @@ class _AlbumViewState extends State<AlbumView> {
 Widget _buildListSong() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-    children: songList.map((item) {
-      return SongTile(
-        song: Song(item['title']!, item['desc']!, item['coverUrl']!),
-      );
-    }).toList(),
   );
 }

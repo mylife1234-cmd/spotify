@@ -54,8 +54,6 @@ class MusicProvider extends ChangeNotifier {
   List<MediaItem> get currentPlaylist => _currentPlaylist;
 
   void _initialize() {
-    _initializePlaylist();
-
     _playlistListener();
 
     _playbackListener();
@@ -67,15 +65,21 @@ class MusicProvider extends ChangeNotifier {
     _currentSongListener();
   }
 
-  void _initializePlaylist() {
+  void loadPlaylist(List<Song> songList) {
     final mediaItems = songList
         .map(
           (song) => MediaItem(
-            id: songList.indexOf(song).toString().padLeft(3, '0'),
-            title: song['title']!,
-            artist: song['desc'],
-            artUri: Uri.parse(song['artUrl']!),
-            extras: {'url': song['url'], 'coverUrl': song['coverUrl']},
+            id: song.id,
+            title: song.name,
+            artist: song.description,
+            artUri: Uri.parse(song.coverImageUrl),
+            extras: {
+              'url': song.audioUrl,
+              'coverUrl': song.coverImageUrl,
+              'artistIdList': song.artistIdList,
+              'genreIdList': song.genreIdList
+            },
+            album: song.albumId,
           ),
         )
         .toList();
@@ -89,7 +93,7 @@ class MusicProvider extends ChangeNotifier {
         _currentPlaylist = [];
         _currentSong = null;
       } else {
-        _currentPlaylist = playlist.map((song) => song).toList();
+        _currentPlaylist = playlist;
       }
 
       _updateSkipButtons();
@@ -138,7 +142,15 @@ class MusicProvider extends ChangeNotifier {
     _audioHandler.mediaItem.listen((mediaItem) {
       if (mediaItem != null) {
         _currentSong = Song(
-            mediaItem.title, mediaItem.artist!, mediaItem.extras!['coverUrl']);
+          id: mediaItem.id,
+          name: mediaItem.title,
+          artistIdList: mediaItem.extras!['artistIdList'],
+          coverImageUrl: mediaItem.extras!['coverUrl'],
+          description: mediaItem.artist!,
+          genreIdList: mediaItem.extras!['genreIdList'],
+          audioUrl: mediaItem.extras!['url'],
+          albumId: mediaItem.album!,
+        );
         _updateSkipButtons();
 
         updateColor(_currentSong!);
@@ -182,8 +194,17 @@ class MusicProvider extends ChangeNotifier {
   }
 
   void updateColor(Song newSong) {
-    PaletteGenerator.fromImageProvider(AssetImage(newSong.coverUrl))
-        .then((generator) {
+    ImageProvider image;
+
+    final url = newSong.coverImageUrl;
+
+    if (url.startsWith('https')) {
+      image = NetworkImage(url);
+    } else {
+      image = AssetImage(url);
+    }
+
+    PaletteGenerator.fromImageProvider(image).then((generator) {
       _color = generator.mutedColor!.color;
 
       notifyListeners();
@@ -298,104 +319,3 @@ class ProgressState {
 }
 
 enum RepeatMode { off, all, one }
-
-final songList = [
-  {
-    'title': 'Quảng Hàn Dao (广寒谣)',
-    'desc': 'Y Cách Tái Thính, Bất Kháo Phổ Tổ Hợp',
-    'url': 'assets/music/Quang Han Dao - Y Cach Tai Thinh_ Bat Kh.mp3',
-    'coverUrl': 'assets/music/quang han dao.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/136/135040.jpg'
-  },
-  {
-    'title': 'Xuy Diệt Tiểu Sơn Hà (吹灭小山河)',
-    'desc': 'Quốc Phong Đường, Tư Nam',
-    'url': 'assets/music/Xuy Diet Tieu Son Ha - Quoc Phong Duong_.mp3',
-    'coverUrl': 'assets/music/xuy diet tieu son ha.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/135/134128.jpg'
-  },
-  {
-    'title': 'Âm Thanh Của Nỗi Nhớ Anh',
-    'desc': 'Ngạo Thất Gia',
-    'url': 'assets/music/Am Thanh Cua Noi Nho Anh DJ.mp3',
-    'coverUrl': 'assets/music/am thanh cua noi nho anh.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/128/127142.jpg'
-  },
-  {
-    'title': 'Gió Lay Nhành Đào (风过谢桃花)',
-    'desc': 'Tư Nam, Tịch Âm Xã',
-    'url': 'assets/music/Gio Lay Nhanh Dao- Tu Nam Tich Am Xa.mp3',
-    'coverUrl': 'assets/music/gio lay nhanh dao.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/139/138222.jpg'
-  },
-  {
-    'title': 'Senbonzakura',
-    'desc': 'Lindsey Stirling',
-    'url': 'assets/music/Senbonzakura - Lindsey Stirling.mp3',
-    'coverUrl': 'assets/music/senbonzakura.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/46/45786.jpg'
-  },
-  {
-    'title': 'Sen Động Dưới Thuyền Cá (莲动下渔舟)',
-    'desc': 'Dao Quân',
-    'url': 'assets/music/Sen Dong Duoi Thuyen Ca - Dao Quan.mp3',
-    'coverUrl': 'assets/music/sen dong duoi thuyen danh ca.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/139/138173.jpg'
-  },
-  {
-    'title': 'Anh Đếch Cần Gì Nhiều Ngoài Em',
-    'desc': 'Đen, Vũ',
-    'url': 'assets/music/Anh Dech Can Gi Nhieu Ngoai Em - Den_ Vu.mp3',
-    'coverUrl': 'assets/music/Anh Dech Can Gi Nhieu Ngoai Em - Den_ Vu.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/98/97369.jpg'
-  },
-  {
-    'title': 'Cảm ơn',
-    'desc': 'Đen, Biên',
-    'url': 'assets/music/Cam On - Den_ Bien.mp3',
-    'coverUrl': 'assets/music/Cam On - Den_ Bien.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/112/111275.jpg'
-  },
-  {
-    'title': 'Cho Tôi Lang Thang',
-    'desc': 'Ngọt, Đen',
-    'url': 'assets/music/Cho Toi Lang Thang - Ngot_ Den.mp3',
-    'coverUrl': 'assets/music/Cho Toi Lang Thang - Ngot_ Den.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/70/69769.jpg'
-  },
-  {
-    'title': 'Đi Về Nhà',
-    'desc': 'Đen, JustaTee',
-    'url': 'assets/music/Di Ve Nha - Den_ JustaTee.mp3',
-    'coverUrl': 'assets/music/Di Ve Nha - Den_ JustaTee.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/133/132896.jpg'
-  },
-  {
-    'title': 'Hai Triệu Năm',
-    'desc': 'Đen, Biên',
-    'url': 'assets/music/Hai Trieu Nam - Den_ Bien.mp3',
-    'coverUrl': 'assets/music/Hai Trieu Nam - Den_ Bien.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/107/106262.jpg'
-  },
-  {
-    'title': 'một triệu like',
-    'desc': 'Đen, Thành Đồng',
-    'url': 'assets/music/Mot Trieu Like - Den_ Thanh Dong.mp3',
-    'coverUrl': 'assets/music/Mot Trieu Like - Den_ Thanh Dong.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/134/133432.jpg'
-  },
-  {
-    'title': 'Tình Đắng Như Ly Cà Phê',
-    'desc': 'Nân, Ngơ',
-    'url': 'assets/music/Tinh Dang Nhu Ly Ca Phe - Nan_ Ngo.mp3',
-    'coverUrl': 'assets/music/Tinh Dang Nhu Ly Ca Phe - Nan_ Ngo.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/110/109024.jpg'
-  },
-  {
-    'title': 'Trời hôm nay nhiều mây cực!',
-    'desc': 'Đen',
-    'url': 'assets/music/Troi Hom Nay Nhieu May Cuc_ - Den.mp3',
-    'coverUrl': 'assets/music/Troi Hom Nay Nhieu May Cuc_ - Den.jpg',
-    'artUrl': 'https://data.chiasenhac.com/data/cover/126/125234.jpg'
-  },
-];

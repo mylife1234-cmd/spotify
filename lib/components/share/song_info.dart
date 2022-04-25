@@ -9,10 +9,20 @@ class SongInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider image;
+
+    final url = song.coverImageUrl;
+
+    if (url.startsWith('https')) {
+      image = NetworkImage(url);
+    } else {
+      image = AssetImage(url);
+    }
+
     return Column(
       children: [
         Image(
-          image: AssetImage(song.coverUrl),
+          image: image,
           width: 200,
           height: 200,
           fit: BoxFit.cover,

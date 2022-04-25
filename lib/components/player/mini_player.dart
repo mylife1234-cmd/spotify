@@ -44,7 +44,9 @@ class MiniPlayer extends StatelessWidget {
         ),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(5),
-          child: Image.asset(song.coverUrl),
+          child: song.coverImageUrl.startsWith('https')
+              ? Image.network(song.coverImageUrl)
+              : Image.asset(song.coverImageUrl),
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
@@ -79,10 +81,13 @@ class MiniPlayer extends StatelessWidget {
             duration: const Duration(milliseconds: 250),
           );
 
-          await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-            SystemUiOverlay.top,
-            SystemUiOverlay.bottom,
-          ]);
+          await SystemChrome.setEnabledSystemUIMode(
+            SystemUiMode.manual,
+            overlays: [
+              SystemUiOverlay.top,
+              SystemUiOverlay.bottom,
+            ],
+          );
         },
       ),
     );

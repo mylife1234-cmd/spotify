@@ -1,7 +1,21 @@
 class Song {
-  Song(this.name, this.description, this.coverUrl);
+  Song({
+    required this.id,
+    required this.name,
+    required this.albumId,
+    required this.artistIdList,
+    required this.audioUrl,
+    required this.coverImageUrl,
+    required this.genreIdList,
+    required this.description,
+  });
 
-  String name;
-  String description;
-  String coverUrl;
+  final String id;
+  final String name;
+  final String albumId;
+  final List artistIdList;
+  final String audioUrl;
+  final String coverImageUrl;
+  final List genreIdList;
+  final String description;
 }

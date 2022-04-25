@@ -9,6 +9,16 @@ class SettingInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider image;
+
+    final url = song.coverImageUrl;
+
+    if (url.startsWith('https')) {
+      image = NetworkImage(url);
+    } else {
+      image = AssetImage(url);
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       width: double.infinity,
@@ -29,7 +39,7 @@ class SettingInfo extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
-        leading: CircleAvatar(backgroundImage: AssetImage(song.coverUrl)),
+        leading: CircleAvatar(backgroundImage: image),
         trailing: const Icon(Icons.arrow_forward_ios, size: 19),
         contentPadding: EdgeInsets.zero,
         dense: true,
@@ -39,8 +49,7 @@ class SettingInfo extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
               //return const SearchPlayList();
-              return ProfilePage(
-                  image: AssetImage(song.coverUrl), label: song.name);
+              return ProfilePage(image: image, label: song.name);
             }),
           );
         },

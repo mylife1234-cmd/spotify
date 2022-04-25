@@ -13,7 +13,7 @@ class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, required this.image, required this.label})
       : super(key: key);
 
-  final AssetImage image;
+  final ImageProvider image;
   final String label;
 
   @override
@@ -179,10 +179,5 @@ class _ProfilePageState extends State<ProfilePage> {
 Widget _buildListSong() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-    children: songList.map((item) {
-      return SongTile(
-        song: Song(item['title']!, item['desc']!, item['coverUrl']!),
-      );
-    }).toList(),
   );
 }
