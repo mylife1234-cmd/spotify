@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/library/grid_item.dart';
 import 'package:spotify/components/library/list_item.dart';
 import 'package:spotify/pages/playlist_view.dart';
+import 'package:spotify/providers/data_provider.dart';
 import 'artist_view.dart';
 
 class SearchPlayList extends StatefulWidget {
@@ -125,7 +127,7 @@ class _SearchPlayListState extends State<SearchPlayList> {
                   padding: EdgeInsets.only(left: 10, right: 10, top: 20),
                 ),
                 Expanded(
-                  child: _showAsList ? _buildListView() : _buildGridView(),
+                  child: _buildListView(),
                 ),
               ],
             ),
@@ -188,43 +190,6 @@ class _SearchPlayListState extends State<SearchPlayList> {
           },
         );
       },
-    );
-  }
-
-  Widget _buildGridView() {
-    return GridView.count(
-      crossAxisCount: 2,
-      crossAxisSpacing: 15,
-      mainAxisSpacing: 15,
-      childAspectRatio: 0.75,
-      children: recentSearch
-          .map(
-            (item) => GestureDetector(
-              child: GridItem(
-                title: item['title']!,
-                subtitle: item['subtitle']!,
-                coverUrl: item['cover']!,
-                isSquareCover: item['type']! == 'playlist',
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => item['type'] == 'playlist'
-                        ? PlaylistView(
-                            image: AssetImage(item['cover']),
-                            label: item['title'],
-                          )
-                        : ArtistView(
-                            image: AssetImage(item['cover']),
-                            label: item['title'],
-                          ),
-                  ),
-                );
-              },
-            ),
-          )
-          .toList(),
     );
   }
 }

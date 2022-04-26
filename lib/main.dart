@@ -7,10 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/player/mini_player.dart';
-import 'package:spotify/models/playlist.dart';
 import 'package:spotify/pages/home.dart';
 import 'package:spotify/pages/library.dart';
-import 'package:spotify/pages/loading.dart';
 import 'package:spotify/pages/search.dart';
 import 'package:spotify/pages/start.dart';
 import 'package:spotify/providers/data_provider.dart';
@@ -181,5 +179,55 @@ class _MainState extends State<Main> {
     ).then(
       (playlists) => context.read<DataProvider>().addRecentPlaylists(playlists),
     );
+
+    Future.wait(
+      user.favoritePlaylistIdList.map((id) => Database.getPlaylistById(id)),
+    ).then(
+      (playlists) =>
+          context.read<DataProvider>().addFavoritePlaylists(playlists),
+    );
+
+    Future.wait(
+      user.customizedPlaylistIdList.map((id) => Database.getPlaylistById(id)),
+    ).then(
+      (playlists) =>
+          context.read<DataProvider>().addCustomizedPlaylists(playlists),
+    );
+
+    Future.wait(
+      user.recentSongIdList.map((id) => Database.getSongById(id)),
+    ).then(
+      (songs) => context.read<DataProvider>().addRecentSongs(songs),
+    );
+
+    Future.wait(
+      user.favoriteSongIdList.map((id) => Database.getSongById(id)),
+    ).then(
+      (songs) => context.read<DataProvider>().addFavoriteSongs(songs),
+    );
+
+    Future.wait(
+      user.recentAlbumIdList.map((id) => Database.getAlbumById(id)),
+    ).then(
+      (albums) => context.read<DataProvider>().addRecentAlbums(albums),
+    );
+
+    Future.wait(
+      user.favoriteAlbumIdList.map((id) => Database.getAlbumById(id)),
+    ).then(
+      (albums) => context.read<DataProvider>().addFavoriteAlbums(albums),
+    );
+
+    Database.getGenres().then((genres) {
+      context.read<DataProvider>().addGenres(genres);
+    });
+
+    Database.getAlbums().then((albums) {
+      context.read<DataProvider>().addAlbums(albums);
+    });
+
+    Database.getArtists().then((artists) {
+      context.read<DataProvider>().addArtists(artists);
+    });
   }
 }

@@ -1,5 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:spotify/models/album.dart';
+import 'package:spotify/models/artist.dart';
+import 'package:spotify/models/genre.dart';
 
 import '../../models/playlist.dart';
 import '../../models/song.dart';
@@ -82,6 +85,22 @@ class Database {
     return user;
   }
 
+  static Future<Album> getAlbumById(String id) async {
+    final res = await FirebaseDatabase.instance.ref('/albums/$id').get();
+
+    final map = Map<String, dynamic>.from(res.value as Map);
+
+    final album = Album(
+      id: id,
+      artistId: map['artistId'],
+      name: map['name'],
+      coverImageUrl: map['coverImageUrl'],
+      description: map['description'],
+    );
+
+    return album;
+  }
+
   static Future<List<String>> getPlaylistIdList() async {
     final res = await FirebaseDatabase.instance.ref('/playlists').get();
 
@@ -92,5 +111,56 @@ class Database {
 
   static void setUser(User user) {
     FirebaseDatabase.instance.ref('/users/${user.id}').set(user);
+  }
+
+  static Future<List<Genre>> getGenres() async {
+    final res = await FirebaseDatabase.instance.ref('/genres').get();
+
+    final List<Genre> genres = [];
+
+    Map<String, dynamic>.from(res.value as Map).forEach((key, value) {
+      genres.add(Genre(
+        id: key,
+        name: value['name'],
+        coverImageUrl: value['coverImageUrl'],
+      ));
+    });
+
+    return genres;
+  }
+
+  static Future<List<Album>> getAlbums() async {
+    final res = await FirebaseDatabase.instance.ref('/albums').get();
+
+    final List<Album> albums = [];
+
+    Map<String, dynamic>.from(res.value as Map).forEach((key, value) {
+      albums.add(Album(
+        id: key,
+        artistId: value['artistId'],
+        name: value['name'],
+        coverImageUrl: value['coverImageUrl'],
+        description: value['description'],
+      ));
+    });
+
+    return albums;
+  }
+
+  static Future<List<Artist>> getArtists() async {
+    final res = await FirebaseDatabase.instance.ref('/artists').get();
+
+    final List<Artist> artists = [];
+
+    Map<String, dynamic>.from(res.value as Map).forEach((key, value) {
+      artists.add(Artist(
+        id: key,
+        name: value['name'],
+        coverImageUrl: value['coverImageUrl'],
+        description: value['description'],
+      ));
+    });
+
+    return artists;
   }
 }

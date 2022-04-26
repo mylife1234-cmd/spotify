@@ -29,6 +29,7 @@ class DataProvider extends ChangeNotifier {
   final List<Song> _recentSongs = [];
   final List<Song> _favoriteSongs = [];
 
+  final List<Album> _albums = [];
   final List<Album> _recentAlbums = [];
   final List<Album> _favoriteAlbums = [];
 
@@ -46,6 +47,8 @@ class DataProvider extends ChangeNotifier {
   List<Song> get recentSongs => _recentSongs;
 
   List<Song> get favoriteSongs => _favoriteSongs;
+
+  List<Album> get albums => _albums;
 
   List<Album> get recentAlbums => _recentAlbums;
 
@@ -85,6 +88,12 @@ class DataProvider extends ChangeNotifier {
 
   void addFavoriteSongs(List<Song> songs) {
     _favoriteSongs.addAll(songs);
+
+    notifyListeners();
+  }
+
+  void addAlbums(List<Album> albums) {
+    _albums.addAll(albums);
 
     notifyListeners();
   }
