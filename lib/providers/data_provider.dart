@@ -20,11 +20,13 @@ class DataProvider extends ChangeNotifier {
     favoriteSongIdList: [],
     customizedPlaylistIdList: [],
     systemPlaylistIdList: [],
+    favoriteArtistIdList: [],
   );
 
   final List<Genre> _genres = [];
 
   final List<Artist> _artists = [];
+  final List<Artist> _favoriteArtists = [];
 
   final List<Song> _recentSongs = [];
   final List<Song> _favoriteSongs = [];
@@ -43,6 +45,8 @@ class DataProvider extends ChangeNotifier {
   List<Genre> get genres => _genres;
 
   List<Artist> get artists => _artists;
+
+  List<Artist> get favoriteArtists => _favoriteArtists;
 
   List<Song> get recentSongs => _recentSongs;
 
@@ -76,6 +80,12 @@ class DataProvider extends ChangeNotifier {
 
   void addArtists(List<Artist> artists) {
     _artists.addAll(artists);
+
+    notifyListeners();
+  }
+
+  void addFavoriteArtists(List<Artist> artists) {
+    _favoriteArtists.addAll(artists);
 
     notifyListeners();
   }

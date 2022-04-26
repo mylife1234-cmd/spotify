@@ -218,6 +218,12 @@ class _MainState extends State<Main> {
       (albums) => context.read<DataProvider>().addFavoriteAlbums(albums),
     );
 
+    Future.wait(
+      user.favoriteArtistIdList.map((id) => Database.getArtistById(id)),
+    ).then(
+      (artists) => context.read<DataProvider>().addFavoriteArtists(artists),
+    );
+
     Database.getGenres().then((genres) {
       context.read<DataProvider>().addGenres(genres);
     });

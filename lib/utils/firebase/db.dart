@@ -80,6 +80,7 @@ class Database {
       favoriteSongIdList: map['favoriteSongIdList'] ?? [],
       customizedPlaylistIdList: map['customizedPlaylistIdList'] ?? [],
       systemPlaylistIdList: map['systemPlaylistIdList'],
+      favoriteArtistIdList: map['favoriteArtistIdList'],
     );
 
     return user;
@@ -107,6 +108,21 @@ class Database {
     final map = Map<String, dynamic>.from(res.value as Map);
 
     return map.keys.toList();
+  }
+
+  static Future<Artist> getArtistById(String id) async {
+    final res = await FirebaseDatabase.instance.ref('/artists/$id').get();
+
+    final map = Map<String, dynamic>.from(res.value as Map);
+
+    final artist = Artist(
+      id: id,
+      name: map['name'],
+      coverImageUrl: map['coverImageUrl'],
+      description: map['description'],
+    );
+
+    return artist;
   }
 
   static void setUser(User user) {

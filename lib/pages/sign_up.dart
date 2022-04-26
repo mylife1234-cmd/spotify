@@ -196,6 +196,7 @@ class _SignUpPageState extends State<SignUpPage> {
       favoriteSongIdList: [],
       customizedPlaylistIdList: [],
       systemPlaylistIdList: playlistIdList.sublist(0, 5),
+      favoriteArtistIdList: []
     );
 
     Database.setUser(user);

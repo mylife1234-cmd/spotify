@@ -11,6 +11,7 @@ class User {
     required this.favoriteSongIdList,
     required this.customizedPlaylistIdList,
     required this.systemPlaylistIdList,
+    required this.favoriteArtistIdList,
   });
 
   final String id;
@@ -24,4 +25,5 @@ class User {
   final List favoriteSongIdList;
   final List customizedPlaylistIdList;
   final List systemPlaylistIdList;
+  final List favoriteArtistIdList;
 }
