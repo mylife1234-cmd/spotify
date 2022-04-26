@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/home/home_header.dart';
 import 'package:spotify/components/home/playlist_card.dart';
-import 'package:spotify/models/playlist.dart';
+import 'package:spotify/pages/loading.dart';
+import 'package:spotify/providers/data_provider.dart';
 
 import '../main.dart';
 
@@ -13,25 +15,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Playlist>? systemPlaylists;
-  List<Playlist>? recentPlaylists;
-
   @override
   void initState() {
     super.initState();
 
     getIt.registerSingleton<BuildContext>(context, instanceName: 'homeContext');
-
-    //temp
-    final playlists = getIt.get<Map<String, List<Playlist>>>();
-    setState(() {
-      systemPlaylists = playlists['systemPlaylists'];
-      recentPlaylists = playlists['recentPlaylists'];
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final recentPlaylists = context.watch<DataProvider>().recentPlaylists;
+    final systemPlaylists = context.watch<DataProvider>().systemPlaylists;
+
+    if (recentPlaylists.isEmpty || systemPlaylists.isEmpty) {
+      return const LoadingScreen();
+    }
+
     return Scaffold(
       body: Stack(children: [
         Container(
@@ -65,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                   physics: const BouncingScrollPhysics(),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: recentPlaylists!.map((item) {
+                    children: recentPlaylists.map((item) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 15),
                         child: PlaylistCard(
@@ -82,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 15),
 
                 ...['Uniquely yours', 'Made for you'].map((e) {
-                  final shuffledList = (systemPlaylists ?? [])
+                  final shuffledList = systemPlaylists
                     ..sublist(0)
                     ..shuffle();
 
