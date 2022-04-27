@@ -16,6 +16,14 @@ class GridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ImageProvider image;
+
+    if (coverUrl.startsWith('https')) {
+      image = NetworkImage(coverUrl);
+    } else {
+      image = AssetImage(coverUrl);
+    }
+
     return Column(
       crossAxisAlignment:
           isSquareCover ? CrossAxisAlignment.start : CrossAxisAlignment.center,
@@ -23,8 +31,7 @@ class GridItem extends StatelessWidget {
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(coverUrl), fit: BoxFit.fill),
+              image: DecorationImage(image: image, fit: BoxFit.fill),
               borderRadius: BorderRadius.circular(isSquareCover ? 0 : 100),
             ),
           ),

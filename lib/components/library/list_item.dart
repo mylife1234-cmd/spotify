@@ -16,6 +16,14 @@ class ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ImageProvider image;
+
+    if (coverUrl.startsWith('https')) {
+      image = NetworkImage(coverUrl);
+    } else {
+      image = AssetImage(coverUrl);
+    }
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 3),
       child: ListTile(
@@ -25,11 +33,8 @@ class ListItem extends StatelessWidget {
         ),
         subtitle: Text(subtitle),
         leading: isSquareCover
-            ? Image.asset(coverUrl)
-            : CircleAvatar(
-                foregroundImage: AssetImage(coverUrl),
-                radius: 28,
-              ),
+            ? Image(image: image)
+            : CircleAvatar(foregroundImage: image, radius: 28),
         contentPadding: EdgeInsets.zero,
       ),
     );

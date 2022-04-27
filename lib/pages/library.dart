@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/library/close_button.dart';
 import 'package:spotify/components/library/filter_button.dart';
 import 'package:spotify/components/library/grid_item.dart';
@@ -9,6 +10,7 @@ import 'package:spotify/components/library/view_mode.dart';
 import 'package:spotify/pages/playlist_creation.dart';
 import 'package:spotify/pages/playlist_view.dart';
 
+import '../providers/data_provider.dart';
 import 'artist_view.dart';
 
 class LibraryPage extends StatefulWidget {
@@ -21,45 +23,6 @@ class LibraryPage extends StatefulWidget {
 class _LibraryPageState extends State<LibraryPage> {
   final filterOptions = ['Playlists', 'Artists', 'Albums'];
 
-  List playlists = [
-    {
-      'title': 'Liked Songs',
-      'subtitle': 'Playlist',
-      'cover': 'assets/images/favorite.png',
-      'type': 'playlist'
-    },
-    {
-      'title': 'Đen',
-      'subtitle': 'Artist',
-      'cover': 'assets/images/den-vau.jpeg',
-      'type': 'artist'
-    },
-    {
-      'title': 'Charlie Puth',
-      'subtitle': 'Artist',
-      'cover': 'assets/images/charlie-puth.jpeg',
-      'type': 'artist'
-    },
-    {
-      'title': 'Billie Eilish',
-      'subtitle': 'Artist',
-      'cover': 'assets/images/billie-eilish.jpeg',
-      'type': 'artist'
-    },
-    {
-      'title': 'Bích Phương',
-      'subtitle': 'Artist',
-      'cover': 'assets/images/bich-phuong.jpeg',
-      'type': 'artist'
-    },
-    {
-      'title': 'Maroon 5',
-      'subtitle': 'Artist',
-      'cover': 'assets/images/maroon5.jpeg',
-      'type': 'artist'
-    },
-  ];
-
   int _currentFilterOption = -1;
 
   bool _showAsList = true;
@@ -68,6 +31,26 @@ class _LibraryPageState extends State<LibraryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final favoritePlaylists = context.watch<DataProvider>().favoritePlaylists;
+
+    final favoriteArtists = context.watch<DataProvider>().favoriteArtists;
+
+    final favoriteAlbums = context.watch<DataProvider>().favoriteAlbums;
+
+    final List list = [
+      ...favoritePlaylists,
+      ...favoriteArtists,
+      ...favoriteAlbums
+    ];
+
+    final filteredList = list
+        .where((element) =>
+            _currentFilterOption == -1 ||
+            filterOptions[_currentFilterOption]
+                .toLowerCase()
+                .contains('${element.runtimeType.toString().toLowerCase()}s'))
+        .toList();
+
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -84,9 +67,9 @@ class _LibraryPageState extends State<LibraryPage> {
                       builder: (context) {
                         return PlaylistCreationPage(
                           handlePlaylistCreation: (newPlaylist) {
-                            setState(() {
-                              playlists = [...playlists, newPlaylist];
-                            });
+                            // setState(() {
+                            //   playlists = [...playlists, newPlaylist];
+                            // });
                           },
                         );
                       },
@@ -97,7 +80,9 @@ class _LibraryPageState extends State<LibraryPage> {
                 _buildFiltersSection(),
                 _buildViewModesSection(),
                 Expanded(
-                  child: _showAsList ? _buildListView() : _buildGridView(),
+                  child: _showAsList
+                      ? _buildListView(filteredList)
+                      : _buildGridView(filteredList),
                 ),
               ],
             ),
@@ -160,92 +145,67 @@ class _LibraryPageState extends State<LibraryPage> {
     );
   }
 
-  Widget _buildListView() {
-    final filteredList = playlists
-        .where(
-          (element) =>
-              _currentFilterOption == -1 ||
-              filterOptions[_currentFilterOption]
-                  .toLowerCase()
-                  .contains(element['type']!),
-        )
-        .toList();
-
+  Widget _buildListView(list) {
     return ListView.builder(
-      itemCount: filteredList.length,
+      itemCount: list.length,
       itemBuilder: (context, index) {
-        final item = filteredList[index];
+        final item = list[index];
 
         return GestureDetector(
           child: ListItem(
-            title: item['title']!,
-            subtitle: item['subtitle']!,
-            coverUrl: item['cover']!,
-            isSquareCover: item['type']! == 'playlist',
+            title: item.name,
+            subtitle: item.runtimeType.toString(),
+            coverUrl: item.coverImageUrl,
+            isSquareCover: item.runtimeType.toString() == 'Playlist',
           ),
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => item['type'] == 'playlist'
-                    ? PlaylistView(
-                        image: AssetImage(item['cover']),
-                        label: item['title'],
-                      )
-                    : ArtistView(
-                        image: AssetImage(item['cover']),
-                        label: item['title'],
-                      ),
-              ),
-            );
+            onTap(item);
           },
         );
       },
     );
   }
 
-  Widget _buildGridView() {
-    final filteredList = playlists
-        .where((element) =>
-            _currentFilterOption == -1 ||
-            filterOptions[_currentFilterOption]
-                .toLowerCase()
-                .contains(element['type']!))
-        .toList();
-
+  Widget _buildGridView(list) {
     return GridView.count(
       crossAxisCount: 2,
       crossAxisSpacing: 15,
       mainAxisSpacing: 15,
       childAspectRatio: 0.75,
-      children: filteredList
-          .map(
-            (item) => GestureDetector(
-              child: GridItem(
-                title: item['title']!,
-                subtitle: item['subtitle']!,
-                coverUrl: item['cover']!,
-                isSquareCover: item['type']! == 'playlist',
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => item['type'] == 'playlist'
-                        ? PlaylistView(
-                            image: AssetImage(item['cover']),
-                            label: item['title'],
-                          )
-                        : ArtistView(
-                            image: AssetImage(item['cover']),
-                            label: item['title'],
-                          ),
-                  ),
-                );
-              },
-            ),
-          )
-          .toList(),
+      children: list.map((item) {
+        return GestureDetector(
+          child: GridItem(
+            title: item.name,
+            subtitle: item.runtimeType.toString(),
+            coverUrl: item.coverImageUrl,
+            isSquareCover: item.runtimeType.toString() == 'Playlist',
+          ),
+          onTap: () {
+            onTap(item);
+          },
+        );
+      }).toList(),
+    );
+  }
+
+  void onTap(item) {
+    final ImageProvider image;
+
+    if (item.coverImageUrl.startsWith('https')) {
+      image = NetworkImage(item.coverImageUrl);
+    } else {
+      image = AssetImage(item.coverImageUrl);
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return item.runtimeType.toString() == 'Playlist'
+              ? PlaylistView(image: image, label: item.name)
+              : ArtistView(image: image, label: item.name);
+        },
+      ),
     );
   }
 }
