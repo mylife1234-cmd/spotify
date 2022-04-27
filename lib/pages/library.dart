@@ -172,7 +172,7 @@ class _LibraryPageState extends State<LibraryPage> {
       crossAxisSpacing: 15,
       mainAxisSpacing: 15,
       childAspectRatio: 0.75,
-      children: list.map((item) {
+      children: list.map<Widget>((item) {
         return GestureDetector(
           child: GridItem(
             title: item.name,
