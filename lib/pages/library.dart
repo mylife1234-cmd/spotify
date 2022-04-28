@@ -51,6 +51,12 @@ class _LibraryPageState extends State<LibraryPage> {
                 .contains('${element.runtimeType.toString().toLowerCase()}s'))
         .toList();
 
+    if (_sortOption == 0) {
+      filteredList.sort((a, b) => a.name.compareTo(b.name));
+    } else {
+      filteredList.sort((a, b) => -a.name.compareTo(b.name));
+    }
+
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -171,7 +177,7 @@ class _LibraryPageState extends State<LibraryPage> {
       crossAxisCount: 2,
       crossAxisSpacing: 15,
       mainAxisSpacing: 15,
-      childAspectRatio: 0.75,
+      childAspectRatio: 0.8,
       children: list.map<Widget>((item) {
         return GestureDetector(
           child: GridItem(

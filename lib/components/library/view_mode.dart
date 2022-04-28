@@ -19,8 +19,7 @@ class ViewModeSection extends StatelessWidget {
 
   final int? sortOption;
 
-  List<String> get sortOptions =>
-      const ['Recently played', 'Recently added', 'Alphabetical'];
+  List<String> get sortOptions => const ['Ascending (A-Z)', 'Descending (Z-A)'];
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class ViewModeSection extends StatelessWidget {
               context: context,
               builder: (context) {
                 return ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 250),
+                  constraints: const BoxConstraints(maxHeight: 210),
                   child: Scaffold(
                     backgroundColor: const Color(0xff282828),
                     body: Column(

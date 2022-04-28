@@ -31,7 +31,7 @@ class GridItem extends StatelessWidget {
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              image: DecorationImage(image: image, fit: BoxFit.fill),
+              image: DecorationImage(image: image, fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(isSquareCover ? 0 : 100),
             ),
           ),
