@@ -206,22 +206,22 @@ class _PlaylistViewState extends State<PlaylistView> {
                         child: BackIconButton(),
                       ),
                       AnimateLabel(label: widget.label, isShow: showTopBar),
-                      Positioned(
-                        right: 5,
-                        bottom:
-                            140 - containerHeight.clamp(170.0, double.infinity),
-                        child: Stack(
-                          alignment: Alignment.bottomRight,
-                          children: const [
-                            PLayButton(),
-                            ShuffleButton(),
-                          ],
-                        ),
-                      )
                     ],
                   ),
                 ),
               ),
+            ),
+          ),
+          Positioned(
+            right: 12,
+            bottom:
+            645 - containerHeight.clamp(170, double.infinity),
+            child: Stack(
+              alignment: Alignment.bottomRight,
+              children: const [
+                PLayButton(),
+                ShuffleButton(),
+              ],
             ),
           ),
         ],

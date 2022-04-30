@@ -5,19 +5,24 @@ class PLayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 48,
-      height: 48,
-      alignment: Alignment.center,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.green,
+    return GestureDetector(
+      child: Container(
+        width: 48,
+        height: 48,
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.green,
+        ),
+        child: const Icon(
+          Icons.play_arrow,
+          size: 35,
+          color: Colors.black,
+        ),
       ),
-      child: const Icon(
-        Icons.play_arrow,
-        size: 35,
-        color: Colors.black,
-      ),
+      onTap: (){
+
+      },
     );
   }
 }
