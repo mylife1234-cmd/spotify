@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ArtistComponent extends StatelessWidget {
-  const ArtistComponent({Key? key, required this.label}) : super(key: key);
+  const ArtistComponent({Key? key, required this.label, required this.description}) : super(key: key);
 
   final String label;
-
+  final String description;
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -28,7 +28,7 @@ class ArtistComponent extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(left: 15, right: 20, top: 10),
         child: Text(
-          '3 999 999 followers',
+          description,
           style: Theme.of(context).textTheme.caption,
         ),
       ),

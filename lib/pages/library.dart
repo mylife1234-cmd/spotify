@@ -209,7 +209,7 @@ class _LibraryPageState extends State<LibraryPage> {
         builder: (context) {
           return item.runtimeType.toString() == 'Playlist'
               ? PlaylistView(image: image, label: item.name)
-              : ArtistView(image: image, label: item.name);
+              : ArtistView(image: image, label: item.name, description: "s",);
         },
       ),
     );

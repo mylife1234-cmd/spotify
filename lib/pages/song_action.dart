@@ -209,6 +209,7 @@ class _SongActionState extends State<SongAction> {
           image: NetworkImage(album.coverImageUrl),
           label: album.name,
           songIdList: album.songIdList,
+          description: album.description,
         ),
       ),
     );
@@ -235,6 +236,7 @@ class _SongActionState extends State<SongAction> {
           image: NetworkImage(artist.coverImageUrl),
           label: artist.name,
           songIdList: artist.songIdList,
+          description: artist.description,
         ),
       ),
     );

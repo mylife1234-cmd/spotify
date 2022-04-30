@@ -16,11 +16,16 @@ import 'loading.dart';
 
 class AlbumView extends StatefulWidget {
   const AlbumView(
-      {Key? key, required this.image, required this.label, this.songIdList})
+      {Key? key,
+      required this.image,
+      required this.label,
+      this.songIdList,
+      required this.description})
       : super(key: key);
 
   final ImageProvider image;
   final String label;
+  final String description;
   final List? songIdList;
 
   @override
@@ -163,7 +168,10 @@ class _AlbumViewState extends State<AlbumView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize),
-                          AlbumComponent(label: widget.label),
+                          AlbumComponent(
+                            label: widget.label,
+                            description: widget.description,
+                          ),
                         ],
                       ),
                     ),

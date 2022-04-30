@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:spotify/components/library/grid_item.dart';
 import 'package:spotify/components/library/list_item.dart';
 import 'package:spotify/pages/playlist_view.dart';
-import 'package:spotify/providers/data_provider.dart';
 import 'artist_view.dart';
 
 class SearchPlayList extends StatefulWidget {
@@ -55,7 +52,6 @@ class _SearchPlayListState extends State<SearchPlayList> {
   List recentSearch = [];
   List searchRecent = [];
   String searchString = '';
-  final bool _showAsList = true;
 
   @override
   Widget build(BuildContext context) {
@@ -184,6 +180,7 @@ class _SearchPlayListState extends State<SearchPlayList> {
                     : ArtistView(
                         image: AssetImage(item['cover']),
                         label: item['title'],
+                        description: 's',
                       ),
               ),
             );

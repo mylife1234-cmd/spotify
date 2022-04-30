@@ -16,13 +16,13 @@ import 'loading.dart';
 
 class ArtistView extends StatefulWidget {
   const ArtistView(
-      {Key? key, required this.image, required this.label, this.songIdList})
+      {Key? key, required this.image, required this.label, this.songIdList, required this.description})
       : super(key: key);
 
   final ImageProvider image;
   final String label;
   final List? songIdList;
-
+  final String description;
   @override
   State<ArtistView> createState() => _ArtistViewState();
 }
@@ -162,7 +162,7 @@ class _ArtistViewState extends State<ArtistView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize),
-                          ArtistComponent(label: widget.label),
+                          ArtistComponent(label: widget.label, description: widget.description,),
                         ],
                       ),
                     ),

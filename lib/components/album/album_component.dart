@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AlbumComponent extends StatelessWidget {
-  const AlbumComponent({Key? key, required this.label}) : super(key: key);
+  const AlbumComponent({Key? key, required this.label, this.description})
+      : super(key: key);
 
   final String label;
-
+  final String? description;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,10 +35,11 @@ class AlbumComponent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        Text(
-          '1,999,890 likes 9h 56m',
-          style: Theme.of(context).textTheme.caption,
-        ),
+        if (description != null)
+          Text(
+            description!,
+            style: Theme.of(context).textTheme.caption,
+          ),
         const SizedBox(height: 10),
         Row(
           children: const [
