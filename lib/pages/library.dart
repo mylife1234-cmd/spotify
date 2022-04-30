@@ -11,6 +11,7 @@ import 'package:spotify/pages/playlist_creation.dart';
 import 'package:spotify/pages/playlist_view.dart';
 
 import '../providers/data_provider.dart';
+import 'album_view.dart';
 import 'artist_view.dart';
 
 class LibraryPage extends StatefulWidget {
@@ -162,7 +163,7 @@ class _LibraryPageState extends State<LibraryPage> {
             title: item.name,
             subtitle: item.runtimeType.toString(),
             coverUrl: item.coverImageUrl,
-            isSquareCover: item.runtimeType.toString() == 'Playlist',
+            isSquareCover: item.runtimeType.toString() != 'Artist',
           ),
           onTap: () {
             onTap(item);
@@ -184,7 +185,7 @@ class _LibraryPageState extends State<LibraryPage> {
             title: item.name,
             subtitle: item.runtimeType.toString(),
             coverUrl: item.coverImageUrl,
-            isSquareCover: item.runtimeType.toString() == 'Playlist',
+            isSquareCover: item.runtimeType.toString() != 'Artist',
           ),
           onTap: () {
             onTap(item);
@@ -207,9 +208,22 @@ class _LibraryPageState extends State<LibraryPage> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return item.runtimeType.toString() == 'Playlist'
-              ? PlaylistView(image: image, label: item.name)
-              : ArtistView(image: image, label: item.name, description: "s",);
+          if (item.runtimeType.toString() == 'Playlist') {
+            return PlaylistView(
+                image: image, label: item.name, songIdList: item.songIdList);
+          }
+          if (item.runtimeType.toString() == 'Album') {
+            return AlbumView(
+                image: image,
+                label: item.name,
+                description: item.description,
+                songIdList: item.songIdList);
+          }
+          return ArtistView(
+              image: image,
+              label: item.name,
+              description: item.description,
+              songIdList: item.songIdList);
         },
       ),
     );
