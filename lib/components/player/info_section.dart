@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import 'package:spotify/components/player/favorite_button.dart';
+import 'package:spotify/models/song.dart';
 
 class InfoSection extends StatelessWidget {
   const InfoSection({
     Key? key,
     required this.name,
     required this.description,
+    required this.song,
   }) : super(key: key);
 
   final String name;
 
   final String description;
+
+  final Song song;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +56,7 @@ class InfoSection extends StatelessWidget {
             ),
           ],
         ),
-        const FavoriteButton(size: 28),
+        FavoriteButton(size: 28, song: song),
       ],
     );
   }

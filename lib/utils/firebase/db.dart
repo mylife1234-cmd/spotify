@@ -9,19 +9,22 @@ import '../../models/song.dart';
 import '../../models/user.dart';
 
 class Database {
-  final database = FirebaseDatabase.instance;
+  Database();
 
-  final albums = FirebaseDatabase.instance.ref('/albums');
-
-  final artists = FirebaseDatabase.instance.ref('/artists');
-
-  final genres = FirebaseDatabase.instance.ref('/genres');
-
-  final playlists = FirebaseDatabase.instance.ref('/playlists');
-
-  final songs = FirebaseDatabase.instance.ref('/songs');
-
-  final users = FirebaseDatabase.instance.ref('/users');
+  static void setUser(User user) {
+    FirebaseDatabase.instance.ref('/users/${user.id}').set({
+      'coverImageUrl': user.coverImageUrl,
+      'recentAlbumIdList': user.recentAlbumIdList,
+      'favoriteAlbumIdList': user.favoriteAlbumIdList,
+      'recentPlaylistIdList': user.recentPlaylistIdList,
+      'favoritePlaylistIdList': user.favoritePlaylistIdList,
+      'recentSongIdList': user.recentSongIdList,
+      'favoriteSongIdList': user.favoriteSongIdList,
+      'customizedPlaylistIdList': user.customizedPlaylistIdList,
+      'systemPlaylistIdList': user.systemPlaylistIdList,
+      'favoriteArtistIdList': user.favoriteArtistIdList,
+    });
+  }
 
   static Future<Song> getSongById(String id) async {
     final res = await FirebaseDatabase.instance.ref('/songs/$id').get();
@@ -32,15 +35,21 @@ class Database {
         .ref('/song/audio/$id.mp3')
         .getDownloadURL();
 
-    final coverImageUrl = await FirebaseStorage.instance
-        .ref('/song/image/$id.jpg')
-        .getDownloadURL();
+    String coverImageUrl;
+
+    if (map['coverImageUrl'] != null) {
+      coverImageUrl = map['coverImageUrl'];
+    } else {
+      coverImageUrl = await FirebaseStorage.instance
+          .ref('/song/image/$id.jpg')
+          .getDownloadURL();
+    }
 
     return Song(
       id: id,
-      name: map['name'],
-      albumId: map['albumId'],
-      artistIdList: map['artistIdList'],
+      name: map['name'] ?? '',
+      albumId: map['albumId'] ?? '',
+      artistIdList: map['artistIdList'] ?? '',
       audioUrl: audioUrl,
       coverImageUrl: coverImageUrl,
       genreIdList: map['genreIdList'],
@@ -53,10 +62,20 @@ class Database {
 
     final map = Map<String, dynamic>.from(res.value as Map);
 
+    String coverImageUrl;
+
+    if (map['coverImageUrl'] != null) {
+      coverImageUrl = map['coverImageUrl'];
+    } else {
+      coverImageUrl = await FirebaseStorage.instance
+          .ref('/playlist/$id.jpg')
+          .getDownloadURL();
+    }
+
     final playlist = Playlist(
       id: id,
       name: map['name'],
-      coverImageUrl: map['coverImageUrl'],
+      coverImageUrl: coverImageUrl,
       songIdList: map['songIdList'],
     );
 
@@ -72,15 +91,15 @@ class Database {
       id: id,
       name: name,
       coverImageUrl: map['coverImageUrl'],
-      recentAlbumIdList: map['recentAlbumIdList'],
-      favoriteAlbumIdList: map['favoriteAlbumIdList'],
-      recentPlaylistIdList: map['recentPlaylistIdList'],
-      favoritePlaylistIdList: map['favoritePlaylistIdList'],
-      recentSongIdList: map['recentSongIdList'],
+      recentAlbumIdList: map['recentAlbumIdList'] ?? [],
+      favoriteAlbumIdList: map['favoriteAlbumIdList'] ?? [],
+      recentPlaylistIdList: map['recentPlaylistIdList'] ?? [],
+      favoritePlaylistIdList: map['favoritePlaylistIdList'] ?? [],
+      recentSongIdList: map['recentSongIdList'] ?? [],
       favoriteSongIdList: map['favoriteSongIdList'] ?? [],
       customizedPlaylistIdList: map['customizedPlaylistIdList'] ?? [],
-      systemPlaylistIdList: map['systemPlaylistIdList'],
-      favoriteArtistIdList: map['favoriteArtistIdList'],
+      systemPlaylistIdList: map['systemPlaylistIdList'] ?? [],
+      favoriteArtistIdList: map['favoriteArtistIdList'] ?? [],
     );
 
     return user;
@@ -91,11 +110,20 @@ class Database {
 
     final map = Map<String, dynamic>.from(res.value as Map);
 
+    String coverImageUrl;
+
+    if (map['coverImageUrl'] != null) {
+      coverImageUrl = map['coverImageUrl'];
+    } else {
+      coverImageUrl =
+          await FirebaseStorage.instance.ref('/album/$id.jpg').getDownloadURL();
+    }
+
     final album = Album(
       id: id,
       artistId: map['artistId'],
       name: map['name'],
-      coverImageUrl: map['coverImageUrl'],
+      coverImageUrl: coverImageUrl,
       description: map['description'],
       songIdList: map['songIdList'],
     );
@@ -115,11 +143,21 @@ class Database {
     final res = await FirebaseDatabase.instance.ref('/artists/$id').get();
 
     final map = Map<String, dynamic>.from(res.value as Map);
-    print(res.value);
+
+    String coverImageUrl;
+
+    if (map['coverImageUrl'] != null) {
+      coverImageUrl = map['coverImageUrl'];
+    } else {
+      coverImageUrl = await FirebaseStorage.instance
+          .ref('/artist/$id.jpg')
+          .getDownloadURL();
+    }
+
     final artist = Artist(
       id: id,
       name: map['name'],
-      coverImageUrl: map['coverImageUrl'],
+      coverImageUrl: coverImageUrl,
       description: map['description'],
       songIdList: map['songIdList'],
     );
@@ -127,20 +165,26 @@ class Database {
     return artist;
   }
 
-  static void setUser(User user) {
-    FirebaseDatabase.instance.ref('/users/${user.id}').set(user);
-  }
-
   static Future<List<Genre>> getGenres() async {
     final res = await FirebaseDatabase.instance.ref('/genres').get();
 
     final List<Genre> genres = [];
 
-    Map<String, dynamic>.from(res.value as Map).forEach((key, value) {
+    Map<String, dynamic>.from(res.value as Map).forEach((key, value) async {
+      String coverImageUrl;
+
+      if (value['coverImageUrl'] != null) {
+        coverImageUrl = value['coverImageUrl'];
+      } else {
+        coverImageUrl = await FirebaseStorage.instance
+            .ref('/genre/$key.jpg')
+            .getDownloadURL();
+      }
+
       genres.add(Genre(
         id: key,
         name: value['name'],
-        coverImageUrl: value['coverImageUrl'],
+        coverImageUrl: coverImageUrl,
       ));
     });
 
@@ -151,14 +195,23 @@ class Database {
     final res = await FirebaseDatabase.instance.ref('/albums').get();
 
     final List<Album> albums = [];
-    final map = Map<String, dynamic>.from(res.value as Map);
 
-    Map<String, dynamic>.from(res.value as Map).forEach((key, value) {
+    Map<String, dynamic>.from(res.value as Map).forEach((key, value) async {
+      String coverImageUrl;
+
+      if (value['coverImageUrl'] != null) {
+        coverImageUrl = value['coverImageUrl'];
+      } else {
+        coverImageUrl = await FirebaseStorage.instance
+            .ref('/album/$key.jpg')
+            .getDownloadURL();
+      }
+
       albums.add(Album(
         id: key,
         artistId: value['artistId'],
         name: value['name'],
-        coverImageUrl: value['coverImageUrl'],
+        coverImageUrl: coverImageUrl,
         description: value['description'],
         songIdList: value['songIdList'],
       ));
@@ -172,11 +225,21 @@ class Database {
 
     final List<Artist> artists = [];
 
-    Map<String, dynamic>.from(res.value as Map).forEach((key, value) {
+    Map<String, dynamic>.from(res.value as Map).forEach((key, value) async {
+      String coverImageUrl;
+
+      if (value['coverImageUrl'] != null) {
+        coverImageUrl = value['coverImageUrl'];
+      } else {
+        coverImageUrl = await FirebaseStorage.instance
+            .ref('/artist/$key.jpg')
+            .getDownloadURL();
+      }
+
       artists.add(Artist(
         id: key,
         name: value['name'],
-        coverImageUrl: value['coverImageUrl'],
+        coverImageUrl: coverImageUrl,
         description: value['description'],
         songIdList: value['songIdList'],
       ));

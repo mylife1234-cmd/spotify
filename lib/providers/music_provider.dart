@@ -22,10 +22,6 @@ class MusicProvider extends ChangeNotifier {
 
   Color get color => _color;
 
-  bool _isFavorite = false;
-
-  bool get isFavorite => _isFavorite;
-
   bool _shuffling = false;
 
   bool get shuffling => _shuffling;
@@ -65,7 +61,7 @@ class MusicProvider extends ChangeNotifier {
     _currentSongListener();
   }
 
-  void loadPlaylist(List<Song> songList) {
+  Future loadPlaylist(List<Song> songList) {
     final mediaItems = songList
         .map(
           (song) => MediaItem(
@@ -84,7 +80,17 @@ class MusicProvider extends ChangeNotifier {
         )
         .toList();
 
-    _audioHandler.addQueueItems(mediaItems);
+    return _audioHandler.addQueueItems(mediaItems);
+  }
+
+  void clearPlaylist() {
+    final List<Future> futures = [];
+
+    for (int i = currentPlaylist.length - 1; i >= 0; i--) {
+      futures.add(removeQueueItemAt(i));
+    }
+
+    Future.wait(futures);
   }
 
   void _playlistListener() {
@@ -211,12 +217,6 @@ class MusicProvider extends ChangeNotifier {
     });
   }
 
-  void toggleFavorite() {
-    _isFavorite = !_isFavorite;
-
-    notifyListeners();
-  }
-
   void toggleShuffle() {
     _shuffling = !_shuffling;
 
@@ -306,8 +306,8 @@ class MusicProvider extends ChangeNotifier {
     _audioHandler.insertQueueItem(index, item);
   }
 
-  void removeQueueItemAt(index) {
-    _audioHandler.removeQueueItemAt(index);
+  Future removeQueueItemAt(index) {
+    return _audioHandler.removeQueueItemAt(index);
   }
 }
 

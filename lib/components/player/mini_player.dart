@@ -50,9 +50,9 @@ class MiniPlayer extends StatelessWidget {
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
-          children: const [
-            FavoriteButton(size: 23),
-            Padding(
+          children: [
+            FavoriteButton(size: 23, song: song),
+            const Padding(
               padding: EdgeInsets.only(right: 5, left: 10),
               child: PlayButton(
                 playIcon: Icons.play_arrow,

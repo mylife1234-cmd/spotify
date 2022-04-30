@@ -43,6 +43,8 @@ class _PlaylistViewState extends State<PlaylistView> {
 
   List<Song> songList = [];
 
+  bool _loading = true;
+
   @override
   void initState() {
     imageSize = initialImageSize;
@@ -83,6 +85,8 @@ class _PlaylistViewState extends State<PlaylistView> {
 
   Future<void> fetchSongs() async {
     if (widget.songIdList != null) {
+      context.read<MusicProvider>().clearPlaylist();
+
       final List<Song> songs = [];
 
       for (final id in widget.songIdList!) {
@@ -91,17 +95,18 @@ class _PlaylistViewState extends State<PlaylistView> {
         songs.add(song);
       }
 
-      setState(() {
-        songList = songs;
+      context.read<MusicProvider>().loadPlaylist(songs).then((value) {
+        setState(() {
+          songList = songs;
+          _loading = false;
+        });
       });
-
-      context.read<MusicProvider>().loadPlaylist(songs);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (songList.isEmpty) {
+    if (_loading || songList.isEmpty) {
       return const LoadingScreen();
     }
 

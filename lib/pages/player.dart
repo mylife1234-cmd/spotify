@@ -45,7 +45,11 @@ class MusicPlayer extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: InfoSection(name: song.name, description: song.description),
+            child: InfoSection(
+              name: song.name,
+              description: song.description,
+              song: song,
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(

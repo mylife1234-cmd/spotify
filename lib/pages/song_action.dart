@@ -7,10 +7,10 @@ import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/share/song_info.dart';
 import 'package:spotify/main.dart';
 import 'package:spotify/pages/share_page.dart';
-import 'package:spotify/utils/firebase/db.dart';
 
 import '../models/song.dart';
-import '../providers/music_provider.dart';
+import '../providers/data_provider.dart';
+import '../utils/firebase/db.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
 
@@ -52,7 +52,8 @@ class _SongActionState extends State<SongAction> {
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite = context.watch<MusicProvider>().isFavorite;
+    final isFavorite =
+        context.watch<DataProvider>().favoriteSongs.contains(widget.song);
 
     final listAction = [
       Action(
@@ -174,7 +175,9 @@ class _SongActionState extends State<SongAction> {
   }
 
   void _doActionLike() {
-    context.read<MusicProvider>().toggleFavorite();
+    context
+        .read<DataProvider>()
+        .addFavoriteSongs(songs: [widget.song], updateDb: true);
   }
 
   void _doActionShare() {

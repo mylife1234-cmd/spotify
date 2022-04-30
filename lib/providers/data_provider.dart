@@ -96,10 +96,16 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addFavoriteSongs(List<Song> songs) {
+  void addFavoriteSongs({required List<Song> songs, bool updateDb = false}) {
     _favoriteSongs.addAll(songs);
 
     notifyListeners();
+
+    if (updateDb) {
+      // FirebaseDatabase.instance
+      //     .ref('/users/${user.id}')
+      //     .update({'favoriteSongIdList': _favoriteSongs.map((e) => e.id)});
+    }
   }
 
   void addAlbums(List<Album> albums) {
