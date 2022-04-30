@@ -7,6 +7,7 @@ import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/share/song_info.dart';
 import 'package:spotify/main.dart';
 import 'package:spotify/pages/share_page.dart';
+import 'package:spotify/utils/firebase/db.dart';
 
 import '../models/song.dart';
 import '../providers/music_provider.dart';
@@ -200,13 +201,14 @@ class _SongActionState extends State<SongAction> {
       SystemUiOverlay.top,
       SystemUiOverlay.bottom,
     ]);
-
+    final album = await Database.getAlbumById(widget.song.albumId);
     await Navigator.push(
       homeContext,
       MaterialPageRoute(
         builder: (context) => AlbumView(
-          image: image!,
-          label: widget.song.description,
+          image: NetworkImage(album.coverImageUrl),
+          label: album.name,
+          songIdList: album.songIdList,
         ),
       ),
     );
@@ -216,7 +218,7 @@ class _SongActionState extends State<SongAction> {
     ]);
   }
 
-  void _doActionViewArtist() {
+  Future<void> _doActionViewArtist() async {
     Navigator.popUntil(homeContext, (route) => route.isFirst);
 
     Navigator.popUntil(context, (route) => route.isFirst);
@@ -225,13 +227,14 @@ class _SongActionState extends State<SongAction> {
       SystemUiOverlay.top,
       SystemUiOverlay.bottom,
     ]);
-
+    final artist = await Database.getArtistById(widget.song.artistIdList[0]);
     Navigator.push(
       homeContext,
       MaterialPageRoute(
         builder: (context) => ArtistView(
-          image: image!,
-          label: widget.song.description,
+          image: NetworkImage(artist.coverImageUrl),
+          label: artist.name,
+          songIdList: artist.songIdList,
         ),
       ),
     );

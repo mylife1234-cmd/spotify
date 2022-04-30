@@ -5,6 +5,7 @@ class Album {
     required this.name,
     required this.coverImageUrl,
     required this.description,
+    required this.songIdList,
   });
 
   final String id;
@@ -12,4 +13,5 @@ class Album {
   final String name;
   final String coverImageUrl;
   final String description;
+  final List songIdList;
 }

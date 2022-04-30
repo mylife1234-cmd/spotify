@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/shuffle_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
@@ -10,13 +11,17 @@ import '../components/album/animate_label.dart';
 import '../components/album/opacity_image.dart';
 import '../models/song.dart';
 import '../providers/music_provider.dart';
+import '../utils/firebase/db.dart';
+import 'loading.dart';
 
 class ArtistView extends StatefulWidget {
-  const ArtistView({Key? key, required this.image, required this.label})
+  const ArtistView(
+      {Key? key, required this.image, required this.label, this.songIdList})
       : super(key: key);
 
   final ImageProvider image;
   final String label;
+  final List? songIdList;
 
   @override
   State<ArtistView> createState() => _ArtistViewState();
@@ -32,6 +37,7 @@ class _ArtistViewState extends State<ArtistView> {
   bool showTopBar = false;
 
   Color _color = Colors.black;
+  List<Song> songList = [];
 
   @override
   void initState() {
@@ -61,6 +67,25 @@ class _ArtistViewState extends State<ArtistView> {
         _color = generator.mutedColor!.color;
       });
     });
+    fetchSongs();
+  }
+
+  Future<void> fetchSongs() async {
+    if (widget.songIdList != null) {
+      final List<Song> songs = [];
+
+      for (final id in widget.songIdList!) {
+        final song = await Database.getSongById(id);
+
+        songs.add(song);
+      }
+
+      setState(() {
+        songList = songs;
+      });
+
+      context.read<MusicProvider>().loadPlaylist(songs);
+    }
   }
 
   @override
@@ -71,6 +96,9 @@ class _ArtistViewState extends State<ArtistView> {
 
   @override
   Widget build(BuildContext context) {
+    if (songList.isEmpty) {
+      return const LoadingScreen();
+    }
     return Scaffold(
       body: Stack(
         children: [
@@ -139,7 +167,12 @@ class _ArtistViewState extends State<ArtistView> {
                       ),
                     ),
                   ),
-                  _buildListSong(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: songList.map((item) {
+                      return SongTile(song: item);
+                    }).toList(),
+                  ),
                 ],
               ),
             ),
@@ -185,12 +218,6 @@ class _ArtistViewState extends State<ArtistView> {
       ),
     );
   }
-}
-
-Widget _buildListSong() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-  );
 }
 
 // class ArtistView extends StatefulWidget {

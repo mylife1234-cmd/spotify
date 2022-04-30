@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/album/album_component.dart';
 import 'package:spotify/components/album/animate_label.dart';
 import 'package:spotify/components/album/opacity_image.dart';
@@ -7,12 +8,20 @@ import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/shuffle_button.dart';
 import 'package:spotify/components/artist/back_button.dart';
 
+import '../components/album/song_tile.dart';
+import '../models/song.dart';
+import '../providers/music_provider.dart';
+import '../utils/firebase/db.dart';
+import 'loading.dart';
+
 class AlbumView extends StatefulWidget {
-  const AlbumView({Key? key, required this.image, required this.label})
+  const AlbumView(
+      {Key? key, required this.image, required this.label, this.songIdList})
       : super(key: key);
 
   final ImageProvider image;
   final String label;
+  final List? songIdList;
 
   @override
   State<AlbumView> createState() => _AlbumViewState();
@@ -28,6 +37,7 @@ class _AlbumViewState extends State<AlbumView> {
   bool showTopBar = false;
 
   Color _color = Colors.black;
+  List<Song> songList = [];
 
   @override
   void initState() {
@@ -57,6 +67,26 @@ class _AlbumViewState extends State<AlbumView> {
         _color = generator.mutedColor!.color;
       });
     });
+
+    fetchSongs();
+  }
+
+  Future<void> fetchSongs() async {
+    if (widget.songIdList != null) {
+      final List<Song> songs = [];
+
+      for (final id in widget.songIdList!) {
+        final song = await Database.getSongById(id);
+
+        songs.add(song);
+      }
+
+      setState(() {
+        songList = songs;
+      });
+
+      context.read<MusicProvider>().loadPlaylist(songs);
+    }
   }
 
   @override
@@ -67,6 +97,9 @@ class _AlbumViewState extends State<AlbumView> {
 
   @override
   Widget build(BuildContext context) {
+    if (songList.isEmpty) {
+      return const LoadingScreen();
+    }
     return Scaffold(
       body: Stack(
         children: [
@@ -135,7 +168,12 @@ class _AlbumViewState extends State<AlbumView> {
                       ),
                     ),
                   ),
-                  _buildListSong(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: songList.map((item) {
+                      return SongTile(song: item);
+                    }).toList(),
+                  ),
                 ],
               ),
             ),
@@ -181,10 +219,4 @@ class _AlbumViewState extends State<AlbumView> {
       ),
     );
   }
-}
-
-Widget _buildListSong() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-  );
 }

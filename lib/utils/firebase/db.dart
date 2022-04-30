@@ -97,6 +97,7 @@ class Database {
       name: map['name'],
       coverImageUrl: map['coverImageUrl'],
       description: map['description'],
+      songIdList: map['songIdList'],
     );
 
     return album;
@@ -114,12 +115,13 @@ class Database {
     final res = await FirebaseDatabase.instance.ref('/artists/$id').get();
 
     final map = Map<String, dynamic>.from(res.value as Map);
-
+    print(res.value);
     final artist = Artist(
       id: id,
       name: map['name'],
       coverImageUrl: map['coverImageUrl'],
       description: map['description'],
+      songIdList: map['songIdList'],
     );
 
     return artist;
@@ -149,6 +151,7 @@ class Database {
     final res = await FirebaseDatabase.instance.ref('/albums').get();
 
     final List<Album> albums = [];
+    final map = Map<String, dynamic>.from(res.value as Map);
 
     Map<String, dynamic>.from(res.value as Map).forEach((key, value) {
       albums.add(Album(
@@ -157,6 +160,7 @@ class Database {
         name: value['name'],
         coverImageUrl: value['coverImageUrl'],
         description: value['description'],
+        songIdList: value['songIdList'],
       ));
     });
 
@@ -174,6 +178,7 @@ class Database {
         name: value['name'],
         coverImageUrl: value['coverImageUrl'],
         description: value['description'],
+        songIdList: value['songIdList'],
       ));
     });
 

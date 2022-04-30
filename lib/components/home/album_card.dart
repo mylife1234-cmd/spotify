@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:spotify/pages/album_view.dart';
 
 class AlbumCard extends StatelessWidget {
-  const AlbumCard({Key? key, required this.label, required this.image})
+  const AlbumCard(
+      {Key? key, required this.label, required this.image, this.songIdList})
       : super(key: key);
 
   final String label;
   final AssetImage image;
+  final List? songIdList;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,7 @@ class AlbumCard extends StatelessWidget {
             builder: (context) => AlbumView(
               image: image,
               label: label,
+              songIdList: songIdList,
             ),
           ),
         );
