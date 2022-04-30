@@ -169,9 +169,15 @@ class _ArtistViewState extends State<ArtistView> {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: songList.map((item) {
-                      return SongTile(song: item);
-                    }).toList(),
+                      children: [
+                        Column(
+                          children: songList.map((item) {
+                            return SongTile(song: item);
+                          }).toList(),
+                        ),
+                        const SizedBox(height: 60)
+                      ]
+
                   ),
                 ],
               ),
@@ -196,7 +202,20 @@ class _ArtistViewState extends State<ArtistView> {
                         child: BackIconButton(),
                       ),
                       AnimateLabel(label: widget.label, isShow: showTopBar),
+                      // Positioned(
+                      //   right: 5,
+                      //   bottom:
+                      //   140 - containerHeight.clamp(170.0, double.infinity),
+                      //   child: Stack(
+                      //     alignment: Alignment.bottomRight,
+                      //     children: const [
+                      //       PLayButton(),
+                      //       ShuffleButton(),
+                      //     ],
+                      //   ),
+                      // )
                     ],
+
                   ),
                 ),
               ),

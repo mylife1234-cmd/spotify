@@ -179,9 +179,14 @@ class _PlaylistViewState extends State<PlaylistView> {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: songList.map((item) {
-                      return SongTile(song: item);
-                    }).toList(),
+                      children: [
+                        Column(
+                          children: songList.map((item) {
+                            return SongTile(song: item);
+                          }).toList(),
+                        ),
+                        const SizedBox(height: 60)
+                      ]
                   ),
                 ],
               ),
