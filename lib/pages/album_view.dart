@@ -178,15 +178,12 @@ class _AlbumViewState extends State<AlbumView> {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: songList.map((item) {
-                          return SongTile(song: item);
-                        }).toList(),
-                      ),
-                      const SizedBox(height: 60)
-                    ]
+                    children:
+                    songList.map((item) {
+                      return SongTile(song: item);
+                    }).toList(),
                   ),
+                  if (songList.length == 1) const SizedBox(height: 70)
                 ],
               ),
             ),
@@ -210,6 +207,7 @@ class _AlbumViewState extends State<AlbumView> {
                         child: BackIconButton(),
                       ),
                       AnimateLabel(label: widget.label, isShow: showTopBar),
+
                     ],
                   ),
                 ),

@@ -175,10 +175,9 @@ class _ArtistViewState extends State<ArtistView> {
                             return SongTile(song: item);
                           }).toList(),
                         ),
-                        const SizedBox(height: 60)
                       ]
-
                   ),
+                  if (songList.length == 1) const SizedBox(height: 70)
                 ],
               ),
             ),
