@@ -210,16 +210,23 @@ class _LibraryPageState extends State<LibraryPage> {
         builder: (context) {
           if (item.runtimeType.toString() == 'Playlist') {
             return PlaylistView(
-                image: image, label: item.name, songIdList: item.songIdList);
+              id: item.id,
+                image: image, 
+                label: item.name, 
+                songIdList: 
+                item.songIdList
+            );
           }
           if (item.runtimeType.toString() == 'Album') {
             return AlbumView(
+                id: item.id,
                 image: image,
                 label: item.name,
                 description: item.description,
                 songIdList: item.songIdList);
           }
           return ArtistView(
+              id: item.id,
               image: image,
               label: item.name,
               description: item.description,

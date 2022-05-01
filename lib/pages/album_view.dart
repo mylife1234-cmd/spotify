@@ -20,14 +20,14 @@ class AlbumView extends StatefulWidget {
       required this.image,
       required this.label,
       this.songIdList,
-      required this.description})
+      required this.description, required this.id})
       : super(key: key);
 
   final ImageProvider image;
   final String label;
   final String description;
   final List? songIdList;
-
+  final String id;
   @override
   State<AlbumView> createState() => _AlbumViewState();
 }
@@ -43,7 +43,7 @@ class _AlbumViewState extends State<AlbumView> {
 
   Color _color = Colors.black;
   List<Song> songList = [];
-   bool _loading = true;
+  bool _loading = true;
 
   @override
   void initState() {

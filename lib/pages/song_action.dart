@@ -209,6 +209,7 @@ class _SongActionState extends State<SongAction> {
       homeContext,
       MaterialPageRoute(
         builder: (context) => AlbumView(
+          id: album.id,
           image: NetworkImage(album.coverImageUrl),
           label: album.name,
           songIdList: album.songIdList,
@@ -236,6 +237,7 @@ class _SongActionState extends State<SongAction> {
       homeContext,
       MaterialPageRoute(
         builder: (context) => ArtistView(
+          id: artist.id,
           image: NetworkImage(artist.coverImageUrl),
           label: artist.name,
           songIdList: artist.songIdList,

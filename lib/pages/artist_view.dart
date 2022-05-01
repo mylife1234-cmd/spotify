@@ -16,13 +16,20 @@ import 'loading.dart';
 
 class ArtistView extends StatefulWidget {
   const ArtistView(
-      {Key? key, required this.image, required this.label, this.songIdList, required this.description})
+      {Key? key,
+      required this.image,
+      required this.label,
+      this.songIdList,
+      required this.description,
+      required this.id
+      })
       : super(key: key);
 
   final ImageProvider image;
   final String label;
   final List? songIdList;
   final String description;
+  final String id;
   @override
   State<ArtistView> createState() => _ArtistViewState();
 }
@@ -91,7 +98,6 @@ class _ArtistViewState extends State<ArtistView> {
       });
     }
   }
-
 
   @override
   void dispose() {
@@ -167,21 +173,23 @@ class _ArtistViewState extends State<ArtistView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize),
-                          ArtistComponent(label: widget.label, description: widget.description,),
+                          ArtistComponent(
+                            label: widget.label,
+                            description: widget.description,
+                          ),
                         ],
                       ),
                     ),
                   ),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
                           children: songList.map((item) {
                             return SongTile(song: item);
                           }).toList(),
                         ),
-                      ]
-                  ),
+                      ]),
                   if (songList.length == 1) const SizedBox(height: 70)
                 ],
               ),
@@ -219,7 +227,6 @@ class _ArtistViewState extends State<ArtistView> {
                       //   ),
                       // )
                     ],
-
                   ),
                 ),
               ),
@@ -227,8 +234,7 @@ class _ArtistViewState extends State<ArtistView> {
           ),
           Positioned(
             right: 12,
-            bottom:
-            645 - containerHeight.clamp(170, double.infinity),
+            bottom: 645 - containerHeight.clamp(170, double.infinity),
             child: Stack(
               alignment: Alignment.bottomRight,
               children: const [

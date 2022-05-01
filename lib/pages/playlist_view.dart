@@ -19,13 +19,14 @@ class PlaylistView extends StatefulWidget {
     Key? key,
     this.songIdList,
     required this.image,
-    required this.label,
+    required this.label, 
+    required this.id,
   }) : super(key: key);
 
   final List? songIdList;
   final ImageProvider image;
   final String label;
-
+  final String id;
   @override
   State<PlaylistView> createState() => _PlaylistViewState();
 }

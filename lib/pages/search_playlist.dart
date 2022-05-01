@@ -174,10 +174,12 @@ class _SearchPlayListState extends State<SearchPlayList> {
               MaterialPageRoute(
                 builder: (context) => item['type'] == 'playlist'
                     ? PlaylistView(
+                        id: "SS",
                         image: AssetImage(item['cover']),
                         label: item['title'],
                       )
                     : ArtistView(
+                        id: "SS",
                         image: AssetImage(item['cover']),
                         label: item['title'],
                         description: 's',
