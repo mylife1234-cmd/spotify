@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spotify/components/auth/next_button.dart';
 import 'package:spotify/components/setting/setting_title.dart';
+import 'package:spotify/main.dart';
 
 import '../models/setting.dart';
 
@@ -70,6 +71,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     label: 'Log out',
                     color: Colors.white,
                     onTap: () async {
+                      getIt.unregister<BuildContext>(
+                        instanceName: 'homeContext',
+                      );
+
                       await FirebaseAuth.instance.signOut();
                     },
                   ),

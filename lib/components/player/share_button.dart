@@ -24,10 +24,12 @@ class ShareButton extends StatelessWidget {
         size: size,
       ),
       onTap: () async {
-        await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-            overlays: [
-              SystemUiOverlay.top,
-            ]);
+        await SystemChrome.setEnabledSystemUIMode(
+          SystemUiMode.manual,
+          overlays: [
+            SystemUiOverlay.top,
+          ],
+        );
 
         await Navigator.push(
           context,
@@ -38,8 +40,10 @@ class ShareButton extends StatelessWidget {
           ),
         );
 
-        await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-            overlays: []);
+        await SystemChrome.setEnabledSystemUIMode(
+          SystemUiMode.manual,
+          overlays: [],
+        );
       },
     );
   }

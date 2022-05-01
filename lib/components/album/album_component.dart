@@ -60,14 +60,15 @@ class AlbumComponent extends StatelessWidget {
         Row(
           children: [
             GestureDetector(
-                onTap: onTap,
-                child: Icon(
-                  isFavorite
-                      ? Icons.favorite_rounded
-                      : Icons.favorite_outline_rounded,
-                  size: 22,
-                  color: isFavorite ? Colors.green : Colors.white,
-                )),
+              onTap: onTap,
+              child: Icon(
+                isFavorite
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_outline_rounded,
+                size: 22,
+                color: isFavorite ? Colors.green : Colors.white,
+              ),
+            ),
             const SizedBox(width: 15),
             const Icon(
               Icons.more_horiz,

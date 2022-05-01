@@ -185,18 +185,19 @@ class _SignUpPageState extends State<SignUpPage> {
     playlistIdList.shuffle();
 
     final user = model.User(
-        id: credential.user!.uid,
-        name: credential.user!.displayName!,
-        coverImageUrl: credential.user!.photoURL!,
-        recentAlbumIdList: [],
-        favoriteAlbumIdList: [],
-        recentPlaylistIdList: [],
-        favoritePlaylistIdList: [],
-        recentSongIdList: [],
-        favoriteSongIdList: [],
-        customizedPlaylistIdList: [],
-        systemPlaylistIdList: playlistIdList.sublist(0, 5),
-        favoriteArtistIdList: []);
+      id: credential.user!.uid,
+      name: credential.user!.displayName!,
+      coverImageUrl: credential.user!.photoURL!,
+      recentAlbumIdList: [],
+      favoriteAlbumIdList: [],
+      recentPlaylistIdList: [],
+      favoritePlaylistIdList: [],
+      recentSongIdList: [],
+      favoriteSongIdList: [],
+      customizedPlaylistIdList: [],
+      systemPlaylistIdList: playlistIdList.sublist(0, 5),
+      favoriteArtistIdList: [],
+    );
 
     Database.setUser(user);
   }

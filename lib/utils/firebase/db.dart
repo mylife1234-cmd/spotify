@@ -248,4 +248,10 @@ class Database {
 
     return artists;
   }
+
+  static Future<String> getArtistName(String id) async {
+    final res = await FirebaseDatabase.instance.ref('/artists/$id/name').get();
+
+    return res.value as String;
+  }
 }
