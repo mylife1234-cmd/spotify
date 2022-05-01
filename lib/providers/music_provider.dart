@@ -49,6 +49,10 @@ class MusicProvider extends ChangeNotifier {
 
   List<MediaItem> get currentPlaylist => _currentPlaylist;
 
+  String _currentPlaylistId = '';
+
+  String get currentPlaylistId => _currentPlaylistId;
+
   void _initialize() {
     _playlistListener();
 
@@ -89,6 +93,12 @@ class MusicProvider extends ChangeNotifier {
         .toList();
 
     return _audioHandler.addQueueItems(mediaItems);
+  }
+
+  void updateCurrentPlaylistId(String newId) {
+    _currentPlaylistId = newId;
+
+    notifyListeners();
   }
 
   void addToPlaylist(Song song) {
@@ -196,7 +206,7 @@ class MusicProvider extends ChangeNotifier {
     // updateColor(newSong);
 
     final index =
-        _currentPlaylist.indexWhere((element) => element.title == newSong.name);
+        _currentPlaylist.indexWhere((element) => element.id == newSong.id);
 
     playWithIndex(index);
   }

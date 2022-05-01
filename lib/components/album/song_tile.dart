@@ -7,8 +7,13 @@ import '../../pages/song_action.dart';
 import '../../providers/music_provider.dart';
 
 class SongTile extends StatelessWidget {
-  const SongTile({Key? key, required this.song}) : super(key: key);
+  const SongTile({
+    Key? key,
+    required this.song,
+    required this.loadPlaylist,
+  }) : super(key: key);
   final Song song;
+  final void Function() loadPlaylist;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +71,7 @@ class SongTile extends StatelessWidget {
         visualDensity: VisualDensity.standard,
         horizontalTitleGap: 12,
         onTap: () {
+          loadPlaylist();
           context.read<MusicProvider>().playNewSong(song);
         },
       ),

@@ -98,7 +98,10 @@ class _PlaylistViewState extends State<PlaylistView> {
   }
 
   Future loadPlaylist() async {
-    if (songList.isNotEmpty) {
+    final currentPlaylistId =
+        Provider.of<MusicProvider>(context, listen: false).currentPlaylistId;
+
+    if (songList.isNotEmpty && currentPlaylistId != widget.id) {
       setState(() {
         _loading = true;
       });
@@ -106,7 +109,9 @@ class _PlaylistViewState extends State<PlaylistView> {
       context.read<MusicProvider>().clearPlaylist();
 
       context.read<MusicProvider>().loadPlaylist(songList).then((value) {
-        context.read<MusicProvider>().playWithIndex(0);
+        // context.read<MusicProvider>().playWithIndex(0);
+
+        context.read<MusicProvider>().updateCurrentPlaylistId(widget.id);
 
         setState(() {
           _loading = false;
@@ -191,7 +196,10 @@ class _PlaylistViewState extends State<PlaylistView> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: songList.map((item) {
-                      return SongTile(song: item);
+                      return SongTile(
+                        song: item,
+                        loadPlaylist: loadPlaylist,
+                      );
                     }).toList(),
                   ),
                   if (songList.length == 1) const SizedBox(height: 70)
