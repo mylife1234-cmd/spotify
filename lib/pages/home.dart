@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
     final systemPlaylists = context.watch<DataProvider>().systemPlaylists;
     final recentAlbum = context.watch<DataProvider>().recentAlbums;
     final favoriteArtist = context.watch<DataProvider>().favoriteArtists;
+
     final List list = [...recentPlaylists, ...recentAlbum].sublist(0)
       ..shuffle();
 
@@ -143,24 +144,22 @@ class _HomePageState extends State<HomePage> {
                                 .sublist(0, shuffledList.length)
                                 .map((item) {
                               return Padding(
-                                  padding: const EdgeInsets.only(right: 15),
-                                  child: item.runtimeType.toString() ==
-                                          'Playlist'
-                                      ? PlaylistCard(
-                                          id: item.id,
-                                          label: item.name,
-                                          image:
-                                              NetworkImage(item.coverImageUrl),
-                                          songIdList: item.songIdList,
-                                        )
-                                      : ArtistCard(
-                                          id: item.id,
-                                          label: item.name,
-                                          image:
-                                              NetworkImage(item.coverImageUrl),
-                                          description: item.description,
-                                          songIdList: item.songIdList,
-                                        ));
+                                padding: const EdgeInsets.only(right: 15),
+                                child: item.runtimeType.toString() == 'Playlist'
+                                    ? PlaylistCard(
+                                        id: item.id,
+                                        label: item.name,
+                                        image: NetworkImage(item.coverImageUrl),
+                                        songIdList: item.songIdList,
+                                      )
+                                    : ArtistCard(
+                                        id: item.id,
+                                        label: item.name,
+                                        image: NetworkImage(item.coverImageUrl),
+                                        description: item.description,
+                                        songIdList: item.songIdList,
+                                      ),
+                              );
                             }).toList(),
                           ),
                         ),
@@ -175,9 +174,4 @@ class _HomePageState extends State<HomePage> {
       ]),
     );
   }
-
-  // Future<String> getArtistName(String id) async {
-  //   final artist = await Database.getArtistById(id);
-  //   return artist.name;
-  // }
 }

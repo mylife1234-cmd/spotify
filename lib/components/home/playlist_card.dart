@@ -19,11 +19,12 @@ class PlaylistCard extends StatelessWidget {
   final List? songIdList;
   @override
   Widget build(BuildContext context) {
-    final iscustomizedPlaylist = context
+    final isCustomizedPlaylist = context
         .watch<DataProvider>()
         .user
         .customizedPlaylistIdList
         .contains(id);
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -52,16 +53,16 @@ class PlaylistCard extends StatelessWidget {
               maxLines: 1,
             ),
             const SizedBox(height: 5),
-            if (iscustomizedPlaylist)
+            if (isCustomizedPlaylist)
               Text(
-                'Playlist ∙ user',
+                'Playlist ∙ User',
                 style: Theme.of(context).textTheme.caption,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               )
             else
               Text(
-                'Playlist ∙ system',
+                'Playlist ∙ System',
                 style: Theme.of(context).textTheme.caption,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
