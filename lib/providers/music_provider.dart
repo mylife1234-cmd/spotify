@@ -1,9 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/widgets.dart';
-import 'package:palette_generator/palette_generator.dart';
 
 import '../main.dart';
 import '../models/song.dart';
+import '../utils/calculation/helper.dart';
 
 class MusicProvider extends ChangeNotifier {
   MusicProvider() {
@@ -246,9 +246,9 @@ class MusicProvider extends ChangeNotifier {
       image = AssetImage(url);
     }
 
-    PaletteGenerator.fromImageProvider(image).then((generator) {
-      if (generator.dominantColor != null) {
-        _color = generator.dominantColor!.color;
+    getColorFromImage(image).then((color) {
+      if (color != null) {
+        _color = color;
 
         notifyListeners();
       }

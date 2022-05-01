@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:palette_generator/palette_generator.dart';
 import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/components/share/media_button.dart';
 import 'package:spotify/components/share/song_info.dart';
 import 'package:spotify/models/song.dart';
+
+import '../utils/calculation/helper.dart';
 
 class SharePage extends StatefulWidget {
   const SharePage({Key? key, required this.song}) : super(key: key);
@@ -31,10 +32,10 @@ class _SharePageState extends State<SharePage> {
       image = AssetImage(url);
     }
 
-    PaletteGenerator.fromImageProvider(image).then((generator) {
-      if (generator.dominantColor != null) {
+    getColorFromImage(image).then((color) {
+      if (color != null) {
         setState(() {
-          _color = generator.dominantColor!.color.withOpacity(0.1);
+          _color = color;
         });
       }
     });

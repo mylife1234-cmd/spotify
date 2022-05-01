@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/share/song_info.dart';
@@ -10,6 +9,7 @@ import 'package:spotify/pages/share_page.dart';
 
 import '../models/song.dart';
 import '../providers/data_provider.dart';
+import '../utils/calculation/helper.dart';
 import '../utils/firebase/db.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
@@ -43,10 +43,10 @@ class _SongActionState extends State<SongAction> {
       }
     });
 
-    PaletteGenerator.fromImageProvider(image!).then((generator) {
-      if (generator.dominantColor != null) {
+    getColorFromImage(image!).then((color) {
+      if (color != null) {
         setState(() {
-          _color = generator.dominantColor!.color.withOpacity(0.1);
+          _color = color;
         });
       }
     });

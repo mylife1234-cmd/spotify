@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
@@ -10,6 +9,7 @@ import '../components/album/animate_label.dart';
 import '../components/album/opacity_image.dart';
 import '../models/song.dart';
 import '../providers/music_provider.dart';
+import '../utils/calculation/helper.dart';
 import '../utils/firebase/db.dart';
 import 'loading.dart';
 
@@ -118,10 +118,10 @@ class _ArtistViewState extends State<ArtistView> {
   @override
   Widget build(BuildContext context) {
     if (_color == Colors.black) {
-      PaletteGenerator.fromImageProvider(widget.image).then((generator) {
-        if (generator.dominantColor != null) {
+      getColorFromImage(widget.image).then((color) {
+        if (color != null) {
           setState(() {
-            _color = generator.dominantColor!.color.withOpacity(0.1);
+            _color = color;
           });
         }
       });
