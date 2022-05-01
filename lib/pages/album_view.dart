@@ -5,7 +5,6 @@ import 'package:spotify/components/album/album_component.dart';
 import 'package:spotify/components/album/animate_label.dart';
 import 'package:spotify/components/album/opacity_image.dart';
 import 'package:spotify/components/album/play_button.dart';
-import 'package:spotify/components/album/shuffle_button.dart';
 import 'package:spotify/components/artist/back_button.dart';
 
 import '../components/album/song_tile.dart';
@@ -80,19 +79,27 @@ class _AlbumViewState extends State<AlbumView> {
 
   Future<void> fetchSongs() async {
     if (widget.songIdList != null) {
-      context.read<MusicProvider>().clearPlaylist();
-
-      final List<Song> songs = [];
-
-      for (final id in widget.songIdList!) {
-        final song = await Database.getSongById(id);
-
-        songs.add(song);
-      }
-
-      context.read<MusicProvider>().loadPlaylist(songs).then((value) {
+      Future.wait(
+        widget.songIdList!.map((id) => Database.getSongById(id)),
+      ).then((songs) {
         setState(() {
           songList = songs;
+          _loading = false;
+        });
+      });
+    }
+  }
+
+  Future loadPlaylist() async {
+    if (songList.isNotEmpty) {
+      setState(() {
+        _loading = true;
+      });
+
+      context.read<MusicProvider>().clearPlaylist();
+
+      context.read<MusicProvider>().loadPlaylist(songList).then((value) {
+        setState(() {
           _loading = false;
         });
       });
@@ -223,9 +230,10 @@ class _AlbumViewState extends State<AlbumView> {
             bottom: 645 - containerHeight.clamp(170, double.infinity),
             child: Stack(
               alignment: Alignment.bottomRight,
-              children: const [
-                PLayButton(),
-                ShuffleButton(),
+              children: [
+                PLayButton(onTap: () {
+                  loadPlaylist();
+                }),
               ],
             ),
           ),

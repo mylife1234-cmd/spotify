@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/album/play_button.dart';
-import 'package:spotify/components/album/shuffle_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/artist_component.dart';
 import 'package:spotify/components/artist/back_button.dart';
@@ -79,19 +78,27 @@ class _ArtistViewState extends State<ArtistView> {
 
   Future<void> fetchSongs() async {
     if (widget.songIdList != null) {
-      context.read<MusicProvider>().clearPlaylist();
-
-      final List<Song> songs = [];
-
-      for (final id in widget.songIdList!) {
-        final song = await Database.getSongById(id);
-
-        songs.add(song);
-      }
-
-      context.read<MusicProvider>().loadPlaylist(songs).then((value) {
+      Future.wait(
+        widget.songIdList!.map((id) => Database.getSongById(id)),
+      ).then((songs) {
         setState(() {
           songList = songs;
+          _loading = false;
+        });
+      });
+    }
+  }
+
+  Future loadPlaylist() async {
+    if (songList.isNotEmpty) {
+      setState(() {
+        _loading = true;
+      });
+
+      context.read<MusicProvider>().clearPlaylist();
+
+      context.read<MusicProvider>().loadPlaylist(songList).then((value) {
+        setState(() {
           _loading = false;
         });
       });
@@ -237,9 +244,10 @@ class _ArtistViewState extends State<ArtistView> {
             bottom: 645 - containerHeight.clamp(170, double.infinity),
             child: Stack(
               alignment: Alignment.bottomRight,
-              children: const [
-                PLayButton(),
-                ShuffleButton(),
+              children: [
+                PLayButton(onTap: () {
+                  loadPlaylist();
+                }),
               ],
             ),
           ),

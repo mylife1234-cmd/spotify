@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:spotify/providers/music_provider.dart';
 
 class PLayButton extends StatelessWidget {
-  const PLayButton({Key? key}) : super(key: key);
+  const PLayButton({Key? key, required this.onTap}) : super(key: key);
+
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Container(
         width: 48,
         height: 48,
@@ -22,9 +23,6 @@ class PLayButton extends StatelessWidget {
           color: Colors.black,
         ),
       ),
-      onTap: () {
-        context.read<MusicProvider>().playWithIndex(0);
-      },
     );
   }
 }

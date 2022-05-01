@@ -83,6 +83,24 @@ class MusicProvider extends ChangeNotifier {
     return _audioHandler.addQueueItems(mediaItems);
   }
 
+  void addToPlaylist(Song song) {
+    final mediaItem = MediaItem(
+      id: song.id,
+      title: song.name,
+      artist: song.description,
+      artUri: Uri.parse(song.coverImageUrl),
+      extras: {
+        'url': song.audioUrl,
+        'coverUrl': song.coverImageUrl,
+        'artistIdList': song.artistIdList,
+        'genreIdList': song.genreIdList
+      },
+      album: song.albumId,
+    );
+
+    _audioHandler.addQueueItem(mediaItem);
+  }
+
   void clearPlaylist() {
     final List<Future> futures = [];
 
