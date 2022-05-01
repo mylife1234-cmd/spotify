@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:spotify/providers/music_provider.dart';
 
 import '../../models/song.dart';
+import '../../utils/calculation/helper.dart';
 
 class SongCard extends StatelessWidget {
   const SongCard({Key? key, required this.song}) : super(key: key);
@@ -11,15 +12,7 @@ class SongCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ImageProvider image;
-
-    final url = song.coverImageUrl;
-
-    if (url.startsWith('https')) {
-      image = NetworkImage(url);
-    } else {
-      image = AssetImage(url);
-    }
+    final image = getImageFromUrl(song.coverImageUrl);
 
     return GestureDetector(
       onTap: () {

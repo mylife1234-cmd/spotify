@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/song.dart';
+import '../../utils/calculation/helper.dart';
 
 class SongInfo extends StatelessWidget {
   const SongInfo({Key? key, required this.song}) : super(key: key);
@@ -9,15 +10,7 @@ class SongInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ImageProvider image;
-
-    final url = song.coverImageUrl;
-
-    if (url.startsWith('https')) {
-      image = NetworkImage(url);
-    } else {
-      image = AssetImage(url);
-    }
+    final image = getImageFromUrl(song.coverImageUrl);
 
     return Column(
       children: [

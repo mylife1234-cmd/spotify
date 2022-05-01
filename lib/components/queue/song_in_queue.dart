@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/song.dart';
 import '../../providers/music_provider.dart';
+import '../../utils/calculation/helper.dart';
 
 class SongInQueue extends StatelessWidget {
   const SongInQueue({
@@ -16,6 +17,8 @@ class SongInQueue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final image = getImageFromUrl(song.coverImageUrl);
+
     return Container(
       color: Colors.black,
       child: ListTile(
@@ -33,9 +36,7 @@ class SongInQueue extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
-        leading: song.coverImageUrl.startsWith('https')
-            ? Image.network(song.coverImageUrl)
-            : Image.asset(song.coverImageUrl),
+        leading: Image(image: image),
         trailing: ReorderableDragStartListener(
           index: index,
           child: const Icon(CupertinoIcons.line_horizontal_3, size: 30),

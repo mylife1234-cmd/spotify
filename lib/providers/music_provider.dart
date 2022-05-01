@@ -236,15 +236,7 @@ class MusicProvider extends ChangeNotifier {
   }
 
   void updateColor(Song newSong) {
-    ImageProvider image;
-
-    final url = newSong.coverImageUrl;
-
-    if (url.startsWith('https')) {
-      image = NetworkImage(url);
-    } else {
-      image = AssetImage(url);
-    }
+    final image = getImageFromUrl(newSong.coverImageUrl);
 
     getColorFromImage(image).then((color) {
       if (color != null) {

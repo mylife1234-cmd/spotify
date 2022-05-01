@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/calculation/helper.dart';
+
 class ListItem extends StatelessWidget {
   const ListItem({
     Key? key,
@@ -16,13 +18,7 @@ class ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ImageProvider image;
-
-    if (coverUrl.startsWith('https')) {
-      image = NetworkImage(coverUrl);
-    } else {
-      image = AssetImage(coverUrl);
-    }
+    final image = getImageFromUrl(coverUrl);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 3),

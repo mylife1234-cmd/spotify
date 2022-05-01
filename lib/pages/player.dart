@@ -8,6 +8,7 @@ import 'package:spotify/components/player/slider.dart';
 
 import '../components/player/share_button.dart';
 import '../providers/music_provider.dart';
+import '../utils/calculation/helper.dart';
 
 class MusicPlayer extends StatelessWidget {
   const MusicPlayer({Key? key}) : super(key: key);
@@ -22,6 +23,8 @@ class MusicPlayer extends StatelessWidget {
 
     final padding = size.height / 33;
 
+    final image = getImageFromUrl(song!.coverImageUrl);
+
     return Scaffold(
       backgroundColor: color,
       body: ListView(
@@ -33,15 +36,13 @@ class MusicPlayer extends StatelessWidget {
               onDismissed: () {
                 Navigator.maybePop(context);
               },
-              song: song!,
+              song: song,
             ),
           ),
           Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: 24, vertical: padding * 0.8),
-            child: song.coverImageUrl.startsWith('https')
-                ? Image.network(song.coverImageUrl)
-                : Image.asset(song.coverImageUrl),
+            child: Image(image: image),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),

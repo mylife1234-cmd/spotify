@@ -27,23 +27,13 @@ class _SongActionState extends State<SongAction> {
 
   final homeContext = getIt.get<BuildContext>(instanceName: 'homeContext');
 
-  ImageProvider? image;
-
   @override
   void initState() {
     super.initState();
 
-    final url = widget.song.coverImageUrl;
+    final image = getImageFromUrl(widget.song.coverImageUrl);
 
-    setState(() {
-      if (url.startsWith('https')) {
-        image = NetworkImage(url);
-      } else {
-        image = AssetImage(url);
-      }
-    });
-
-    getColorFromImage(image!).then((color) {
+    getColorFromImage(image).then((color) {
       if (color != null) {
         setState(() {
           _color = color;

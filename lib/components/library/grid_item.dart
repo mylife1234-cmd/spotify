@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/calculation/helper.dart';
+
 class GridItem extends StatelessWidget {
   const GridItem({
     Key? key,
@@ -16,13 +18,7 @@ class GridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ImageProvider image;
-
-    if (coverUrl.startsWith('https')) {
-      image = NetworkImage(coverUrl);
-    } else {
-      image = AssetImage(coverUrl);
-    }
+    final image = getImageFromUrl(coverUrl);
 
     return Column(
       crossAxisAlignment:

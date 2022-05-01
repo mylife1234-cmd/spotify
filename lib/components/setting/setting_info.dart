@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify/pages/profile.dart';
 
 import '../../models/song.dart';
+import '../../utils/calculation/helper.dart';
 
 class SettingInfo extends StatelessWidget {
   const SettingInfo({Key? key, required this.song}) : super(key: key);
@@ -9,15 +10,7 @@ class SettingInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ImageProvider image;
-
-    final url = song.coverImageUrl;
-
-    if (url.startsWith('https')) {
-      image = NetworkImage(url);
-    } else {
-      image = AssetImage(url);
-    }
+    final image = getImageFromUrl(song.coverImageUrl);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),

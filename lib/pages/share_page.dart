@@ -22,15 +22,7 @@ class _SharePageState extends State<SharePage> {
   void initState() {
     super.initState();
 
-    ImageProvider image;
-
-    final url = widget.song.coverImageUrl;
-
-    if (url.startsWith('https')) {
-      image = NetworkImage(url);
-    } else {
-      image = AssetImage(url);
-    }
+    final image = getImageFromUrl(widget.song.coverImageUrl);
 
     getColorFromImage(image).then((color) {
       if (color != null) {

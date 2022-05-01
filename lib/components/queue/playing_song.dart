@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/song.dart';
+import '../../utils/calculation/helper.dart';
 
 class PlayingSongTile extends StatelessWidget {
   const PlayingSongTile({Key? key, required this.song}) : super(key: key);
@@ -8,6 +9,8 @@ class PlayingSongTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final image = getImageFromUrl(song.coverImageUrl);
+
     return Container(
       color: Colors.black,
       child: ListTile(
@@ -25,9 +28,7 @@ class PlayingSongTile extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
-        leading: song.coverImageUrl.startsWith('https')
-            ? Image.network(song.coverImageUrl)
-            : Image.asset(song.coverImageUrl),
+        leading: Image(image: image),
         contentPadding: EdgeInsets.zero,
         dense: true,
         visualDensity: VisualDensity.standard,

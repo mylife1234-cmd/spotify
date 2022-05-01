@@ -11,6 +11,7 @@ import 'package:spotify/pages/playlist_creation.dart';
 import 'package:spotify/pages/playlist_view.dart';
 
 import '../providers/data_provider.dart';
+import '../utils/calculation/helper.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
 
@@ -196,13 +197,7 @@ class _LibraryPageState extends State<LibraryPage> {
   }
 
   void onTap(item) {
-    final ImageProvider image;
-
-    if (item.coverImageUrl.startsWith('https')) {
-      image = NetworkImage(item.coverImageUrl);
-    } else {
-      image = AssetImage(item.coverImageUrl);
-    }
+    final image = getImageFromUrl(item.coverImageUrl);
 
     Navigator.push(
       context,

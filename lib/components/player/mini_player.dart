@@ -9,6 +9,7 @@ import 'package:spotify/pages/player.dart';
 import 'package:spotify/providers/music_provider.dart';
 
 import '../../models/song.dart';
+import '../../utils/calculation/helper.dart';
 
 class MiniPlayer extends StatelessWidget {
   const MiniPlayer({Key? key, required this.song}) : super(key: key);
@@ -18,6 +19,8 @@ class MiniPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = context.watch<MusicProvider>().color.withOpacity(0.7);
+
+    final image = getImageFromUrl(song.coverImageUrl);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -44,9 +47,7 @@ class MiniPlayer extends StatelessWidget {
         ),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(5),
-          child: song.coverImageUrl.startsWith('https')
-              ? Image.network(song.coverImageUrl)
-              : Image.asset(song.coverImageUrl),
+          child: Image(image: image),
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,

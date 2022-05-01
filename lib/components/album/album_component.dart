@@ -19,12 +19,15 @@ class AlbumComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite = context
-            .watch<DataProvider>()
-            .user
-            .favoriteAlbumIdList
-            .contains(id) ||
-        context.watch<DataProvider>().user.favoritePlaylistIdList.contains(id);
+    final favoriteAlbumIdList =
+        context.watch<DataProvider>().user.favoriteAlbumIdList;
+
+    final favoritePlaylistIdList =
+        context.watch<DataProvider>().user.favoritePlaylistIdList;
+
+    final isFavorite =
+        favoriteAlbumIdList.contains(id) || favoritePlaylistIdList.contains(id);
+
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 20, top: 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

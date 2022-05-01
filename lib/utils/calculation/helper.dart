@@ -20,3 +20,11 @@ Future<Color?> getColorFromImage(ImageProvider imageProvider) async {
     return null;
   }
 }
+
+ImageProvider getImageFromUrl(String url) {
+  if (url.startsWith('https')) {
+    return NetworkImage(url);
+  } else {
+    return AssetImage(url);
+  }
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_button.dart';
+import 'package:spotify/utils/calculation/helper.dart';
 
 import '../../models/song.dart';
 import '../../pages/song_action.dart';
@@ -22,15 +23,7 @@ class SongTile extends StatelessWidget {
     final isCurrent =
         (currentSong != null ? currentSong.name : '') == song.name;
 
-    ImageProvider image;
-
-    final url = song.coverImageUrl;
-
-    if (url.startsWith('https')) {
-      image = NetworkImage(url);
-    } else {
-      image = AssetImage(url);
-    }
+    final image = getImageFromUrl(song.coverImageUrl);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
