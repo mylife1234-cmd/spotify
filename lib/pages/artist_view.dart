@@ -98,6 +98,8 @@ class _ArtistViewState extends State<ArtistView> {
       context.read<MusicProvider>().clearPlaylist();
 
       context.read<MusicProvider>().loadPlaylist(songList).then((value) {
+        context.read<MusicProvider>().playWithIndex(0);
+
         setState(() {
           _loading = false;
         });

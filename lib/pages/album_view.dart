@@ -99,6 +99,8 @@ class _AlbumViewState extends State<AlbumView> {
       context.read<MusicProvider>().clearPlaylist();
 
       context.read<MusicProvider>().loadPlaylist(songList).then((value) {
+        context.read<MusicProvider>().playWithIndex(0);
+
         setState(() {
           _loading = false;
         });
