@@ -173,7 +173,10 @@ class _PlaylistViewState extends State<PlaylistView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize + 31),
-                          AlbumComponent(label: widget.label),
+                          AlbumComponent(
+                            id: widget.id,
+                            label: widget.label
+                          ),
                         ],
                       ),
                     ),

@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/data_provider.dart';
 
 class ArtistComponent extends StatelessWidget {
-  const ArtistComponent({Key? key, required this.label, required this.description}) : super(key: key);
+  const ArtistComponent(
+      {Key? key,
+      required this.label,
+      required this.description,
+      required this.id})
+      : super(key: key);
 
   final String label;
   final String description;
+  final String id;
   @override
   Widget build(BuildContext context) {
+    final isFavorite =
+        context.watch<DataProvider>().user.favoriteArtistIdList.contains(id);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -35,13 +46,20 @@ class ArtistComponent extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(left: 15, right: 20, top: 10),
         child: Row(
-          children: const [
-            Icon(
-              Icons.favorite_outline_rounded,
-              size: 22,
+          children: [
+            GestureDetector(
+              child: Icon(
+                isFavorite
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_outline_rounded,
+                size: 22,
+                color: isFavorite ? Colors.green : Colors.white,
+              ),
+              onTap: () {
+              },
             ),
-            SizedBox(width: 15),
-            Icon(
+            const SizedBox(width: 15),
+            const Icon(
               Icons.more_horiz,
               size: 22,
             ),

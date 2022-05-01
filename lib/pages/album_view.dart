@@ -173,6 +173,7 @@ class _AlbumViewState extends State<AlbumView> {
                         children: [
                           SizedBox(height: initialImageSize),
                           AlbumComponent(
+                            id: widget.id,
                             label: widget.label,
                             description: widget.description,
                           ),

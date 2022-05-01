@@ -174,6 +174,7 @@ class _ArtistViewState extends State<ArtistView> {
                         children: [
                           SizedBox(height: initialImageSize),
                           ArtistComponent(
+                            id: widget.id,
                             label: widget.label,
                             description: widget.description,
                           ),
