@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/auth/next_button.dart';
 import 'package:spotify/components/setting/setting_title.dart';
 import 'package:spotify/main.dart';
+import 'package:spotify/providers/data_provider.dart';
+import 'package:spotify/providers/music_provider.dart';
 
 import '../models/setting.dart';
 
@@ -74,6 +77,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       getIt.unregister<BuildContext>(
                         instanceName: 'homeContext',
                       );
+
+                      context.read<MusicProvider>().clear();
+
+                      context.read<DataProvider>().clear();
 
                       await FirebaseAuth.instance.signOut();
                     },

@@ -66,6 +66,40 @@ class DataProvider extends ChangeNotifier {
 
   List<Playlist> get systemPlaylists => _systemPlaylists;
 
+  void clear() {
+    _user = User(
+      id: '',
+      name: '',
+      coverImageUrl: '',
+      recentAlbumIdList: [],
+      favoriteAlbumIdList: [],
+      recentPlaylistIdList: [],
+      favoritePlaylistIdList: [],
+      recentSongIdList: [],
+      favoriteSongIdList: [],
+      customizedPlaylistIdList: [],
+      systemPlaylistIdList: [],
+      favoriteArtistIdList: [],
+    );
+
+    _genres.clear();
+
+    _artists.clear();
+    _favoriteArtists.clear();
+
+    _recentSongs.clear();
+    _favoriteSongs.clear();
+
+    _albums.clear();
+    _recentAlbums.clear();
+    _favoriteAlbums.clear();
+
+    _recentPlaylists.clear();
+    _favoritePlaylists.clear();
+    _customizedPlaylists.clear();
+    _systemPlaylists.clear();
+  }
+
   void setUser(User user) {
     _user = user;
 

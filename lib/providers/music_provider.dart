@@ -61,6 +61,14 @@ class MusicProvider extends ChangeNotifier {
     _currentSongListener();
   }
 
+  void clear() {
+    _currentSong = null;
+
+    _playing = false;
+
+    _color = const Color(0xff2f2215);
+  }
+
   Future loadPlaylist(List<Song> songList) {
     final mediaItems = songList
         .map(
