@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/pages/setting.dart';
+
 import '../../models/setting.dart';
 
 class SettingList extends StatelessWidget {

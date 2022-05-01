@@ -28,6 +28,7 @@ class AlbumView extends StatefulWidget {
   final String description;
   final List? songIdList;
   final String id;
+
   @override
   State<AlbumView> createState() => _AlbumViewState();
 }

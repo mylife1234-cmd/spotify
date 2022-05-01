@@ -29,11 +29,7 @@ class _HomePageState extends State<HomePage> {
     final systemPlaylists = context.watch<DataProvider>().systemPlaylists;
     final recentAlbum = context.watch<DataProvider>().recentAlbums;
 
-    
-    final List list = [
-      ...recentPlaylists,
-      ...recentAlbum
-    ];
+    final List list = [...recentPlaylists, ...recentAlbum];
 
     if (recentPlaylists.isEmpty || systemPlaylists.isEmpty) {
       return const LoadingScreen();
@@ -78,7 +74,8 @@ class _HomePageState extends State<HomePage> {
                           id: item.id,
                           label: item.name,
                           image: NetworkImage(item.coverImageUrl),
-                          songIdList: item.songIdList, description: '',
+                          songIdList: item.songIdList,
+                          description: '',
                         ),
                       );
                     }).toList(),

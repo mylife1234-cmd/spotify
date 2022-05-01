@@ -14,6 +14,7 @@ class ArtistComponent extends StatelessWidget {
   final String label;
   final String description;
   final String id;
+
   @override
   Widget build(BuildContext context) {
     final isFavorite =

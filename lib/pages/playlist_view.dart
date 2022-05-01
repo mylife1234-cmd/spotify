@@ -26,6 +26,7 @@ class PlaylistView extends StatefulWidget {
   final ImageProvider image;
   final String label;
   final String id;
+
   @override
   State<PlaylistView> createState() => _PlaylistViewState();
 }

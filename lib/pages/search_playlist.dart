@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/components/library/list_item.dart';
 import 'package:spotify/pages/playlist_view.dart';
+
 import 'artist_view.dart';
 
 class SearchPlayList extends StatefulWidget {

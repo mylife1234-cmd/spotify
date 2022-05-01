@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:spotify/components/album/animate_label.dart';
-import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/components/profile/profile_component.dart';
 import 'package:spotify/components/profile/profile_image.dart';
-
-import '../models/song.dart';
-import '../providers/music_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, required this.image, required this.label})

@@ -16,6 +16,7 @@ class AlbumCard extends StatelessWidget {
   final List? songIdList;
   final String description;
   final String id;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -46,7 +47,11 @@ class AlbumCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
-            const Icon(Icons.circle, size: 7, color: Colors.black,),
+            const Icon(
+              Icons.circle,
+              size: 7,
+              color: Colors.black,
+            ),
             const Text(
               "Album ",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),

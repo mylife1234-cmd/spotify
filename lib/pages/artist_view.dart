@@ -28,6 +28,7 @@ class ArtistView extends StatefulWidget {
   final List? songIdList;
   final String description;
   final String id;
+
   @override
   State<ArtistView> createState() => _ArtistViewState();
 }

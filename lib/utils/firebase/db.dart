@@ -31,10 +31,10 @@ class Database {
 
     final map = Map<String, dynamic>.from(res.value as Map);
 
-    // final audioUrl = await FirebaseStorage.instance
-    //     .ref('/song/audio/$id.mp3')
-    //     .getDownloadURL();
-    const audioUrl = '';
+    final audioUrl = await FirebaseStorage.instance
+        .ref('/song/audio/$id.mp3')
+        .getDownloadURL();
+    // const audioUrl = '';
 
     String coverImageUrl;
 

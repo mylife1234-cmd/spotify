@@ -116,8 +116,7 @@ class _SearchPageState extends State<SearchPage> {
                               gradient: LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: const Alignment(0.8, 0),
-                                colors:
-                                    colorValues.map(Color.new).toList(),
+                                colors: colorValues.map(Color.new).toList(),
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -191,8 +190,7 @@ class _SearchPageState extends State<SearchPage> {
                               gradient: LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: const Alignment(0.8, 0),
-                                colors:
-                                    colorValues.map(Color.new).toList(),
+                                colors: colorValues.map(Color.new).toList(),
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),

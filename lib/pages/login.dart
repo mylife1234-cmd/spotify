@@ -51,9 +51,8 @@ class _LoginPageState extends State<LoginPage> {
                 color: (_email.isNotEmpty && _password.isNotEmpty)
                     ? Colors.white
                     : const Color(0xff4d4d4d),
-                onTap: !(_email.isNotEmpty && _password.isNotEmpty)
-                    ? null
-                    : login,
+                onTap:
+                    !(_email.isNotEmpty && _password.isNotEmpty) ? null : login,
               )
             ],
           ),
