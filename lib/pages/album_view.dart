@@ -69,11 +69,6 @@ class _AlbumViewState extends State<AlbumView> {
         setState(() {});
       });
     super.initState();
-    PaletteGenerator.fromImageProvider(widget.image).then((generator) {
-      setState(() {
-        _color = generator.mutedColor!.color;
-      });
-    });
 
     fetchSongs();
   }
@@ -122,6 +117,16 @@ class _AlbumViewState extends State<AlbumView> {
 
   @override
   Widget build(BuildContext context) {
+    if (_color == Colors.black) {
+      PaletteGenerator.fromImageProvider(widget.image).then((generator) {
+        if (generator.mutedColor != null) {
+          setState(() {
+            _color = generator.mutedColor!.color;
+          });
+        }
+      });
+    }
+
     if (_loading || songList.isEmpty) {
       return const LoadingScreen();
     }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:spotify/pages/profile.dart';
+import 'package:spotify/providers/data_provider.dart';
 
 class LibraryHeader extends StatelessWidget {
   const LibraryHeader({Key? key, this.handleAdding}) : super(key: key);
@@ -7,21 +10,32 @@ class LibraryHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<DataProvider>().user;
+
+    final image = NetworkImage(user.coverImageUrl);
+
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Row(
-        children: const [
-          CircleAvatar(
-            foregroundImage: AssetImage('assets/images/avatar.png'),
-            radius: 22,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              'Your Library',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return ProfilePage(image: image, label: user.name);
+          }));
+        },
+        child: Row(
+          children: [
+            CircleAvatar(
+              foregroundImage: image,
+              radius: 22,
             ),
-          )
-        ],
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                'Your Library',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
+        ),
       ),
       GestureDetector(
         onTap: handleAdding,

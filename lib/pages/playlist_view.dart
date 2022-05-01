@@ -40,7 +40,7 @@ class _PlaylistViewState extends State<PlaylistView> {
   double imageOpacity = 1;
   bool showTopBar = false;
 
-  Color _color = const Color.fromRGBO(233, 83, 83, 1);
+  Color _color = Colors.black;
 
   List<Song> songList = [];
 
@@ -69,11 +69,6 @@ class _PlaylistViewState extends State<PlaylistView> {
         setState(() {});
       });
     super.initState();
-    PaletteGenerator.fromImageProvider(widget.image).then((generator) {
-      setState(() {
-        _color = generator.mutedColor!.color;
-      });
-    });
 
     fetchSongs();
   }
@@ -122,6 +117,16 @@ class _PlaylistViewState extends State<PlaylistView> {
 
   @override
   Widget build(BuildContext context) {
+    if (_color == Colors.black) {
+      PaletteGenerator.fromImageProvider(widget.image).then((generator) {
+        if (generator.mutedColor != null) {
+          setState(() {
+            _color = generator.mutedColor!.color;
+          });
+        }
+      });
+    }
+
     if (_loading || songList.isEmpty) {
       return const LoadingScreen();
     }

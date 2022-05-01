@@ -14,14 +14,14 @@ import '../utils/firebase/db.dart';
 import 'loading.dart';
 
 class ArtistView extends StatefulWidget {
-  const ArtistView(
-      {Key? key,
-      required this.image,
-      required this.label,
-      this.songIdList,
-      required this.description,
-      required this.id})
-      : super(key: key);
+  const ArtistView({
+    Key? key,
+    required this.image,
+    required this.label,
+    this.songIdList,
+    required this.description,
+    required this.id,
+  }) : super(key: key);
 
   final ImageProvider image;
   final String label;
@@ -69,11 +69,7 @@ class _ArtistViewState extends State<ArtistView> {
         setState(() {});
       });
     super.initState();
-    PaletteGenerator.fromImageProvider(widget.image).then((generator) {
-      setState(() {
-        _color = generator.mutedColor!.color;
-      });
-    });
+
     fetchSongs();
   }
 
@@ -121,6 +117,16 @@ class _ArtistViewState extends State<ArtistView> {
 
   @override
   Widget build(BuildContext context) {
+    if (_color == Colors.black) {
+      PaletteGenerator.fromImageProvider(widget.image).then((generator) {
+        if (generator.mutedColor != null) {
+          setState(() {
+            _color = generator.mutedColor!.color;
+          });
+        }
+      });
+    }
+
     if (_loading || songList.isEmpty) {
       return const LoadingScreen();
     }
