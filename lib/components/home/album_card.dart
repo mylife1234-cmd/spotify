@@ -47,14 +47,10 @@ class AlbumCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
-            const Icon(
-              Icons.circle,
-              size: 7,
-              color: Colors.black,
-            ),
-            const Text(
-              "Album ",
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            const SizedBox(height: 5),
+            Text(
+              'Album ∙ $description',
+              style: Theme.of(context).textTheme.caption,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             )

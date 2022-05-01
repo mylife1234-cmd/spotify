@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:spotify/components/home/artist_card.dart';
 import 'package:spotify/components/home/home_header.dart';
 import 'package:spotify/components/home/playlist_card.dart';
 import 'package:spotify/pages/loading.dart';
 import 'package:spotify/providers/data_provider.dart';
+import 'package:spotify/utils/firebase/db.dart';
 
 import '../components/home/album_card.dart';
 import '../main.dart';
@@ -28,8 +30,9 @@ class _HomePageState extends State<HomePage> {
     final recentPlaylists = context.watch<DataProvider>().recentPlaylists;
     final systemPlaylists = context.watch<DataProvider>().systemPlaylists;
     final recentAlbum = context.watch<DataProvider>().recentAlbums;
-
-    final List list = [...recentPlaylists, ...recentAlbum];
+    final favoriteArtist = context.watch<DataProvider>().favoriteArtists;
+    final List list = [...recentPlaylists, ...recentAlbum].sublist(0)
+      ..shuffle();
 
     if (recentPlaylists.isEmpty || systemPlaylists.isEmpty) {
       return const LoadingScreen();
@@ -70,13 +73,38 @@ class _HomePageState extends State<HomePage> {
                     children: list.map((item) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: AlbumCard(
-                          id: item.id,
-                          label: item.name,
-                          image: NetworkImage(item.coverImageUrl),
-                          songIdList: item.songIdList,
-                          description: '',
-                        ),
+                        child: item.runtimeType.toString() == 'Playlist'
+                            ? PlaylistCard(
+                                id: item.id,
+                                label: item.name,
+                                image: NetworkImage(item.coverImageUrl),
+                                songIdList: item.songIdList,
+                              )
+                            : FutureBuilder(
+                                future: Database.getArtistName(item.artistId),
+                                builder: (context, AsyncSnapshot snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const CircularProgressIndicator();
+                                  }
+                                  if (snapshot.hasData) {
+                                    return AlbumCard(
+                                      id: item.id,
+                                      label: item.name,
+                                      image: NetworkImage(item.coverImageUrl),
+                                      songIdList: item.songIdList,
+                                      description: snapshot.data,
+                                    );
+                                  }
+                                  return AlbumCard(
+                                    id: item.id,
+                                    label: item.name,
+                                    image: NetworkImage(item.coverImageUrl),
+                                    songIdList: item.songIdList,
+                                    description: item.description,
+                                  );
+                                },
+                              ),
                       );
                     }).toList(),
                   ),
@@ -85,7 +113,10 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 15),
 
                 ...['Uniquely yours', 'Made for you'].map((e) {
-                  final shuffledList = systemPlaylists
+                  final List shuffledList = [
+                    ...systemPlaylists,
+                    ...favoriteArtist
+                  ]
                     ..sublist(0)
                     ..shuffle();
 
@@ -112,14 +143,24 @@ class _HomePageState extends State<HomePage> {
                                 .sublist(0, shuffledList.length)
                                 .map((item) {
                               return Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: PlaylistCard(
-                                  id: item.id,
-                                  label: item.name,
-                                  image: NetworkImage(item.coverImageUrl),
-                                  songIdList: item.songIdList,
-                                ),
-                              );
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: item.runtimeType.toString() ==
+                                          'Playlist'
+                                      ? PlaylistCard(
+                                          id: item.id,
+                                          label: item.name,
+                                          image:
+                                              NetworkImage(item.coverImageUrl),
+                                          songIdList: item.songIdList,
+                                        )
+                                      : ArtistCard(
+                                          id: item.id,
+                                          label: item.name,
+                                          image:
+                                              NetworkImage(item.coverImageUrl),
+                                          description: item.description,
+                                          songIdList: item.songIdList,
+                                        ));
                             }).toList(),
                           ),
                         ),
@@ -134,4 +175,9 @@ class _HomePageState extends State<HomePage> {
       ]),
     );
   }
+
+  // Future<String> getArtistName(String id) async {
+  //   final artist = await Database.getArtistById(id);
+  //   return artist.name;
+  // }
 }

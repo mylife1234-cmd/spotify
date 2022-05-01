@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/pages/playlist_view.dart';
+
+import '../../providers/data_provider.dart';
 
 class PlaylistCard extends StatelessWidget {
   const PlaylistCard({
@@ -14,9 +17,13 @@ class PlaylistCard extends StatelessWidget {
   final String label;
   final ImageProvider image;
   final List? songIdList;
-
   @override
   Widget build(BuildContext context) {
+    final iscustomizedPlaylist = context
+        .watch<DataProvider>()
+        .user
+        .customizedPlaylistIdList
+        .contains(id);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -42,8 +49,23 @@ class PlaylistCard extends StatelessWidget {
               label,
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-            )
+              maxLines: 1,
+            ),
+            const SizedBox(height: 5),
+            if (iscustomizedPlaylist)
+              Text(
+                'Playlist ∙ user',
+                style: Theme.of(context).textTheme.caption,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              )
+            else
+              Text(
+                'Playlist ∙ system',
+                style: Theme.of(context).textTheme.caption,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              )
           ],
         ),
       ),
