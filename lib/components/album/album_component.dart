@@ -49,11 +49,6 @@ class AlbumComponent extends StatelessWidget {
             ),
             SizedBox(width: 15),
             Icon(
-              CupertinoIcons.arrow_down_circle,
-              size: 22,
-            ),
-            SizedBox(width: 15),
-            Icon(
               Icons.more_horiz,
               size: 22,
             ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:spotify/providers/music_provider.dart';
 
 class PLayButton extends StatelessWidget {
   const PLayButton({Key? key}) : super(key: key);
@@ -21,7 +23,7 @@ class PLayButton extends StatelessWidget {
         ),
       ),
       onTap: (){
-
+          context.read<MusicProvider>().playWithIndex(0);
       },
     );
   }

@@ -43,6 +43,7 @@ class _AlbumViewState extends State<AlbumView> {
 
   Color _color = Colors.black;
   List<Song> songList = [];
+   bool _loading = true;
 
   @override
   void initState() {
@@ -76,8 +77,10 @@ class _AlbumViewState extends State<AlbumView> {
     fetchSongs();
   }
 
-  Future<void> fetchSongs() async {
+ Future<void> fetchSongs() async {
     if (widget.songIdList != null) {
+      context.read<MusicProvider>().clearPlaylist();
+
       final List<Song> songs = [];
 
       for (final id in widget.songIdList!) {
@@ -86,11 +89,12 @@ class _AlbumViewState extends State<AlbumView> {
         songs.add(song);
       }
 
-      setState(() {
-        songList = songs;
+      context.read<MusicProvider>().loadPlaylist(songs).then((value) {
+        setState(() {
+          songList = songs;
+          _loading = false;
+        });
       });
-
-      context.read<MusicProvider>().loadPlaylist(songs);
     }
   }
 
@@ -102,7 +106,7 @@ class _AlbumViewState extends State<AlbumView> {
 
   @override
   Widget build(BuildContext context) {
-    if (songList.isEmpty) {
+    if (_loading || songList.isEmpty) {
       return const LoadingScreen();
     }
     return Scaffold(

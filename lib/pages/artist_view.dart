@@ -38,6 +38,7 @@ class _ArtistViewState extends State<ArtistView> {
 
   Color _color = Colors.black;
   List<Song> songList = [];
+  bool _loading = true;
 
   @override
   void initState() {
@@ -72,6 +73,8 @@ class _ArtistViewState extends State<ArtistView> {
 
   Future<void> fetchSongs() async {
     if (widget.songIdList != null) {
+      context.read<MusicProvider>().clearPlaylist();
+
       final List<Song> songs = [];
 
       for (final id in widget.songIdList!) {
@@ -80,13 +83,15 @@ class _ArtistViewState extends State<ArtistView> {
         songs.add(song);
       }
 
-      setState(() {
-        songList = songs;
+      context.read<MusicProvider>().loadPlaylist(songs).then((value) {
+        setState(() {
+          songList = songs;
+          _loading = false;
+        });
       });
-
-      context.read<MusicProvider>().loadPlaylist(songs);
     }
   }
+
 
   @override
   void dispose() {
@@ -96,7 +101,7 @@ class _ArtistViewState extends State<ArtistView> {
 
   @override
   Widget build(BuildContext context) {
-    if (songList.isEmpty) {
+    if (_loading || songList.isEmpty) {
       return const LoadingScreen();
     }
     return Scaffold(
