@@ -5,6 +5,7 @@ import 'package:spotify/components/home/playlist_card.dart';
 import 'package:spotify/pages/loading.dart';
 import 'package:spotify/providers/data_provider.dart';
 
+import '../components/home/album_card.dart';
 import '../main.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,6 +27,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final recentPlaylists = context.watch<DataProvider>().recentPlaylists;
     final systemPlaylists = context.watch<DataProvider>().systemPlaylists;
+    final recentAlbum = context.watch<DataProvider>().recentAlbums;
+
+    
+    final List list = [
+      ...recentPlaylists,
+      ...recentAlbum
+    ];
 
     if (recentPlaylists.isEmpty || systemPlaylists.isEmpty) {
       return const LoadingScreen();
@@ -49,7 +57,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        // Xu ly man hinh vuot qua do dao
         SafeArea(
           child: SingleChildScrollView(
             // physics: BouncingScrollPhysics(),
@@ -64,14 +71,14 @@ class _HomePageState extends State<HomePage> {
                   physics: const BouncingScrollPhysics(),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: recentPlaylists.map((item) {
+                    children: list.map((item) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: PlaylistCard(
+                        child: AlbumCard(
                           id: item.id,
                           label: item.name,
                           image: NetworkImage(item.coverImageUrl),
-                          songIdList: item.songIdList,
+                          songIdList: item.songIdList, description: '',
                         ),
                       );
                     }).toList(),

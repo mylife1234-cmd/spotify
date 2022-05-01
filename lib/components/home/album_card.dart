@@ -12,7 +12,7 @@ class AlbumCard extends StatelessWidget {
   }) : super(key: key);
 
   final String label;
-  final AssetImage image;
+  final ImageProvider image;
   final List? songIdList;
   final String description;
   final String id;
@@ -44,7 +44,14 @@ class AlbumCard extends StatelessWidget {
               label,
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
-              maxLines: 2,
+              maxLines: 1,
+            ),
+            const Icon(Icons.circle, size: 7, color: Colors.black,),
+            const Text(
+              "Album ",
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             )
           ],
         ),

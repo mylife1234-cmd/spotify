@@ -229,9 +229,10 @@ class _ArtistViewState extends State<ArtistView> {
                       //   140 - containerHeight.clamp(170.0, double.infinity),
                       //   child: Stack(
                       //     alignment: Alignment.bottomRight,
-                      //     children: const [
-                      //       PLayButton(),
-                      //       ShuffleButton(),
+                      //     children:  [
+                      //       PLayButton(onTap: () {
+                      //         loadPlaylist();
+                      //       }),
                       //     ],
                       //   ),
                       // )
@@ -241,17 +242,23 @@ class _ArtistViewState extends State<ArtistView> {
               ),
             ),
           ),
-          Positioned(
-            right: 12,
-            bottom: 645 - containerHeight.clamp(170, double.infinity),
-            child: Stack(
-              alignment: Alignment.bottomRight,
-              children: [
-                PLayButton(onTap: () {
-                  loadPlaylist();
-                }),
-              ],
-            ),
+          SafeArea(
+            child: Stack(children: [
+              Positioned(
+                right: 12,
+                top: containerHeight < containerInitialHeight
+                    ? containerHeight.clamp(170, containerInitialHeight) - 140
+                    : containerHeight.clamp(170, containerHeight) - 140,
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    PLayButton(onTap: () {
+                      loadPlaylist();
+                    }),
+                  ],
+                ),
+              ),
+            ]),
           ),
         ],
       ),
