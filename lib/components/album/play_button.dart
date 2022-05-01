@@ -22,8 +22,8 @@ class PLayButton extends StatelessWidget {
           color: Colors.black,
         ),
       ),
-      onTap: (){
-          context.read<MusicProvider>().playWithIndex(0);
+      onTap: () {
+        context.read<MusicProvider>().playWithIndex(0);
       },
     );
   }

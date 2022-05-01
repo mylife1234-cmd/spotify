@@ -21,8 +21,7 @@ class ArtistView extends StatefulWidget {
       required this.label,
       this.songIdList,
       required this.description,
-      required this.id
-      })
+      required this.id})
       : super(key: key);
 
   final ImageProvider image;

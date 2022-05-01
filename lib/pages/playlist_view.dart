@@ -19,7 +19,7 @@ class PlaylistView extends StatefulWidget {
     Key? key,
     this.songIdList,
     required this.image,
-    required this.label, 
+    required this.label,
     required this.id,
   }) : super(key: key);
 
@@ -173,20 +173,16 @@ class _PlaylistViewState extends State<PlaylistView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize + 31),
-                          AlbumComponent(
-                            id: widget.id,
-                            label: widget.label
-                          ),
+                          AlbumComponent(id: widget.id, label: widget.label),
                         ],
                       ),
                     ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                        songList.map((item) {
-                            return SongTile(song: item);
-                          }).toList(),
+                    children: songList.map((item) {
+                      return SongTile(song: item);
+                    }).toList(),
                   ),
                   if (songList.length == 1) const SizedBox(height: 70)
                 ],
@@ -220,8 +216,7 @@ class _PlaylistViewState extends State<PlaylistView> {
           ),
           Positioned(
             right: 12,
-            bottom:
-            645 - containerHeight.clamp(170, double.infinity),
+            bottom: 645 - containerHeight.clamp(170, double.infinity),
             child: Stack(
               alignment: Alignment.bottomRight,
               children: const [

@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 import '../../providers/data_provider.dart';
 
 class ArtistComponent extends StatelessWidget {
-  const ArtistComponent(
-      {Key? key,
-      required this.label,
-      required this.description,
-      required this.id})
-      : super(key: key);
+  const ArtistComponent({
+    Key? key,
+    required this.label,
+    required this.description,
+    required this.id,
+  }) : super(key: key);
 
   final String label;
   final String description;
@@ -55,8 +55,7 @@ class ArtistComponent extends StatelessWidget {
                 size: 22,
                 color: isFavorite ? Colors.green : Colors.white,
               ),
-              onTap: () {
-              },
+              onTap: () {},
             ),
             const SizedBox(width: 15),
             const Icon(

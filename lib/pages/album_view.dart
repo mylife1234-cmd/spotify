@@ -20,7 +20,8 @@ class AlbumView extends StatefulWidget {
       required this.image,
       required this.label,
       this.songIdList,
-      required this.description, required this.id})
+      required this.description,
+      required this.id})
       : super(key: key);
 
   final ImageProvider image;
@@ -77,7 +78,7 @@ class _AlbumViewState extends State<AlbumView> {
     fetchSongs();
   }
 
- Future<void> fetchSongs() async {
+  Future<void> fetchSongs() async {
     if (widget.songIdList != null) {
       context.read<MusicProvider>().clearPlaylist();
 
@@ -183,8 +184,7 @@ class _AlbumViewState extends State<AlbumView> {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                    songList.map((item) {
+                    children: songList.map((item) {
                       return SongTile(song: item);
                     }).toList(),
                   ),
@@ -212,7 +212,6 @@ class _AlbumViewState extends State<AlbumView> {
                         child: BackIconButton(),
                       ),
                       AnimateLabel(label: widget.label, isShow: showTopBar),
-
                     ],
                   ),
                 ),
@@ -221,8 +220,7 @@ class _AlbumViewState extends State<AlbumView> {
           ),
           Positioned(
             right: 12,
-            bottom:
-            645 - containerHeight.clamp(170, double.infinity),
+            bottom: 645 - containerHeight.clamp(170, double.infinity),
             child: Stack(
               alignment: Alignment.bottomRight,
               children: const [
