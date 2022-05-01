@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:palette_generator/palette_generator.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/pages/search_playlist.dart';
+import 'package:spotify/providers/data_provider.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -14,6 +17,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    final genres = context.watch<DataProvider>().genres;
 
     return SafeArea(
       child: Scaffold(
@@ -86,7 +91,7 @@ class _SearchPageState extends State<SearchPage> {
                     const Padding(
                       padding: EdgeInsets.only(bottom: 15),
                       child: Text(
-                        'Your top genres',
+                        'Genres',
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
@@ -94,7 +99,7 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                     GridView.builder(
-                      itemCount: listMusic.length,
+                      itemCount: genres.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -105,130 +110,68 @@ class _SearchPageState extends State<SearchPage> {
                       shrinkWrap: true,
                       controller: ScrollController(keepScrollOffset: false),
                       itemBuilder: (BuildContext context, int index) {
-                        final item = listMusic[index];
+                        final item = genres[index];
 
-                        final colorValues =
-                            item['colors']!.split(', ').map(int.parse);
+                        final image = NetworkImage(item.coverImageUrl);
 
-                        return ClipRRect(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: const Alignment(0.8, 0),
-                                colors: colorValues.map(Color.new).toList(),
-                              ),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Stack(
-                              children: <Widget>[
-                                Positioned(
-                                  top: 15,
-                                  left: 15,
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      maxWidth: size.width / 4.5,
-                                    ),
-                                    child: Text(
-                                      item['text']!,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
+                        return FutureBuilder<PaletteGenerator>(
+                          future: PaletteGenerator.fromImageProvider(image),
+                          builder: (context, snapshot) {
+                            return ClipRRect(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: const Alignment(0.8, 0),
+                                    colors: snapshot.hasData
+                                        ? [
+                                            snapshot.data!.dominantColor!.color
+                                                .withOpacity(0.8),
+                                            snapshot.data!.dominantColor!.color
+                                                .withOpacity(0.6)
+                                          ]
+                                        : [Colors.black, Colors.black12],
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Stack(
+                                  children: <Widget>[
+                                    Positioned(
+                                      top: 15,
+                                      left: 15,
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          maxWidth: size.width / 4.5,
+                                        ),
+                                        child: Text(
+                                          item.name,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 30,
-                                  right: -20,
-                                  child: RotationTransition(
-                                    turns:
-                                        const AlwaysStoppedAnimation(25 / 360),
-                                    child: Image.asset(
-                                      item['image']!,
-                                      height: 80,
-                                      width: 80,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 15, top: 10),
-                      child: Text(
-                        'Browse All',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    GridView.builder(
-                      itemCount: listMusic1.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1.75,
-                        mainAxisSpacing: 15,
-                        crossAxisSpacing: 15,
-                      ),
-                      shrinkWrap: true,
-                      controller: ScrollController(keepScrollOffset: false),
-                      itemBuilder: (BuildContext context, int index) {
-                        final item1 = listMusic1[index];
-                        final colorValues =
-                            item1['colors']!.split(', ').map(int.parse);
-
-                        return ClipRRect(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: const Alignment(0.8, 0),
-                                colors: colorValues.map(Color.new).toList(),
-                              ),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Stack(
-                              children: <Widget>[
-                                Positioned(
-                                  top: 15,
-                                  left: 15,
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      maxWidth: size.width / 4.5,
-                                    ),
-                                    child: Text(
-                                      item1['text']!,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
+                                    Positioned(
+                                      top: 30,
+                                      right: -20,
+                                      child: RotationTransition(
+                                        turns: const AlwaysStoppedAnimation(
+                                          25 / 360,
+                                        ),
+                                        child: Image(
+                                          image: image,
+                                          height: 80,
+                                          width: 80,
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                                Positioned(
-                                  top: 30,
-                                  right: -20,
-                                  child: RotationTransition(
-                                    turns:
-                                        const AlwaysStoppedAnimation(25 / 360),
-                                    child: Image.asset(
-                                      item1['image']!,
-                                      height: 80,
-                                      width: 80,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                              ),
+                            );
+                          },
                         );
                       },
                     ),
@@ -242,48 +185,3 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 }
-
-final listMusic = [
-  {
-    'text': 'K/DA',
-    'image': 'assets/images/home/kda.jpg',
-    'colors': '0xFF9C2780, 0xFFE040FB',
-  },
-  {
-    'text': 'Bigcityboi',
-    'image': 'assets/images/home/big-city-boi.jpg',
-    'colors': '0xff4caf50, 0xFF69F0AE'
-  },
-  {
-    'text': 'DNA',
-    'image': 'assets/images/home/dna.jpg',
-    'colors': '0xFF2196F3, 0xFF448AFF'
-  },
-  {
-    'text': 'Latata',
-    'image': 'assets/images/home/latata.jpg',
-    'colors': '0xfff44336, 0xFFff5252'
-  },
-];
-final listMusic1 = [
-  {
-    'text': 'Chilled',
-    'image': 'assets/images/home/chilled.jpg',
-    'colors': '0xff8bca4a, 0xFFB2FF59'
-  },
-  {
-    'text': 'Ái Nộ',
-    'image': 'assets/images/home/ai-no.jpg',
-    'colors': '0xff455a64, 0xff455a64'
-  },
-  {
-    'text': 'Relax',
-    'image': 'assets/images/home/album2.jpg',
-    'colors': '0xFF9CCC65, 0xFF9CCC65'
-  },
-  {
-    'text': 'Latata',
-    'image': 'assets/images/home/latata.jpg',
-    'colors': '0xFFBA68C8, 0xFFBA68C8'
-  },
-];

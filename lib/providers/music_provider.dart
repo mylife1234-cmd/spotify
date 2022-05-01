@@ -247,8 +247,8 @@ class MusicProvider extends ChangeNotifier {
     }
 
     PaletteGenerator.fromImageProvider(image).then((generator) {
-      if (generator.mutedColor != null) {
-        _color = generator.mutedColor!.color;
+      if (generator.dominantColor != null) {
+        _color = generator.dominantColor!.color;
 
         notifyListeners();
       }

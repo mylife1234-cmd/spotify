@@ -44,9 +44,11 @@ class _SongActionState extends State<SongAction> {
     });
 
     PaletteGenerator.fromImageProvider(image!).then((generator) {
-      setState(() {
-        _color = generator.mutedColor!.color;
-      });
+      if (generator.dominantColor != null) {
+        setState(() {
+          _color = generator.dominantColor!.color.withOpacity(0.1);
+        });
+      }
     });
   }
 

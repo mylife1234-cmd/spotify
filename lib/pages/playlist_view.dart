@@ -119,9 +119,9 @@ class _PlaylistViewState extends State<PlaylistView> {
   Widget build(BuildContext context) {
     if (_color == Colors.black) {
       PaletteGenerator.fromImageProvider(widget.image).then((generator) {
-        if (generator.mutedColor != null) {
+        if (generator.dominantColor != null) {
           setState(() {
-            _color = generator.mutedColor!.color;
+            _color = generator.dominantColor!.color.withOpacity(0.1);
           });
         }
       });
