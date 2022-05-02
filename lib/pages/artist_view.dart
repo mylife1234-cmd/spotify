@@ -214,6 +214,7 @@ class _ArtistViewState extends State<ArtistView> {
                           }).toList(),
                         ),
                       ]),
+                  if (songList.length == 3) const SizedBox(height: 20),
                   if (songList.length == 2) const SizedBox(height: 80),
                   if (songList.length == 1) const SizedBox(height: 140)
                 ],

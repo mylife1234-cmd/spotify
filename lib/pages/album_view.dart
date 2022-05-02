@@ -211,7 +211,7 @@ class _AlbumViewState extends State<AlbumView> {
                       );
                     }).toList(),
                   ),
-                  // SizedBox(height: 200),
+                  if (songList.length == 3) const SizedBox(height: 20),
                   if (songList.length == 2) const SizedBox(height: 80),
                   if (songList.length == 1) const SizedBox(height: 140)
                 ],
