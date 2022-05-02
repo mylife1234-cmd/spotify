@@ -183,4 +183,12 @@ class DataProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  final List<Song> _songs = [];
+  List<Song> get songs => _songs;
+  void addSongs(List<Song> songs) {
+    _songs.addAll(songs);
+
+    notifyListeners();
+  }
 }

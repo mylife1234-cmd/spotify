@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
+import 'package:spotify/pages/search_all.dart';
 import 'package:spotify/pages/search_playlist.dart';
 import 'package:spotify/providers/data_provider.dart';
 
@@ -51,7 +52,7 @@ class _SearchPageState extends State<SearchPage> {
                     Navigator.of(context).push(
                       PageRouteBuilder(
                         pageBuilder: (context, a1, a2) {
-                          return const SearchPlayList();
+                          return const SearchAll();
                         },
                         transitionsBuilder: (context, a1, a2, child) {
                           return FadeTransition(opacity: a1, child: child);

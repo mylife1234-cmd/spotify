@@ -19,7 +19,7 @@ class PlaylistCard extends StatelessWidget {
   final List? songIdList;
   @override
   Widget build(BuildContext context) {
-    final isCustomizedPlaylist = context
+    final customizedPlaylist = context
         .watch<DataProvider>()
         .user
         .customizedPlaylistIdList
@@ -53,7 +53,7 @@ class PlaylistCard extends StatelessWidget {
               maxLines: 1,
             ),
             const SizedBox(height: 5),
-            if (isCustomizedPlaylist)
+            if (customizedPlaylist)
               Text(
                 'Playlist ∙ User',
                 style: Theme.of(context).textTheme.caption,

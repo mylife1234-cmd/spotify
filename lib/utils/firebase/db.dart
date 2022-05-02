@@ -10,7 +10,6 @@ import '../../models/user.dart';
 
 class Database {
   Database();
-
   static void setUser(User user) {
     FirebaseDatabase.instance.ref('/users/${user.id}').set({
       'coverImageUrl': user.coverImageUrl,
@@ -254,4 +253,36 @@ class Database {
 
     return res.value as String;
   }
+
+  static Future<List<Song>> getSongs() async {
+    final res = await FirebaseDatabase.instance.ref('/songs').get();
+
+    final List<Song> songs = [];
+
+    Map<String, dynamic>.from(res.value as Map).forEach((key, value) async {
+      String coverImageUrl;
+
+      if (value['coverImageUrl'] != null) {
+        coverImageUrl = value['coverImageUrl'];
+      } else {
+        coverImageUrl = await FirebaseStorage.instance
+            .ref('/song/image/$key.jpg')
+            .getDownloadURL();
+      }
+
+      songs.add(Song(
+        id: key,
+        name: value['name'],
+        coverImageUrl: coverImageUrl,
+        description: value['description'],
+        artistIdList: value['artistIdList'] ,
+        albumId: value['albumId'], 
+        genreIdList: value['genreIdList'], 
+        audioUrl: '',
+      ));
+    });
+
+    return songs;
+  }
+
 }

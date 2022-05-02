@@ -235,5 +235,9 @@ class _MainState extends State<Main> {
     Database.getArtists().then((artists) {
       context.read<DataProvider>().addArtists(artists);
     });
+
+    Database.getSongs().then((songs) {
+      context.read<DataProvider>().addSongs(songs);
+    });
   }
 }
