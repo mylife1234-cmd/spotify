@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../models/song.dart';
+import '../../pages/song_action.dart';
 import '../../utils/calculation/helper.dart';
+import '../actions/action_button.dart';
 
 class SongSearch extends StatelessWidget {
   const SongSearch({Key? key, required this.song}) : super(key: key);
@@ -19,6 +21,17 @@ class SongSearch extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: const TextStyle(fontWeight: FontWeight.w500),
+        ),
+        trailing: ActionButton(
+          song: song,
+          size: 20,
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).push(
+              MaterialPageRoute(
+                builder: (context) => SongAction(song: song),
+              ),
+            );
+          },
         ),
         subtitle: Text('Song ∙ $description'),
         leading: Image(image: image),
