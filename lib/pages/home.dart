@@ -5,6 +5,7 @@ import 'package:spotify/components/home/home_header.dart';
 import 'package:spotify/components/home/playlist_card.dart';
 import 'package:spotify/pages/loading.dart';
 import 'package:spotify/providers/data_provider.dart';
+import 'package:spotify/utils/calculation/helper.dart';
 import 'package:spotify/utils/firebase/db.dart';
 
 import '../components/home/album_card.dart';
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                             ? PlaylistCard(
                                 id: item.id,
                                 label: item.name,
-                                image: NetworkImage(item.coverImageUrl),
+                                image: getImageFromUrl(item.coverImageUrl),
                                 songIdList: item.songIdList,
                               )
                             : FutureBuilder(
@@ -92,7 +93,8 @@ class _HomePageState extends State<HomePage> {
                                     return AlbumCard(
                                       id: item.id,
                                       label: item.name,
-                                      image: NetworkImage(item.coverImageUrl),
+                                      image:
+                                          getImageFromUrl(item.coverImageUrl),
                                       songIdList: item.songIdList,
                                       description: snapshot.data,
                                     );
@@ -100,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                                   return AlbumCard(
                                     id: item.id,
                                     label: item.name,
-                                    image: NetworkImage(item.coverImageUrl),
+                                    image: getImageFromUrl(item.coverImageUrl),
                                     songIdList: item.songIdList,
                                     description: item.description,
                                   );
@@ -149,13 +151,15 @@ class _HomePageState extends State<HomePage> {
                                     ? PlaylistCard(
                                         id: item.id,
                                         label: item.name,
-                                        image: NetworkImage(item.coverImageUrl),
+                                        image:
+                                            getImageFromUrl(item.coverImageUrl),
                                         songIdList: item.songIdList,
                                       )
                                     : ArtistCard(
                                         id: item.id,
                                         label: item.name,
-                                        image: NetworkImage(item.coverImageUrl),
+                                        image:
+                                            getImageFromUrl(item.coverImageUrl),
                                         description: item.description,
                                         songIdList: item.songIdList,
                                       ),

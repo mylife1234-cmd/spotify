@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/pages/profile.dart';
 import 'package:spotify/providers/data_provider.dart';
+import 'package:spotify/utils/calculation/helper.dart';
 
 class LibraryHeader extends StatelessWidget {
   const LibraryHeader({Key? key, this.handleAdding}) : super(key: key);
@@ -12,7 +13,7 @@ class LibraryHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = context.watch<DataProvider>().user;
 
-    final image = NetworkImage(user.coverImageUrl);
+    final image = getImageFromUrl(user.coverImageUrl);
 
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       GestureDetector(

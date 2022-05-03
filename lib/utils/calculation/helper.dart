@@ -22,8 +22,11 @@ Future<Color?> getColorFromImage(ImageProvider imageProvider) async {
 }
 
 ImageProvider getImageFromUrl(String url) {
-  if (url.startsWith('https')) {
-    return NetworkImage(url);
+  if (url.startsWith('https') || url.startsWith('http')) {
+    return FadeInImage(
+      placeholder: const AssetImage('assets/images/placeholder.png'),
+      image: NetworkImage(url),
+    ).image;
   } else {
     return AssetImage(url);
   }
