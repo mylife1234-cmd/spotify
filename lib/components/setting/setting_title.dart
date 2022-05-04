@@ -7,8 +7,8 @@ import 'package:spotify/pages/storage_detail.dart';
 import '../../models/setting.dart';
 
 class SettingList extends StatelessWidget {
-  const SettingList({Key? key, required this.settingtitle}) : super(key: key);
-  final SettingTitle settingtitle;
+  const SettingList({Key? key, required this.settingTitle}) : super(key: key);
+  final SettingTitle settingTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class SettingList extends StatelessWidget {
       color: Colors.black,
       child: ListTile(
         title: Text(
-          settingtitle.name,
+          settingTitle.name,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 15,
@@ -35,16 +35,16 @@ class SettingList extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
               //return const SearchPlayList();
-              if(settingtitle.name == "Account"){
+              if(settingTitle.name == 'Account'){
                 return const AccountDetailPage();
               }
-              if(settingtitle.name == "Device"){
-                return StorageDetailPage();
+              if(settingTitle.name == 'Device'){
+                return const StorageDetailPage();
               }
-              if(settingtitle.name == "About"){
+              if(settingTitle.name == 'About'){
                 return const AboutDetailPage();
               }
-              return SettingsPage();
+              return const SettingsPage();
             }),
           );
         },

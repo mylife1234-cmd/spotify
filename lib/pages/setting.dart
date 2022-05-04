@@ -4,8 +4,9 @@ import 'package:spotify/components/auth/next_button.dart';
 import 'package:spotify/components/setting/setting_info.dart';
 import 'package:spotify/components/setting/setting_title.dart';
 import '../models/setting.dart';
-import 'package:provider/provider.dart';
 import 'package:spotify/providers/data_provider.dart';
+import 'package:provider/provider.dart';
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
   @override
@@ -50,7 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: songList.map((item) {
                       return SettingList(
-                        settingtitle : SettingTitle(
+                        settingTitle : SettingTitle(
                           item['title']!,
                         ),
                       );

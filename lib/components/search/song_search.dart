@@ -12,7 +12,7 @@ class SongSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final image = getImageFromUrl(song.coverImageUrl);
-    String description = song.description;
+    final String description = song.description;
     return Padding(
       padding: const EdgeInsets.only(bottom: 3),
       child: ListTile(

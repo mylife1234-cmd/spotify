@@ -5,6 +5,7 @@ class ProfileImage extends StatelessWidget {
   final double imageSize;
   final ImageProvider image;
 
+  // ignore: sort_constructors_first
   const ProfileImage({
     Key? key,
     required this.imageOpacity,
