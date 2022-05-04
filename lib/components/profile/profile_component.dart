@@ -3,10 +3,14 @@ import 'package:spotify/components/profile/edit_profile_button.dart';
 import 'package:spotify/pages/edit_profile.dart';
 
 class ProfileComponent extends StatelessWidget {
+  const ProfileComponent({
+    Key? key,
+    required this.label,
+    required this.image,
+  }) : super(key: key);
+
   final String label;
   final ImageProvider image;
-  // ignore: sort_constructors_first
-  const ProfileComponent({Key? key, required this.label, required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class ProfileComponent extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          child:const Padding(
+          child: const Padding(
             padding: EdgeInsets.only(top: 10, bottom: 10),
             child: Center(
               child: ProfileButton(
@@ -30,22 +34,20 @@ class ProfileComponent extends StatelessWidget {
                 active: false,
               ),
             ),
-          ) ,
-          onTap: (){
-            Navigator.of(context).push(
+          ),
+          onTap: () {
+            Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) {
-                  //return const SearchPlayList();
-                  return EditProfilesPage(
-                  label: label, image: image);
-                })
-            );
+              //return const SearchPlayList();
+              return EditProfilesPage(label: label, image: image);
+            }));
           },
         ),
         Row(
           children: <Widget>[
             Expanded(
               child: Column(
-                children:const [
+                children: const [
                   Text(
                     '20',
                     style: TextStyle(

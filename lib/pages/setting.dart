@@ -10,13 +10,16 @@ import '../models/setting.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
+
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
+
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final resultUser = context.watch<DataProvider>().user;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -45,14 +48,14 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SettingInfo(user:resultUser),
+              SettingInfo(user: resultUser),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: songList.map((item) {
                       return SettingList(
-                        settingTitle : SettingTitle(
+                        settingTitle: SettingTitle(
                           item['title']!,
                         ),
                       );

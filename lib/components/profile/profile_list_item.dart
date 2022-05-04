@@ -23,15 +23,16 @@ class ProfileListItem extends StatelessWidget {
       child: ListTile(
         title: Text(
           title,
-          style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w500, fontSize: 16),
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+          ),
         ),
         subtitle: Text(subtitle),
         leading: isSquareCover
             ? Image.asset(coverUrl)
-            : CircleAvatar(
-          foregroundImage: AssetImage(coverUrl),
-          radius: 28,
-        ),
+            : CircleAvatar(foregroundImage: AssetImage(coverUrl), radius: 28),
         contentPadding: EdgeInsets.zero,
       ),
     );

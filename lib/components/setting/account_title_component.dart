@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/pages/profile.dart';
+import 'package:spotify/utils/helper.dart';
 import '../../models/user.dart';
+
 class AccountTitle extends StatelessWidget {
-  const AccountTitle({Key? key, required this.user, required this.label}) : super(key: key);
+  const AccountTitle({
+    Key? key,
+    required this.user,
+    required this.label,
+  }) : super(key: key);
+
   final User user;
   final String label;
+
   @override
   Widget build(BuildContext context) {
-    ImageProvider image;
-    late String title;
-    final url = user.coverImageUrl;
-    if (url.startsWith('https')) {
-      image = NetworkImage(url);
-    } else {
-      image = AssetImage(url);
-    }
-    if(label == 'UserName'){
+    final ImageProvider image = getImageFromUrl(user.coverImageUrl);
+
+    String title = '';
+
+    if (label == 'UserName') {
       title = user.name;
     }
-    if(label == 'Id'){
+    if (label == 'Id') {
       title = user.id;
     }
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       width: double.infinity,
@@ -49,8 +54,7 @@ class AccountTitle extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
               //return const SearchPlayList();
-              return ProfilePage(
-                  image: image, label: user.name);
+              return ProfilePage(image: image, label: user.name);
             }),
           );
         },

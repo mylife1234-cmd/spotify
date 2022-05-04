@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ProfileImage extends StatelessWidget {
-  final double imageOpacity;
-  final double imageSize;
-  final ImageProvider image;
-
-  // ignore: sort_constructors_first
   const ProfileImage({
     Key? key,
     required this.imageOpacity,
     required this.imageSize,
     required this.image,
   }) : super(key: key);
+
+  final double imageOpacity;
+  final double imageSize;
+  final ImageProvider image;
 
   @override
   Widget build(BuildContext context) {

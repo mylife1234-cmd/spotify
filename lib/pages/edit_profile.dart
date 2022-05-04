@@ -3,11 +3,16 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
 class EditProfilesPage extends StatefulWidget {
+  const EditProfilesPage({
+    Key? key,
+    required this.label,
+    required this.image,
+  }) : super(key: key);
+
   final String label;
   final ImageProvider image;
-  // ignore: sort_constructors_first
-  const EditProfilesPage({Key? key, required this.label, required this.image}) : super(key: key);
 
   @override
   State<EditProfilesPage> createState() => _EditProfilesPageState();
@@ -21,6 +26,7 @@ class _EditProfilesPageState extends State<EditProfilesPage> {
     super.initState();
     imagePicker = ImagePicker();
   }
+
   List<XFile>? imageFileList = [];
   // ignore: avoid_void_async
   void selectImages() async {
@@ -30,6 +36,7 @@ class _EditProfilesPageState extends State<EditProfilesPage> {
     }
     setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -58,10 +65,9 @@ class _EditProfilesPageState extends State<EditProfilesPage> {
             ),
             actions: [
               TextButton(
-                onPressed: () {  },
-                child: const Text('Save', style:TextStyle(
-                    color: Colors.white
-                )),
+                onPressed: () {},
+                child:
+                    const Text('Save', style: TextStyle(color: Colors.white)),
               ),
             ],
           ),
@@ -71,17 +77,17 @@ class _EditProfilesPageState extends State<EditProfilesPage> {
             child: Column(
               children: [
                 ClipOval(
-                  child: _image != null
-                      ? Image.file(
-                    _image,
-                    width: 150,
-                    height: 150,
-                    fit: BoxFit.cover,
-                  )
-                      :CircleAvatar(
-              backgroundImage: widget.image,radius: 80,
-          )
-                ),
+                    child: _image != null
+                        ? Image.file(
+                            _image,
+                            width: 150,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          )
+                        : CircleAvatar(
+                            backgroundImage: widget.image,
+                            radius: 80,
+                          )),
                 TextButton(
                   onPressed: () async {
                     final XFile image1 = await imagePicker.pickImage(
@@ -93,23 +99,20 @@ class _EditProfilesPageState extends State<EditProfilesPage> {
                       _image = newImage;
                     });
                   },
-                  child: const Text('Edit profile image',style:TextStyle(
-                      color: Colors.white
-                  )),
+                  child: const Text('Edit profile image',
+                      style: TextStyle(color: Colors.white)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   child: TextFormField(
                     initialValue: widget.label,
                     cursorColor: Colors.grey,
-                    style: const TextStyle(
-                      fontSize: 30
-                    ),
+                    style: const TextStyle(fontSize: 30),
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
-
                       ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
@@ -125,6 +128,7 @@ class _EditProfilesPageState extends State<EditProfilesPage> {
     );
   }
 }
+
 final songList = [
   {
     'title': 'Account',

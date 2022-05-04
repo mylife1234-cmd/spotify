@@ -8,6 +8,7 @@ import '../../models/setting.dart';
 
 class SettingList extends StatelessWidget {
   const SettingList({Key? key, required this.settingTitle}) : super(key: key);
+
   final SettingTitle settingTitle;
 
   @override
@@ -35,13 +36,13 @@ class SettingList extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
               //return const SearchPlayList();
-              if(settingTitle.name == 'Account'){
+              if (settingTitle.name == 'Account') {
                 return const AccountDetailPage();
               }
-              if(settingTitle.name == 'Device'){
+              if (settingTitle.name == 'Device') {
                 return const StorageDetailPage();
               }
-              if(settingTitle.name == 'About'){
+              if (settingTitle.name == 'About') {
                 return const AboutDetailPage();
               }
               return const SettingsPage();

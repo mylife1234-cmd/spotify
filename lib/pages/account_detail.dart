@@ -1,18 +1,20 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/providers/data_provider.dart';
 
 import '../components/setting/account_title_component.dart';
+
 class AccountDetailPage extends StatefulWidget {
   const AccountDetailPage({Key? key}) : super(key: key);
   @override
   State<AccountDetailPage> createState() => _AccountDetailPageState();
 }
+
 class _AccountDetailPageState extends State<AccountDetailPage> {
   @override
   Widget build(BuildContext context) {
     final resultUser = context.watch<DataProvider>().user;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -47,7 +49,8 @@ class _AccountDetailPageState extends State<AccountDetailPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: userList.map((item) {
                       return AccountTitle(
-                        user: resultUser,label:  item['title']!,
+                        user: resultUser,
+                        label: item['title']!,
                       );
                     }).toList()),
               ),

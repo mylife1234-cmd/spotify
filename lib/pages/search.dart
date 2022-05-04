@@ -3,8 +3,7 @@ import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/pages/search_all.dart';
 import 'package:spotify/providers/data_provider.dart';
-
-import '../utils/helper.dart';
+import 'package:spotify/utils/helper.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -60,7 +59,7 @@ class _SearchPageState extends State<SearchPage> {
                         },
                         transitionDuration: const Duration(milliseconds: 175),
                         reverseTransitionDuration:
-                        const Duration(milliseconds: 125),
+                            const Duration(milliseconds: 125),
                       ),
                     );
                   },
@@ -103,7 +102,7 @@ class _SearchPageState extends State<SearchPage> {
                     GridView.builder(
                       itemCount: genres.length,
                       gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 1.75,
                         mainAxisSpacing: 15,
@@ -127,11 +126,11 @@ class _SearchPageState extends State<SearchPage> {
                                     end: const Alignment(0.8, 0),
                                     colors: snapshot.hasData
                                         ? [
-                                      snapshot.data!.dominantColor!.color
-                                          .withOpacity(0.8),
-                                      snapshot.data!.dominantColor!.color
-                                          .withOpacity(0.6)
-                                    ]
+                                            snapshot.data!.dominantColor!.color
+                                                .withOpacity(0.8),
+                                            snapshot.data!.dominantColor!.color
+                                                .withOpacity(0.6)
+                                          ]
                                         : [Colors.black, Colors.black12],
                                   ),
                                   borderRadius: BorderRadius.circular(5),

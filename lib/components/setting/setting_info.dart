@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/pages/profile.dart';
+import 'package:spotify/utils/helper.dart';
 import '../../models/user.dart';
+
 class SettingInfo extends StatelessWidget {
   const SettingInfo({Key? key, required this.user}) : super(key: key);
   final User user;
 
   @override
   Widget build(BuildContext context) {
-    ImageProvider image;
-    final url = user.coverImageUrl;
-    if (url.startsWith('https')) {
-      image = NetworkImage(url);
-    } else {
-      image = AssetImage(url);
-    }
+    final image = getImageFromUrl(user.coverImageUrl);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       width: double.infinity,
@@ -34,7 +31,7 @@ class SettingInfo extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
-        leading: CircleAvatar(backgroundImage: image, radius: 20,),
+        leading: CircleAvatar(backgroundImage: image, radius: 20),
         trailing: const Icon(Icons.arrow_forward_ios, size: 19),
         contentPadding: EdgeInsets.zero,
         dense: true,
@@ -44,8 +41,7 @@ class SettingInfo extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
               //return const SearchPlayList();
-              return ProfilePage(
-                  image: image, label: user.name);
+              return ProfilePage(image: image, label: user.name);
             }),
           );
         },

@@ -32,6 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
   double imageOpacity = 1;
   bool showTopBar = false;
   Color _color = Colors.black;
+
   @override
   void initState() {
     imageSize = initialImageSize;
@@ -67,6 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
     scrollController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final favoritePlaylists = context.watch<DataProvider>().favoritePlaylists;
@@ -103,9 +105,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20, bottom: 10),
                     child: ProfileImage(
-                        imageOpacity: imageOpacity,
-                        imageSize: imageSize,
-                        image: widget.image
+                      imageOpacity: imageOpacity,
+                      imageSize: imageSize,
+                      image: widget.image,
                     ),
                   ),
                 ),
@@ -134,19 +136,22 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Column(
                         children: [
                           const SizedBox(height: 150),
-                          ProfileComponent(label: widget.label, image: widget.image,),
+                          ProfileComponent(
+                            label: widget.label,
+                            image: widget.image,
+                          ),
                         ],
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
-                    child:SizedBox(
-                      height:400 ,
-                      child:  _buildListView(favoritePlaylists),
-                    ) ,
+                    padding:
+                        const EdgeInsets.only(bottom: 10, left: 20, right: 20),
+                    child: SizedBox(
+                      height: 400,
+                      child: _buildListView(favoritePlaylists),
+                    ),
                   )
-
                 ],
               ),
             ),
@@ -180,6 +185,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+
   Widget _buildListView(list) {
     return ListView.builder(
       itemCount: list.length,
@@ -200,6 +206,7 @@ class _ProfilePageState extends State<ProfilePage> {
       },
     );
   }
+
   void onTap(item) {
     final ImageProvider image;
 
@@ -231,4 +238,3 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
-
