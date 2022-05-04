@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/auth/next_button.dart';
 import 'package:spotify/components/setting/setting_info.dart';
 import 'package:spotify/components/setting/setting_title.dart';
-import '../models/setting.dart';
 import 'package:spotify/providers/data_provider.dart';
-import 'package:provider/provider.dart';
+
+import '../models/setting.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);

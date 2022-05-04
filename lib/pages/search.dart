@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:spotify/pages/search_all.dart';
 import 'package:spotify/providers/data_provider.dart';
 
+import '../utils/helper.dart';
+
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -112,7 +114,7 @@ class _SearchPageState extends State<SearchPage> {
                       itemBuilder: (BuildContext context, int index) {
                         final item = genres[index];
 
-                        final image = NetworkImage(item.coverImageUrl);
+                        final image = getImageFromUrl(item.coverImageUrl);
 
                         return FutureBuilder<PaletteGenerator>(
                           future: PaletteGenerator.fromImageProvider(image),
