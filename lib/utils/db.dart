@@ -30,8 +30,8 @@ class Database {
 
     final map = Map<String, dynamic>.from(res.value as Map);
 
-    // final audioUrl = await getFileFromFirebase('/song/audio/$id.mp3');
-    const audioUrl = '';
+    final audioUrl = await getFileFromFirebase('/song/audio/$id.mp3');
+    // const audioUrl = '';
 
     String coverImageUrl;
 

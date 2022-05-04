@@ -1,5 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager_firebase/flutter_cache_manager_firebase.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 Future<Color?> getColorFromImage(ImageProvider imageProvider) async {
@@ -34,5 +35,11 @@ ImageProvider getImageFromUrl(String url) {
 }
 
 Future<String> getFileFromFirebase(String ref) async {
+  if (ref.endsWith('.mp3')) {
+    final file = await FirebaseCacheManager().getSingleFile(ref);
+
+    return file.path;
+  }
+
   return FirebaseStorage.instance.ref(ref).getDownloadURL();
 }
