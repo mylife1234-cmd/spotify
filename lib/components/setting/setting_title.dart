@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify/pages/about_detail.dart';
 import 'package:spotify/pages/account_detail.dart';
 import 'package:spotify/pages/setting.dart';
-import 'package:spotify/pages/storange_detail.dart';
+import 'package:spotify/pages/storage_detail.dart';
 
 import '../../models/setting.dart';
 
