@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/song.dart';
 import '../../providers/music_provider.dart';
-import '../../utils/calculation/helper.dart';
+import '../../utils/helper.dart';
 
 class SongInQueue extends StatelessWidget {
   const SongInQueue({

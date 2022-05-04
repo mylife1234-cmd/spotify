@@ -13,9 +13,9 @@ import 'package:spotify/pages/search.dart';
 import 'package:spotify/pages/start.dart';
 import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/providers/music_provider.dart';
-import 'package:spotify/utils/firebase/db.dart';
+import 'package:spotify/utils/db.dart';
 
-import 'utils/music/audio_handler.dart';
+import 'utils/audio_handler.dart';
 
 GetIt getIt = GetIt.instance;
 

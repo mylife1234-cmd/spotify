@@ -9,8 +9,8 @@ import 'package:spotify/pages/share_page.dart';
 
 import '../models/song.dart';
 import '../providers/data_provider.dart';
-import '../utils/calculation/helper.dart';
-import '../utils/firebase/db.dart';
+import '../utils/db.dart';
+import '../utils/helper.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
 

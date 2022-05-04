@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_button.dart';
-import 'package:spotify/utils/calculation/helper.dart';
+import 'package:spotify/utils/helper.dart';
 
 import '../../models/song.dart';
 import '../../pages/song_action.dart';

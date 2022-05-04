@@ -9,8 +9,8 @@ import 'package:spotify/components/artist/back_button.dart';
 import '../components/album/song_tile.dart';
 import '../models/song.dart';
 import '../providers/music_provider.dart';
-import '../utils/calculation/helper.dart';
-import '../utils/firebase/db.dart';
+import '../utils/db.dart';
+import '../utils/helper.dart';
 import 'loading.dart';
 
 class AlbumView extends StatefulWidget {

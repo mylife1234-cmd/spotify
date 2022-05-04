@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spotify/models/user.dart' as model;
-import 'package:spotify/utils/firebase/db.dart';
+import 'package:spotify/utils/db.dart';
 
 import '../components/auth/input_field.dart';
 import '../components/auth/next_button.dart';

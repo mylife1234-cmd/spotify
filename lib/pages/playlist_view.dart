@@ -10,8 +10,8 @@ import '../components/album/animate_label.dart';
 import '../components/album/opacity_image.dart';
 import '../models/song.dart';
 import '../providers/music_provider.dart';
-import '../utils/calculation/helper.dart';
-import '../utils/firebase/db.dart';
+import '../utils/db.dart';
+import '../utils/helper.dart';
 
 class PlaylistView extends StatefulWidget {
   const PlaylistView({

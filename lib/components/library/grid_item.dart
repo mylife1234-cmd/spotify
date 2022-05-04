@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/calculation/helper.dart';
+import '../../utils/helper.dart';
 
 class GridItem extends StatelessWidget {
   const GridItem({

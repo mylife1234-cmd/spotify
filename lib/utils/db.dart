@@ -1,12 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:spotify/models/album.dart';
 import 'package:spotify/models/artist.dart';
 import 'package:spotify/models/genre.dart';
 
-import '../../models/playlist.dart';
-import '../../models/song.dart';
-import '../../models/user.dart';
+import '../models/playlist.dart';
+import '../models/song.dart';
+import '../models/user.dart';
+import 'helper.dart';
 
 class Database {
   Database();
@@ -30,9 +30,7 @@ class Database {
 
     final map = Map<String, dynamic>.from(res.value as Map);
 
-    // final audioUrl = await FirebaseStorage.instance
-    // .ref('/song/audio/$id.mp3')
-    // .getDownloadURL();
+    // final audioUrl = await getFileFromFirebase('/song/audio/$id.mp3');
     const audioUrl = '';
 
     String coverImageUrl;
@@ -40,9 +38,7 @@ class Database {
     if (map['coverImageUrl'] != null) {
       coverImageUrl = map['coverImageUrl'];
     } else {
-      coverImageUrl = await FirebaseStorage.instance
-          .ref('/song/image/$id.jpg')
-          .getDownloadURL();
+      coverImageUrl = await getFileFromFirebase('/song/image/$id.jpg');
     }
 
     return Song(
@@ -67,9 +63,7 @@ class Database {
     if (map['coverImageUrl'] != null) {
       coverImageUrl = map['coverImageUrl'];
     } else {
-      coverImageUrl = await FirebaseStorage.instance
-          .ref('/playlist/$id.jpg')
-          .getDownloadURL();
+      coverImageUrl = await getFileFromFirebase('/playlist/$id.jpg');
     }
 
     final playlist = Playlist(
@@ -115,8 +109,7 @@ class Database {
     if (map['coverImageUrl'] != null) {
       coverImageUrl = map['coverImageUrl'];
     } else {
-      coverImageUrl =
-          await FirebaseStorage.instance.ref('/album/$id.jpg').getDownloadURL();
+      coverImageUrl = await getFileFromFirebase('/album/$id.jpg');
     }
 
     final album = Album(
@@ -149,9 +142,7 @@ class Database {
     if (map['coverImageUrl'] != null) {
       coverImageUrl = map['coverImageUrl'];
     } else {
-      coverImageUrl = await FirebaseStorage.instance
-          .ref('/artist/$id.jpg')
-          .getDownloadURL();
+      coverImageUrl = await getFileFromFirebase('/artist/$id.jpg');
     }
 
     final artist = Artist(
@@ -176,9 +167,7 @@ class Database {
       if (value['coverImageUrl'] != null) {
         coverImageUrl = value['coverImageUrl'];
       } else {
-        coverImageUrl = await FirebaseStorage.instance
-            .ref('/genre/$key.jpg')
-            .getDownloadURL();
+        coverImageUrl = await getFileFromFirebase('/genre/$key.jpg');
       }
 
       genres.add(Genre(
@@ -202,9 +191,7 @@ class Database {
       if (value['coverImageUrl'] != null) {
         coverImageUrl = value['coverImageUrl'];
       } else {
-        coverImageUrl = await FirebaseStorage.instance
-            .ref('/album/$key.jpg')
-            .getDownloadURL();
+        coverImageUrl = await getFileFromFirebase('/album/$key.jpg');
       }
 
       albums.add(Album(
@@ -231,9 +218,7 @@ class Database {
       if (value['coverImageUrl'] != null) {
         coverImageUrl = value['coverImageUrl'];
       } else {
-        coverImageUrl = await FirebaseStorage.instance
-            .ref('/artist/$key.jpg')
-            .getDownloadURL();
+        coverImageUrl = await getFileFromFirebase('/artist/$key.jpg');
       }
 
       artists.add(Artist(
@@ -265,9 +250,7 @@ class Database {
       if (value['coverImageUrl'] != null) {
         coverImageUrl = value['coverImageUrl'];
       } else {
-        coverImageUrl = await FirebaseStorage.instance
-            .ref('/song/image/$key.jpg')
-            .getDownloadURL();
+        coverImageUrl = await getFileFromFirebase('/song/image/$key.jpg');
       }
 
       songs.add(Song(
@@ -275,14 +258,13 @@ class Database {
         name: value['name'],
         coverImageUrl: coverImageUrl,
         description: value['description'],
-        artistIdList: value['artistIdList'] ,
-        albumId: value['albumId'], 
-        genreIdList: value['genreIdList'], 
+        artistIdList: value['artistIdList'],
+        albumId: value['albumId'],
+        genreIdList: value['genreIdList'],
         audioUrl: '',
       ));
     });
 
     return songs;
   }
-
 }

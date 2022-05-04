@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/pages/profile.dart';
 import 'package:spotify/providers/data_provider.dart';
-import 'package:spotify/utils/calculation/helper.dart';
+import 'package:spotify/utils/helper.dart';
 
 class LibraryHeader extends StatelessWidget {
   const LibraryHeader({Key? key, this.handleAdding}) : super(key: key);

@@ -9,7 +9,7 @@ import 'package:spotify/pages/player.dart';
 import 'package:spotify/providers/music_provider.dart';
 
 import '../../models/song.dart';
-import '../../utils/calculation/helper.dart';
+import '../../utils/helper.dart';
 
 class MiniPlayer extends StatelessWidget {
   const MiniPlayer({Key? key, required this.song}) : super(key: key);

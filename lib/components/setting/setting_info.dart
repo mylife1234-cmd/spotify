@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify/pages/profile.dart';
 
 import '../../models/song.dart';
-import '../../utils/calculation/helper.dart';
+import '../../utils/helper.dart';
 
 class SettingInfo extends StatelessWidget {
   const SettingInfo({Key? key, required this.song}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/song.dart';
-import '../../utils/calculation/helper.dart';
+import '../../utils/helper.dart';
 
 class PlayingSongTile extends StatelessWidget {
   const PlayingSongTile({Key? key, required this.song}) : super(key: key);

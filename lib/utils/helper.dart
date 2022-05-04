@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
 
@@ -30,4 +31,8 @@ ImageProvider getImageFromUrl(String url) {
   } else {
     return AssetImage(url);
   }
+}
+
+Future<String> getFileFromFirebase(String ref) async {
+  return FirebaseStorage.instance.ref(ref).getDownloadURL();
 }

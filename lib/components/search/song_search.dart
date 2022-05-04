@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/song.dart';
 import '../../pages/song_action.dart';
-import '../../utils/calculation/helper.dart';
+import '../../utils/helper.dart';
 import '../actions/action_button.dart';
 
 class SongSearch extends StatelessWidget {

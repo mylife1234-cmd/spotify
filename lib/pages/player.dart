@@ -8,7 +8,7 @@ import 'package:spotify/components/player/slider.dart';
 
 import '../components/player/share_button.dart';
 import '../providers/music_provider.dart';
-import '../utils/calculation/helper.dart';
+import '../utils/helper.dart';
 
 class MusicPlayer extends StatelessWidget {
   const MusicPlayer({Key? key}) : super(key: key);

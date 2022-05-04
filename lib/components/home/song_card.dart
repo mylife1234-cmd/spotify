@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:spotify/providers/music_provider.dart';
 
 import '../../models/song.dart';
-import '../../utils/calculation/helper.dart';
+import '../../utils/helper.dart';
 
 class SongCard extends StatelessWidget {
   const SongCard({Key? key, required this.song}) : super(key: key);

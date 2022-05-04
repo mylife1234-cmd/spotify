@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import '../main.dart';
 import '../models/song.dart';
-import '../utils/calculation/helper.dart';
+import '../utils/helper.dart';
 
 class MusicProvider extends ChangeNotifier {
   MusicProvider() {

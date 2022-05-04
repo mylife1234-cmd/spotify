@@ -4,7 +4,7 @@ import 'package:spotify/components/search/search_item.dart';
 import 'package:spotify/components/search/song_search.dart';
 import 'package:spotify/pages/playlist_view.dart';
 import 'package:spotify/providers/data_provider.dart';
-import '../utils/calculation/helper.dart';
+import '../utils/helper.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
 

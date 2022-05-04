@@ -11,7 +11,7 @@ import 'package:spotify/pages/playlist_creation.dart';
 import 'package:spotify/pages/playlist_view.dart';
 
 import '../providers/data_provider.dart';
-import '../utils/calculation/helper.dart';
+import '../utils/helper.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
 

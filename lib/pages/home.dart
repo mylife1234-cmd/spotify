@@ -5,8 +5,8 @@ import 'package:spotify/components/home/home_header.dart';
 import 'package:spotify/components/home/playlist_card.dart';
 import 'package:spotify/pages/loading.dart';
 import 'package:spotify/providers/data_provider.dart';
-import 'package:spotify/utils/calculation/helper.dart';
-import 'package:spotify/utils/firebase/db.dart';
+import 'package:spotify/utils/db.dart';
+import 'package:spotify/utils/helper.dart';
 
 import '../components/home/album_card.dart';
 import '../main.dart';
