@@ -175,11 +175,15 @@ class _LibraryPageState extends State<LibraryPage> {
   }
 
   Widget _buildGridView(list) {
+    final width = MediaQuery.of(context).size.width;
+
+    final cardWidth = (width - 35) / 2;
+
     return GridView.count(
       crossAxisCount: 2,
       crossAxisSpacing: 15,
       mainAxisSpacing: 15,
-      childAspectRatio: 0.8,
+      childAspectRatio: cardWidth / (cardWidth + 60),
       children: list.map<Widget>((item) {
         return GestureDetector(
           child: GridItem(
