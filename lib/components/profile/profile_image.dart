@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ProfileImage extends StatelessWidget {
+  final double imageOpacity;
+  final double imageSize;
+  final ImageProvider image;
+
   const ProfileImage({
     Key? key,
     required this.imageOpacity,
     required this.imageSize,
     required this.image,
   }) : super(key: key);
-
-  final double imageOpacity;
-  final double imageSize;
-  final ImageProvider image;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +21,12 @@ class ProfileImage extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0),
-              offset: const Offset(0, 10),
               blurRadius: 20,
               spreadRadius: 10,
             )
           ],
         ),
-        child: CircleAvatar(backgroundImage: image, radius: imageSize / 3),
+        child: CircleAvatar(backgroundImage: image, radius: imageSize / 2),
       ),
     );
   }

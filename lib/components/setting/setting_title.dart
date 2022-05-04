@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:spotify/pages/about_detail.dart';
+import 'package:spotify/pages/account_detail.dart';
 import 'package:spotify/pages/setting.dart';
+import 'package:spotify/pages/storange_detail.dart';
 
 import '../../models/setting.dart';
 
 class SettingList extends StatelessWidget {
-  const SettingList({Key? key, required this.song}) : super(key: key);
-  final SettingTitle song;
+  const SettingList({Key? key, required this.settingtitle}) : super(key: key);
+  final SettingTitle settingtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class SettingList extends StatelessWidget {
       color: Colors.black,
       child: ListTile(
         title: Text(
-          song.name,
+          settingtitle.name,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 15,
@@ -32,7 +35,16 @@ class SettingList extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
               //return const SearchPlayList();
-              return const SettingsPage();
+              if(settingtitle.name == "Account"){
+                return const AccountDetailPage();
+              }
+              if(settingtitle.name == "Device"){
+                return StorageDetailPage();
+              }
+              if(settingtitle.name == "About"){
+                return const AboutDetailPage();
+              }
+              return SettingsPage();
             }),
           );
         },

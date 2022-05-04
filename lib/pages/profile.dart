@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/album/animate_label.dart';
+
 import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/components/profile/profile_component.dart';
 import 'package:spotify/components/profile/profile_image.dart';
+import 'package:spotify/pages/playlist_view.dart';
+import '../components/library/list_item.dart';
+
+import '../providers/data_provider.dart';
+
+import 'artist_view.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, required this.image, required this.label})
@@ -11,7 +19,6 @@ class ProfilePage extends StatefulWidget {
 
   final ImageProvider image;
   final String label;
-
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -24,9 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
   double containerInitialHeight = 300;
   double imageOpacity = 1;
   bool showTopBar = false;
-
   Color _color = Colors.black;
-
   @override
   void initState() {
     imageSize = initialImageSize;
@@ -62,9 +67,9 @@ class _ProfilePageState extends State<ProfilePage> {
     scrollController.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
+    final favoritePlaylists = context.watch<DataProvider>().favoritePlaylists;
     return Scaffold(
       body: Stack(
         children: [
@@ -98,9 +103,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20, bottom: 10),
                     child: ProfileImage(
-                      imageOpacity: imageOpacity,
-                      imageSize: imageSize,
-                      image: widget.image,
+                        imageOpacity: imageOpacity,
+                        imageSize: imageSize,
+                        image: widget.image
                     ),
                   ),
                 ),
@@ -109,8 +114,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           SafeArea(
             child: SingleChildScrollView(
-              controller: scrollController,
-              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Container(
@@ -131,12 +134,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Column(
                         children: [
                           const SizedBox(height: 150),
-                          ProfileComponent(label: widget.label),
+                          ProfileComponent(label: widget.label, image: widget.image,),
                         ],
                       ),
                     ),
                   ),
-                  _buildListSong(),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
+                    child:SizedBox(
+                      height:400 ,
+                      child:  _buildListView(favoritePlaylists),
+                    ) ,
+                  )
+
                 ],
               ),
             ),
@@ -170,10 +180,54 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-}
+  Widget _buildListView(list) {
+    return ListView.builder(
+      itemCount: list.length,
+      itemBuilder: (context, index) {
+        final item = list[index];
 
-Widget _buildListSong() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-  );
+        return GestureDetector(
+          child: ListItem(
+            title: item.name,
+            subtitle: item.runtimeType.toString(),
+            coverUrl: item.coverImageUrl,
+            isSquareCover: item.runtimeType.toString() != 'Artist',
+          ),
+          onTap: () {
+            onTap(item);
+          },
+        );
+      },
+    );
+  }
+  void onTap(item) {
+    final ImageProvider image;
+
+    if (item.coverImageUrl.startsWith('https')) {
+      image = NetworkImage(item.coverImageUrl);
+    } else {
+      image = AssetImage(item.coverImageUrl);
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          if (item.runtimeType.toString() == 'Playlist') {
+            return PlaylistView(
+                id: item.id,
+                image: image,
+                label: item.name,
+                songIdList: item.songIdList);
+          }
+          return ArtistView(
+              id: item.id,
+              image: image,
+              label: item.name,
+              description: item.description,
+              songIdList: item.songIdList);
+        },
+      ),
+    );
+  }
 }

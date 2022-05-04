@@ -1,17 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import 'package:spotify/components/auth/next_button.dart';
-import 'package:spotify/components/setting/setting_info.dart';
-import 'package:spotify/components/setting/setting_title.dart';
-import '../models/setting.dart';
+import '../components/setting/account_title_component.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/providers/data_provider.dart';
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+class AccountDetailPage extends StatefulWidget {
+  const AccountDetailPage({Key? key}) : super(key: key);
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<AccountDetailPage> createState() => _AccountDetailPageState();
 }
-class _SettingsPageState extends State<SettingsPage> {
+class _AccountDetailPageState extends State<AccountDetailPage> {
   @override
   Widget build(BuildContext context) {
     final resultUser = context.watch<DataProvider>().user;
@@ -19,7 +16,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Settings',
+            'Account',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -43,31 +40,16 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SettingInfo(user:resultUser),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: songList.map((item) {
-                      return SettingList(
-                        settingtitle : SettingTitle(
-                          item['title']!,
-                        ),
+                    children: userList.map((item) {
+                      return AccountTitle(
+                        user: resultUser,label:  item['title']!,
                       );
                     }).toList()),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 50),
-                child: Center(
-                  child: NextButton(
-                    label: 'Log out',
-                    color: Colors.white,
-                    onTap: () async {
-                      await FirebaseAuth.instance.signOut();
-                    },
-                  ),
-                ),
-              )
             ],
           ),
         ),
@@ -76,14 +58,11 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 }
 
-final songList = [
+final userList = [
   {
-    'title': 'Account',
+    'title': 'UserName',
   },
   {
-    'title': 'Device',
-  },
-  {
-    'title': 'About',
+    'title': 'Id',
   },
 ];

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:spotify/components/library/filter_button.dart';
+import 'package:spotify/components/profile/edit_profile_button.dart';
+import 'package:spotify/pages/edit_profile.dart';
 
 class ProfileComponent extends StatelessWidget {
-  const ProfileComponent({Key? key, required this.label}) : super(key: key);
-
   final String label;
+  final ImageProvider image;
+  const ProfileComponent({Key? key, required this.label, required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 20, top: 10),
+      padding: const EdgeInsets.only(left: 15, right: 20, top: 50, bottom: 0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Center(
           child: Text(
@@ -19,37 +20,47 @@ class ProfileComponent extends StatelessWidget {
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.only(top: 20, left: 20, right: 10),
-          child: Center(
-            child: FilterButton(
-              title: 'Edit profile',
-              active: false,
+        GestureDetector(
+          child:Padding(
+            padding: EdgeInsets.only(top: 10, bottom: 10),
+            child: Center(
+              child: ProfileButton(
+                title: "Edit profile",
+                active: false,
+              ),
             ),
-          ),
+          ) ,
+          onTap: (){
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (BuildContext context) {
+                  //return const SearchPlayList();
+                  return EditProfilesPage(
+                  label: label, image: image);
+                })
+            );
+          },
         ),
-        const SizedBox(height: 12),
         Row(
           children: <Widget>[
             Expanded(
               child: Column(
-                children: const <Widget>[
+                children:[
                   Text(
-                    '20',
+                    "20",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 13,
+                      fontSize: 13.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 5.0,
                   ),
                   Text(
-                    'Followers',
+                    "Followers",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 13,
+                      fontSize: 13.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -58,23 +69,23 @@ class ProfileComponent extends StatelessWidget {
             ),
             Expanded(
               child: Column(
-                children: const <Widget>[
+                children: [
                   Text(
-                    '12',
+                    "12",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 13,
+                      fontSize: 13.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 5.0,
                   ),
                   Text(
-                    'Follow',
+                    "Follow",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 13,
+                      fontSize: 13.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -86,10 +97,10 @@ class ProfileComponent extends StatelessWidget {
         const SizedBox(height: 10),
         const Center(
           child: Text(
-            'Playlists',
+            "Playlists",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 15,
+              fontSize: 15.0,
               fontWeight: FontWeight.bold,
             ),
           ),
