@@ -45,7 +45,7 @@ class MyAudioHandler extends BaseAudioHandler {
   @override
   Future<void> addQueueItems(List<MediaItem> mediaItems) async {
     final audioSource = mediaItems.map(_createAudioSource);
-    _playlist.addAll(audioSource.toList());
+    await _playlist.addAll(audioSource.toList());
 
     final newQueue = queue.value..addAll(mediaItems);
     queue.add(newQueue);
@@ -55,7 +55,7 @@ class MyAudioHandler extends BaseAudioHandler {
   Future<void> addQueueItem(MediaItem mediaItem) async {
     if (!queue.value.contains(mediaItem)) {
       final audioSource = _createAudioSource(mediaItem);
-      _playlist.add(audioSource);
+      await _playlist.add(audioSource);
 
       final newQueue = queue.value..add(mediaItem);
       queue.add(newQueue);
@@ -64,7 +64,7 @@ class MyAudioHandler extends BaseAudioHandler {
 
   @override
   Future<void> removeQueueItemAt(int index) async {
-    _playlist.removeAt(index);
+    await _playlist.removeAt(index);
 
     final newQueue = queue.value..removeAt(index);
     queue.add(newQueue);
@@ -74,7 +74,7 @@ class MyAudioHandler extends BaseAudioHandler {
   Future<void> insertQueueItem(int index, MediaItem mediaItem) async {
     if (!queue.value.contains(mediaItem)) {
       final audioSource = _createAudioSource(mediaItem);
-      _playlist.insert(index, audioSource);
+      await _playlist.insert(index, audioSource);
 
       final newQueue = queue.value..insert(index, mediaItem);
       queue.add(newQueue);
@@ -123,7 +123,7 @@ class MyAudioHandler extends BaseAudioHandler {
       index = _audioPlayer.shuffleIndices![index];
     }
 
-    _audioPlayer.seek(Duration.zero, index: index);
+    await _audioPlayer.seek(Duration.zero, index: index);
   }
 
   @override

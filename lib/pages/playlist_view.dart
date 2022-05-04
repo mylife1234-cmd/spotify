@@ -103,14 +103,12 @@ class _PlaylistViewState extends State<PlaylistView> {
 
       context.read<MusicProvider>().clearPlaylist();
 
-      context.read<MusicProvider>().loadPlaylist(songList).then((value) {
-        // context.read<MusicProvider>().playWithIndex(0);
+      await context.read<MusicProvider>().loadPlaylist(songList);
 
-        context.read<MusicProvider>().updateCurrentPlaylistId(widget.id);
+      context.read<MusicProvider>().updateCurrentPlaylistId(widget.id);
 
-        setState(() {
-          _loading = false;
-        });
+      setState(() {
+        _loading = false;
       });
     }
   }
@@ -249,8 +247,8 @@ class _PlaylistViewState extends State<PlaylistView> {
                 child: Stack(
                   alignment: Alignment.bottomRight,
                   children: [
-                    PLayButton(onTap: () {
-                      loadPlaylist();
+                    PLayButton(onTap: () async {
+                      await loadPlaylist();
                     }),
                   ],
                 ),

@@ -14,7 +14,7 @@ class SongTile extends StatelessWidget {
     required this.loadPlaylist,
   }) : super(key: key);
   final Song song;
-  final void Function() loadPlaylist;
+  final Future Function() loadPlaylist;
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +63,8 @@ class SongTile extends StatelessWidget {
         dense: true,
         visualDensity: VisualDensity.standard,
         horizontalTitleGap: 12,
-        onTap: () {
-          loadPlaylist();
+        onTap: () async {
+          await loadPlaylist();
           context.read<MusicProvider>().playNewSong(song);
         },
       ),

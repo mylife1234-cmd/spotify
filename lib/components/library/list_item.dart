@@ -28,9 +28,13 @@ class ListItem extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         subtitle: Text(subtitle),
-        leading: isSquareCover
-            ? Image(image: image)
-            : CircleAvatar(foregroundImage: image, radius: 28),
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(isSquareCover ? 0 : 100),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Image(image: image, fit: BoxFit.cover),
+          ),
+        ),
         contentPadding: EdgeInsets.zero,
       ),
     );
