@@ -28,15 +28,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final recentPlaylists = context.watch<DataProvider>().recentPlaylists;
-    final systemPlaylists =
-        context.watch<DataProvider>().systemPlaylists.sublist(0, 5);
+    final systemPlaylists = context.watch<DataProvider>().systemPlaylists;
     final recentAlbum = context.watch<DataProvider>().recentAlbums;
-    final artists = context.watch<DataProvider>().artists.sublist(0, 3);
+    final favoriteArtists = context.watch<DataProvider>().favoriteArtists;
 
     final List list = [...recentPlaylists, ...recentAlbum].sublist(0)
       ..shuffle();
+    final List recommendList = [...favoriteArtists, ...systemPlaylists].sublist(0)
+      ..shuffle();
 
-    if (recentPlaylists.isEmpty || systemPlaylists.isEmpty) {
+
+    if (recentPlaylists.isEmpty || favoriteArtists.isEmpty) {
       return const LoadingScreen();
     }
 
@@ -116,10 +118,9 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 15),
 
                 ...['Uniquely yours', 'Made for you'].map((e) {
-                  final List shuffledList = [...systemPlaylists, ...artists]
-                    ..sublist(0)
+                  final List shuffledList = [...recommendList]..sublist(0)
                     ..shuffle();
-
+                  // print(shuffledList);
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

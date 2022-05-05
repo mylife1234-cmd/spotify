@@ -218,23 +218,23 @@ class _MainState extends State<Main> {
       (artists) => context.read<DataProvider>().addFavoriteArtists(artists),
     );
 
-    Database.getGenres().then((genres) {
+    await Database.getGenres().then((genres) {
       context.read<DataProvider>().addGenres(genres);
     });
 
-    Database.getAlbums().then((albums) {
+    await Database.getAlbums().then((albums) {
       context.read<DataProvider>().addAlbums(albums);
     });
 
-    Database.getSystemPlaylistList().then((playlists) {
+    await Database.getSystemPlaylistList().then((playlists) {
       context.read<DataProvider>().addSystemPlaylists(playlists);
     });
 
-    Database.getArtists().then((artists) {
+    await Database.getArtists().then((artists) {
       context.read<DataProvider>().addArtists(artists);
     });
 
-    Database.getSongs().then((songs) {
+    await Database.getSongs().then((songs) {
       context.read<DataProvider>().addSongs(songs);
     });
   }
