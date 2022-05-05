@@ -10,7 +10,6 @@ class User {
     required this.recentSongIdList,
     required this.favoriteSongIdList,
     required this.customizedPlaylistIdList,
-    required this.systemPlaylistIdList,
     required this.favoriteArtistIdList,
   });
 
@@ -24,6 +23,5 @@ class User {
   final List recentSongIdList;
   final List favoriteSongIdList;
   final List customizedPlaylistIdList;
-  final List systemPlaylistIdList;
   final List favoriteArtistIdList;
 }

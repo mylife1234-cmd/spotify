@@ -180,10 +180,6 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Future<void> initUser(UserCredential credential) async {
-    final playlistIdList = await Database.getPlaylistIdList();
-
-    playlistIdList.shuffle();
-
     final user = model.User(
       id: credential.user!.uid,
       name: credential.user!.displayName!,
@@ -195,7 +191,6 @@ class _SignUpPageState extends State<SignUpPage> {
       recentSongIdList: [],
       favoriteSongIdList: [],
       customizedPlaylistIdList: [],
-      systemPlaylistIdList: playlistIdList.sublist(0, 5),
       favoriteArtistIdList: [],
     );
 

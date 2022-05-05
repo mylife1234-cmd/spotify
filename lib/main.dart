@@ -169,12 +169,6 @@ class _MainState extends State<Main> {
     context.read<DataProvider>().setUser(user);
 
     Future.wait(
-      user.systemPlaylistIdList.map((id) => Database.getPlaylistById(id)),
-    ).then(
-      (playlists) => context.read<DataProvider>().addSystemPlaylists(playlists),
-    );
-
-    Future.wait(
       user.recentPlaylistIdList.map((id) => Database.getPlaylistById(id)),
     ).then(
       (playlists) => context.read<DataProvider>().addRecentPlaylists(playlists),
@@ -230,6 +224,10 @@ class _MainState extends State<Main> {
 
     Database.getAlbums().then((albums) {
       context.read<DataProvider>().addAlbums(albums);
+    });
+
+    Database.getSystemPlaylistList().then((playlists) {
+      context.read<DataProvider>().addSystemPlaylists(playlists);
     });
 
     Database.getArtists().then((artists) {

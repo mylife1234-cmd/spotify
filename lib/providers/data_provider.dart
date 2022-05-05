@@ -19,7 +19,6 @@ class DataProvider extends ChangeNotifier {
     recentSongIdList: [],
     favoriteSongIdList: [],
     customizedPlaylistIdList: [],
-    systemPlaylistIdList: [],
     favoriteArtistIdList: [],
   );
 
@@ -78,7 +77,6 @@ class DataProvider extends ChangeNotifier {
       recentSongIdList: [],
       favoriteSongIdList: [],
       customizedPlaylistIdList: [],
-      systemPlaylistIdList: [],
       favoriteArtistIdList: [],
     );
 

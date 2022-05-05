@@ -20,7 +20,6 @@ class Database {
       'recentSongIdList': user.recentSongIdList,
       'favoriteSongIdList': user.favoriteSongIdList,
       'customizedPlaylistIdList': user.customizedPlaylistIdList,
-      'systemPlaylistIdList': user.systemPlaylistIdList,
       'favoriteArtistIdList': user.favoriteArtistIdList,
     });
   }
@@ -67,11 +66,11 @@ class Database {
     }
 
     final playlist = Playlist(
-      id: id,
-      name: map['name'],
-      coverImageUrl: coverImageUrl,
-      songIdList: map['songIdList'],
-    );
+        id: id,
+        name: map['name'],
+        coverImageUrl: coverImageUrl,
+        songIdList: map['songIdList'],
+        type: map['type']);
 
     return playlist;
   }
@@ -92,7 +91,6 @@ class Database {
       recentSongIdList: map['recentSongIdList'] ?? [],
       favoriteSongIdList: map['favoriteSongIdList'] ?? [],
       customizedPlaylistIdList: map['customizedPlaylistIdList'] ?? [],
-      systemPlaylistIdList: map['systemPlaylistIdList'] ?? [],
       favoriteArtistIdList: map['favoriteArtistIdList'] ?? [],
     );
 
@@ -130,6 +128,29 @@ class Database {
     final map = Map<String, dynamic>.from(res.value as Map);
 
     return map.keys.toList();
+  }
+
+  static Future<List<Playlist>> getSystemPlaylistList() async {
+    final res = await FirebaseDatabase.instance.ref('/playlists').get();
+    final List<Playlist> playlists = [];
+    Map<String, dynamic>.from(res.value as Map).forEach((key, value) async {
+      if (value['type'] == 'system') {
+        String coverImageUrl;
+        if (value['coverImageUrl'] != null) {
+          coverImageUrl = value['coverImageUrl'];
+        } else {
+          coverImageUrl = await getFileFromFirebase('/genre/$key.jpg');
+        }
+        playlists.add(Playlist(
+            id: key,
+            name: value['name'],
+            coverImageUrl: coverImageUrl,
+            songIdList: value['songIdList'],
+            type: value['type']));
+      }
+    });
+
+    return playlists;
   }
 
   static Future<Artist> getArtistById(String id) async {

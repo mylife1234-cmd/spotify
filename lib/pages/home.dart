@@ -28,9 +28,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final recentPlaylists = context.watch<DataProvider>().recentPlaylists;
-    final systemPlaylists = context.watch<DataProvider>().systemPlaylists;
+    final systemPlaylists =
+        context.watch<DataProvider>().systemPlaylists.sublist(0, 5);
     final recentAlbum = context.watch<DataProvider>().recentAlbums;
-    final favoriteArtist = context.watch<DataProvider>().favoriteArtists;
+    final artists = context.watch<DataProvider>().artists.sublist(0, 3);
 
     final List list = [...recentPlaylists, ...recentAlbum].sublist(0)
       ..shuffle();
@@ -115,10 +116,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 15),
 
                 ...['Uniquely yours', 'Made for you'].map((e) {
-                  final List shuffledList = [
-                    ...systemPlaylists,
-                    ...favoriteArtist
-                  ]
+                  final List shuffledList = [...systemPlaylists, ...artists]
                     ..sublist(0)
                     ..shuffle();
 
