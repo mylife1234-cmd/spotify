@@ -60,7 +60,7 @@ class _SearchAllState extends State<SearchAll> {
                           fontWeight: FontWeight.bold,
                         ),
                         decoration: InputDecoration(
-                          hintText: 'Search All',
+                          hintText: 'Search',
                           hintStyle: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                           fillColor: const Color.fromRGBO(36, 36, 36, 1),

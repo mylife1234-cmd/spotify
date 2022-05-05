@@ -32,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
   double containerInitialHeight = 300;
   double imageOpacity = 1;
   bool showTopBar = false;
-  Color _color = Colors.black;
+  final Color _color = Colors.black;
 
   @override
   void initState() {
@@ -40,9 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
     scrollController = ScrollController()
       ..addListener(() {
         imageSize = initialImageSize - scrollController.offset;
-        if (imageSize < 0) {
-          imageSize = 0;
-        }
+
         containerHeight = containerInitialHeight - scrollController.offset;
         if (containerHeight < 0) {
           containerHeight = 0;
@@ -57,11 +55,6 @@ class _ProfilePageState extends State<ProfilePage> {
         setState(() {});
       });
     super.initState();
-    PaletteGenerator.fromImageProvider(widget.image).then((generator) {
-      setState(() {
-        _color = generator.mutedColor!.color;
-      });
-    });
   }
 
   @override
@@ -97,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 20),
                               child: ProfileImage(
-                                imageSize: imageSize,
+                                imageSize: initialImageSize,
                                 image: widget.image,
                                 imageOpacity: imageOpacity,
                               ),
@@ -157,7 +150,8 @@ class _ProfilePageState extends State<ProfilePage> {
           Positioned(
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              color: showTopBar ? _color.withOpacity(1) : _color.withOpacity(0),
+              color:
+                  showTopBar ? _color.withOpacity(0.85) : _color.withOpacity(0),
               padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
               child: SafeArea(
                 child: SizedBox(

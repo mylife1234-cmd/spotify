@@ -43,6 +43,8 @@ class GridItem extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
                   title,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),

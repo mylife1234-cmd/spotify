@@ -25,6 +25,8 @@ class ListItem extends StatelessWidget {
       child: ListTile(
         title: Text(
           title,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         subtitle: Text(subtitle),

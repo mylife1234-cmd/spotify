@@ -33,7 +33,11 @@ class SongSearch extends StatelessWidget {
             );
           },
         ),
-        subtitle: Text('Song ∙ $description'),
+        subtitle: Text(
+          'Song ∙ $description',
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
         leading: Image(image: image),
         contentPadding: EdgeInsets.zero,
       ),
