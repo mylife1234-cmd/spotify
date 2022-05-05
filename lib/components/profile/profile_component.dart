@@ -15,7 +15,7 @@ class ProfileComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 20, top: 50),
+      padding: const EdgeInsets.only(left: 15, right: 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Center(
           child: Text(

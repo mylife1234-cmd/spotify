@@ -186,26 +186,26 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildListView(list) {
-    return ListView.builder(
-      itemCount: list.length,
-      itemBuilder: (context, index) {
-        final item = list[index];
-
-        return GestureDetector(
-          child: ListItem(
-            title: item.name,
-            subtitle: item.runtimeType.toString(),
-            coverUrl: item.coverImageUrl,
-            isSquareCover: item.runtimeType.toString() != 'Artist',
-          ),
-          onTap: () {
-            onTap(item);
-          },
-        );
-      },
-    );
-  }
+  // Widget _buildListView(list) {
+  //   return ListView.builder(
+  //     itemCount: list.length,
+  //     itemBuilder: (context, index) {
+  //       final item = list[index];
+  //
+  //       return GestureDetector(
+  //         child: ListItem(
+  //           title: item.name,
+  //           subtitle: item.runtimeType.toString(),
+  //           coverUrl: item.coverImageUrl,
+  //           isSquareCover: item.runtimeType.toString() != 'Artist',
+  //         ),
+  //         onTap: () {
+  //           onTap(item);
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
 
   void onTap(item) {
     final ImageProvider image;
