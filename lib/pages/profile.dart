@@ -19,6 +19,7 @@ class ProfilePage extends StatefulWidget {
 
   final ImageProvider image;
   final String label;
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -71,89 +72,86 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final favoritePlaylists = context.watch<DataProvider>().favoritePlaylists;
+    final favoritePlaylists = [
+      ...context.watch<DataProvider>().favoritePlaylists,
+    ];
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            height: 300,
-            width: MediaQuery.of(context).size.width,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  _color.withOpacity(1),
-                  _color.withOpacity(0.7),
-                  _color.withOpacity(0.5),
-                  _color.withOpacity(0.3),
-                  // Colors.black.withOpacity(0.1),
-                  // Colors.transparent,
-                  Colors.black.withOpacity(0.5),
-                  Colors.black.withOpacity(1),
-                ],
-              ),
-            ),
+          SingleChildScrollView(
+            controller: scrollController,
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 19,
-                ),
-                SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20, bottom: 10),
-                    child: ProfileImage(
-                      imageOpacity: imageOpacity,
-                      imageSize: imageSize,
-                      image: widget.image,
-                    ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 19,
+                      ),
+                      SafeArea(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: ProfileImage(
+                                imageSize: imageSize,
+                                image: widget.image,
+                                imageOpacity: imageOpacity,
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(bottom: 10, top: 20),
+                                child: Column(
+                                  children: [
+                                    ProfileComponent(
+                                      label: widget.label,
+                                      image: widget.image,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 20, left: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: favoritePlaylists.map((item) {
+                                  return GestureDetector(
+                                    child: ListItem(
+                                      title: item.name,
+                                      subtitle: item.runtimeType.toString(),
+                                      coverUrl: item.coverImageUrl,
+                                      isSquareCover:
+                                          item.runtimeType.toString() !=
+                                              'Artist',
+                                    ),
+                                    onTap: () {
+                                      onTap(item);
+                                    },
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                            if (favoritePlaylists.length == 3)
+                              const SizedBox(height: 140),
+                            if (favoritePlaylists.length == 2)
+                              const SizedBox(height: 200),
+                            if (favoritePlaylists.length == 1)
+                              const SizedBox(height: 250)
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                )
               ],
-            ),
-          ),
-          SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          _color.withOpacity(0),
-                          _color.withOpacity(0),
-                          _color.withOpacity(0),
-                        ],
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 150),
-                          ProfileComponent(
-                            label: widget.label,
-                            image: widget.image,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 10, left: 20, right: 20),
-                    child: SizedBox(
-                      height: 400,
-                      child: _buildListView(favoritePlaylists),
-                    ),
-                  )
-                ],
-              ),
             ),
           ),
           Positioned(
