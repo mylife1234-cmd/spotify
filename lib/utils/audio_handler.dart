@@ -219,7 +219,7 @@ class MyAudioHandler extends BaseAudioHandler {
   void _currentSongListener() {
     _audioPlayer.currentIndexStream.listen((index) {
       final playlist = queue.value;
-      if (index == null || playlist.isEmpty) {
+      if (index == null || index >= playlist.length || playlist.isEmpty) {
         return;
       }
 
