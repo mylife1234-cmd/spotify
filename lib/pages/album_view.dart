@@ -95,8 +95,6 @@ class _AlbumViewState extends State<AlbumView> {
         _loading = true;
       });
 
-      context.read<MusicProvider>().clearPlaylist();
-
       await context.read<MusicProvider>().loadPlaylist(songList);
 
       context.read<MusicProvider>().updateCurrentPlaylistId(widget.id);
@@ -203,9 +201,12 @@ class _AlbumViewState extends State<AlbumView> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: songList.map((item) {
-                      return SongTile(
-                        song: item,
-                        loadPlaylist: loadPlaylist,
+                      return GestureDetector(
+                        onTap: () async {
+                          await loadPlaylist();
+                          context.read<MusicProvider>().playNewSong(item);
+                        },
+                        child: SongTile(song: item),
                       );
                     }).toList(),
                   ),

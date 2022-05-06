@@ -75,7 +75,7 @@ class MusicProvider extends ChangeNotifier {
     clearPlaylist();
   }
 
-  Future loadPlaylist(List<Song> songList) {
+  Future loadPlaylist(List<Song> songList) async {
     final mediaItems = songList
         .map(
           (song) => MediaItem(
@@ -94,7 +94,7 @@ class MusicProvider extends ChangeNotifier {
         )
         .toList();
 
-    return _audioHandler.addQueueItems(mediaItems);
+    await _audioHandler.addQueueItems(mediaItems);
   }
 
   void updateCurrentPlaylistId(String newId) {
@@ -121,14 +121,8 @@ class MusicProvider extends ChangeNotifier {
     _audioHandler.addQueueItem(mediaItem);
   }
 
-  void clearPlaylist() {
-    final List<Future> futures = [];
-
-    for (int i = currentPlaylist.length - 1; i >= 0; i--) {
-      futures.add(removeQueueItemAt(i));
-    }
-
-    Future.wait(futures);
+  Future clearPlaylist() async {
+    await _audioHandler.addQueueItems([]);
   }
 
   void _playlistListener() {

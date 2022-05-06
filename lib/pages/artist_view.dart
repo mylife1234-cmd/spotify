@@ -95,8 +95,6 @@ class _ArtistViewState extends State<ArtistView> {
         _loading = true;
       });
 
-      context.read<MusicProvider>().clearPlaylist();
-
       await context.read<MusicProvider>().loadPlaylist(songList);
 
       context.read<MusicProvider>().updateCurrentPlaylistId(widget.id);
@@ -205,9 +203,12 @@ class _ArtistViewState extends State<ArtistView> {
                       children: [
                         Column(
                           children: songList.map((item) {
-                            return SongTile(
-                              song: item,
-                              loadPlaylist: loadPlaylist,
+                            return GestureDetector(
+                              onTap: () async {
+                                await loadPlaylist();
+                                context.read<MusicProvider>().playNewSong(item);
+                              },
+                              child: SongTile(song: item),
                             );
                           }).toList(),
                         ),
