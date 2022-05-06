@@ -95,7 +95,9 @@ class _AlbumViewState extends State<AlbumView> {
     if (songList.isNotEmpty && currentPlaylistId != widget.id) {
       await context.read<MusicProvider>().loadPlaylist(songList);
 
-      context.read<MusicProvider>().updateCurrentPlaylistId(widget.id);
+      context
+          .read<MusicProvider>()
+          .updateCurrentPlaylist(widget.id, widget.label);
     }
   }
 

@@ -53,6 +53,10 @@ class MusicProvider extends ChangeNotifier {
 
   String get currentPlaylistId => _currentPlaylistId;
 
+  String _currentPlaylistName = '';
+
+  String get currentPlaylistName => _currentPlaylistName;
+
   void _initialize() {
     _playlistListener();
 
@@ -97,8 +101,10 @@ class MusicProvider extends ChangeNotifier {
     await _audioHandler.addQueueItems(mediaItems);
   }
 
-  void updateCurrentPlaylistId(String newId) {
+  void updateCurrentPlaylist(String newId, String newName) {
     _currentPlaylistId = newId;
+
+    _currentPlaylistName = newName;
 
     notifyListeners();
   }

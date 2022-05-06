@@ -94,7 +94,9 @@ class _ArtistViewState extends State<ArtistView> {
     if (songList.isNotEmpty && currentPlaylistId != widget.id) {
       await context.read<MusicProvider>().loadPlaylist(songList);
 
-      context.read<MusicProvider>().updateCurrentPlaylistId(widget.id);
+      context
+          .read<MusicProvider>()
+          .updateCurrentPlaylist(widget.id, widget.label);
     }
   }
 
@@ -184,8 +186,8 @@ class _ArtistViewState extends State<ArtistView> {
                           SizedBox(height: initialImageSize),
                           FutureBuilder(
                             future: Database.getArtistById(widget.id),
-                            builder: (context,
-                                AsyncSnapshot<dynamic> snapshot) {
+                            builder:
+                                (context, AsyncSnapshot<dynamic> snapshot) {
                               if (snapshot.hasData) {
                                 return ArtistComponent(
                                     id: widget.id,

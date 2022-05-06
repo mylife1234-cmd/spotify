@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_button.dart';
+import 'package:spotify/providers/music_provider.dart';
 
 import '../../models/song.dart';
 import '../../pages/song_action.dart';
@@ -13,6 +15,8 @@ class PlayerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final name = context.watch<MusicProvider>().currentPlaylistName;
+
     return Padding(
       padding: const EdgeInsets.only(
         left: 15,
@@ -28,9 +32,9 @@ class PlayerHeader extends StatelessWidget {
               size: 30,
             ),
           ),
-          const Text(
-            'Playlist 1',
-            style: TextStyle(fontWeight: FontWeight.w500),
+          Text(
+            name,
+            style: const TextStyle(fontWeight: FontWeight.w500),
           ),
           ActionButton(
             song: song,
