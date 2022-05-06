@@ -1,0 +1,236 @@
+id: JEmNCBheWkajwqtJobHVJw
+projectId: cld2izJDgUKbil1i1SYrHg
+projectName: My first Project
+created: 2022-05-06T06:55:15.9452407Z
+owner: Duy Pham
+protocol: 1
+tests:
+- id: DgzZv6E_dkOGmUhQYxTAQQ
+  name: Log in
+  description: ''
+  platform: iOS
+  type: Mobile
+  driverType: Appium_iOS
+  version: 0.1
+  creationDate: 2022-04-15T16:49:26.0000000
+  modificationDate: 2022-04-16T08:58:42.0000000
+  settings:
+    automationAssistant: true
+    appId: n5kW5vRa7EyBFVBgV3D1DA
+    stepSleepTime: 500
+    stepTimeout: 15000
+    stepSleepTiming: Before
+    stepFailureBehaviorType: Abort
+    stepTakeScreenshotConditionType: Failure
+  application:
+    id: n5kW5vRa7EyBFVBgV3D1DA
+    appleBundleId: com.int3120.group22.spotify
+    name: spotify
+    platform: iOS
+  steps:
+  - id: bIKg26Ix0U2MGtxv7rqgPw
+    comments: Clear application data and restart (Auto-generated)
+    enabled: true
+    invertResult: false
+    order: 1
+    repeat: 1
+    type: Action
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 1b89acc3-5003-4ae6-a8c1-c1732e09ef45
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: 2706z8bJi022ey9c-_Qp7g
+    enabled: true
+    invertResult: false
+    order: 2
+    repeat: 1
+    type: Action
+    elementId: A7LRvlMeLEaTclrgVWITPA
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: EhUat4qJkUO3duCDsdTxnA
+    enabled: true
+    invertResult: false
+    order: 3
+    repeat: 1
+    type: Action
+    elementId: XfYVgnHSk0mn8_2XATdiiA
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: wMuWbLIHSEqJ_E4az1c_EQ
+    enabled: true
+    invertResult: false
+    order: 4
+    repeat: 1
+    type: Action
+    elementId: XfYVgnHSk0mn8_2XATdiiA
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
+      source: System
+    parameterMaps:
+    - name: keys
+      value: '[[email]]'
+      direction: Input
+    conditions: []
+    validations: []
+    contexts: []
+  - id: w7ecYiBWcU2VoBLuZ460Vg
+    enabled: true
+    invertResult: false
+    order: 5
+    repeat: 1
+    type: Action
+    elementId: C-EFy95j6kifC_LegsnxjA
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: V3RDBtEouUmCMFyMFerPoQ
+    enabled: true
+    invertResult: false
+    order: 6
+    repeat: 1
+    type: Action
+    elementId: C-EFy95j6kifC_LegsnxjA
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
+      source: System
+    parameterMaps:
+    - name: keys
+      value: '[[password]]'
+      direction: Input
+    conditions: []
+    validations: []
+    contexts: []
+  - id: dRcJKuOcykK26rESFZ22og
+    enabled: true
+    invertResult: false
+    order: 7
+    repeat: 1
+    type: Action
+    elementId: A7LRvlMeLEaTclrgVWITPA
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  parameters: []
+auxTests: []
+elements:
+- id: A7LRvlMeLEaTclrgVWITPA
+  name: Log in
+  type:
+    id: jUwODgyNjAyNzk2NTk4MjM
+    name: XCUIElementTypeStaticText
+    source: System
+  locators:
+  - name: ACCESSIBILITYID
+    value: Log in
+    priority: 0
+  - name: IOSPREDICATE
+    value: type == 'XCUIElementTypeStaticText' AND label == 'Log in' AND visible == 1
+    priority: 1
+  - name: IOSPREDICATE
+    value: type == 'XCUIElementTypeStaticText' AND value == 'Log in' AND visible == 1
+    priority: 2
+  - name: XPATH
+    value: //XCUIElementTypeStaticText[5]
+    priority: 3
+  - name: XPATH
+    value: //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[5]
+    priority: 4
+- id: XfYVgnHSk0mn8_2XATdiiA
+  name: XCUIELEMENTTYPETEXTFIELD
+  type:
+    id: jUwODgyNjAyNzk2NTk4MzM
+    name: XCUIElementTypeTextField
+    source: System
+  locators:
+  - name: XPATH
+    value: //XCUIElementTypeOther[2]/XCUIElementTypeTextField
+    priority: 0
+  - name: XPATH
+    value: //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeTextField[1]
+    priority: 1
+- id: C-EFy95j6kifC_LegsnxjA
+  name: XCUIELEMENTTYPETEXTFIELD1
+  type:
+    id: jUwODgyNjAyNzk2NTk4MzM
+    name: XCUIElementTypeTextField
+    source: System
+  locators:
+  - name: XPATH
+    value: //XCUIElementTypeOther[3]/XCUIElementTypeTextField
+    priority: 0
+  - name: XPATH
+    value: //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField[1]
+    priority: 1
+projectParameters:
+- id: R4e7iWPzCUCRFl3ek7yqSw
+  name: email
+  description: ''
+  value: duy@duypm.cf
+- id: fUxnbijM7UuBb1i8oN6fGA
+  name: password
+  description: ''
+addons: []

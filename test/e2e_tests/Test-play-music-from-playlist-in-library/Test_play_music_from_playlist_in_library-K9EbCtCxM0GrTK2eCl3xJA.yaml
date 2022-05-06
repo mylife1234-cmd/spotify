@@ -1,0 +1,193 @@
+id: rIGVhI7qOUWtbuJ1cDhrjg
+projectId: hSZim_BvFE-0YsnbZhQzFw
+projectName: My first Project
+created: 2022-05-05T20:03:01.5566094Z
+owner: Cường Vũ Mạnh
+protocol: 1
+tests:
+- id: K9EbCtCxM0GrTK2eCl3xJA
+  name: Test play music from playlist in library
+  description: Test play music from playlist in library
+  platform: Android
+  type: Mobile
+  driverType: Appium_Android
+  version: 0.1
+  creationDate: 2022-05-05T19:39:31.0000000
+  modificationDate: 2022-05-05T19:52:31.0000000
+  settings:
+    automationAssistant: true
+    deviceId: emulator-5554
+    appId: RxcKsWAUiEiKZEhD4JmojA
+    stepSleepTime: 500
+    stepTimeout: 15000
+    stepSleepTiming: Before
+    stepFailureBehaviorType: Abort
+    stepTakeScreenshotConditionType: Failure
+  application:
+    id: RxcKsWAUiEiKZEhD4JmojA
+    androidActivity: com.ryanheise.audioservice.AudioServiceActivity
+    androidPackage: com.int3120.group22.spotify
+    name: spotify
+    platform: Android
+  steps:
+  - id: U4JkYAQpgEuAI2Kpfx4jOw
+    enabled: true
+    invertResult: false
+    order: 1
+    repeat: 1
+    type: Action
+    elementId: Pop4lIdzEkGCFzX8QHVBig
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: QgbPvCTkjkie2FeKxf-Ylg
+    enabled: true
+    invertResult: false
+    order: 2
+    repeat: 1
+    type: Action
+    elementId: MrjTjvfigkWn544MuKHOPQ
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: Fy0xjhEaakGhGNZbCKyWIw
+    enabled: true
+    invertResult: false
+    order: 3
+    repeat: 1
+    type: Action
+    elementId: mKkuNgrqj0mK5zvF6cQkbA
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: pwHW_HyFKUSfDw0XYrWGsw
+    enabled: true
+    invertResult: false
+    order: 4
+    repeat: 1
+    type: Action
+    elementId: 4VKhl5sDHUeUhqWDAw0OdA
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  parameters: []
+auxTests: []
+elements:
+- id: MrjTjvfigkWn544MuKHOPQ
+  name: Playlists
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.view.View[@content-desc = 'Playlists']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View/android.view.View[3]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[3]
+    priority: 2
+- id: 4VKhl5sDHUeUhqWDAw0OdA
+  name: >-
+    Anh Đếch Cần Gì Nhiều Ngoài Em
+
+    Đen, Vũ
+  type:
+    id: jUwODgyNjAyNzk2NTk3MjI
+    name: android.widget.ImageView
+    source: System
+  locators:
+  - name: XPATH
+    value: >-
+      //android.widget.ImageView[@content-desc = 'Anh Đếch Cần Gì Nhiều Ngoài Em
+
+      Đen, Vũ']
+    priority: 0
+  - name: XPATH
+    value: //android.widget.ImageView[4]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.ScrollView[1]/android.widget.ImageView[4]
+    priority: 2
+- id: Pop4lIdzEkGCFzX8QHVBig
+  name: Your Library, Tab 3 of 31
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.view.View[@content-desc = 'Your Library, Tab 3 of 3']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View/android.view.View[4]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[4]
+    priority: 2
+- id: mKkuNgrqj0mK5zvF6cQkbA
+  name: >-
+    Good Music
+
+    Playlist1
+  type:
+    id: jUwODgyNjAyNzk2NTk3MjI
+    name: android.widget.ImageView
+    source: System
+  locators:
+  - name: XPATH
+    value: >-
+      //android.widget.ImageView[@content-desc = 'Good Music
+
+      Playlist']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View[7]//android.widget.ImageView[1]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[7]/android.view.View[1]/android.widget.ImageView[1]
+    priority: 2
+projectParameters: []
+addons: []
