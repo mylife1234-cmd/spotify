@@ -155,7 +155,13 @@ class _MainState extends State<Main> {
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: Card(child: MiniPlayer(song: _currentSong)),
+                    child: Card(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      child: MiniPlayer(song: _currentSong),
+                    ),
                   )
                 ],
               );
