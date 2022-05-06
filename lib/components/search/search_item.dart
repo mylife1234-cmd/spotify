@@ -19,7 +19,7 @@ class SearchItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final image = getImageFromUrl(coverUrl);
-  
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 3),
       child: ListTile(

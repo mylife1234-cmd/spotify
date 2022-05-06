@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/album/animate_label.dart';
-
 import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/components/profile/profile_component.dart';
 import 'package:spotify/components/profile/profile_image.dart';
 import 'package:spotify/pages/playlist_view.dart';
+
 import '../components/library/list_item.dart';
-
 import '../providers/data_provider.dart';
-
 import 'artist_view.dart';
 
 class ProfilePage extends StatefulWidget {

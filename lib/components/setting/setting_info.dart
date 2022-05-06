@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/pages/profile.dart';
 import 'package:spotify/utils/helper.dart';
+
 import '../../models/user.dart';
 
 class SettingInfo extends StatelessWidget {

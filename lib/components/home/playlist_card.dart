@@ -17,6 +17,7 @@ class PlaylistCard extends StatelessWidget {
   final String label;
   final ImageProvider image;
   final List? songIdList;
+
   @override
   Widget build(BuildContext context) {
     final customizedPlaylist = context

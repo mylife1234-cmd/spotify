@@ -43,7 +43,7 @@ class _LibraryPageState extends State<LibraryPage> {
     final favoriteSongs = context.watch<DataProvider>().favoriteSongs;
 
     final Playlist likedSongs = Playlist(
-      id: context.watch<DataProvider>().user.id ,
+      id: context.watch<DataProvider>().user.id,
       name: 'Liked Songs',
       coverImageUrl: 'assets/images/favorite.png',
       songIdList: favoriteSongs.map((e) => e.id).toList(),
@@ -244,5 +244,4 @@ class _LibraryPageState extends State<LibraryPage> {
       ),
     );
   }
-
 }

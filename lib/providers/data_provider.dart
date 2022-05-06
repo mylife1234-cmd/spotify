@@ -186,7 +186,6 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   void toggleFavoriteSong(Song song) {
     if (_favoriteSongs.any((element) => element.id == song.id)) {
       _favoriteSongs.removeWhere((element) => element.id == song.id);
@@ -200,37 +199,43 @@ class DataProvider extends ChangeNotifier {
       'favoriteSongIdList': _favoriteSongs.map<String>((e) => e.id).toList()
     });
   }
-  void toggleFavoriteAlbum(Album album){
-    if (_favoriteAlbums.any((element) => element.id == album.id)){
+
+  void toggleFavoriteAlbum(Album album) {
+    if (_favoriteAlbums.any((element) => element.id == album.id)) {
       _favoriteAlbums.removeWhere((element) => element.id == album.id);
-    }else{
+    } else {
       _favoriteAlbums.add(album);
     }
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
-      'favoriteAlbumIdList' : _favoriteAlbums.map<String>((e) => e.id).toList()
+      'favoriteAlbumIdList': _favoriteAlbums.map<String>((e) => e.id).toList()
     });
   }
-  void toggleFavoritePlaylist(Playlist playlist){
-    if (_favoritePlaylists.any((element) => element.id == playlist.id)){
+
+  void toggleFavoritePlaylist(Playlist playlist) {
+    if (_favoritePlaylists.any((element) => element.id == playlist.id)) {
       _favoritePlaylists.removeWhere((element) => element.id == playlist.id);
-    }else{
-      _favoritePlaylists.add(playlist);
+    } else {
+      if (playlist.id != user.id) {
+        _favoritePlaylists.add(playlist);
+      }
     }
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
-      'favoritePlaylistIdList' : _favoritePlaylists.map<String>((e) => e.id).toList()
+      'favoritePlaylistIdList':
+          _favoritePlaylists.map<String>((e) => e.id).toList()
     });
   }
-  void toggleFavoriteArtist(Artist artist){
-    if (_favoriteArtists.any((element) => element.id == element.id)){
+
+  void toggleFavoriteArtist(Artist artist) {
+    if (_favoriteArtists.any((element) => element.id == artist.id)) {
       _favoriteArtists.removeWhere((element) => element.id == artist.id);
-    }else{
+    } else {
       _favoriteArtists.add(artist);
     }
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
-      'favoriteArtistIdList' : _favoriteArtists.map<String>((e) => e.id).toList()
+      'favoriteArtistIdList': _favoriteArtists.map<String>((e) => e.id).toList()
     });
   }
 }

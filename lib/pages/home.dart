@@ -34,9 +34,8 @@ class _HomePageState extends State<HomePage> {
 
     final List list = [...recentPlaylists, ...recentAlbum].sublist(0)
       ..shuffle();
-    final List recommendList = [...favoriteArtists, ...systemPlaylists].sublist(0)
-      ..shuffle();
-
+    final List recommendList =
+        [...favoriteArtists, ...systemPlaylists].sublist(0)..shuffle();
 
     if (recentPlaylists.isEmpty || favoriteArtists.isEmpty) {
       return const LoadingScreen();
@@ -118,7 +117,8 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 15),
 
                 ...['Uniquely yours', 'Made for you'].map((e) {
-                  final List shuffledList = [...recommendList]..sublist(0)
+                  final List shuffledList = [...recommendList]
+                    ..sublist(0)
                     ..shuffle();
                   // print(shuffledList);
                   return Column(

@@ -19,8 +19,7 @@ class AlbumComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoriteAlbums =
-        context.watch<DataProvider>().favoriteAlbums;
+    final favoriteAlbums = context.watch<DataProvider>().favoriteAlbums;
 
     final isFavorite = favoriteAlbums.any((element) => element.id == id);
 

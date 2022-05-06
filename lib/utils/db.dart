@@ -10,6 +10,7 @@ import 'helper.dart';
 
 class Database {
   Database();
+
   static void setUser(User user) {
     FirebaseDatabase.instance.ref('/users/${user.id}').set({
       'coverImageUrl': user.coverImageUrl,

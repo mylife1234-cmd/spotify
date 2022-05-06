@@ -9,16 +9,20 @@ class ArtistComponent extends StatelessWidget {
     required this.label,
     required this.description,
     required this.id,
+    this.onTap,
   }) : super(key: key);
 
   final String label;
   final String description;
   final String id;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite =
-        context.watch<DataProvider>().user.favoriteArtistIdList.contains(id);
+    final isFavorite = context
+        .watch<DataProvider>()
+        .favoriteArtists
+        .any((element) => element.id == id);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -49,6 +53,7 @@ class ArtistComponent extends StatelessWidget {
         child: Row(
           children: [
             GestureDetector(
+              onTap: onTap,
               child: Icon(
                 isFavorite
                     ? Icons.favorite_rounded
@@ -56,7 +61,6 @@ class ArtistComponent extends StatelessWidget {
                 size: 22,
                 color: isFavorite ? Colors.green : Colors.white,
               ),
-              onTap: () {},
             ),
             const SizedBox(width: 15),
             const Icon(

@@ -6,6 +6,7 @@ import '../components/setting/account_title_component.dart';
 
 class AccountDetailPage extends StatefulWidget {
   const AccountDetailPage({Key? key}) : super(key: key);
+
   @override
   State<AccountDetailPage> createState() => _AccountDetailPageState();
 }

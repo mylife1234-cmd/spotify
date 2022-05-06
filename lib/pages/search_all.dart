@@ -4,6 +4,7 @@ import 'package:spotify/components/search/search_item.dart';
 import 'package:spotify/components/search/song_search.dart';
 import 'package:spotify/pages/playlist_view.dart';
 import 'package:spotify/providers/data_provider.dart';
+
 import '../utils/helper.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
@@ -22,7 +23,6 @@ class _SearchAllState extends State<SearchAll> {
     recentSearch = playlists;
     super.initState();
   }
-  
 
   List playlists = [];
   List recentSearch = [];
@@ -121,8 +121,8 @@ class _SearchAllState extends State<SearchAll> {
       results = playlists;
     } else {
       results = playlists
-          .where((user) =>
-              user.name.toLowerCase().contains(keyword.toLowerCase()))
+          .where(
+              (user) => user.name.toLowerCase().contains(keyword.toLowerCase()))
           .toList();
     }
     setState(() {
@@ -135,20 +135,19 @@ class _SearchAllState extends State<SearchAll> {
       itemCount: list.length,
       itemBuilder: (context, index) {
         final item = list[index];
-        return item.runtimeType.toString() == 'Song' ?
-           SongSearch(song: item)
-          
-        :  GestureDetector(
-          child: SearchItem(
-            title: item.name,
-            subtitle: item.runtimeType.toString(),
-            coverUrl: item.coverImageUrl,
-            isSquareCover: item.runtimeType.toString() != 'Artist',
-          ),
-          onTap: () {
-            onTap(item);
-          },
-        );
+        return item.runtimeType.toString() == 'Song'
+            ? SongSearch(song: item)
+            : GestureDetector(
+                child: SearchItem(
+                  title: item.name,
+                  subtitle: item.runtimeType.toString(),
+                  coverUrl: item.coverImageUrl,
+                  isSquareCover: item.runtimeType.toString() != 'Artist',
+                ),
+                onTap: () {
+                  onTap(item);
+                },
+              );
       },
     );
   }
@@ -186,5 +185,3 @@ class _SearchAllState extends State<SearchAll> {
     );
   }
 }
-
-

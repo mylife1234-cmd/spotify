@@ -4,6 +4,7 @@ import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/artist_component.dart';
 import 'package:spotify/components/artist/back_button.dart';
+import 'package:spotify/providers/data_provider.dart';
 
 import '../components/album/animate_label.dart';
 import '../components/album/opacity_image.dart';
@@ -181,11 +182,28 @@ class _ArtistViewState extends State<ArtistView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize),
-                          ArtistComponent(
-                            id: widget.id,
-                            label: widget.label,
-                            description: widget.description,
-                          ),
+                          FutureBuilder(
+                            future: Database.getArtistById(widget.id),
+                            builder: (context,
+                                AsyncSnapshot<dynamic> snapshot) {
+                              if (snapshot.hasData) {
+                                return ArtistComponent(
+                                    id: widget.id,
+                                    label: widget.label,
+                                    description: widget.description,
+                                    onTap: () {
+                                      context
+                                          .read<DataProvider>()
+                                          .toggleFavoriteArtist(snapshot.data);
+                                    });
+                              }
+                              return ArtistComponent(
+                                id: widget.id,
+                                label: widget.label,
+                                description: widget.description,
+                              );
+                            },
+                          )
                         ],
                       ),
                     ),
