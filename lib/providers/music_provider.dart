@@ -71,6 +71,8 @@ class MusicProvider extends ChangeNotifier {
     _playing = false;
 
     _color = const Color(0xff2f2215);
+
+    clearPlaylist();
   }
 
   Future loadPlaylist(List<Song> songList) {
