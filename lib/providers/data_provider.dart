@@ -212,11 +212,15 @@ class DataProvider extends ChangeNotifier {
     });
   }
   void toggleFavoritePlaylist(Playlist playlist){
-    if (_favoritePlaylists.any((element) => element.id == element.id)){
+    if (_favoritePlaylists.any((element) => element.id == playlist.id)){
       _favoritePlaylists.removeWhere((element) => element.id == playlist.id);
     }else{
       _favoritePlaylists.add(playlist);
     }
+    notifyListeners();
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'favoritePlaylistIdList' : _favoritePlaylists.map<String>((e) => e.id).toList()
+    });
   }
   void toggleFavoriteArtist(Artist artist){
     if (_favoriteArtists.any((element) => element.id == element.id)){
@@ -224,5 +228,9 @@ class DataProvider extends ChangeNotifier {
     }else{
       _favoriteArtists.add(artist);
     }
+    notifyListeners();
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'favoriteArtistIdList' : _favoriteArtists.map<String>((e) => e.id).toList()
+    });
   }
 }

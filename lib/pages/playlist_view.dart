@@ -9,6 +9,7 @@ import 'package:spotify/pages/loading.dart';
 import '../components/album/animate_label.dart';
 import '../components/album/opacity_image.dart';
 import '../models/song.dart';
+import '../providers/data_provider.dart';
 import '../providers/music_provider.dart';
 import '../utils/db.dart';
 import '../utils/helper.dart';
@@ -181,7 +182,26 @@ class _PlaylistViewState extends State<PlaylistView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize + 31),
-                          PlaylistComponent(id: widget.id, label: widget.label),
+                          FutureBuilder(
+                            future: Database.getPlaylistById(widget.id),
+                            builder: (context, AsyncSnapshot snapshot) {
+                              if (snapshot.hasData) {
+                                return PlaylistComponent(
+                                  label: widget.label,
+                                  id: widget.id,
+                                  onTap: () {
+                                    context
+                                        .read<DataProvider>()
+                                        .toggleFavoritePlaylist(snapshot.data);
+                                  },
+                                );
+                              }
+                              return PlaylistComponent(
+                                label: widget.label,
+                                id: widget.id,
+                              );
+                            },
+                          ),
                         ],
                       ),
                     ),

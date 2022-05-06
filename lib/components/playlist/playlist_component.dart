@@ -18,10 +18,10 @@ class PlaylistComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final favoritePlaylistIdList =
-        context.watch<DataProvider>().user.favoritePlaylistIdList;
+    final favoritePlaylistList =
+        context.watch<DataProvider>().favoritePlaylists;
 
-    final isFavorite =favoritePlaylistIdList.contains(id);
+    final isFavorite =favoritePlaylistList.any((element) => element.id == id);
 
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 20, top: 20),
