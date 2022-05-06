@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager_firebase/flutter_cache_manager_firebase.dart';
@@ -27,7 +28,7 @@ ImageProvider getImageFromUrl(String url) {
   if (url.startsWith('https') || url.startsWith('http')) {
     return FadeInImage(
       placeholder: const AssetImage('assets/images/placeholder.png'),
-      image: NetworkImage(url),
+      image: CachedNetworkImageProvider(url),
     ).image;
   } else {
     return AssetImage(url);

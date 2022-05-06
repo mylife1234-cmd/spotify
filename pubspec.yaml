@@ -61,6 +61,7 @@ dependencies:
   percent_indicator: ^4.0.0
   bulleted_list: ^0.0.1+0.1a
   flutter_cache_manager_firebase: ^2.0.1
+  cached_network_image: ^3.2.0
 
 dev_dependencies:
   flutter_test:
