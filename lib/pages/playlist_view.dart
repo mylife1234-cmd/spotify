@@ -250,6 +250,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                   children: [
                     PLayButton(onTap: () async {
                       await loadPlaylist();
+                      context.read<MusicProvider>().playWithIndex(0);
                     }),
                   ],
                 ),

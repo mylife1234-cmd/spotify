@@ -254,6 +254,7 @@ class _AlbumViewState extends State<AlbumView> {
                   children: [
                     PLayButton(onTap: () async {
                       await loadPlaylist();
+                      context.read<MusicProvider>().playWithIndex(0);
                     }),
                   ],
                 ),
