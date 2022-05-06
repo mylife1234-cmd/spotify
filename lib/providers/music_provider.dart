@@ -80,23 +80,7 @@ class MusicProvider extends ChangeNotifier {
   }
 
   Future loadPlaylist(List<Song> songList) async {
-    final mediaItems = songList
-        .map(
-          (song) => MediaItem(
-            id: song.id,
-            title: song.name,
-            artist: song.description,
-            artUri: Uri.parse(song.coverImageUrl),
-            extras: {
-              'url': song.audioUrl,
-              'coverUrl': song.coverImageUrl,
-              'artistIdList': song.artistIdList,
-              'genreIdList': song.genreIdList
-            },
-            album: song.albumId,
-          ),
-        )
-        .toList();
+    final mediaItems = songList.map(convertSongToMediaItem).toList();
 
     await _audioHandler.addQueueItems(mediaItems);
   }
@@ -110,19 +94,7 @@ class MusicProvider extends ChangeNotifier {
   }
 
   void addToPlaylist(Song song) {
-    final mediaItem = MediaItem(
-      id: song.id,
-      title: song.name,
-      artist: song.description,
-      artUri: Uri.parse(song.coverImageUrl),
-      extras: {
-        'url': song.audioUrl,
-        'coverUrl': song.coverImageUrl,
-        'artistIdList': song.artistIdList,
-        'genreIdList': song.genreIdList
-      },
-      album: song.albumId,
-    );
+    final mediaItem = convertSongToMediaItem(song);
 
     _audioHandler.addQueueItem(mediaItem);
   }
@@ -185,16 +157,8 @@ class MusicProvider extends ChangeNotifier {
   void _currentSongListener() {
     _audioHandler.mediaItem.listen((mediaItem) {
       if (mediaItem != null) {
-        _currentSong = Song(
-          id: mediaItem.id,
-          name: mediaItem.title,
-          artistIdList: mediaItem.extras!['artistIdList'],
-          coverImageUrl: mediaItem.extras!['coverUrl'],
-          description: mediaItem.artist!,
-          genreIdList: mediaItem.extras!['genreIdList'],
-          audioUrl: mediaItem.extras!['url'],
-          albumId: mediaItem.album!,
-        );
+        _currentSong = convertMediaItemToSong(mediaItem);
+
         _updateSkipButtons();
 
         updateColor(_currentSong!);

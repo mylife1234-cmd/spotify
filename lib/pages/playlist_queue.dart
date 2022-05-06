@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:spotify/components/queue/playing_song.dart';
 import 'package:spotify/components/queue/song_in_queue.dart';
 
-import '../models/song.dart';
 import '../providers/music_provider.dart';
+import '../utils/helper.dart';
 
 class PlaylistQueue extends StatefulWidget {
   const PlaylistQueue({Key? key, this.title}) : super(key: key);
@@ -22,18 +22,7 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
 
     final currentSong = context.watch<MusicProvider>().currentSong!;
 
-    final queue = playlist
-        .map((e) => Song(
-              id: e.id,
-              name: e.title,
-              artistIdList: e.extras!['artistIdList'],
-              coverImageUrl: e.extras!['coverUrl'],
-              description: e.artist!,
-              genreIdList: e.extras!['genreIdList'],
-              audioUrl: e.extras!['url'],
-              albumId: e.album!,
-            ))
-        .toList();
+    final queue = playlist.map(convertMediaItemToSong).toList();
 
     final currentIndex = queue.indexWhere((e) => e.name == currentSong.name);
 
