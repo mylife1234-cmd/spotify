@@ -3,26 +3,25 @@ import 'package:provider/provider.dart';
 
 import '../../providers/data_provider.dart';
 
-class AlbumComponent extends StatelessWidget {
-  const AlbumComponent({
+class PlaylistComponent extends StatelessWidget {
+  const PlaylistComponent({
     Key? key,
     required this.label,
-    required this.description,
     required this.id,
     this.onTap,
   }) : super(key: key);
 
   final String label;
-  final String description;
   final String id;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final favoriteAlbums =
-        context.watch<DataProvider>().favoriteAlbums;
 
-    final isFavorite = favoriteAlbums.any((element) => element.id == id);
+    final favoritePlaylistIdList =
+        context.watch<DataProvider>().user.favoritePlaylistIdList;
+
+    final isFavorite =favoritePlaylistIdList.contains(id);
 
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 20, top: 20),
@@ -50,10 +49,6 @@ class AlbumComponent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        Text(
-          description,
-          style: Theme.of(context).textTheme.caption,
-        ),
         const SizedBox(height: 10),
         Row(
           children: [

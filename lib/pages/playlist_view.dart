@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spotify/components/album/album_component.dart';
 import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/back_button.dart';
+import 'package:spotify/components/playlist/playlist_component.dart';
 import 'package:spotify/pages/loading.dart';
 
 import '../components/album/animate_label.dart';
@@ -181,7 +181,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize + 31),
-                          AlbumComponent(id: widget.id, label: widget.label),
+                          PlaylistComponent(id: widget.id, label: widget.label),
                         ],
                       ),
                     ),

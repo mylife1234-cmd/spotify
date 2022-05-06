@@ -87,10 +87,10 @@ class _HomePageState extends State<HomePage> {
                             : FutureBuilder(
                                 future: Database.getArtistName(item.artistId),
                                 builder: (context, AsyncSnapshot snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const CircularProgressIndicator();
-                                  }
+                                  // if (snapshot.connectionState ==
+                                  //     ConnectionState.waiting) {
+                                  //   return const CircularProgressIndicator();
+                                  // }
                                   if (snapshot.hasData) {
                                     return AlbumCard(
                                       id: item.id,

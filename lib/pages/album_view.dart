@@ -5,6 +5,7 @@ import 'package:spotify/components/album/animate_label.dart';
 import 'package:spotify/components/album/opacity_image.dart';
 import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/artist/back_button.dart';
+import 'package:spotify/providers/data_provider.dart';
 
 import '../components/album/song_tile.dart';
 import '../models/song.dart';
@@ -24,6 +25,7 @@ class AlbumView extends StatefulWidget {
       : super(key: key);
 
   final ImageProvider image;
+
   final String label;
   final String description;
   final List? songIdList;
@@ -181,10 +183,27 @@ class _AlbumViewState extends State<AlbumView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize),
-                          AlbumComponent(
-                            id: widget.id,
-                            label: widget.label,
-                            description: widget.description,
+                          FutureBuilder(
+                            future: Database.getAlbumById(widget.id),
+                            builder: (context, AsyncSnapshot snapshot) {
+                              if (snapshot.hasData) {
+                                return AlbumComponent(
+                                  description: widget.description,
+                                  label: widget.label,
+                                  id: widget.id,
+                                  onTap: () {
+                                    context
+                                        .read<DataProvider>()
+                                        .toggleFavoriteAlbum(snapshot.data);
+                                  },
+                                );
+                              }
+                              return AlbumComponent(
+                                description: widget.description,
+                                label: widget.label,
+                                id: widget.id,
+                              );
+                            },
                           ),
                         ],
                       ),

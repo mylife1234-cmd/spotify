@@ -30,7 +30,6 @@ class DataProvider extends ChangeNotifier {
 
   final List<Song> _recentSongs = [];
   final List<Song> _favoriteSongs = [];
-
   final List<Album> _albums = [];
   final List<Album> _recentAlbums = [];
   final List<Album> _favoriteAlbums = [];
@@ -187,6 +186,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
   void toggleFavoriteSong(Song song) {
     if (_favoriteSongs.any((element) => element.id == song.id)) {
       _favoriteSongs.removeWhere((element) => element.id == song.id);
@@ -199,5 +199,30 @@ class DataProvider extends ChangeNotifier {
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'favoriteSongIdList': _favoriteSongs.map<String>((e) => e.id).toList()
     });
+  }
+  void toggleFavoriteAlbum(Album album){
+    if (_favoriteAlbums.any((element) => element.id == album.id)){
+      _favoriteAlbums.removeWhere((element) => element.id == album.id);
+    }else{
+      _favoriteAlbums.add(album);
+    }
+    notifyListeners();
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'favoriteAlbumIdList' : _favoriteAlbums.map<String>((e) => e.id).toList()
+    });
+  }
+  void toggleFavoritePlaylist(Playlist playlist){
+    if (_favoritePlaylists.any((element) => element.id == element.id)){
+      _favoritePlaylists.removeWhere((element) => element.id == playlist.id);
+    }else{
+      _favoritePlaylists.add(playlist);
+    }
+  }
+  void toggleFavoriteArtist(Artist artist){
+    if (_favoriteArtists.any((element) => element.id == element.id)){
+      _favoriteArtists.removeWhere((element) => element.id == artist.id);
+    }else{
+      _favoriteArtists.add(artist);
+    }
   }
 }

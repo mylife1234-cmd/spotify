@@ -7,6 +7,7 @@ import 'package:spotify/components/library/grid_item.dart';
 import 'package:spotify/components/library/header.dart';
 import 'package:spotify/components/library/list_item.dart';
 import 'package:spotify/components/library/view_mode.dart';
+import 'package:spotify/models/playlist.dart';
 import 'package:spotify/pages/playlist_creation.dart';
 import 'package:spotify/pages/playlist_view.dart';
 
@@ -39,10 +40,21 @@ class _LibraryPageState extends State<LibraryPage> {
 
     final favoriteAlbums = context.watch<DataProvider>().favoriteAlbums;
 
+    final favoriteSongs = context.watch<DataProvider>().favoriteSongs;
+
+    final Playlist likedSongs = Playlist(
+      id: context.watch<DataProvider>().user.id ,
+      name: 'Liked Songs',
+      coverImageUrl: 'assets/images/favorite.png',
+      songIdList: favoriteSongs.map((e) => e.id).toList(),
+      type: 'user',
+    );
+
     final List list = [
       ...favoritePlaylists,
       ...favoriteArtists,
-      ...favoriteAlbums
+      ...favoriteAlbums,
+      likedSongs
     ];
 
     final filteredList = list
@@ -232,4 +244,5 @@ class _LibraryPageState extends State<LibraryPage> {
       ),
     );
   }
+
 }
