@@ -97,17 +97,9 @@ class _PlaylistViewState extends State<PlaylistView> {
         Provider.of<MusicProvider>(context, listen: false).currentPlaylistId;
 
     if (songList.isNotEmpty && currentPlaylistId != widget.id) {
-      setState(() {
-        _loading = true;
-      });
-
       await context.read<MusicProvider>().loadPlaylist(songList);
 
       context.read<MusicProvider>().updateCurrentPlaylistId(widget.id);
-
-      setState(() {
-        _loading = false;
-      });
     }
   }
 
