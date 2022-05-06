@@ -39,7 +39,7 @@ class ProfileComponent extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) {
               //return const SearchPlayList();
-              return EditProfilesPage(label: label, image: image);
+              return const EditProfilesPage();
             }));
           },
         ),

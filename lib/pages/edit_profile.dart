@@ -1,48 +1,37 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:spotify/providers/data_provider.dart';
+import 'package:spotify/utils/helper.dart';
 
 class EditProfilesPage extends StatefulWidget {
-  const EditProfilesPage({
-    Key? key,
-    required this.label,
-    required this.image,
-  }) : super(key: key);
-
-  final String label;
-  final ImageProvider image;
+  const EditProfilesPage({Key? key}) : super(key: key);
 
   @override
   State<EditProfilesPage> createState() => _EditProfilesPageState();
 }
 
 class _EditProfilesPageState extends State<EditProfilesPage> {
-  var _image;
-  var imagePicker;
-  @override
-  void initState() {
-    super.initState();
-    imagePicker = ImagePicker();
-  }
+  final controller = TextEditingController();
 
-  List<XFile>? imageFileList = [];
-  // ignore: avoid_void_async
-  void selectImages() async {
-    final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
-    if (selectedImages!.isNotEmpty) {
-      imageFileList!.addAll(selectedImages);
-    }
-    setState(() {});
-  }
+  final imagePicker = ImagePicker();
+
+  File? _image;
 
   @override
   Widget build(BuildContext context) {
+    final user = context.read<DataProvider>().user;
+
+    controller.text = user.name;
+
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50), // here the desired height
+          preferredSize: const Size.fromHeight(50),
           child: AppBar(
             title: const Text(
               'Edit Profile',
@@ -65,9 +54,16 @@ class _EditProfilesPageState extends State<EditProfilesPage> {
             ),
             actions: [
               TextButton(
-                onPressed: () {},
-                child:
-                    const Text('Save', style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  if (controller.text != user.name) {
+                    FirebaseAuth.instance.currentUser!
+                        .updateDisplayName(controller.text);
+                  }
+                },
+                child: const Text(
+                  'Save',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
@@ -77,36 +73,41 @@ class _EditProfilesPageState extends State<EditProfilesPage> {
             child: Column(
               children: [
                 ClipOval(
-                    child: _image != null
-                        ? Image.file(
-                            _image,
-                            width: 150,
-                            height: 150,
-                            fit: BoxFit.cover,
-                          )
-                        : CircleAvatar(
-                            backgroundImage: widget.image,
-                            radius: 80,
-                          )),
+                  child: _image != null
+                      ? Image.file(
+                          _image!,
+                          width: 150,
+                          height: 150,
+                          fit: BoxFit.cover,
+                        )
+                      : CircleAvatar(
+                          backgroundImage: getImageFromUrl(user.coverImageUrl),
+                          radius: 80,
+                        ),
+                ),
                 TextButton(
                   onPressed: () async {
-                    final XFile image1 = await imagePicker.pickImage(
+                    final image = await imagePicker.pickImage(
                       source: ImageSource.gallery,
                       imageQuality: 50,
                     );
-                    final newImage = File(image1.path);
+
+                    final newImage = File(image!.path);
+
                     setState(() {
                       _image = newImage;
                     });
                   },
-                  child: const Text('Edit profile image',
-                      style: TextStyle(color: Colors.white)),
+                  child: const Text(
+                    'Edit profile image',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  child: TextFormField(
-                    initialValue: widget.label,
+                  child: TextField(
+                    controller: controller,
                     cursorColor: Colors.grey,
                     style: const TextStyle(fontSize: 30),
                     textAlign: TextAlign.center,
