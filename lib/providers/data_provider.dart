@@ -189,7 +189,7 @@ class DataProvider extends ChangeNotifier {
 
   void toggleFavoriteSong(Song song) {
     if (_favoriteSongs.any((element) => element.id == song.id)) {
-      _favoriteSongs.remove(song);
+      _favoriteSongs.removeWhere((element) => element.id == song.id);
     } else {
       _favoriteSongs.add(song);
     }
