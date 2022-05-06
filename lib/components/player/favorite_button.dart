@@ -17,7 +17,7 @@ class FavoriteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isFavorite =
-        context.watch<DataProvider>().favoriteSongs.contains(song);
+        context.watch<DataProvider>().favoriteSongs.any((e) => e.id == song.id);
 
     return GestureDetector(
       child: Icon(
@@ -26,9 +26,7 @@ class FavoriteButton extends StatelessWidget {
         color: isFavorite ? Colors.green : Colors.white,
       ),
       onTap: () {
-        context
-            .read<DataProvider>()
-            .addFavoriteSongs(songs: [song], updateDb: true);
+        context.read<DataProvider>().toggleFavoriteSong(song);
       },
     );
   }

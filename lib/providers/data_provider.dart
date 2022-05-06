@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/widgets.dart';
 
 import '../models/album.dart';
@@ -128,16 +129,10 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addFavoriteSongs({required List<Song> songs, bool updateDb = false}) {
+  void addFavoriteSongs(List<Song> songs) {
     _favoriteSongs.addAll(songs);
 
     notifyListeners();
-
-    if (updateDb) {
-      // FirebaseDatabase.instance
-      //     .ref('/users/${user.id}')
-      //     .update({'favoriteSongIdList': _favoriteSongs.map((e) => e.id)});
-    }
   }
 
   void addAlbums(List<Album> albums) {
@@ -183,10 +178,26 @@ class DataProvider extends ChangeNotifier {
   }
 
   final List<Song> _songs = [];
+
   List<Song> get songs => _songs;
+
   void addSongs(List<Song> songs) {
     _songs.addAll(songs);
 
     notifyListeners();
+  }
+
+  void toggleFavoriteSong(Song song) {
+    if (_favoriteSongs.any((element) => element.id == song.id)) {
+      _favoriteSongs.remove(song);
+    } else {
+      _favoriteSongs.add(song);
+    }
+
+    notifyListeners();
+
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'favoriteSongIdList': _favoriteSongs.map<String>((e) => e.id).toList()
+    });
   }
 }

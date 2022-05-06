@@ -44,8 +44,10 @@ class _SongActionState extends State<SongAction> {
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite =
-        context.watch<DataProvider>().favoriteSongs.contains(widget.song);
+    final isFavorite = context
+        .watch<DataProvider>()
+        .favoriteSongs
+        .any((e) => e.id == widget.song.id);
 
     final listAction = [
       Action(
@@ -167,9 +169,7 @@ class _SongActionState extends State<SongAction> {
   }
 
   void _doActionLike() {
-    context
-        .read<DataProvider>()
-        .addFavoriteSongs(songs: [widget.song], updateDb: true);
+    context.read<DataProvider>().toggleFavoriteSong(widget.song);
   }
 
   void _doActionShare() {

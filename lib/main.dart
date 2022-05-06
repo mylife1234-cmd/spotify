@@ -197,7 +197,7 @@ class _MainState extends State<Main> {
     Future.wait(
       user.favoriteSongIdList.map((id) => Database.getSongById(id)),
     ).then(
-      (songs) => context.read<DataProvider>().addFavoriteSongs(songs: songs),
+      (songs) => context.read<DataProvider>().addFavoriteSongs(songs),
     );
 
     Future.wait(
