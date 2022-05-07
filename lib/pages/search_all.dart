@@ -19,8 +19,8 @@ class SearchAll extends StatefulWidget {
 }
 
 class _SearchAllState extends State<SearchAll> {
-  final filterOptions = ['Playlists', 'Artists', 'Albums'];
-  int _currentFilterOption = -1;
+  final filterOptions = ['Top','Playlists','Songs', 'Artists', 'Albums'];
+  int _currentFilterOption = 0;
   List playlists = [];
   List recentSearch = [];
   List searchResult = [];
@@ -47,7 +47,7 @@ class _SearchAllState extends State<SearchAll> {
     ];
     final filteredList = searchResult
         .where((element) =>
-            _currentFilterOption == -1 ||
+            _currentFilterOption == 0 ||
             filterOptions[_currentFilterOption]
                 .toLowerCase()
                 .contains('${element.runtimeType.toString().toLowerCase()}s'))
@@ -134,39 +134,43 @@ class _SearchAllState extends State<SearchAll> {
   }
 
   Widget _buildFiltersSection() {
-    return Container(
-      color: Colors.black.withOpacity(0.5),
-      padding: const EdgeInsets.only(right: 10, top: 5, bottom: 5),
-      child: Row(
-        children: _currentFilterOption == -1
-            ? filterOptions
-                .map((option) => GestureDetector(
-                      child: FilterButton(
-                        title: option,
-                        active: false,
-                      ),
-                      onTap: () => setState(() {
-                        _currentFilterOption = filterOptions.indexOf(option);
-                      }),
-                    ))
-                .toList()
-            : [
-                GestureDetector(
-                  child: const CustomCloseButton(),
-                  onTap: () => setState(() {
-                    _currentFilterOption = -1;
-                  }),
-                ),
-                GestureDetector(
-                  child: FilterButton(
-                    title: filterOptions[_currentFilterOption],
-                    active: true,
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      child: Container(
+        color: Colors.black.withOpacity(0.5),
+        padding: const EdgeInsets.only(right: 10, top: 5, bottom: 5),
+        child: Row(
+          children: _currentFilterOption == 0
+              ? filterOptions
+                  .map((option) => GestureDetector(
+                        child: FilterButton(
+                          title: option,
+                          active: false,
+                        ),
+                        onTap: () => setState(() {
+                          _currentFilterOption = filterOptions.indexOf(option);
+                        }),
+                      ))
+                  .toList()
+              : [
+                  GestureDetector(
+                    child: const CustomCloseButton(),
+                    onTap: () => setState(() {
+                      _currentFilterOption = 0;
+                    }),
                   ),
-                  onTap: () => setState(() {
-                    _currentFilterOption = -1;
-                  }),
-                ),
-              ],
+                  GestureDetector(
+                    child: FilterButton(
+                      title: filterOptions[_currentFilterOption],
+                      active: true,
+                    ),
+                    onTap: () => setState(() {
+                      _currentFilterOption = 0;
+                    }),
+                  ),
+                ],
+        ),
       ),
     );
   }
