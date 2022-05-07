@@ -135,7 +135,7 @@ class _SearchAllState extends State<SearchAll> {
 
   Widget _buildFiltersSection() {
     return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
       child: Container(
         color: Colors.black.withOpacity(0.5),
