@@ -19,7 +19,7 @@ class SearchAll extends StatefulWidget {
 }
 
 class _SearchAllState extends State<SearchAll> {
-  final filterOptions = ['Top','Playlists','Songs', 'Artists', 'Albums'];
+  final filterOptions = ['Top', 'Playlists', 'Songs', 'Artists', 'Albums'];
   int _currentFilterOption = 0;
   List playlists = [];
   List recentSearch = [];
@@ -28,7 +28,6 @@ class _SearchAllState extends State<SearchAll> {
 
   @override
   void initState() {
-    // at the beginning, all users are shown
     isSearch = false;
     super.initState();
   }
@@ -52,7 +51,7 @@ class _SearchAllState extends State<SearchAll> {
                 .toLowerCase()
                 .contains('${element.runtimeType.toString().toLowerCase()}s'))
         .toList();
-    filteredList.sort((a, b) => a.name.compareTo(b.name));
+    // filteredList.sort((a, b) => a.name.compareTo(b.name));
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -181,10 +180,16 @@ class _SearchAllState extends State<SearchAll> {
         isSearch = false;
       });
     } else {
-      final results = playlists
-          .where(
-              (user) => user.name.toLowerCase().contains(keyword.toLowerCase()))
+      playlists.sort((a, b) => a.name.compareTo(b.name));
+      final subListOne = playlists
+          .where((element) =>
+              element.name.toLowerCase().contains(keyword.toLowerCase()) &&
+              !element.name.toLowerCase().startsWith(keyword))
           .toList();
+      final subListTwo = playlists
+          .where((element) => element.name.toLowerCase().startsWith(keyword))
+          .toList();
+      final results = [...subListTwo, ...subListOne];
       setState(() {
         isSearch = true;
         searchResult = results;
