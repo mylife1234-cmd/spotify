@@ -5,6 +5,8 @@ import 'package:spotify/components/search/song_search.dart';
 import 'package:spotify/pages/playlist_view.dart';
 import 'package:spotify/providers/data_provider.dart';
 
+import '../components/library/close_button.dart';
+import '../components/library/filter_button.dart';
 import '../utils/helper.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
@@ -17,17 +19,19 @@ class SearchAll extends StatefulWidget {
 }
 
 class _SearchAllState extends State<SearchAll> {
+  final filterOptions = ['Playlists', 'Artists', 'Albums'];
+  int _currentFilterOption = -1;
+  List playlists = [];
+  List recentSearch = [];
+  List searchResult = [];
+  bool isSearch = false;
+
   @override
   void initState() {
     // at the beginning, all users are shown
-    recentSearch = playlists;
+    isSearch = false;
     super.initState();
   }
-
-  List playlists = [];
-  List recentSearch = [];
-  List searchRecent = [];
-  String searchString = '';
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,19 @@ class _SearchAllState extends State<SearchAll> {
       ...context.watch<DataProvider>().artists,
       ...context.watch<DataProvider>().songs
     ];
-
+    recentSearch = [
+      ...context.watch<DataProvider>().recentSongs,
+      ...context.watch<DataProvider>().recentPlaylists,
+      ...context.watch<DataProvider>().recentAlbums
+    ];
+    final filteredList = searchResult
+        .where((element) =>
+            _currentFilterOption == -1 ||
+            filterOptions[_currentFilterOption]
+                .toLowerCase()
+                .contains('${element.runtimeType.toString().toLowerCase()}s'))
+        .toList();
+    filteredList.sort((a, b) => a.name.compareTo(b.name));
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -49,7 +65,7 @@ class _SearchAllState extends State<SearchAll> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      height: 36,
+                      height: 38,
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: TextField(
                         textAlign: TextAlign.left,
@@ -91,21 +107,23 @@ class _SearchAllState extends State<SearchAll> {
                     ),
                   ],
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10, top: 20),
-                ),
-                const Text(
-                  'Recent searches',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                if (isSearch)
+                  _buildFiltersSection()
+                else
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 10, right: 10, top: 20),
+                    child: Text(
+                      'Recent searches',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10, top: 20),
-                ),
                 Expanded(
-                  child: _buildListView(recentSearch, context),
+                  child: isSearch
+                      ? _buildListView(filteredList, context)
+                      : _buildListView(recentSearch, context),
                 ),
               ],
             ),
@@ -115,19 +133,59 @@ class _SearchAllState extends State<SearchAll> {
     );
   }
 
+  Widget _buildFiltersSection() {
+    return Container(
+      color: Colors.black.withOpacity(0.5),
+      padding: const EdgeInsets.only(right: 10, top: 5, bottom: 5),
+      child: Row(
+        children: _currentFilterOption == -1
+            ? filterOptions
+                .map((option) => GestureDetector(
+                      child: FilterButton(
+                        title: option,
+                        active: false,
+                      ),
+                      onTap: () => setState(() {
+                        _currentFilterOption = filterOptions.indexOf(option);
+                      }),
+                    ))
+                .toList()
+            : [
+                GestureDetector(
+                  child: const CustomCloseButton(),
+                  onTap: () => setState(() {
+                    _currentFilterOption = -1;
+                  }),
+                ),
+                GestureDetector(
+                  child: FilterButton(
+                    title: filterOptions[_currentFilterOption],
+                    active: true,
+                  ),
+                  onTap: () => setState(() {
+                    _currentFilterOption = -1;
+                  }),
+                ),
+              ],
+      ),
+    );
+  }
+
   void _runSearch(String keyword) {
-    List results = [];
     if (keyword.isEmpty) {
-      results = playlists;
+      setState(() {
+        isSearch = false;
+      });
     } else {
-      results = playlists
+      final results = playlists
           .where(
               (user) => user.name.toLowerCase().contains(keyword.toLowerCase()))
           .toList();
+      setState(() {
+        isSearch = true;
+        searchResult = results;
+      });
     }
-    setState(() {
-      recentSearch = results;
-    });
   }
 
   Widget _buildListView(list, BuildContext context) {
