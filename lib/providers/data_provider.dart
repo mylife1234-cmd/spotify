@@ -38,6 +38,8 @@ class DataProvider extends ChangeNotifier {
   final List<Playlist> _favoritePlaylists = [];
   final List<Playlist> _customizedPlaylists = [];
   final List<Playlist> _systemPlaylists = [];
+  final List _recentSearchList = [];
+  List get recentSearchList => _recentSearchList;
 
   User get user => _user;
 
@@ -96,6 +98,7 @@ class DataProvider extends ChangeNotifier {
     _favoritePlaylists.clear();
     _customizedPlaylists.clear();
     _systemPlaylists.clear();
+    _recentSearchList.clear();
   }
 
   void setUser(User user) {
@@ -166,6 +169,11 @@ class DataProvider extends ChangeNotifier {
 
   void addCustomizedPlaylists(List<Playlist> playlists) {
     _customizedPlaylists.addAll(playlists);
+
+    notifyListeners();
+  }
+  void addRecentSearchList(List list) {
+    _recentSearchList.addAll(list);
 
     notifyListeners();
   }

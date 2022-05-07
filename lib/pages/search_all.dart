@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:spotify/components/search/recent_search_item.dart';
 import 'package:spotify/components/search/search_item.dart';
 import 'package:spotify/components/search/song_search.dart';
 import 'package:spotify/pages/playlist_view.dart';
@@ -7,6 +8,7 @@ import 'package:spotify/providers/data_provider.dart';
 
 import '../components/library/close_button.dart';
 import '../components/library/filter_button.dart';
+import '../components/search/recent_song_search.dart';
 import '../utils/helper.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
@@ -40,9 +42,7 @@ class _SearchAllState extends State<SearchAll> {
       ...context.watch<DataProvider>().songs
     ];
     recentSearch = [
-      ...context.watch<DataProvider>().recentSongs,
-      ...context.watch<DataProvider>().recentPlaylists,
-      ...context.watch<DataProvider>().recentAlbums
+      ...context.watch<DataProvider>().recentSearchList,
     ];
     final filteredList = searchResult
         .where((element) =>
@@ -122,8 +122,8 @@ class _SearchAllState extends State<SearchAll> {
                 Expanded(
                   child: isSearch
                       ? _buildListView(filteredList, context)
-                      : _buildListView(recentSearch, context),
-                ),
+                      : _buildRecentListView(recentSearch, context),
+                )
               ],
             ),
           ),
@@ -219,9 +219,51 @@ class _SearchAllState extends State<SearchAll> {
     );
   }
 
-  void onTap(item) {
-    final image = getImageFromUrl(item.coverImageUrl);
+  Widget _buildRecentListView(list, BuildContext context) {
+    return ListView.builder(
+      itemCount: list.length,
+      itemBuilder: (context, index) {
+        final item = list[index];
+        return item.runtimeType.toString() == 'Song'
+            ? RecentSongSearch(
+                song: item,
+                id: item.id,
+                onPressed: () {
+                  context
+                      .read<DataProvider>()
+                      .recentSearchList
+                      .removeWhere((element) => element.id == item.id);
+                  setState(() {});
+                },
+              )
+            : GestureDetector(
+                child: RecentSearchItem(
+                  id: item.id,
+                  title: item.name,
+                  subtitle: item.runtimeType.toString(),
+                  coverUrl: item.coverImageUrl,
+                  isSquareCover: item.runtimeType.toString() != 'Artist',
+                  onPressed: () {
+                    context
+                        .read<DataProvider>()
+                        .recentSearchList
+                        .removeWhere((element) => element.id == item.id);
+                    setState(() {});
+                  },
+                ),
+                onTap: () {
+                  onTap(item);
+                },
+              );
+      },
+    );
+  }
 
+  void onTap(item) {
+    if (!recentSearch.any((element) => element.id == item.id)){
+      context.read<DataProvider>().recentSearchList.add(item);
+    }
+    final image = getImageFromUrl(item.coverImageUrl);
     Navigator.push(
       context,
       MaterialPageRoute(
