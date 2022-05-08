@@ -22,6 +22,8 @@ class Database {
       'favoriteSongIdList': user.favoriteSongIdList,
       'customizedPlaylistIdList': user.customizedPlaylistIdList,
       'favoriteArtistIdList': user.favoriteArtistIdList,
+      'recentPlayedIdList': user.recentPlayedIdList,
+      'recentSearchIdList': user.recentSearchIdList,
     });
   }
 
@@ -93,6 +95,8 @@ class Database {
       favoriteSongIdList: map['favoriteSongIdList'] ?? [],
       customizedPlaylistIdList: map['customizedPlaylistIdList'] ?? [],
       favoriteArtistIdList: map['favoriteArtistIdList'] ?? [],
+      recentPlayedIdList: map['recentPlayedIdList'] ?? [],
+      recentSearchIdList: map['recentSearchIdList'] ?? [],
     );
 
     return user;
@@ -289,4 +293,5 @@ class Database {
 
     return songs;
   }
+
 }

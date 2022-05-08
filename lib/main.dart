@@ -224,6 +224,31 @@ class _MainState extends State<Main> {
       (artists) => context.read<DataProvider>().addFavoriteArtists(artists),
     );
 
+    Future.wait(
+      user.recentSearchIdList.map((id)
+        {
+          if (id.toString().contains('song-')){
+            final idSplit  = id.toString().split('-');
+            return Database.getArtistById(idSplit[1]);
+          }
+          if (id.toString().contains('album-')){
+            final idSplit  = id.toString().split('-');
+            return Database.getAlbumById(idSplit[1]);
+          }
+          if (id.toString().contains('artist-')){
+            final idSplit  = id.toString().split('-');
+            return Database.getArtistById(idSplit[1]);
+          }
+          if (id.toString().contains('playlist-')){
+            final idSplit  = id.toString().split('-');
+            return Database.getArtistById(idSplit[1]);
+          }
+          return Database.getArtistById(id);
+        },
+    )).then(
+          (list) => context.read<DataProvider>().addRecentSearchList(list),
+    );
+
     await Database.getGenres().then((genres) {
       context.read<DataProvider>().addGenres(genres);
     });

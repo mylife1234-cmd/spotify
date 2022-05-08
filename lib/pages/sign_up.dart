@@ -181,18 +181,19 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future<void> initUser(UserCredential credential) async {
     final user = model.User(
-      id: credential.user!.uid,
-      name: credential.user!.displayName!,
-      coverImageUrl: credential.user!.photoURL!,
-      recentAlbumIdList: [],
-      favoriteAlbumIdList: [],
-      recentPlaylistIdList: [],
-      favoritePlaylistIdList: [],
-      recentSongIdList: [],
-      favoriteSongIdList: [],
-      customizedPlaylistIdList: [],
-      favoriteArtistIdList: [],
-    );
+        id: credential.user!.uid,
+        name: credential.user!.displayName!,
+        coverImageUrl: credential.user!.photoURL!,
+        recentAlbumIdList: [],
+        favoriteAlbumIdList: [],
+        recentPlaylistIdList: [],
+        favoritePlaylistIdList: [],
+        recentSongIdList: [],
+        favoriteSongIdList: [],
+        customizedPlaylistIdList: [],
+        favoriteArtistIdList: [],
+        recentPlayedIdList: [],
+        recentSearchIdList: []);
 
     Database.setUser(user);
   }

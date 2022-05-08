@@ -21,6 +21,8 @@ class DataProvider extends ChangeNotifier {
     favoriteSongIdList: [],
     customizedPlaylistIdList: [],
     favoriteArtistIdList: [],
+    recentPlayedIdList: [],
+    recentSearchIdList: [],
   );
 
   final List<Genre> _genres = [];
@@ -38,8 +40,15 @@ class DataProvider extends ChangeNotifier {
   final List<Playlist> _favoritePlaylists = [];
   final List<Playlist> _customizedPlaylists = [];
   final List<Playlist> _systemPlaylists = [];
+  final List<Song> _songs = [];
   final List _recentSearchList = [];
+  final List _recentPlayedList = [];
+
+  List get recentPlayedList => _recentPlayedList;
+
   List get recentSearchList => _recentSearchList;
+
+  List<Song> get songs => _songs;
 
   User get user => _user;
 
@@ -80,6 +89,8 @@ class DataProvider extends ChangeNotifier {
       favoriteSongIdList: [],
       customizedPlaylistIdList: [],
       favoriteArtistIdList: [],
+      recentSearchIdList: [],
+      recentPlayedIdList: [],
     );
 
     _genres.clear();
@@ -99,6 +110,7 @@ class DataProvider extends ChangeNotifier {
     _customizedPlaylists.clear();
     _systemPlaylists.clear();
     _recentSearchList.clear();
+    _recentPlayedList.clear();
   }
 
   void setUser(User user) {
@@ -185,10 +197,6 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  final List<Song> _songs = [];
-
-  List<Song> get songs => _songs;
-
   void addSongs(List<Song> songs) {
     _songs.addAll(songs);
 
@@ -250,13 +258,55 @@ class DataProvider extends ChangeNotifier {
 
   void deleteFromRecentSearchList(item) {
     _recentSearchList.removeWhere((element) => element.id == item.id);
-
     notifyListeners();
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'recentSearchIdList': _recentSearchList.map<String>(
+              (e) {
+                if (item.runtimeType.toString() == 'Song') {
+                  return 'song-$e.id';
+                }
+                if (item.runtimeType.toString() == 'Album') {
+                  return 'album-$e.id';
+                }
+                if (item.runtimeType.toString() == 'Playlist') {
+                  return 'playlist-$e.id';
+                }
+                return 'artist-$e.id';
+              }
+    ).toList()
+    });
   }
+
+  void addToRecentSearchList(item){
+    if (!_recentSearchList.any((element) => element.id == item.id)) {
+      _recentSearchList.add(item);
+    }
+    notifyListeners();
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'recentSearchIdList': _recentSearchList.map<String>(
+              (e) {
+            if (e.runtimeType.toString() == 'Song') {
+              return 'song-${e.id}';
+            }
+            if (e.runtimeType.toString() == 'Album') {
+              return 'album-${e.id}';
+            }
+            if (e.runtimeType.toString() == 'Playlist') {
+              return 'playlist-${e.id}';
+            }
+            return 'artist-${e.id}';
+          }
+      ).toList()
+    });
+  }
+
 
   void deleteRecentSearchList() {
     _recentSearchList.clear();
 
     notifyListeners();
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'recentSearchIdList': []
+    });
   }
 }
