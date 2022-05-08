@@ -252,6 +252,7 @@ class _SearchAllState extends State<SearchAll> {
               id: item.id,
               onPressed: () {
                 context.read<DataProvider>().deleteFromRecentSearchList(item);
+                context.read<DataProvider>().deleteRecentPlayedList();
               },
             )
           : GestureDetector(
@@ -272,7 +273,7 @@ class _SearchAllState extends State<SearchAll> {
 
   void onTap(item) {
     context.read<DataProvider>().addToRecentSearchList(item);
-
+    context.read<DataProvider>().addToRecentPlayedList(item);
     final image = getImageFromUrl(item.coverImageUrl);
     Navigator.push(
       context,

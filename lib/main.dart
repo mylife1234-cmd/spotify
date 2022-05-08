@@ -174,11 +174,6 @@ class _MainState extends State<Main> {
 
     context.read<DataProvider>().setUser(user);
 
-    Future.wait(
-      user.recentPlaylistIdList.map((id) => Database.getPlaylistById(id)),
-    ).then(
-      (playlists) => context.read<DataProvider>().addRecentPlaylists(playlists),
-    );
 
     Future.wait(
       user.favoritePlaylistIdList.map((id) => Database.getPlaylistById(id)),
@@ -195,21 +190,9 @@ class _MainState extends State<Main> {
     );
 
     Future.wait(
-      user.recentSongIdList.map((id) => Database.getSongById(id)),
-    ).then(
-      (songs) => context.read<DataProvider>().addRecentSongs(songs),
-    );
-
-    Future.wait(
       user.favoriteSongIdList.map((id) => Database.getSongById(id)),
     ).then(
       (songs) => context.read<DataProvider>().addFavoriteSongs(songs),
-    );
-
-    Future.wait(
-      user.recentAlbumIdList.map((id) => Database.getAlbumById(id)),
-    ).then(
-      (albums) => context.read<DataProvider>().addRecentAlbums(albums),
     );
 
     Future.wait(
@@ -247,6 +230,24 @@ class _MainState extends State<Main> {
         },
     )).then(
           (list) => context.read<DataProvider>().addRecentSearchList(list),
+    );
+
+    Future.wait(
+        user.recentPlayedIdList.map((id)
+        {
+          if (id.toString().contains('album-')){
+            final idSplit  = id.toString().split('-');
+            return Database.getAlbumById(idSplit[1]);
+          }
+
+          if (id.toString().contains('playlist-')){
+            final idSplit  = id.toString().split('-');
+            return Database.getArtistById(idSplit[1]);
+          }
+          return Database.getPlaylistById(id);
+        },
+        )).then(
+          (list) => context.read<DataProvider>().addRecentPlayedList(list),
     );
 
     await Database.getGenres().then((genres) {

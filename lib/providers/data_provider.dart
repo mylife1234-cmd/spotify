@@ -13,11 +13,8 @@ class DataProvider extends ChangeNotifier {
     id: '',
     name: '',
     coverImageUrl: '',
-    recentAlbumIdList: [],
     favoriteAlbumIdList: [],
-    recentPlaylistIdList: [],
     favoritePlaylistIdList: [],
-    recentSongIdList: [],
     favoriteSongIdList: [],
     customizedPlaylistIdList: [],
     favoriteArtistIdList: [],
@@ -30,13 +27,10 @@ class DataProvider extends ChangeNotifier {
   final List<Artist> _artists = [];
   final List<Artist> _favoriteArtists = [];
 
-  final List<Song> _recentSongs = [];
   final List<Song> _favoriteSongs = [];
   final List<Album> _albums = [];
-  final List<Album> _recentAlbums = [];
   final List<Album> _favoriteAlbums = [];
 
-  final List<Playlist> _recentPlaylists = [];
   final List<Playlist> _favoritePlaylists = [];
   final List<Playlist> _customizedPlaylists = [];
   final List<Playlist> _systemPlaylists = [];
@@ -58,17 +52,11 @@ class DataProvider extends ChangeNotifier {
 
   List<Artist> get favoriteArtists => _favoriteArtists;
 
-  List<Song> get recentSongs => _recentSongs;
-
   List<Song> get favoriteSongs => _favoriteSongs;
 
   List<Album> get albums => _albums;
 
-  List<Album> get recentAlbums => _recentAlbums;
-
   List<Album> get favoriteAlbums => _favoriteAlbums;
-
-  List<Playlist> get recentPlaylists => _recentPlaylists;
 
   List<Playlist> get favoritePlaylists => _favoritePlaylists;
 
@@ -81,11 +69,8 @@ class DataProvider extends ChangeNotifier {
       id: '',
       name: '',
       coverImageUrl: '',
-      recentAlbumIdList: [],
       favoriteAlbumIdList: [],
-      recentPlaylistIdList: [],
       favoritePlaylistIdList: [],
-      recentSongIdList: [],
       favoriteSongIdList: [],
       customizedPlaylistIdList: [],
       favoriteArtistIdList: [],
@@ -98,14 +83,11 @@ class DataProvider extends ChangeNotifier {
     _artists.clear();
     _favoriteArtists.clear();
 
-    _recentSongs.clear();
     _favoriteSongs.clear();
 
     _albums.clear();
-    _recentAlbums.clear();
     _favoriteAlbums.clear();
 
-    _recentPlaylists.clear();
     _favoritePlaylists.clear();
     _customizedPlaylists.clear();
     _systemPlaylists.clear();
@@ -138,7 +120,6 @@ class DataProvider extends ChangeNotifier {
   }
 
   void addRecentSongs(List<Song> songs) {
-    _recentSongs.addAll(songs);
 
     notifyListeners();
   }
@@ -156,7 +137,6 @@ class DataProvider extends ChangeNotifier {
   }
 
   void addRecentAlbums(List<Album> albums) {
-    _recentAlbums.addAll(albums);
 
     notifyListeners();
   }
@@ -168,7 +148,6 @@ class DataProvider extends ChangeNotifier {
   }
 
   void addRecentPlaylists(List<Playlist> playlists) {
-    _recentPlaylists.addAll(playlists);
 
     notifyListeners();
   }
@@ -187,6 +166,11 @@ class DataProvider extends ChangeNotifier {
 
   void addRecentSearchList(List list) {
     _recentSearchList.addAll(list);
+
+    notifyListeners();
+  }
+  void addRecentPlayedList(List list) {
+    _recentPlayedList.addAll(list);
 
     notifyListeners();
   }
@@ -309,4 +293,34 @@ class DataProvider extends ChangeNotifier {
       'recentSearchIdList': []
     });
   }
+
+  void addToRecentPlayedList(item){
+    if (!_recentPlayedList.any((element) => element.id == item.id)) {
+      _recentPlayedList.insert(0,item);
+    }
+    if (_recentPlayedList.length > 15){
+      _recentPlayedList.removeAt(_recentPlayedList.length - 1);
+    }
+    notifyListeners();
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'recentPlayedIdList': _recentPlayedList.map<String>(
+              (e) {
+            if (e.runtimeType.toString() == 'Album') {
+              return 'album-${e.id}';
+            }
+            return 'playlist-${e.id}';
+          }
+      ).toList()
+    });
+  }
+
+  void deleteRecentPlayedList() {
+    _recentPlayedList.clear();
+
+    notifyListeners();
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'recentPlayedIdList': []
+    });
+  }
+
 }

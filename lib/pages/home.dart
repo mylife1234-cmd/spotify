@@ -27,12 +27,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final recentPlaylists = context.watch<DataProvider>().recentPlaylists;
+    final recentPlayedList = context.watch<DataProvider>().recentPlayedList;
     final systemPlaylists = context.watch<DataProvider>().systemPlaylists;
-    final recentAlbum = context.watch<DataProvider>().recentAlbums;
     final favoriteArtists = context.watch<DataProvider>().favoriteArtists;
 
-    final List recentList = [...recentPlaylists, ...recentAlbum]..shuffle();
+    final List recentList = [...recentPlayedList]..shuffle();
 
     final List recommendedList = [...favoriteArtists, ...systemPlaylists];
 

@@ -14,11 +14,8 @@ class Database {
   static void setUser(User user) {
     FirebaseDatabase.instance.ref('/users/${user.id}').set({
       'coverImageUrl': user.coverImageUrl,
-      'recentAlbumIdList': user.recentAlbumIdList,
       'favoriteAlbumIdList': user.favoriteAlbumIdList,
-      'recentPlaylistIdList': user.recentPlaylistIdList,
       'favoritePlaylistIdList': user.favoritePlaylistIdList,
-      'recentSongIdList': user.recentSongIdList,
       'favoriteSongIdList': user.favoriteSongIdList,
       'customizedPlaylistIdList': user.customizedPlaylistIdList,
       'favoriteArtistIdList': user.favoriteArtistIdList,
@@ -87,11 +84,8 @@ class Database {
       id: id,
       name: name,
       coverImageUrl: map['coverImageUrl'],
-      recentAlbumIdList: map['recentAlbumIdList'] ?? [],
       favoriteAlbumIdList: map['favoriteAlbumIdList'] ?? [],
-      recentPlaylistIdList: map['recentPlaylistIdList'] ?? [],
       favoritePlaylistIdList: map['favoritePlaylistIdList'] ?? [],
-      recentSongIdList: map['recentSongIdList'] ?? [],
       favoriteSongIdList: map['favoriteSongIdList'] ?? [],
       customizedPlaylistIdList: map['customizedPlaylistIdList'] ?? [],
       favoriteArtistIdList: map['favoriteArtistIdList'] ?? [],
