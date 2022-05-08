@@ -244,15 +244,15 @@ class DataProvider extends ChangeNotifier {
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'recentSearchIdList': _recentSearchList.map<String>((e) {
         if (item.runtimeType.toString() == 'Song') {
-          return 'song-$e.id';
+          return 'song-${e.id}';
         }
         if (item.runtimeType.toString() == 'Album') {
-          return 'album-$e.id';
+          return 'album-${e.id}';
         }
         if (item.runtimeType.toString() == 'Playlist') {
-          return 'playlist-$e.id';
+          return 'playlist-${e.id}';
         }
-        return 'artist-$e.id';
+        return 'artist-${e.id}';
       }).toList()
     });
   }
