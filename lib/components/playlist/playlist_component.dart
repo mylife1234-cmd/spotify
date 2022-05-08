@@ -19,7 +19,9 @@ class PlaylistComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     final favoritePlaylistList =
         context.watch<DataProvider>().favoritePlaylists;
+
     final isLikedSongsPlayLists = context.watch<DataProvider>().user.id == id;
+
     final isFavorite = favoritePlaylistList.any((element) => element.id == id);
 
     return Padding(
@@ -53,19 +55,18 @@ class PlaylistComponent extends StatelessWidget {
             if (isLikedSongsPlayLists == false)
               GestureDetector(
                 onTap: onTap,
-                child: Icon(
-                  isFavorite
-                      ? Icons.favorite_rounded
-                      : Icons.favorite_outline_rounded,
-                  size: 22,
-                  color: isFavorite ? Colors.green : Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: Icon(
+                    isFavorite
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_outline_rounded,
+                    size: 22,
+                    color: isFavorite ? Colors.green : Colors.white,
+                  ),
                 ),
               ),
-            if (isLikedSongsPlayLists == false) const SizedBox(width: 15),
-            const Icon(
-              Icons.more_horiz,
-              size: 22,
-            ),
+            const Icon(Icons.more_horiz, size: 22),
           ],
         )
       ]),

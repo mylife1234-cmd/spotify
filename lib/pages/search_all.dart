@@ -120,12 +120,12 @@ class _SearchAllState extends State<SearchAll> {
                 ),
               Expanded(
                 child: isSearch
-                    ? _buildListView(filteredList, context)
+                    ? _buildListView(filteredList)
                     : SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _buildRecentListView(recentSearch, context),
+                            ..._buildRecentList(recentSearch),
                             if (!isSearch && recentSearch.isNotEmpty)
                               Padding(
                                 padding: const EdgeInsets.only(
@@ -223,7 +223,7 @@ class _SearchAllState extends State<SearchAll> {
     }
   }
 
-  Widget _buildListView(list, BuildContext context) {
+  Widget _buildListView(List list) {
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (context, index) {
@@ -245,44 +245,34 @@ class _SearchAllState extends State<SearchAll> {
     );
   }
 
-  Widget _buildRecentListView(List list, BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: list.map((item) {
-          return item.runtimeType.toString() == 'Song'
-              ? RecentSongSearch(
-                  song: item,
-                  id: item.id,
-                  onPressed: () {
-                    context
-                        .read<DataProvider>()
-                        .deleteFromRecentSearchList(item);
-                    setState(() {});
-                  },
-                )
-              : GestureDetector(
-                  child: RecentSearchItem(
-                    id: item.id,
-                    title: item.name,
-                    subtitle: item.runtimeType.toString(),
-                    coverUrl: item.coverImageUrl,
-                    isSquareCover: item.runtimeType.toString() != 'Artist',
-                    onPressed: () {
-                      context
-                          .read<DataProvider>()
-                          .deleteFromRecentSearchList(item);
-                      setState(() {});
-                    },
-                  ),
-                  onTap: () {
-                    onTap(item);
-                  },
-                );
-        }).toList(),
-      ),
-    );
+  List<Widget> _buildRecentList(List list) {
+    return list.map((item) {
+      return item.runtimeType.toString() == 'Song'
+          ? RecentSongSearch(
+              song: item,
+              id: item.id,
+              onPressed: () {
+                context.read<DataProvider>().deleteFromRecentSearchList(item);
+                setState(() {});
+              },
+            )
+          : GestureDetector(
+              child: RecentSearchItem(
+                id: item.id,
+                title: item.name,
+                subtitle: item.runtimeType.toString(),
+                coverUrl: item.coverImageUrl,
+                isSquareCover: item.runtimeType.toString() != 'Artist',
+                onPressed: () {
+                  context.read<DataProvider>().deleteFromRecentSearchList(item);
+                  setState(() {});
+                },
+              ),
+              onTap: () {
+                onTap(item);
+              },
+            );
+    }).toList();
   }
 
   void onTap(item) {
