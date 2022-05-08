@@ -74,47 +74,7 @@ class _HomePageState extends State<HomePage> {
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           physics: const BouncingScrollPhysics(),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: recentList.map((item) {
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: item.runtimeType.toString() == 'Playlist'
-                                    ? PlaylistCard(
-                                        id: item.id,
-                                        label: item.name,
-                                        image:
-                                            getImageFromUrl(item.coverImageUrl),
-                                        songIdList: item.songIdList,
-                                      )
-                                    : FutureBuilder(
-                                        future: Database.getArtistName(
-                                            item.artistId),
-                                        builder:
-                                            (context, AsyncSnapshot snapshot) {
-                                          if (snapshot.hasData) {
-                                            return AlbumCard(
-                                              id: item.id,
-                                              label: item.name,
-                                              image: getImageFromUrl(
-                                                  item.coverImageUrl),
-                                              songIdList: item.songIdList,
-                                              description: snapshot.data,
-                                            );
-                                          }
-                                          return AlbumCard(
-                                            id: item.id,
-                                            label: item.name,
-                                            image: getImageFromUrl(
-                                                item.coverImageUrl),
-                                            songIdList: item.songIdList,
-                                            description: item.description,
-                                          );
-                                        },
-                                      ),
-                              );
-                            }).toList(),
-                          ),
+                          child: _buildRowItem(recentList)
                         ),
                       ]
                     : [const SizedBox()],
@@ -153,29 +113,7 @@ class _HomePageState extends State<HomePage> {
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           physics: const BouncingScrollPhysics(),
-                          child: Row(
-                            children: list.map((item) {
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: item.runtimeType.toString() == 'Playlist'
-                                    ? PlaylistCard(
-                                        id: item.id,
-                                        label: item.name,
-                                        image:
-                                            getImageFromUrl(item.coverImageUrl),
-                                        songIdList: item.songIdList,
-                                      )
-                                    : ArtistCard(
-                                        id: item.id,
-                                        label: item.name,
-                                        image:
-                                            getImageFromUrl(item.coverImageUrl),
-                                        description: item.description,
-                                        songIdList: item.songIdList,
-                                      ),
-                              );
-                            }).toList(),
-                          ),
+                          child: _buildRowItem(list)
                         ),
                       )
                     ],
@@ -186,6 +124,67 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ]),
+    );
+
+  }
+  Widget _buildRowItem(List list) {
+    return Row(
+      children: list.map<Widget>((item) {
+        switch (item.runtimeType.toString()){
+          case 'Playlist':
+            return Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: PlaylistCard(
+                id: item.id,
+                label: item.name,
+                image:
+                getImageFromUrl(item.coverImageUrl),
+                songIdList: item.songIdList,
+              ),
+            );
+          case 'Artist':
+            return Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: ArtistCard(
+                id: item.id,
+                label: item.name,
+                image:
+                getImageFromUrl(item.coverImageUrl),
+                description: item.description,
+                songIdList: item.songIdList,
+              ),
+            );
+          default:
+            return Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: FutureBuilder(
+                future: Database.getArtistName(
+                    item.artistId),
+                builder:
+                    (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return AlbumCard(
+                      id: item.id,
+                      label: item.name,
+                      image: getImageFromUrl(
+                          item.coverImageUrl),
+                      songIdList: item.songIdList,
+                      description: snapshot.data,
+                    );
+                  }
+                  return AlbumCard(
+                    id: item.id,
+                    label: item.name,
+                    image: getImageFromUrl(
+                        item.coverImageUrl),
+                    songIdList: item.songIdList,
+                    description: item.description,
+                  );
+                },
+              ),
+            );
+        }
+      }).toList(),
     );
   }
 }
