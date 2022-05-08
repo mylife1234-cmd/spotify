@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/home/artist_card.dart';
+import 'package:spotify/components/home/header_buttons.dart';
 import 'package:spotify/components/home/home_header.dart';
 import 'package:spotify/components/home/playlist_card.dart';
 import 'package:spotify/pages/loading.dart';
@@ -19,6 +20,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final sections = ['Uniquely yours', 'Made for you'];
+
   @override
   void initState() {
     super.initState();
@@ -113,11 +116,12 @@ class _HomePageState extends State<HomePage> {
                             }).toList(),
                           ),
                         ),
-                        const SizedBox(height: 15),
                       ]
                     : [const SizedBox()],
 
-                ...['Uniquely yours', 'Made for you'].map((e) {
+                const SizedBox(height: 15),
+
+                ...sections.map((e) {
                   final length = recommendedList.length ~/ 2;
 
                   final shuffledList = [...recommendedList]..shuffle();
@@ -127,15 +131,22 @@ class _HomePageState extends State<HomePage> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 9, bottom: 15),
-                        child: Text(
-                          e,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 9, bottom: 15),
+                            child: Text(
+                              e,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                        ),
+                          if (recentList.isEmpty && sections.indexOf(e) == 0)
+                            const HeaderButtons()
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 20),

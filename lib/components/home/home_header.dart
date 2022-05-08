@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spotify/components/home/settings_button.dart';
+import 'package:spotify/components/home/header_buttons.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({Key? key}) : super(key: key);
@@ -10,19 +10,12 @@ class HomeHeader extends StatelessWidget {
       padding: const EdgeInsets.only(top: 24, bottom: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text('Recently Played',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              // Icon(Icons.notifications),
-              SizedBox(width: 15),
-              Icon(Icons.history),
-              SizedBox(width: 15),
-              SettingsButton(size: 24)
-            ],
-          )
+        children: const [
+          Text(
+            'Recently Played',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          HeaderButtons()
         ],
       ),
     );
