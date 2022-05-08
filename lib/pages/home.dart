@@ -5,11 +5,11 @@ import 'package:spotify/components/home/home_header.dart';
 import 'package:spotify/components/home/playlist_card.dart';
 import 'package:spotify/pages/loading.dart';
 import 'package:spotify/providers/data_provider.dart';
-import 'package:spotify/utils/db.dart';
 import 'package:spotify/utils/helper.dart';
 
 import '../components/home/album_card.dart';
 import '../main.dart';
+import '../utils/db.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -32,12 +32,11 @@ class _HomePageState extends State<HomePage> {
     final recentAlbum = context.watch<DataProvider>().recentAlbums;
     final favoriteArtists = context.watch<DataProvider>().favoriteArtists;
 
-    final List list = [...recentPlaylists, ...recentAlbum].sublist(0)
-      ..shuffle();
-    final List recommendList =
-        [...favoriteArtists, ...systemPlaylists].sublist(0)..shuffle();
+    final List recentList = [...recentPlaylists, ...recentAlbum]..shuffle();
 
-    if (recentPlaylists.isEmpty || favoriteArtists.isEmpty) {
+    final List recommendedList = [...favoriteArtists, ...systemPlaylists];
+
+    if (recommendedList.isEmpty) {
       return const LoadingScreen();
     }
 
@@ -67,60 +66,65 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // SizedBox(height: 20),
-                const HomeHeader(),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: list.map((item) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: item.runtimeType.toString() == 'Playlist'
-                            ? PlaylistCard(
-                                id: item.id,
-                                label: item.name,
-                                image: getImageFromUrl(item.coverImageUrl),
-                                songIdList: item.songIdList,
-                              )
-                            : FutureBuilder(
-                                future: Database.getArtistName(item.artistId),
-                                builder: (context, AsyncSnapshot snapshot) {
-                                  // if (snapshot.connectionState ==
-                                  //     ConnectionState.waiting) {
-                                  //   return const CircularProgressIndicator();
-                                  // }
-                                  if (snapshot.hasData) {
-                                    return AlbumCard(
-                                      id: item.id,
-                                      label: item.name,
-                                      image:
-                                          getImageFromUrl(item.coverImageUrl),
-                                      songIdList: item.songIdList,
-                                      description: snapshot.data,
-                                    );
-                                  }
-                                  return AlbumCard(
-                                    id: item.id,
-                                    label: item.name,
-                                    image: getImageFromUrl(item.coverImageUrl),
-                                    songIdList: item.songIdList,
-                                    description: item.description,
-                                  );
-                                },
-                              ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-
-                const SizedBox(height: 15),
+                ...recentList.isNotEmpty
+                    ? [
+                        const HomeHeader(),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: recentList.map((item) {
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 15),
+                                child: item.runtimeType.toString() == 'Playlist'
+                                    ? PlaylistCard(
+                                        id: item.id,
+                                        label: item.name,
+                                        image:
+                                            getImageFromUrl(item.coverImageUrl),
+                                        songIdList: item.songIdList,
+                                      )
+                                    : FutureBuilder(
+                                        future: Database.getArtistName(
+                                            item.artistId),
+                                        builder:
+                                            (context, AsyncSnapshot snapshot) {
+                                          if (snapshot.hasData) {
+                                            return AlbumCard(
+                                              id: item.id,
+                                              label: item.name,
+                                              image: getImageFromUrl(
+                                                  item.coverImageUrl),
+                                              songIdList: item.songIdList,
+                                              description: snapshot.data,
+                                            );
+                                          }
+                                          return AlbumCard(
+                                            id: item.id,
+                                            label: item.name,
+                                            image: getImageFromUrl(
+                                                item.coverImageUrl),
+                                            songIdList: item.songIdList,
+                                            description: item.description,
+                                          );
+                                        },
+                                      ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                      ]
+                    : [const SizedBox()],
 
                 ...['Uniquely yours', 'Made for you'].map((e) {
-                  final List shuffledList = [...recommendList]
-                    ..sublist(0)
-                    ..shuffle();
-                  // print(shuffledList);
+                  final length = recommendedList.length ~/ 2;
+
+                  final shuffledList = [...recommendedList]..shuffle();
+
+                  final list = shuffledList.sublist(0, length);
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -140,9 +144,7 @@ class _HomePageState extends State<HomePage> {
                           scrollDirection: Axis.horizontal,
                           physics: const BouncingScrollPhysics(),
                           child: Row(
-                            children: shuffledList
-                                .sublist(0, shuffledList.length)
-                                .map((item) {
+                            children: list.map((item) {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 15),
                                 child: item.runtimeType.toString() == 'Playlist'
