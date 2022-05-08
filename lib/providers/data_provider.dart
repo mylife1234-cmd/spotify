@@ -279,7 +279,7 @@ class DataProvider extends ChangeNotifier {
 
   void addToRecentSearchList(item){
     if (!_recentSearchList.any((element) => element.id == item.id)) {
-      _recentSearchList.add(item);
+      _recentSearchList.insert(0,item);
     }
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
