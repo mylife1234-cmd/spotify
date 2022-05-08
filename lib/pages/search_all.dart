@@ -135,7 +135,6 @@ class _SearchAllState extends State<SearchAll> {
                                     context
                                         .read<DataProvider>()
                                         .deleteRecentSearchList();
-                                    setState(() {});
                                   },
                                   child: const Text(
                                     'Clear recent searches',
