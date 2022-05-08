@@ -288,20 +288,6 @@ class _SearchAllState extends State<SearchAll> {
   void onTap(item) {
     if (!recentSearch.any((element) => element.id == item.id)) {
       context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
-      context.read<DataProvider>().recentSearchList.add(item);
     }
     final image = getImageFromUrl(item.coverImageUrl);
     Navigator.push(
