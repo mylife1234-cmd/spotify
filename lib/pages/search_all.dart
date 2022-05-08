@@ -40,7 +40,9 @@ class _SearchAllState extends State<SearchAll> {
     playlists = [
       ...context.watch<DataProvider>().albums,
       ...context.watch<DataProvider>().artists,
-      ...context.watch<DataProvider>().songs
+      ...context.watch<DataProvider>().songs,
+      ...context.watch<DataProvider>().systemPlaylists,
+      ...context.watch<DataProvider>().customizedPlaylists,
     ];
 
     recentSearch = [
@@ -123,7 +125,7 @@ class _SearchAllState extends State<SearchAll> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ..._buildRecentList(recentSearch),
+                            ..._buildRecentSearchList(recentSearch),
                             if (!isSearch && recentSearch.isNotEmpty)
                               Padding(
                                 padding: const EdgeInsets.only(
@@ -257,7 +259,7 @@ class _SearchAllState extends State<SearchAll> {
     );
   }
 
-  List<Widget> _buildRecentList(List list) {
+  List<Widget> _buildRecentSearchList(List list) {
     return list.map((item) {
       return item.runtimeType.toString() == 'Song'
           ? SongSearch(

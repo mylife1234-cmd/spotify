@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/song.dart';
+import '../../providers/data_provider.dart';
 import '../../providers/music_provider.dart';
 import '../../utils/helper.dart';
 
@@ -55,7 +56,7 @@ class SongSearch extends StatelessWidget {
                 .read<MusicProvider>()
                 .updateCurrentPlaylist(song.id, '"search" in Songs');
           }
-
+          context.read<DataProvider>().addToRecentSearchList(song);
           context.read<MusicProvider>().playNewSong(song);
         },
       ),
