@@ -425,12 +425,10 @@ packages:
   just_audio:
     dependency: "direct main"
     description:
-      path: just_audio
-      ref: "fix/caching"
-      resolved-ref: "0b04a33e04e57c2d95826d5b12a85d4ea9f6891e"
-      url: "https://github.com/ryanheise/just_audio.git"
-    source: git
-    version: "0.9.20"
+      name: just_audio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.21"
   just_audio_platform_interface:
     dependency: transitive
     description:

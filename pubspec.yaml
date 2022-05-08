@@ -37,11 +37,7 @@ dependencies:
   modal_bottom_sheet: ^2.0.1
   provider: ^6.0.2
   palette_generator: ^0.3.3
-  just_audio:
-    git:
-      url: https://github.com/ryanheise/just_audio.git
-      ref: fix/caching
-      path: ./just_audio
+  just_audio: ^0.9.21
   audio_service: ^0.18.4
   id3: ^1.0.2
   get_it: ^7.2.0
