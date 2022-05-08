@@ -120,7 +120,6 @@ class DataProvider extends ChangeNotifier {
   }
 
   void addRecentSongs(List<Song> songs) {
-
     notifyListeners();
   }
 
@@ -137,7 +136,6 @@ class DataProvider extends ChangeNotifier {
   }
 
   void addRecentAlbums(List<Album> albums) {
-
     notifyListeners();
   }
 
@@ -148,7 +146,6 @@ class DataProvider extends ChangeNotifier {
   }
 
   void addRecentPlaylists(List<Playlist> playlists) {
-
     notifyListeners();
   }
 
@@ -169,6 +166,7 @@ class DataProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
   void addRecentPlayedList(List list) {
     _recentPlayedList.addAll(list);
 
@@ -244,73 +242,69 @@ class DataProvider extends ChangeNotifier {
     _recentSearchList.removeWhere((element) => element.id == item.id);
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
-      'recentSearchIdList': _recentSearchList.map<String>(
-              (e) {
-                if (item.runtimeType.toString() == 'Song') {
-                  return 'song-$e.id';
-                }
-                if (item.runtimeType.toString() == 'Album') {
-                  return 'album-$e.id';
-                }
-                if (item.runtimeType.toString() == 'Playlist') {
-                  return 'playlist-$e.id';
-                }
-                return 'artist-$e.id';
-              }
-    ).toList()
+      'recentSearchIdList': _recentSearchList.map<String>((e) {
+        if (item.runtimeType.toString() == 'Song') {
+          return 'song-$e.id';
+        }
+        if (item.runtimeType.toString() == 'Album') {
+          return 'album-$e.id';
+        }
+        if (item.runtimeType.toString() == 'Playlist') {
+          return 'playlist-$e.id';
+        }
+        return 'artist-$e.id';
+      }).toList()
     });
   }
 
-  void addToRecentSearchList(item){
+  void addToRecentSearchList(item) {
     if (!_recentSearchList.any((element) => element.id == item.id)) {
-      _recentSearchList.insert(0,item);
+      _recentSearchList.insert(0, item);
     }
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
-      'recentSearchIdList': _recentSearchList.map<String>(
-              (e) {
-            if (e.runtimeType.toString() == 'Song') {
-              return 'song-${e.id}';
-            }
-            if (e.runtimeType.toString() == 'Album') {
-              return 'album-${e.id}';
-            }
-            if (e.runtimeType.toString() == 'Playlist') {
-              return 'playlist-${e.id}';
-            }
-            return 'artist-${e.id}';
-          }
-      ).toList()
+      'recentSearchIdList': _recentSearchList.map<String>((e) {
+        if (e.runtimeType.toString() == 'Song') {
+          return 'song-${e.id}';
+        }
+        if (e.runtimeType.toString() == 'Album') {
+          return 'album-${e.id}';
+        }
+        if (e.runtimeType.toString() == 'Playlist') {
+          return 'playlist-${e.id}';
+        }
+        return 'artist-${e.id}';
+      }).toList()
     });
   }
-
 
   void deleteRecentSearchList() {
     _recentSearchList.clear();
 
     notifyListeners();
-    FirebaseDatabase.instance.ref('/users/${user.id}').update({
-      'recentSearchIdList': []
-    });
+    FirebaseDatabase.instance
+        .ref('/users/${user.id}')
+        .update({'recentSearchIdList': []});
   }
 
-  void addToRecentPlayedList(item){
+  void addToRecentPlayedList(item) {
     if (!_recentPlayedList.any((element) => element.id == item.id)) {
-      _recentPlayedList.insert(0,item);
+      _recentPlayedList.insert(0, item);
     }
-    if (_recentPlayedList.length > 15){
+    if (_recentPlayedList.length > 15) {
       _recentPlayedList.removeAt(_recentPlayedList.length - 1);
     }
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
-      'recentPlayedIdList': _recentPlayedList.map<String>(
-              (e) {
-            if (e.runtimeType.toString() == 'Album') {
-              return 'album-${e.id}';
-            }
-            return 'playlist-${e.id}';
-          }
-      ).toList()
+      'recentPlayedIdList': _recentPlayedList.map<String>((e) {
+        if (e.runtimeType.toString() == 'Album') {
+          return 'album-${e.id}';
+        }
+        if (e.runtimeType.toString() == 'Artist') {
+          return 'artist-${e.id}';
+        }
+        return 'playlist-${e.id}';
+      }).toList()
     });
   }
 
@@ -318,9 +312,8 @@ class DataProvider extends ChangeNotifier {
     _recentPlayedList.clear();
 
     notifyListeners();
-    FirebaseDatabase.instance.ref('/users/${user.id}').update({
-      'recentPlayedIdList': []
-    });
+    FirebaseDatabase.instance
+        .ref('/users/${user.id}')
+        .update({'recentPlayedIdList': []});
   }
-
 }

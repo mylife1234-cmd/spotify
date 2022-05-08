@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:spotify/providers/data_provider.dart';
 
 import '../../utils/helper.dart';
 
@@ -21,6 +19,7 @@ class RecentSearchItem extends StatelessWidget {
   final String coverUrl;
   final bool isSquareCover;
   final void Function()? onPressed;
+
   @override
   Widget build(BuildContext context) {
     final image = getImageFromUrl(coverUrl);

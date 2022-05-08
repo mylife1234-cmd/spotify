@@ -174,7 +174,6 @@ class _MainState extends State<Main> {
 
     context.read<DataProvider>().setUser(user);
 
-
     Future.wait(
       user.favoritePlaylistIdList.map((id) => Database.getPlaylistById(id)),
     ).then(
@@ -207,47 +206,41 @@ class _MainState extends State<Main> {
       (artists) => context.read<DataProvider>().addFavoriteArtists(artists),
     );
 
-    Future.wait(
-      user.recentSearchIdList.map((id)
-        {
-          if (id.toString().contains('song-')){
-            final idSplit  = id.toString().split('-');
-            return Database.getArtistById(idSplit[1]);
-          }
-          if (id.toString().contains('album-')){
-            final idSplit  = id.toString().split('-');
-            return Database.getAlbumById(idSplit[1]);
-          }
-          if (id.toString().contains('artist-')){
-            final idSplit  = id.toString().split('-');
-            return Database.getArtistById(idSplit[1]);
-          }
-          if (id.toString().contains('playlist-')){
-            final idSplit  = id.toString().split('-');
-            return Database.getArtistById(idSplit[1]);
-          }
-          return Database.getArtistById(id);
-        },
+    Future.wait(user.recentSearchIdList.map(
+      (id) {
+        if (id.toString().contains('song-')) {
+          final idSplit = id.toString().split('-');
+          return Database.getSongById(idSplit[1]);
+        }
+        if (id.toString().contains('album-')) {
+          final idSplit = id.toString().split('-');
+          return Database.getAlbumById(idSplit[1]);
+        }
+        if (id.toString().contains('artist-')) {
+          final idSplit = id.toString().split('-');
+          return Database.getArtistById(idSplit[1]);
+        }
+        return Database.getPlaylistById(id.toString().split('-')[1]);
+      },
     )).then(
-          (list) => context.read<DataProvider>().addRecentSearchList(list),
+      (list) => context.read<DataProvider>().addRecentSearchList(list),
     );
 
-    Future.wait(
-        user.recentPlayedIdList.map((id)
-        {
-          if (id.toString().contains('album-')){
-            final idSplit  = id.toString().split('-');
-            return Database.getAlbumById(idSplit[1]);
-          }
+    Future.wait(user.recentPlayedIdList.map(
+      (id) {
+        if (id.toString().contains('album-')) {
+          final idSplit = id.toString().split('-');
+          return Database.getAlbumById(idSplit[1]);
+        }
 
-          if (id.toString().contains('playlist-')){
-            final idSplit  = id.toString().split('-');
-            return Database.getArtistById(idSplit[1]);
-          }
-          return Database.getPlaylistById(id);
-        },
-        )).then(
-          (list) => context.read<DataProvider>().addRecentPlayedList(list),
+        if (id.toString().contains('playlist-')) {
+          final idSplit = id.toString().split('-');
+          return Database.getPlaylistById(idSplit[1]);
+        }
+        return Database.getArtistById(id.toString().split('-')[1]);
+      },
+    )).then(
+      (list) => context.read<DataProvider>().addRecentPlayedList(list),
     );
 
     await Database.getGenres().then((genres) {
