@@ -172,6 +172,7 @@ class DataProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
   void addRecentSearchList(List list) {
     _recentSearchList.addAll(list);
 
@@ -245,5 +246,13 @@ class DataProvider extends ChangeNotifier {
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'favoriteArtistIdList': _favoriteArtists.map<String>((e) => e.id).toList()
     });
+  }
+
+  void addToRecentSearchList(item) {
+    _recentSearchList.removeWhere((element) => element.id == item.id);
+  }
+
+  void deleteRecentSearchList() {
+    _recentSearchList.clear();
   }
 }

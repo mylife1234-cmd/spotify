@@ -76,8 +76,8 @@ class _SearchAllState extends State<SearchAll> {
                         ),
                         decoration: InputDecoration(
                           hintText: 'Search',
-                          hintStyle: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                          // hintStyle: const TextStyle(
+                          //     color: Colors.white, fontWeight: FontWeight.bold),
                           fillColor: const Color.fromRGBO(36, 36, 36, 1),
                           prefixIcon: const Icon(
                             Icons.search,
@@ -114,16 +114,36 @@ class _SearchAllState extends State<SearchAll> {
                     child: Text(
                       'Recent searches',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 Expanded(
+                  flex: isSearch ? 1 : 0,
                   child: isSearch
                       ? _buildListView(filteredList, context)
                       : _buildRecentListView(recentSearch, context),
-                )
+                ),
+                if (!isSearch && recentSearch.isNotEmpty)
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 10, right: 10, top: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        context.read<DataProvider>().deleteRecentSearchList();
+                        setState(() {});
+                      },
+                      child: const Text(
+                        'Clear recent searches',
+                        style: TextStyle(
+                          color: Colors.white38,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -221,6 +241,7 @@ class _SearchAllState extends State<SearchAll> {
 
   Widget _buildRecentListView(list, BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true,
       itemCount: list.length,
       itemBuilder: (context, index) {
         final item = list[index];
@@ -229,10 +250,7 @@ class _SearchAllState extends State<SearchAll> {
                 song: item,
                 id: item.id,
                 onPressed: () {
-                  context
-                      .read<DataProvider>()
-                      .recentSearchList
-                      .removeWhere((element) => element.id == item.id);
+                  context.read<DataProvider>().addToRecentSearchList(item);
                   setState(() {});
                 },
               )
@@ -244,10 +262,7 @@ class _SearchAllState extends State<SearchAll> {
                   coverUrl: item.coverImageUrl,
                   isSquareCover: item.runtimeType.toString() != 'Artist',
                   onPressed: () {
-                    context
-                        .read<DataProvider>()
-                        .recentSearchList
-                        .removeWhere((element) => element.id == item.id);
+                    context.read<DataProvider>().addToRecentSearchList(item);
                     setState(() {});
                   },
                 ),
@@ -260,7 +275,7 @@ class _SearchAllState extends State<SearchAll> {
   }
 
   void onTap(item) {
-    if (!recentSearch.any((element) => element.id == item.id)){
+    if (!recentSearch.any((element) => element.id == item.id)) {
       context.read<DataProvider>().recentSearchList.add(item);
     }
     final image = getImageFromUrl(item.coverImageUrl);
