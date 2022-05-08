@@ -41,9 +41,11 @@ class _SearchAllState extends State<SearchAll> {
       ...context.watch<DataProvider>().artists,
       ...context.watch<DataProvider>().songs
     ];
+
     recentSearch = [
       ...context.watch<DataProvider>().recentSearchList,
     ];
+
     final filteredList = searchResult
         .where((element) =>
             _currentFilterOption == 0 ||
@@ -51,7 +53,7 @@ class _SearchAllState extends State<SearchAll> {
                 .toLowerCase()
                 .contains('${element.runtimeType.toString().toLowerCase()}s'))
         .toList();
-    // filteredList.sort((a, b) => a.name.compareTo(b.name));
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -75,8 +77,6 @@ class _SearchAllState extends State<SearchAll> {
                       ),
                       decoration: InputDecoration(
                         hintText: 'Search',
-                        // hintStyle: const TextStyle(
-                        //     color: Colors.white, fontWeight: FontWeight.bold),
                         fillColor: const Color.fromRGBO(36, 36, 36, 1),
                         prefixIcon: const Icon(
                           Icons.search,
@@ -112,10 +112,7 @@ class _SearchAllState extends State<SearchAll> {
                   padding: EdgeInsets.only(bottom: 10, right: 10, top: 20),
                   child: Text(
                     'Recent searches',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
               Expanded(
@@ -135,6 +132,7 @@ class _SearchAllState extends State<SearchAll> {
                                     context
                                         .read<DataProvider>()
                                         .deleteRecentSearchList();
+                                    setState(() {});
                                   },
                                   child: const Text(
                                     'Clear recent searches',
@@ -206,15 +204,19 @@ class _SearchAllState extends State<SearchAll> {
       });
     } else {
       playlists.sort((a, b) => a.name.compareTo(b.name));
+
       final subListOne = playlists
           .where((element) =>
               element.name.toLowerCase().contains(keyword.toLowerCase()) &&
               !element.name.toLowerCase().startsWith(keyword))
           .toList();
+
       final subListTwo = playlists
           .where((element) => element.name.toLowerCase().startsWith(keyword))
           .toList();
+
       final results = [...subListTwo, ...subListOne];
+
       setState(() {
         isSearch = true;
         searchResult = results;
@@ -236,9 +238,7 @@ class _SearchAllState extends State<SearchAll> {
                   coverUrl: item.coverImageUrl,
                   isSquareCover: item.runtimeType.toString() != 'Artist',
                 ),
-                onTap: () {
-                  onTap(item);
-                },
+                onTap: () => onTap(item),
               );
       },
     );
@@ -279,27 +279,33 @@ class _SearchAllState extends State<SearchAll> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          if (item.runtimeType.toString() == 'Playlist') {
-            return PlaylistView(
+          switch (item.runtimeType.toString()) {
+            case 'Playlist':
+              return PlaylistView(
                 id: item.id,
                 image: image,
                 label: item.name,
-                songIdList: item.songIdList);
-          }
-          if (item.runtimeType.toString() == 'Album') {
-            return AlbumView(
+                songIdList: item.songIdList,
+              );
+
+            case 'Album':
+              return AlbumView(
                 id: item.id,
                 image: image,
                 label: item.name,
                 description: item.description,
-                songIdList: item.songIdList);
+                songIdList: item.songIdList,
+              );
+
+            default:
+              return ArtistView(
+                id: item.id,
+                image: image,
+                label: item.name,
+                description: item.description,
+                songIdList: item.songIdList,
+              );
           }
-          return ArtistView(
-              id: item.id,
-              image: image,
-              label: item.name,
-              description: item.description,
-              songIdList: item.songIdList);
         },
       ),
     );
