@@ -14,7 +14,7 @@ class Song {
   final String name;
   final String albumId;
   final List artistIdList;
-  final String audioUrl;
+  String audioUrl;
   final String coverImageUrl;
   final List genreIdList;
   final String description;

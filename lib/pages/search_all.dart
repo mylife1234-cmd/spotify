@@ -4,11 +4,12 @@ import 'package:spotify/components/search/recent_search_item.dart';
 import 'package:spotify/components/search/search_item.dart';
 import 'package:spotify/components/search/song_search.dart';
 import 'package:spotify/pages/playlist_view.dart';
+import 'package:spotify/pages/song_action.dart';
 import 'package:spotify/providers/data_provider.dart';
 
+import '../components/actions/action_button.dart';
 import '../components/library/close_button.dart';
 import '../components/library/filter_button.dart';
-import '../components/search/recent_song_search.dart';
 import '../utils/helper.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
@@ -132,7 +133,6 @@ class _SearchAllState extends State<SearchAll> {
                                     context
                                         .read<DataProvider>()
                                         .deleteRecentSearchList();
-                                    setState(() {});
                                   },
                                   child: const Text(
                                     'Clear recent searches',
@@ -230,7 +230,20 @@ class _SearchAllState extends State<SearchAll> {
       itemBuilder: (context, index) {
         final item = list[index];
         return item.runtimeType.toString() == 'Song'
-            ? SongSearch(song: item)
+            ? SongSearch(
+                song: item,
+                trailing: ActionButton(
+                  song: item,
+                  size: 20,
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                        builder: (context) => SongAction(song: item),
+                      ),
+                    );
+                  },
+                ),
+              )
             : GestureDetector(
                 child: SearchItem(
                   title: item.name,
@@ -247,13 +260,14 @@ class _SearchAllState extends State<SearchAll> {
   List<Widget> _buildRecentList(List list) {
     return list.map((item) {
       return item.runtimeType.toString() == 'Song'
-          ? RecentSongSearch(
+          ? SongSearch(
               song: item,
-              id: item.id,
-              onPressed: () {
-                context.read<DataProvider>().deleteFromRecentSearchList(item);
-                context.read<DataProvider>().deleteRecentPlayedList();
-              },
+              trailing: IconButton(
+                onPressed: () {
+                  context.read<DataProvider>().deleteFromRecentSearchList(item);
+                },
+                icon: const Icon(Icons.close),
+              ),
             )
           : GestureDetector(
               child: RecentSearchItem(

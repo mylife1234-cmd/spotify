@@ -44,10 +44,11 @@ class MyAudioHandler extends BaseAudioHandler {
 
   @override
   Future<void> addQueueItems(List<MediaItem> mediaItems) async {
-    await _playlist.clear();
-
     final audioSource = mediaItems.map(_createAudioSource);
-    await _playlist.addAll(audioSource.toList());
+
+    _playlist = ConcatenatingAudioSource(children: audioSource.toList());
+
+    await _audioPlayer.setAudioSource(_playlist);
 
     queue.add(mediaItems);
   }

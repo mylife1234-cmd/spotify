@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/song.dart';
-import '../../pages/song_action.dart';
+import '../../providers/music_provider.dart';
 import '../../utils/helper.dart';
-import '../actions/action_button.dart';
 
 class SongSearch extends StatelessWidget {
-  const SongSearch({Key? key, required this.song}) : super(key: key);
+  const SongSearch({
+    Key? key,
+    required this.song,
+    required this.trailing,
+  }) : super(key: key);
+
   final Song song;
+  final Widget trailing;
 
   @override
   Widget build(BuildContext context) {
     final image = getImageFromUrl(song.coverImageUrl);
+
     final String description = song.description;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 3),
       child: ListTile(
@@ -22,17 +30,7 @@ class SongSearch extends StatelessWidget {
           maxLines: 1,
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
-        trailing: ActionButton(
-          song: song,
-          size: 20,
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).push(
-              MaterialPageRoute(
-                builder: (context) => SongAction(song: song),
-              ),
-            );
-          },
-        ),
+        trailing: trailing,
         subtitle: Text(
           'Song ∙ $description',
           overflow: TextOverflow.ellipsis,
@@ -40,6 +38,26 @@ class SongSearch extends StatelessWidget {
         ),
         leading: Image(image: image),
         contentPadding: EdgeInsets.zero,
+        onTap: () async {
+          final currentPlaylistId =
+              Provider.of<MusicProvider>(context, listen: false)
+                  .currentPlaylistId;
+
+          if (currentPlaylistId != song.id) {
+            if (song.audioUrl == '') {
+              song.audioUrl =
+                  await getFileFromFirebase('/song/audio/${song.id}.mp3');
+            }
+
+            await context.read<MusicProvider>().loadPlaylist([song]);
+
+            context
+                .read<MusicProvider>()
+                .updateCurrentPlaylist(song.id, '"search" in Songs');
+          }
+
+          context.read<MusicProvider>().playNewSong(song);
+        },
       ),
     );
   }
