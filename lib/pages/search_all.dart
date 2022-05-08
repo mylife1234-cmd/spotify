@@ -134,7 +134,7 @@ class _SearchAllState extends State<SearchAll> {
                                   onTap: () {
                                     context
                                         .read<DataProvider>()
-                                        .deleteRecentSearchList();
+                                        .clearRecentSearchList();
                                   },
                                   child: const Text(
                                     'Clear recent searches',
@@ -289,7 +289,6 @@ class _SearchAllState extends State<SearchAll> {
 
   void onTap(item) {
     context.read<DataProvider>().addToRecentSearchList(item);
-    context.read<DataProvider>().addToRecentPlayedList(item);
     final image = getImageFromUrl(item.coverImageUrl);
     Navigator.push(
       context,

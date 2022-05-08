@@ -219,6 +219,9 @@ class _ArtistViewState extends State<ArtistView> {
                               onTap: () async {
                                 await loadPlaylist();
                                 context.read<MusicProvider>().playNewSong(item);
+                                context.read<DataProvider>().addToRecentPlayedList(
+                                    await Database.getArtistById(widget.id)
+                                );
                               },
                               child: SongTile(song: item),
                             );
@@ -283,6 +286,9 @@ class _ArtistViewState extends State<ArtistView> {
                     PLayButton(onTap: () async {
                       await loadPlaylist();
                       context.read<MusicProvider>().playWithIndex(0);
+                      context.read<DataProvider>().addToRecentPlayedList(
+                          await Database.getArtistById(widget.id)
+                      );
                     }),
                   ],
                 ),

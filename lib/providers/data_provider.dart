@@ -243,16 +243,16 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'recentSearchIdList': _recentSearchList.map<String>((e) {
-        if (e.runtimeType.toString() == 'Song') {
-          return 'song-${e.id}';
+        switch (e.runtimeType.toString()) {
+          case 'Song':
+            return 'song-${e.id}';
+          case 'Album':
+            return 'album-${e.id}';
+          case 'Playlist':
+            return 'playlist-${e.id}';
+          default:
+            return 'artist-${e.id}';
         }
-        if (e.runtimeType.toString() == 'Album') {
-          return 'album-${e.id}';
-        }
-        if (e.runtimeType.toString() == 'Playlist') {
-          return 'playlist-${e.id}';
-        }
-        return 'artist-${e.id}';
       }).toList()
     });
   }
@@ -264,21 +264,21 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'recentSearchIdList': _recentSearchList.map<String>((e) {
-        if (e.runtimeType.toString() == 'Song') {
-          return 'song-${e.id}';
+        switch (e.runtimeType.toString()) {
+          case 'Song':
+            return 'song-${e.id}';
+          case 'Album':
+            return 'album-${e.id}';
+          case 'Playlist':
+            return 'playlist-${e.id}';
+          default:
+            return 'artist-${e.id}';
         }
-        if (e.runtimeType.toString() == 'Album') {
-          return 'album-${e.id}';
-        }
-        if (e.runtimeType.toString() == 'Playlist') {
-          return 'playlist-${e.id}';
-        }
-        return 'artist-${e.id}';
       }).toList()
     });
   }
 
-  void deleteRecentSearchList() {
+  void clearRecentSearchList() {
     _recentSearchList.clear();
 
     notifyListeners();
@@ -297,18 +297,19 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'recentPlayedIdList': _recentPlayedList.map<String>((e) {
-        if (e.runtimeType.toString() == 'Album') {
-          return 'album-${e.id}';
+        switch(e.runtimeType.toString()){
+          case 'Album' :
+            return 'album-${e.id}';
+          case 'Playlist' :
+            return 'playlist-${e.id}';
+          default :
+            return 'artist-${e.id}';
         }
-        if (e.runtimeType.toString() == 'Artist') {
-          return 'artist-${e.id}';
-        }
-        return 'playlist-${e.id}';
       }).toList()
     });
   }
 
-  void deleteRecentPlayedList() {
+  void clearRecentPlayedList() {
     _recentPlayedList.clear();
 
     notifyListeners();
