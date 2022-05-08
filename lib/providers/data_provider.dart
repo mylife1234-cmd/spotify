@@ -250,9 +250,13 @@ class DataProvider extends ChangeNotifier {
 
   void deleteFromRecentSearchList(item) {
     _recentSearchList.removeWhere((element) => element.id == item.id);
+
+    notifyListeners();
   }
 
   void deleteRecentSearchList() {
     _recentSearchList.clear();
+
+    notifyListeners();
   }
 }

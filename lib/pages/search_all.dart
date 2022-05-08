@@ -253,7 +253,6 @@ class _SearchAllState extends State<SearchAll> {
               id: item.id,
               onPressed: () {
                 context.read<DataProvider>().deleteFromRecentSearchList(item);
-                setState(() {});
               },
             )
           : GestureDetector(
@@ -265,12 +264,9 @@ class _SearchAllState extends State<SearchAll> {
                 isSquareCover: item.runtimeType.toString() != 'Artist',
                 onPressed: () {
                   context.read<DataProvider>().deleteFromRecentSearchList(item);
-                  setState(() {});
                 },
               ),
-              onTap: () {
-                onTap(item);
-              },
+              onTap: () => onTap(item),
             );
     }).toList();
   }
