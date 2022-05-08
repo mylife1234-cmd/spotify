@@ -248,7 +248,7 @@ class DataProvider extends ChangeNotifier {
     });
   }
 
-  void addToRecentSearchList(item) {
+  void deleteFromRecentSearchList(item) {
     _recentSearchList.removeWhere((element) => element.id == item.id);
   }
 

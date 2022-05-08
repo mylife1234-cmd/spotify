@@ -54,98 +54,104 @@ class _SearchAllState extends State<SearchAll> {
     // filteredList.sort((a, b) => a.name.compareTo(b.name));
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: 38,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: TextField(
-                        textAlign: TextAlign.left,
-                        onChanged: _runSearch,
-                        style: const TextStyle(
-                          fontSize: 15,
+        body: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: 38,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextField(
+                      textAlign: TextAlign.left,
+                      onChanged: _runSearch,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      decoration: InputDecoration(
+                        hintText: 'Search',
+                        // hintStyle: const TextStyle(
+                        //     color: Colors.white, fontWeight: FontWeight.bold),
+                        fillColor: const Color.fromRGBO(36, 36, 36, 1),
+                        prefixIcon: const Icon(
+                          Icons.search,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                          size: 20,
                         ),
-                        decoration: InputDecoration(
-                          hintText: 'Search',
-                          // hintStyle: const TextStyle(
-                          //     color: Colors.white, fontWeight: FontWeight.bold),
-                          fillColor: const Color.fromRGBO(36, 36, 36, 1),
-                          prefixIcon: const Icon(
-                            Icons.search,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                          contentPadding: EdgeInsets.zero,
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                        cursorColor: const Color(0xff57b660),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                        contentPadding: EdgeInsets.zero,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide.none,
                         ),
                       ),
+                      cursorColor: const Color(0xff57b660),
                     ),
-                  ],
-                ),
-                if (isSearch)
-                  _buildFiltersSection()
-                else
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 10, right: 10, top: 20),
-                    child: Text(
-                      'Recent searches',
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: const Text(
+                      'Cancel',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                Expanded(
-                  flex: isSearch ? 1 : 0,
-                  child: isSearch
-                      ? _buildListView(filteredList, context)
-                      : _buildRecentListView(recentSearch, context),
-                ),
-                if (!isSearch && recentSearch.isNotEmpty)
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 10, right: 10, top: 10),
-                    child: GestureDetector(
-                      onTap: () {
-                        context.read<DataProvider>().deleteRecentSearchList();
-                        setState(() {});
-                      },
-                      child: const Text(
-                        'Clear recent searches',
-                        style: TextStyle(
-                          color: Colors.white38,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                ],
+              ),
+              if (isSearch)
+                _buildFiltersSection()
+              else
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 10, right: 10, top: 20),
+                  child: Text(
+                    'Recent searches',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-              ],
-            ),
+                ),
+              Expanded(
+                child: isSearch
+                    ? _buildListView(filteredList, context)
+                    : SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildRecentListView(recentSearch, context),
+                            if (!isSearch && recentSearch.isNotEmpty)
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 10, right: 10, top: 10),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context
+                                        .read<DataProvider>()
+                                        .deleteRecentSearchList();
+                                    setState(() {});
+                                  },
+                                  child: const Text(
+                                    'Clear recent searches',
+                                    style: TextStyle(
+                                      color: Colors.white38,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+              ),
+            ],
           ),
         ),
       ),
@@ -239,43 +245,62 @@ class _SearchAllState extends State<SearchAll> {
     );
   }
 
-  Widget _buildRecentListView(list, BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: list.length,
-      itemBuilder: (context, index) {
-        final item = list[index];
-        return item.runtimeType.toString() == 'Song'
-            ? RecentSongSearch(
-                song: item,
-                id: item.id,
-                onPressed: () {
-                  context.read<DataProvider>().addToRecentSearchList(item);
-                  setState(() {});
-                },
-              )
-            : GestureDetector(
-                child: RecentSearchItem(
+  Widget _buildRecentListView(List list, BuildContext context) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: list.map((item) {
+          return item.runtimeType.toString() == 'Song'
+              ? RecentSongSearch(
+                  song: item,
                   id: item.id,
-                  title: item.name,
-                  subtitle: item.runtimeType.toString(),
-                  coverUrl: item.coverImageUrl,
-                  isSquareCover: item.runtimeType.toString() != 'Artist',
                   onPressed: () {
-                    context.read<DataProvider>().addToRecentSearchList(item);
+                    context
+                        .read<DataProvider>()
+                        .deleteFromRecentSearchList(item);
                     setState(() {});
                   },
-                ),
-                onTap: () {
-                  onTap(item);
-                },
-              );
-      },
+                )
+              : GestureDetector(
+                  child: RecentSearchItem(
+                    id: item.id,
+                    title: item.name,
+                    subtitle: item.runtimeType.toString(),
+                    coverUrl: item.coverImageUrl,
+                    isSquareCover: item.runtimeType.toString() != 'Artist',
+                    onPressed: () {
+                      context
+                          .read<DataProvider>()
+                          .deleteFromRecentSearchList(item);
+                      setState(() {});
+                    },
+                  ),
+                  onTap: () {
+                    onTap(item);
+                  },
+                );
+        }).toList(),
+      ),
     );
   }
 
   void onTap(item) {
     if (!recentSearch.any((element) => element.id == item.id)) {
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
+      context.read<DataProvider>().recentSearchList.add(item);
       context.read<DataProvider>().recentSearchList.add(item);
     }
     final image = getImageFromUrl(item.coverImageUrl);
