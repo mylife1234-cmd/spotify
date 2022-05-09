@@ -258,9 +258,8 @@ class DataProvider extends ChangeNotifier {
   }
 
   void addToRecentSearchList(item) {
-    if (!_recentSearchList.any((element) => element.id == item.id)) {
-      _recentSearchList.insert(0, item);
-    }
+    _recentSearchList..removeWhere((element) => element.id == item.id)
+    ..insert(0, item);
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'recentSearchIdList': _recentSearchList.map<String>((e) {
@@ -288,9 +287,8 @@ class DataProvider extends ChangeNotifier {
   }
 
   void addToRecentPlayedList(item) {
-    if (!_recentPlayedList.any((element) => element.id == item.id)) {
-      _recentPlayedList.insert(0, item);
-    }
+    _recentPlayedList..removeWhere((element) => element.id == item.id)
+      ..insert(0, item);
     if (_recentPlayedList.length > 15) {
       _recentPlayedList.removeAt(_recentPlayedList.length - 1);
     }

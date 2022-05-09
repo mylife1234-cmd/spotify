@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     final systemPlaylists = context.watch<DataProvider>().systemPlaylists;
     final favoriteArtists = context.watch<DataProvider>().favoriteArtists;
 
-    final List recentList = [...recentPlayedList]..shuffle();
+    final List recentList = [...recentPlayedList];
 
     final List recommendedList = [...favoriteArtists, ...systemPlaylists];
 

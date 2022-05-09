@@ -37,7 +37,13 @@ class SongSearch extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
-        leading: Image(image: image),
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(0),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Image(image: image, fit: BoxFit.cover),
+          ),
+        ),
         contentPadding: EdgeInsets.zero,
         onTap: () async {
           final currentPlaylistId =
