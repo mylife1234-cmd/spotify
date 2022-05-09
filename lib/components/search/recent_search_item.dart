@@ -38,9 +38,13 @@ class RecentSearchItem extends StatelessWidget {
           onPressed: onPressed,
           icon: const Icon(Icons.close),
         ),
-        leading: isSquareCover
-            ? Image(image: image)
-            : CircleAvatar(foregroundImage: image, radius: 28),
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(0),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Image(image: image, fit: BoxFit.cover),
+          ),
+        ),
         contentPadding: EdgeInsets.zero,
       ),
     );

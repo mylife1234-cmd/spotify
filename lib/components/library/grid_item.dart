@@ -50,6 +50,8 @@ class GridItem extends StatelessWidget {
               ),
               Text(
                 subtitle,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 style: const TextStyle(
                   fontSize: 13,
                   color: Colors.white60,

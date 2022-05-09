@@ -60,7 +60,7 @@ class SongSearch extends StatelessWidget {
 
             context
                 .read<MusicProvider>()
-                .updateCurrentPlaylist(song.id, '"search" in Songs');
+                .updateCurrentPlaylist(song.id, 'Song');
           }
           context.read<DataProvider>().addToRecentSearchList(song);
           context.read<MusicProvider>().playNewSong(song);

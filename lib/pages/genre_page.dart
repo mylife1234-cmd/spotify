@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:spotify/components/library/grid_item.dart';
-import 'package:spotify/pages/playlist_view.dart';
 import 'package:provider/provider.dart';
-import 'package:spotify/pages/song_action.dart';
+import 'package:spotify/components/library/grid_item.dart';
 import 'package:spotify/providers/data_provider.dart';
-import 'package:spotify/utils/db.dart';
 import '../components/album/animate_label.dart';
 import '../components/artist/back_button.dart';
 import '../models/song.dart';
+import '../providers/music_provider.dart';
 import '../utils/helper.dart';
-import 'album_view.dart';
-import 'loading.dart';
 
 class GenrePage extends StatefulWidget {
-  final String name;
-  final ImageProvider image;
-  final String id;
-
   const GenrePage({
     Key? key,
     required this.name,
@@ -24,24 +16,24 @@ class GenrePage extends StatefulWidget {
     required this.id,
   }) : super(key: key);
 
+  final String name;
+  final ImageProvider image;
+  final String id;
   @override
   State<GenrePage> createState() => _GenrePageState();
 }
 
 class _GenrePageState extends State<GenrePage> {
   bool showTopBar = false;
-  final Color _color = Colors.red;
+  late Color _color = Colors.black;
   late ScrollController scrollController;
-  final double initContainerHeight = 150;
-  double containerHeight = 150;
   List<Song> songList = [];
-  bool _loading = false;
 
   @override
   void initState() {
     scrollController = ScrollController()
       ..addListener(() {
-        if (scrollController.offset > 100) {
+        if (scrollController.offset > 10) {
           showTopBar = true;
         } else {
           showTopBar = false;
@@ -50,18 +42,6 @@ class _GenrePageState extends State<GenrePage> {
         setState(() {});
       });
     super.initState();
-    getSongs();
-  }
-
-  Future<void> getSongs() async {
-    Future.wait(
-      (await Database.getListIdSongFromGenre(widget.id)).map((id) => Database.getSongById(id)),
-    ).then((songs) {
-      setState(() {
-        songList = songs;
-        _loading = false;
-      });
-    });
   }
 
   @override
@@ -72,19 +52,28 @@ class _GenrePageState extends State<GenrePage> {
 
   @override
   Widget build(BuildContext context) {
-    // if (_color == Colors.black) {
-    //   getColorFromImage(widget.image).then((color) {
-    //     if (color != null) {
-    //       setState(() {
-    //         _color = color;
-    //       });
-    //     }
-    //   });
-    // }
-    // final songs = context.watch<DataProvider>().songs;
-    if (_loading || songList.isEmpty) {
-      return const LoadingScreen();
+    final songs = context.watch<DataProvider>().songs;
+    // songList = songs
+    //   ..removeWhere(
+    //         (element) => !element.genreIdList.contains(widget.id),
+    //   );
+    for (int i = 0; i < songs.length; i++) {
+      if (songs[i].genreIdList.contains(widget.id)) {
+        if (!songList.any((element) => element.id == songs[i].id)) {
+          songList.add(songs[i]);
+        }
+      }
     }
+    if (_color == Colors.black) {
+      getColorFromImage(widget.image).then((color) {
+        if (color != null) {
+          setState(() {
+            _color = color;
+          });
+        }
+      });
+    }
+
     final width = MediaQuery.of(context).size.width;
     final cardWidth = (width - 35) / 2;
     return Scaffold(
@@ -109,36 +98,36 @@ class _GenrePageState extends State<GenrePage> {
                   ]),
             ),
           ),
-          // Container(
-          //   width:  MediaQuery.of(context).size.width,
-          //   height: containerHeight,
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(top: 90, bottom: 10, left: 20),
-          //     child: Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       children: [
-          //         Text(
-          //           widget.label,
-          //           style: const TextStyle(
-          //             fontSize: 25,
-          //             fontWeight: FontWeight.bold,
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-
           Padding(
-            padding: const EdgeInsets.only(right: 10, left: 10, top: 85),
+            padding: const EdgeInsets.only(right: 10, left: 10, top: 60),
             child: GridView.count(
               controller: scrollController,
               crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 16,
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
               childAspectRatio: cardWidth / (cardWidth + 60),
               children: songList.map<Widget>((item) {
                 return GestureDetector(
+                  onTap: () async {
+                    final currentPlaylistId =
+                        Provider.of<MusicProvider>(context, listen: false)
+                            .currentPlaylistId;
+
+                    if (currentPlaylistId != item.id) {
+                      if (item.audioUrl == '') {
+                        item.audioUrl = await getFileFromFirebase(
+                            '/song/audio/${item.id}.mp3');
+                      }
+
+                      await context.read<MusicProvider>().loadPlaylist([item]);
+
+                      context
+                          .read<MusicProvider>()
+                          .updateCurrentPlaylist(item.id, 'Song');
+                    }
+                    context.read<DataProvider>().addToRecentSearchList(item);
+                    context.read<MusicProvider>().playNewSong(item);
+                  },
                   child: GridItem(
                     title: item.name,
                     subtitle: item.description,
@@ -147,6 +136,25 @@ class _GenrePageState extends State<GenrePage> {
                   ),
                 );
               }).toList(),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 40,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30, bottom: 10, left: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.name,
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Positioned(
@@ -164,10 +172,10 @@ class _GenrePageState extends State<GenrePage> {
                     alignment: Alignment.center,
                     children: [
                       const Positioned(
-                        left: -3,
+                        left: -15,
                         child: BackIconButton(),
                       ),
-                      AnimateLabel(label: widget.name, isShow: showTopBar),
+                      AnimateLabel(label: widget.name, isShow: true),
                     ],
                   ),
                 ),
@@ -175,34 +183,6 @@ class _GenrePageState extends State<GenrePage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  void onTap(item) {
-    final image = getImageFromUrl(item.coverImageUrl);
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          if (item.runtimeType.toString() == 'Playlist') {
-            return PlaylistView(
-                id: item.id,
-                image: image,
-                label: item.name,
-                songIdList: item.songIdList);
-          }
-          if (item.runtimeType.toString() == 'Album') {
-            return AlbumView(
-                id: item.id,
-                image: image,
-                label: item.name,
-                description: item.description,
-                songIdList: item.songIdList);
-          }
-          return SongAction(song: item);
-        },
       ),
     );
   }
