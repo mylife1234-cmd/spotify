@@ -115,9 +115,15 @@ class _MainState extends State<Main> {
       controller: _tabController,
       tabBar: CupertinoTabBar(
         currentIndex: _currentIndex,
-        onTap: (index) => setState(() {
-          _currentIndex = index;
-        }),
+        onTap: (index) {
+          if (_currentIndex == index) {
+            _tabNavKeys[index].currentState!.popUntil((route) => route.isFirst);
+          } else {
+            setState(() {
+              _currentIndex = index;
+            });
+          }
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_filled),
