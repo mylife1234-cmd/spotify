@@ -182,7 +182,7 @@ class Database {
   }
 
   static Future<List<String>> getListIdSongFromGenre(String id) async {
-    final res = await FirebaseDatabase.instance.ref('/songs').orderByChild("name")
+    final res = await FirebaseDatabase.instance.ref('/songs/').orderByChild("name")
         .equalTo('Cho Tôi Lang Thang').get();
     print('A');
     // final List<Song> songs = [];
@@ -313,7 +313,7 @@ class Database {
         artistIdList: value['artistIdList'],
         albumId: value['albumId'],
         genreIdList: value['genreIdList'],
-        audioUrl: value['audioUrl'],
+        audioUrl: "",
       ));
     });
 
