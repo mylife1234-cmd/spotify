@@ -9,6 +9,7 @@ class AlbumCard extends StatelessWidget {
     this.songIdList,
     required this.description,
     required this.id,
+    required this.size,
   }) : super(key: key);
 
   final String label;
@@ -16,7 +17,7 @@ class AlbumCard extends StatelessWidget {
   final List? songIdList;
   final String description;
   final String id;
-
+  final double size;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,11 +36,11 @@ class AlbumCard extends StatelessWidget {
         );
       },
       child: SizedBox(
-        width: 120,
+        width: size,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image(image: image, width: 120, height: 120, fit: BoxFit.cover),
+            Image(image: image, width: size, height: size, fit: BoxFit.cover),
             const SizedBox(height: 12),
             Text(
               label,

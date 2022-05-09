@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final sections = ['Uniquely yours', 'Made for you'];
+  final sections = ['Uniquely yours', 'Made for you', 'Recommended for today'];
 
   @override
   void initState() {
@@ -32,11 +32,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final recentPlayedList = context.watch<DataProvider>().recentPlayedList;
     final systemPlaylists = context.watch<DataProvider>().systemPlaylists;
-    final favoriteArtists = context.watch<DataProvider>().favoriteArtists;
+    // final favoriteArtists = context.watch<DataProvider>().favoriteArtists;
+    final albums = context.watch<DataProvider>().albums;
+    final artists = context.watch<DataProvider>().artists;
 
-    final List recentList = [...recentPlayedList];
-
-    final List recommendedList = [...favoriteArtists, ...systemPlaylists];
+    final List recommendedList = [...artists, ...systemPlaylists, ...albums];
 
     if (recommendedList.isEmpty) {
       return const LoadingScreen();
@@ -68,21 +68,21 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // SizedBox(height: 20),
-                ...recentList.isNotEmpty
+                ...recentPlayedList.isNotEmpty
                     ? [
                         const HomeHeader(),
                         SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
-                          child: _buildRowItem(recentList)
-                        ),
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            child: _buildRowItem(recentPlayedList)),
                       ]
                     : [const SizedBox()],
 
                 const SizedBox(height: 15),
 
                 ...sections.map((e) {
-                  final length = recommendedList.length ~/ 2;
+                  // final length = recommendedList.length ~/ 5;
+                  const length = 8;
 
                   final shuffledList = [...recommendedList]..shuffle();
 
@@ -104,17 +104,17 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                          if (recentList.isEmpty && sections.indexOf(e) == 0)
+                          if (recentPlayedList.isEmpty &&
+                              sections.indexOf(e) == 0)
                             const HeaderButtons()
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
+                        padding: const EdgeInsets.only(bottom: 15),
                         child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
-                          child: _buildRowItem(list)
-                        ),
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            child: _buildRowItem(list)),
                       )
                     ],
                   );
@@ -125,21 +125,21 @@ class _HomePageState extends State<HomePage> {
         ),
       ]),
     );
-
   }
+
   Widget _buildRowItem(List list) {
     return Row(
       children: list.map<Widget>((item) {
-        switch (item.runtimeType.toString()){
+        switch (item.runtimeType.toString()) {
           case 'Playlist':
             return Padding(
               padding: const EdgeInsets.only(right: 15),
               child: PlaylistCard(
                 id: item.id,
                 label: item.name,
-                image:
-                getImageFromUrl(item.coverImageUrl),
+                image: getImageFromUrl(item.coverImageUrl),
                 songIdList: item.songIdList,
+                size: 120,
               ),
             );
           case 'Artist':
@@ -148,37 +148,35 @@ class _HomePageState extends State<HomePage> {
               child: ArtistCard(
                 id: item.id,
                 label: item.name,
-                image:
-                getImageFromUrl(item.coverImageUrl),
+                image: getImageFromUrl(item.coverImageUrl),
                 description: item.description,
                 songIdList: item.songIdList,
+                size: 120,
               ),
             );
           default:
             return Padding(
               padding: const EdgeInsets.only(right: 15),
               child: FutureBuilder(
-                future: Database.getArtistName(
-                    item.artistId),
-                builder:
-                    (context, AsyncSnapshot snapshot) {
+                future: Database.getArtistName(item.artistId),
+                builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     return AlbumCard(
                       id: item.id,
                       label: item.name,
-                      image: getImageFromUrl(
-                          item.coverImageUrl),
+                      image: getImageFromUrl(item.coverImageUrl),
                       songIdList: item.songIdList,
                       description: snapshot.data,
+                      size: 120,
                     );
                   }
                   return AlbumCard(
                     id: item.id,
                     label: item.name,
-                    image: getImageFromUrl(
-                        item.coverImageUrl),
+                    image: getImageFromUrl(item.coverImageUrl),
                     songIdList: item.songIdList,
                     description: item.description,
+                    size: 120,
                   );
                 },
               ),

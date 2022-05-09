@@ -289,7 +289,7 @@ class DataProvider extends ChangeNotifier {
   void addToRecentPlayedList(item) {
     _recentPlayedList..removeWhere((element) => element.id == item.id)
       ..insert(0, item);
-    if (_recentPlayedList.length > 15) {
+    if (_recentPlayedList.length > 12) {
       _recentPlayedList.removeAt(_recentPlayedList.length - 1);
     }
     notifyListeners();

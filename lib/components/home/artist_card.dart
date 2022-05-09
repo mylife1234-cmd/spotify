@@ -10,6 +10,7 @@ class ArtistCard extends StatelessWidget {
     this.songIdList,
     required this.description,
     required this.id,
+    required this.size,
   }) : super(key: key);
 
   final String label;
@@ -17,7 +18,7 @@ class ArtistCard extends StatelessWidget {
   final List? songIdList;
   final String description;
   final String id;
-
+  final double size;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -36,20 +37,20 @@ class ArtistCard extends StatelessWidget {
         );
       },
       child: SizedBox(
-        width: 120,
+        // width: 120,
+        width: size,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 120,
-              height: 120,
+              width: size,
+              height: size,
               decoration: BoxDecoration(
                 image: DecorationImage(image: image, fit: BoxFit.cover),
-                // child: Image(image: image, width: 120, height: 120, fit: BoxFit.cover)
                 borderRadius: BorderRadius.circular(100),
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 9),
             Center(
               child: Text(
                 label,

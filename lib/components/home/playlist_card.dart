@@ -11,13 +11,14 @@ class PlaylistCard extends StatelessWidget {
     required this.label,
     required this.image,
     this.songIdList,
+    required this.size,
   }) : super(key: key);
 
   final String id;
   final String label;
   final ImageProvider image;
   final List? songIdList;
-
+  final double size;
   @override
   Widget build(BuildContext context) {
     final customizedPlaylist = context
@@ -41,11 +42,11 @@ class PlaylistCard extends StatelessWidget {
         );
       },
       child: SizedBox(
-        width: 120,
+        width: size,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image(image: image, width: 120, height: 120, fit: BoxFit.cover),
+            Image(image: image, width: size, height: size, fit: BoxFit.cover),
             const SizedBox(height: 12),
             Text(
               label,
