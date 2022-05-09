@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:spotify/components/library/grid_item.dart';
 import 'package:spotify/pages/playlist_view.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/pages/song_action.dart';
 import 'package:spotify/providers/data_provider.dart';
+import 'package:spotify/utils/db.dart';
 import '../components/album/animate_label.dart';
 import '../components/artist/back_button.dart';
 import '../models/song.dart';
@@ -13,12 +13,16 @@ import 'album_view.dart';
 import 'loading.dart';
 
 class GenrePage extends StatefulWidget {
-  final String label;
+  final String name;
   final ImageProvider image;
   final String id;
 
-  const GenrePage({Key? key, required this.label, required this.image})
-      : super(key: key);
+  const GenrePage({
+    Key? key,
+    required this.name,
+    required this.image,
+    required this.id,
+  }) : super(key: key);
 
   @override
   State<GenrePage> createState() => _GenrePageState();
@@ -30,15 +34,13 @@ class _GenrePageState extends State<GenrePage> {
   late ScrollController scrollController;
   final double initContainerHeight = 150;
   double containerHeight = 150;
+  List<Song> songList = [];
+  bool _loading = false;
 
   @override
   void initState() {
     scrollController = ScrollController()
       ..addListener(() {
-        containerHeight = initContainerHeight - scrollController.offset;
-        if (containerHeight < 0) {
-          containerHeight = initContainerHeight;
-        }
         if (scrollController.offset > 100) {
           showTopBar = true;
         } else {
@@ -48,6 +50,18 @@ class _GenrePageState extends State<GenrePage> {
         setState(() {});
       });
     super.initState();
+    getSongs();
+  }
+
+  Future<void> getSongs() async {
+    Future.wait(
+      (await Database.getListIdSongFromGenre(widget.id)).map((id) => Database.getSongById(id)),
+    ).then((songs) {
+      setState(() {
+        songList = songs;
+        _loading = false;
+      });
+    });
   }
 
   @override
@@ -153,7 +167,7 @@ class _GenrePageState extends State<GenrePage> {
                         left: -3,
                         child: BackIconButton(),
                       ),
-                      AnimateLabel(label: widget.label, isShow: showTopBar),
+                      AnimateLabel(label: widget.name, isShow: showTopBar),
                     ],
                   ),
                 ),

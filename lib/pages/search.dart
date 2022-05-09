@@ -184,8 +184,10 @@ class _SearchPageState extends State<SearchPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => GenrePage(
-                                    label: item.name,
-                                    image: getImageFromUrl(item.coverImageUrl)),
+                                  name: item.name,
+                                  image: getImageFromUrl(item.coverImageUrl),
+                                  id: item.id,
+                                ),
                               ),
                             );
                           },
