@@ -182,9 +182,9 @@ class Database {
   }
 
   static Future<List<String>> getListIdSongFromGenre(String id) async {
-    final res = await FirebaseDatabase.instance.ref('/songs')
-        .orderByChild('genreIdList').onValue.toList().asStream().any((element) => element)
-    ;
+    final res = await FirebaseDatabase.instance.ref('/songs').orderByChild("name")
+        .equalTo('Cho Tôi Lang Thang').get();
+    print('A');
     // final List<Song> songs = [];
     //
     // Map<String, dynamic>.from(res.value as Map).forEach((key, value) async {
