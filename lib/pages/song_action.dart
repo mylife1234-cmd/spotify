@@ -25,8 +25,6 @@ class SongAction extends StatefulWidget {
 class _SongActionState extends State<SongAction> {
   Color _color = Colors.black;
 
-  final homeContext = getIt.get<BuildContext>(instanceName: 'homeContext');
-
   @override
   void initState() {
     super.initState();
@@ -188,8 +186,6 @@ class _SongActionState extends State<SongAction> {
   void _doActionAddPlaylist() {}
 
   Future _doActionViewAlbum() async {
-    Navigator.popUntil(homeContext, (route) => route.isFirst);
-
     Navigator.popUntil(context, (route) => route.isFirst);
 
     await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
@@ -197,8 +193,9 @@ class _SongActionState extends State<SongAction> {
       SystemUiOverlay.bottom,
     ]);
     final album = await Database.getAlbumById(widget.song.albumId);
+
     await Navigator.push(
-      homeContext,
+      tabNavKeys[tabController.index].currentContext!,
       MaterialPageRoute(
         builder: (context) => AlbumView(
           id: album.id,
@@ -216,8 +213,6 @@ class _SongActionState extends State<SongAction> {
   }
 
   Future<void> _doActionViewArtist() async {
-    Navigator.popUntil(homeContext, (route) => route.isFirst);
-
     Navigator.popUntil(context, (route) => route.isFirst);
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
@@ -225,8 +220,9 @@ class _SongActionState extends State<SongAction> {
       SystemUiOverlay.bottom,
     ]);
     final artist = await Database.getArtistById(widget.song.artistIdList[0]);
+
     Navigator.push(
-      homeContext,
+      tabNavKeys[tabController.index].currentContext!,
       MaterialPageRoute(
         builder: (context) => ArtistView(
           id: artist.id,

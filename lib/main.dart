@@ -73,16 +73,16 @@ class Main extends StatefulWidget {
   State<Main> createState() => _MainState();
 }
 
+final tabNavKeys = [
+  GlobalKey<NavigatorState>(),
+  GlobalKey<NavigatorState>(),
+  GlobalKey<NavigatorState>(),
+];
+
+final tabController = CupertinoTabController();
+
 class _MainState extends State<Main> {
   final _tabs = [const HomePage(), const SearchPage(), const LibraryPage()];
-
-  final _tabNavKeys = [
-    GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
-  ];
-
-  final _tabController = CupertinoTabController();
 
   int _currentIndex = 0;
 
@@ -112,12 +112,12 @@ class _MainState extends State<Main> {
     }
 
     return CupertinoTabScaffold(
-      controller: _tabController,
+      controller: tabController,
       tabBar: CupertinoTabBar(
         currentIndex: _currentIndex,
         onTap: (index) {
           if (_currentIndex == index) {
-            _tabNavKeys[index].currentState!.popUntil((route) => route.isFirst);
+            tabNavKeys[index].currentState!.popUntil((route) => route.isFirst);
           } else {
             setState(() {
               _currentIndex = index;
@@ -145,7 +145,7 @@ class _MainState extends State<Main> {
       tabBuilder: (context, index) {
         return _currentSong == null
             ? CupertinoTabView(
-                navigatorKey: _tabNavKeys[index],
+                navigatorKey: tabNavKeys[index],
                 builder: (context) =>
                     CupertinoPageScaffold(child: _tabs[index]),
               )
@@ -154,7 +154,7 @@ class _MainState extends State<Main> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 64),
                     child: CupertinoTabView(
-                      navigatorKey: _tabNavKeys[index],
+                      navigatorKey: tabNavKeys[index],
                       builder: (context) =>
                           CupertinoPageScaffold(child: _tabs[index]),
                     ),

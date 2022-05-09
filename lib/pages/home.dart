@@ -9,7 +9,6 @@ import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/utils/helper.dart';
 
 import '../components/home/album_card.dart';
-import '../main.dart';
 import '../utils/db.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,12 +20,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final sections = ['Uniquely yours', 'Made for you', 'Recommended for today'];
-
-  @override
-  void initState() {
-    super.initState();
-    getIt.registerSingleton<BuildContext>(context, instanceName: 'homeContext');
-  }
 
   @override
   Widget build(BuildContext context) {

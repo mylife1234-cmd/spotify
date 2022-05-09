@@ -6,7 +6,6 @@ import 'package:spotify/components/setting/setting_info.dart';
 import 'package:spotify/components/setting/setting_title.dart';
 import 'package:spotify/providers/data_provider.dart';
 
-import '../main.dart';
 import '../models/setting.dart';
 import '../providers/music_provider.dart';
 
@@ -70,10 +69,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     label: 'Log out',
                     color: Colors.white,
                     onTap: () async {
-                      getIt.unregister<BuildContext>(
-                        instanceName: 'homeContext',
-                      );
-
                       context.read<MusicProvider>().clear();
 
                       context.read<DataProvider>().clear();
