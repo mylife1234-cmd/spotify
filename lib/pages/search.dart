@@ -5,6 +5,8 @@ import 'package:spotify/pages/search_all.dart';
 import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/utils/helper.dart';
 
+import 'genre_page.dart';
+
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -115,61 +117,75 @@ class _SearchPageState extends State<SearchPage> {
 
                         final image = getImageFromUrl(item.coverImageUrl);
 
-                        return FutureBuilder<PaletteGenerator>(
-                          future: PaletteGenerator.fromImageProvider(image),
-                          builder: (context, snapshot) {
-                            return ClipRRect(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: const Alignment(0.8, 0),
-                                    colors: snapshot.hasData
-                                        ? [
-                                            snapshot.data!.dominantColor!.color
-                                                .withOpacity(0.8),
-                                            snapshot.data!.dominantColor!.color
-                                                .withOpacity(0.6)
-                                          ]
-                                        : [Colors.black, Colors.black12],
+                        return GestureDetector(
+                          child: FutureBuilder<PaletteGenerator>(
+                            future: PaletteGenerator.fromImageProvider(image),
+                            builder: (context, snapshot) {
+                              return ClipRRect(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: const Alignment(0.8, 0),
+                                      colors: snapshot.hasData
+                                          ? [
+                                              snapshot
+                                                  .data!.dominantColor!.color
+                                                  .withOpacity(0.8),
+                                              snapshot
+                                                  .data!.dominantColor!.color
+                                                  .withOpacity(0.6)
+                                            ]
+                                          : [Colors.black, Colors.black12],
+                                    ),
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Stack(
-                                  children: <Widget>[
-                                    Positioned(
-                                      top: 15,
-                                      left: 15,
-                                      child: ConstrainedBox(
-                                        constraints: BoxConstraints(
-                                          maxWidth: size.width / 4.5,
-                                        ),
-                                        child: Text(
-                                          item.name,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold,
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Positioned(
+                                        top: 15,
+                                        left: 15,
+                                        child: ConstrainedBox(
+                                          constraints: BoxConstraints(
+                                            maxWidth: size.width / 4.5,
+                                          ),
+                                          child: Text(
+                                            item.name,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Positioned(
-                                      top: 30,
-                                      right: -20,
-                                      child: RotationTransition(
-                                        turns: const AlwaysStoppedAnimation(
-                                          25 / 360,
-                                        ),
-                                        child: Image(
-                                          image: image,
-                                          height: 80,
-                                          width: 80,
+                                      Positioned(
+                                        top: 30,
+                                        right: -20,
+                                        child: RotationTransition(
+                                          turns: const AlwaysStoppedAnimation(
+                                            25 / 360,
+                                          ),
+                                          child: Image(
+                                            image: image,
+                                            height: 80,
+                                            width: 80,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
+                              );
+                            },
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => GenrePage(
+                                    label: item.name,
+                                    image: getImageFromUrl(item.coverImageUrl)),
                               ),
                             );
                           },
