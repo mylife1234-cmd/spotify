@@ -7,12 +7,15 @@ import 'package:spotify/pages/song_action.dart';
 import 'package:spotify/providers/data_provider.dart';
 import '../components/album/animate_label.dart';
 import '../components/artist/back_button.dart';
+import '../models/song.dart';
 import '../utils/helper.dart';
 import 'album_view.dart';
+import 'loading.dart';
 
 class GenrePage extends StatefulWidget {
   final String label;
   final ImageProvider image;
+  final String id;
 
   const GenrePage({Key? key, required this.label, required this.image})
       : super(key: key);
@@ -64,7 +67,10 @@ class _GenrePageState extends State<GenrePage> {
     //     }
     //   });
     // }
-    final songs = context.watch<DataProvider>().songs;
+    // final songs = context.watch<DataProvider>().songs;
+    if (_loading || songList.isEmpty) {
+      return const LoadingScreen();
+    }
     final width = MediaQuery.of(context).size.width;
     final cardWidth = (width - 35) / 2;
     return Scaffold(
@@ -117,7 +123,7 @@ class _GenrePageState extends State<GenrePage> {
               crossAxisSpacing: 10,
               mainAxisSpacing: 16,
               childAspectRatio: cardWidth / (cardWidth + 60),
-              children: songs.map<Widget>((item) {
+              children: songList.map<Widget>((item) {
                 return GestureDetector(
                   child: GridItem(
                     title: item.name,

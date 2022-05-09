@@ -175,6 +175,42 @@ class Database {
 
     return artist;
   }
+  static Future<String> getArtistName(String id) async {
+    final res = await FirebaseDatabase.instance.ref('/artists/$id/name').get();
+
+    return res.value as String;
+  }
+
+  static Future<List<String>> getListIdSongFromGenre(String id) async {
+    final res = await FirebaseDatabase.instance.ref('/songs')
+        .orderByChild('genreIdList').onValue.toList().asStream().any((element) => element)
+    ;
+    // final List<Song> songs = [];
+    //
+    // Map<String, dynamic>.from(res.value as Map).forEach((key, value) async {
+    //   String coverImageUrl;
+    //
+    //   if (value['coverImageUrl'] != null) {
+    //     coverImageUrl = value['coverImageUrl'];
+    //   } else {
+    //     coverImageUrl = await getFileFromFirebase('/song/image/$key.jpg');
+    //   }
+    //
+    //   songs.add(Song(
+    //     id: key,
+    //     name: value['name'],
+    //     coverImageUrl: coverImageUrl,
+    //     description: value['description'],
+    //     artistIdList: value['artistIdList'],
+    //     albumId: value['albumId'],
+    //     genreIdList: value['genreIdList'],
+    //     audioUrl: value['audioUrl'],
+    //   ));
+    // });
+    final map = Map<String, dynamic>.from(res.value as Map);
+
+    return map.keys.toList();
+  }
 
   static Future<List<Genre>> getGenres() async {
     final res = await FirebaseDatabase.instance.ref('/genres').get();
@@ -253,11 +289,7 @@ class Database {
     return artists;
   }
 
-  static Future<String> getArtistName(String id) async {
-    final res = await FirebaseDatabase.instance.ref('/artists/$id/name').get();
-
-    return res.value as String;
-  }
+  
 
   static Future<List<Song>> getSongs() async {
     final res = await FirebaseDatabase.instance.ref('/songs').get();
@@ -281,7 +313,7 @@ class Database {
         artistIdList: value['artistIdList'],
         albumId: value['albumId'],
         genreIdList: value['genreIdList'],
-        audioUrl: '',
+        audioUrl: value['audioUrl'],
       ));
     });
 
