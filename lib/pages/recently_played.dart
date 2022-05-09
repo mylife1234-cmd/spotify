@@ -18,7 +18,6 @@ class RecentlyPlayed extends StatefulWidget {
 class _RecentlyPlayedState extends State<RecentlyPlayed> {
   final filterOptions = ['Playlists', 'Artists', 'Albums'];
   int _currentFilterOption = -1;
-  List recentPlayedList = [];
 
   @override
   void initState() {
@@ -27,10 +26,9 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
 
   @override
   Widget build(BuildContext context) {
-    recentPlayedList = [
-      ...context.watch<DataProvider>().recentPlayedList,
-    ];
-    final filteredList = recentPlayedList
+    final filteredList = context
+        .watch<DataProvider>()
+        .recentPlayedList
         .where((element) =>
             _currentFilterOption == -1 ||
             filterOptions[_currentFilterOption]
@@ -78,7 +76,7 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ..._buildRecentPlayedList(filteredList),
-                      if (recentPlayedList.isNotEmpty)
+                      if (filteredList.isNotEmpty)
                         Padding(
                           padding: const EdgeInsets.only(
                               bottom: 10, right: 10, top: 10),
@@ -151,6 +149,22 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
     );
   }
 
+  List<Widget> _buildRecentPlayedList(List list) {
+    return list.map((item) {
+      return GestureDetector(
+        child: RecentSearchItem(
+          id: item.id,
+          title: item.name,
+          subtitle: item.runtimeType.toString(),
+          coverUrl: item.coverImageUrl,
+          isSquareCover: item.runtimeType.toString() != 'Artist',
+          onPressed: () {
+            context.read<DataProvider>().deleteFromPlayedList(item);
+          },
+        ),
+      );
+    }).toList();
+  }
   // Widget _buildListView(List list) {
   //   return ListView.builder(
   //     itemCount: list.length,
@@ -183,23 +197,6 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
   //     },
   //   );
   // }
-
-  List<Widget> _buildRecentPlayedList(List list) {
-    return list.map((item) {
-      return GestureDetector(
-        child: RecentSearchItem(
-          id: item.id,
-          title: item.name,
-          subtitle: item.runtimeType.toString(),
-          coverUrl: item.coverImageUrl,
-          isSquareCover: item.runtimeType.toString() != 'Artist',
-          onPressed: () {
-            context.read<DataProvider>().deleteFromPlayedList(item);
-          },
-        ),
-      );
-    }).toList();
-  }
 
   // void onTap(item) {
   //   context.read<DataProvider>().addToRecentSearchList(item);
