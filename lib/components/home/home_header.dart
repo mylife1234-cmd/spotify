@@ -13,7 +13,7 @@ class HomeHeader extends StatelessWidget {
         children: const [
           Text(
             'Recently Played',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
           ),
           HeaderButtons()
         ],

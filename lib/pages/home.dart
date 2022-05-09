@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
     // final favoriteArtists = context.watch<DataProvider>().favoriteArtists;
     final albums = context.watch<DataProvider>().albums;
     final artists = context.watch<DataProvider>().artists;
-
     final List recommendedList = [...artists, ...systemPlaylists, ...albums];
 
     if (recommendedList.isEmpty) {
@@ -67,19 +66,21 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // SizedBox(height: 20),
                 ...recentPlayedList.isNotEmpty
                     ? [
                         const HomeHeader(),
                         SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            physics: const BouncingScrollPhysics(),
-                            child: _buildRowItem(recentPlayedList)),
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          child: recentPlayedList.length < 12
+                              ? _buildRowItem(recentPlayedList)
+                              : _buildRowItem(
+                                  recentPlayedList.sublist(0, 12),
+                                ),
+                        ),
                       ]
                     : [const SizedBox()],
-
                 const SizedBox(height: 15),
-
                 ...sections.map((e) {
                   // final length = recommendedList.length ~/ 5;
                   const length = 8;

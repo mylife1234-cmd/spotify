@@ -258,8 +258,9 @@ class DataProvider extends ChangeNotifier {
   }
 
   void addToRecentSearchList(item) {
-    _recentSearchList..removeWhere((element) => element.id == item.id)
-    ..insert(0, item);
+    _recentSearchList
+      ..removeWhere((element) => element.id == item.id)
+      ..insert(0, item);
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'recentSearchIdList': _recentSearchList.map<String>((e) {
@@ -287,20 +288,38 @@ class DataProvider extends ChangeNotifier {
   }
 
   void addToRecentPlayedList(item) {
-    _recentPlayedList..removeWhere((element) => element.id == item.id)
+    _recentPlayedList
+      ..removeWhere((element) => element.id == item.id)
       ..insert(0, item);
-    if (_recentPlayedList.length > 12) {
+    if (_recentPlayedList.length > 25) {
       _recentPlayedList.removeAt(_recentPlayedList.length - 1);
     }
     notifyListeners();
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'recentPlayedIdList': _recentPlayedList.map<String>((e) {
-        switch(e.runtimeType.toString()){
-          case 'Album' :
+        switch (e.runtimeType.toString()) {
+          case 'Album':
             return 'album-${e.id}';
-          case 'Playlist' :
+          case 'Playlist':
             return 'playlist-${e.id}';
-          default :
+          default:
+            return 'artist-${e.id}';
+        }
+      }).toList()
+    });
+  }
+
+  void deleteFromPlayedList(item) {
+    _recentPlayedList.removeWhere((element) => element.id == item.id);
+    notifyListeners();
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'recentPlayedIdList': _recentPlayedList.map<String>((e) {
+        switch (e.runtimeType.toString()) {
+          case 'Album':
+            return 'album-${e.id}';
+          case 'Playlist':
+            return 'playlist-${e.id}';
+          default:
             return 'artist-${e.id}';
         }
       }).toList()
