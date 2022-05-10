@@ -103,6 +103,10 @@ class _MainState extends State<Main> {
           });
 
           user.sendEmailVerification().whenComplete(() {
+            setState(() {
+              _verifying = false;
+            });
+
             authenticate(user);
           });
         } else {

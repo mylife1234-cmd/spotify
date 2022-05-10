@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify/pages/verification.dart';
 
 import '../components/auth/input_field.dart';
 import '../components/auth/next_button.dart';
@@ -42,8 +43,14 @@ class _SignUpPageState extends State<SignUpPage> {
 
   final carouselController = CarouselController();
 
+  bool _verifying = false;
+
   @override
   Widget build(BuildContext context) {
+    if (_verifying) {
+      return const VerificationScreen();
+    }
+
     return GestureDetector(
       onHorizontalDragEnd: Platform.isIOS
           ? (details) {
@@ -164,7 +171,15 @@ class _SignUpPageState extends State<SignUpPage> {
 
       credential.user!.updateDisplayName(results['name']!);
 
+      setState(() {
+        _verifying = true;
+      });
+
       credential.user!.sendEmailVerification().whenComplete(() {
+        setState(() {
+          _verifying = false;
+        });
+
         initUser(credential);
 
         Navigator.pop(context);
