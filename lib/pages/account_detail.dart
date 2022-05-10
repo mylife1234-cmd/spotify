@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/providers/data_provider.dart';
-
 import '../components/setting/account_title_component.dart';
 
 class AccountDetailPage extends StatefulWidget {

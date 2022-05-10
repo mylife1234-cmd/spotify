@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class AboutDetailPage extends StatefulWidget {
   const AboutDetailPage({Key? key}) : super(key: key);
 

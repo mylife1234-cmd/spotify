@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/pages/profile.dart';
-import 'package:spotify/utils/helper.dart';
+
 
 import '../../models/user.dart';
 
@@ -16,7 +16,6 @@ class AccountTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ImageProvider image = getImageFromUrl(user.coverImageUrl);
 
     String title = '';
 

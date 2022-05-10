@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +85,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   setState(() {
                     _loading = false;
                   });
-
                   Navigator.pop(context);
                 }
               },
@@ -119,9 +117,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       source: ImageSource.gallery,
                       imageQuality: 50,
                     );
-
                     final bytes = await image!.readAsBytes();
-
                     setState(() {
                       _image = bytes;
                     });

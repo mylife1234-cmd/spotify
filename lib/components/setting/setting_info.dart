@@ -41,7 +41,6 @@ class SettingInfo extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
-              //return const SearchPlayList();
               return const ProfilePage();
             }),
           );

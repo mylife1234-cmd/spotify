@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/pages/about_detail.dart';
 import 'package:spotify/pages/account_detail.dart';
-import 'package:spotify/pages/setting.dart';
 import 'package:spotify/pages/storage_detail.dart';
 
 import '../../models/setting.dart';
@@ -35,17 +34,13 @@ class SettingList extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
-              //return const SearchPlayList();
               if (settingTitle.name == 'Account') {
                 return const AccountDetailPage();
               }
               if (settingTitle.name == 'Device') {
                 return const StorageDetailPage();
               }
-              if (settingTitle.name == 'About') {
-                return const AboutDetailPage();
-              }
-              return const SettingsPage();
+              return const AboutDetailPage();
             }),
           );
         },

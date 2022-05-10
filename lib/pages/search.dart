@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:spotify/pages/search_all.dart';
 import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/utils/helper.dart';
-
 import 'genre_page.dart';
 
 class SearchPage extends StatefulWidget {
