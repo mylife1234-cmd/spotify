@@ -11,18 +11,32 @@ import 'helper.dart';
 class Database {
   Database();
 
+  // static void setUser(User user) {
+  //   FirebaseDatabase.instance.ref('/users').child(user.id).set({
+  //     'favoriteAlbumIdList': user.favoriteAlbumIdList,
+  //     'favoritePlaylistIdList': user.favoritePlaylistIdList,
+  //     'favoriteSongIdList': user.favoriteSongIdList,
+  //     'customizedPlaylistIdList': user.customizedPlaylistIdList,
+  //     'favoriteArtistIdList': user.favoriteArtistIdList,
+  //     'recentPlayedIdList': user.recentPlayedIdList,
+  //     'recentSearchIdList': user.recentSearchIdList,
+  //   });
+  // }
   static void setUser(User user) {
     FirebaseDatabase.instance.ref('/users').child(user.id).set({
       'favoriteAlbumIdList': user.favoriteAlbumIdList,
       'favoritePlaylistIdList': user.favoritePlaylistIdList,
-      'favoriteSongIdList': user.favoriteSongIdList,
+      'favoriteSongIdList': ['625d993ca3e94b993653b619'],
       'customizedPlaylistIdList': user.customizedPlaylistIdList,
       'favoriteArtistIdList': user.favoriteArtistIdList,
       'recentPlayedIdList': user.recentPlayedIdList,
       'recentSearchIdList': user.recentSearchIdList,
+    }).then((value) {
+      print('Write successfully');
+    }).onError((error, stackTrace) {
+      print(error);
     });
   }
-
   static Future<Song> getSongById(String id) async {
     final res = await FirebaseDatabase.instance.ref('/songs/$id').get();
 
