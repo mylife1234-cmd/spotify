@@ -105,11 +105,13 @@ class MusicProvider extends ChangeNotifier {
 
   void _playlistListener() {
     _audioHandler.queue.listen((playlist) {
-      if (playlist.isEmpty) {
+      final filteredPlaylist = playlist.toSet().toList();
+
+      if (filteredPlaylist.isEmpty) {
         _currentPlaylist = [];
         _currentSong = null;
       } else {
-        _currentPlaylist = playlist;
+        _currentPlaylist = filteredPlaylist;
       }
 
       _updateSkipButtons();
