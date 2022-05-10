@@ -180,7 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
           _verifying = false;
         });
 
-        initUser(credential);
+        initUser(credential, results['name']!);
 
         Navigator.pop(context);
       });

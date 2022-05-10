@@ -80,11 +80,11 @@ MediaItem convertSongToMediaItem(Song song) {
   );
 }
 
-void initUser(UserCredential credential) {
+void initUser(UserCredential credential, String name) {
   final user = model.User(
     id: credential.user!.uid,
-    name: credential.user!.displayName!,
-    coverImageUrl: credential.user!.photoURL!,
+    name: credential.user!.displayName ?? name,
+    coverImageUrl: credential.user!.photoURL ?? '',
     favoriteAlbumIdList: [],
     favoritePlaylistIdList: [],
     favoriteSongIdList: [],
