@@ -162,9 +162,9 @@ class _SignUpPageState extends State<SignUpPage> {
         password: results['password']!,
       );
 
-      credential.user!.sendEmailVerification().whenComplete(() {
-        credential.user!.updateDisplayName(results['name']!);
+      credential.user!.updateDisplayName(results['name']!);
 
+      credential.user!.sendEmailVerification().whenComplete(() {
         initUser(credential);
 
         Navigator.pop(context);

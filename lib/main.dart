@@ -93,12 +93,12 @@ class _MainState extends State<Main> {
     super.initState();
 
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      setState(() {
-        _authenticated = user != null;
-      });
-
-      if (user != null) {
-        getUserData(user.uid, user.displayName, user.photoURL);
+      if (!user!.emailVerified) {
+        user.sendEmailVerification().whenComplete(() {
+          authenticate(user);
+        });
+      } else {
+        authenticate(user);
       }
     });
   }
@@ -173,6 +173,16 @@ class _MainState extends State<Main> {
               );
       },
     );
+  }
+
+  void authenticate(User user) {
+    setState(() {
+      _authenticated = user.emailVerified;
+    });
+
+    if (user.emailVerified) {
+      getUserData(user.uid, user.displayName, user.photoURL);
+    }
   }
 
   Future<void> getUserData(String id, String? name, String? avatarUrl) async {
