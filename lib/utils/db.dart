@@ -13,7 +13,6 @@ class Database {
 
   static void setUser(User user) {
     FirebaseDatabase.instance.ref('/users').child(user.id).set({
-      'coverImageUrl': user.coverImageUrl,
       'favoriteAlbumIdList': user.favoriteAlbumIdList,
       'favoritePlaylistIdList': user.favoritePlaylistIdList,
       'favoriteSongIdList': user.favoriteSongIdList,
@@ -83,7 +82,7 @@ class Database {
     final user = User(
       id: id,
       name: name,
-      coverImageUrl: url ?? map['coverImageUrl'],
+      coverImageUrl: url ?? 'assets/images/avatar.png',
       favoriteAlbumIdList: map['favoriteAlbumIdList'] ?? [],
       favoritePlaylistIdList: map['favoritePlaylistIdList'] ?? [],
       favoriteSongIdList: map['favoriteSongIdList'] ?? [],
