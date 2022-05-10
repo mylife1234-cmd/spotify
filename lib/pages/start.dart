@@ -5,6 +5,7 @@ import 'package:spotify/components/auth/login_button.dart';
 import 'package:spotify/pages/login.dart';
 import 'package:spotify/pages/reset_password.dart';
 import 'package:spotify/pages/sign_up.dart';
+import 'package:spotify/utils/helper.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -102,7 +103,10 @@ class StartPage extends StatelessWidget {
                           idToken: googleAuth?.idToken,
                         );
 
-                        FirebaseAuth.instance.signInWithCredential(credential);
+                        final userCredential = await FirebaseAuth.instance
+                            .signInWithCredential(credential);
+
+                        initUser(userCredential);
                       } catch (e) {
                         debugPrint(e.toString());
                       }

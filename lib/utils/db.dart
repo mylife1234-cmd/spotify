@@ -12,7 +12,7 @@ class Database {
   Database();
 
   static void setUser(User user) {
-    FirebaseDatabase.instance.ref('/users/${user.id}').set({
+    FirebaseDatabase.instance.ref('/users').child(user.id).set({
       'coverImageUrl': user.coverImageUrl,
       'favoriteAlbumIdList': user.favoriteAlbumIdList,
       'favoritePlaylistIdList': user.favoritePlaylistIdList,

@@ -3,11 +3,10 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:spotify/models/user.dart' as model;
-import 'package:spotify/utils/db.dart';
 
 import '../components/auth/input_field.dart';
 import '../components/auth/next_button.dart';
+import '../utils/helper.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -177,21 +176,5 @@ class _SignUpPageState extends State<SignUpPage> {
     } catch (e) {
       debugPrint(e.toString());
     }
-  }
-
-  Future<void> initUser(UserCredential credential) async {
-    final user = model.User(
-        id: credential.user!.uid,
-        name: credential.user!.displayName!,
-        coverImageUrl: credential.user!.photoURL!,
-        favoriteAlbumIdList: [],
-        favoritePlaylistIdList: [],
-        favoriteSongIdList: [],
-        customizedPlaylistIdList: [],
-        favoriteArtistIdList: [],
-        recentPlayedIdList: [],
-        recentSearchIdList: []);
-
-    Database.setUser(user);
   }
 }

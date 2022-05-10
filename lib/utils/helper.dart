@@ -1,11 +1,14 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager_firebase/flutter_cache_manager_firebase.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 import '../models/song.dart';
+import '../models/user.dart' as model;
+import 'db.dart';
 
 Future<Color?> getColorFromImage(ImageProvider imageProvider) async {
   final generator = await PaletteGenerator.fromImageProvider(imageProvider);
@@ -75,4 +78,21 @@ MediaItem convertSongToMediaItem(Song song) {
     },
     album: song.albumId,
   );
+}
+
+void initUser(UserCredential credential) {
+  final user = model.User(
+    id: credential.user!.uid,
+    name: credential.user!.displayName!,
+    coverImageUrl: credential.user!.photoURL!,
+    favoriteAlbumIdList: [],
+    favoritePlaylistIdList: [],
+    favoriteSongIdList: [],
+    customizedPlaylistIdList: [],
+    favoriteArtistIdList: [],
+    recentPlayedIdList: [],
+    recentSearchIdList: [],
+  );
+
+  Database.setUser(user);
 }
