@@ -112,6 +112,10 @@ class _MainState extends State<Main> {
         } else {
           authenticate(user);
         }
+      } else {
+        setState(() {
+          _authenticated = false;
+        });
       }
     });
   }
