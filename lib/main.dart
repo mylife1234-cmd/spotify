@@ -11,6 +11,7 @@ import 'package:spotify/pages/home.dart';
 import 'package:spotify/pages/library.dart';
 import 'package:spotify/pages/search.dart';
 import 'package:spotify/pages/start.dart';
+import 'package:spotify/pages/verification.dart';
 import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/providers/music_provider.dart';
 import 'package:spotify/utils/db.dart';
@@ -88,17 +89,25 @@ class _MainState extends State<Main> {
 
   bool _authenticated = false;
 
+  bool _verifying = false;
+
   @override
   void initState() {
     super.initState();
 
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (!user!.emailVerified) {
-        user.sendEmailVerification().whenComplete(() {
+      if (user != null) {
+        if (!user.emailVerified) {
+          setState(() {
+            _verifying = true;
+          });
+
+          user.sendEmailVerification().whenComplete(() {
+            authenticate(user);
+          });
+        } else {
           authenticate(user);
-        });
-      } else {
-        authenticate(user);
+        }
       }
     });
   }
@@ -106,6 +115,10 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     final _currentSong = context.watch<MusicProvider>().currentSong;
+
+    if (_verifying) {
+      return const VerificationScreen();
+    }
 
     if (!_authenticated) {
       return const StartPage();
