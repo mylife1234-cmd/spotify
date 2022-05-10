@@ -162,11 +162,13 @@ class _SignUpPageState extends State<SignUpPage> {
         password: results['password']!,
       );
 
-      credential.user!.updateDisplayName(results['name']!);
+      credential.user!.sendEmailVerification().whenComplete(() {
+        credential.user!.updateDisplayName(results['name']!);
 
-      initUser(credential);
+        initUser(credential);
 
-      Navigator.pop(context);
+        Navigator.pop(context);
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         debugPrint('The password provided is too weak.');
