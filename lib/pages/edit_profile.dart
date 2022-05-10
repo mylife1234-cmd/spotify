@@ -31,63 +31,53 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
-          child: AppBar(
-            title: const Text(
-              'Edit Profile',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
+        appBar: AppBar(
+          title: const Text(
+            'Edit Profile',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
-            centerTitle: true,
-            backgroundColor: Colors.black,
-            leading: GestureDetector(
-              child: const Icon(
-                Icons.close,
-                color: Colors.white,
-                size: 20,
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  if (controller.text != user.name) {
-                    FirebaseAuth.instance.currentUser!
-                        .updateDisplayName(controller.text);
-                  }
-                },
-                child: const Text(
-                  'Save',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
           ),
+          centerTitle: true,
+          backgroundColor: Colors.black,
+          leading: GestureDetector(
+            child: const Icon(Icons.close, color: Colors.white, size: 20),
+            onTap: () => Navigator.maybePop(context),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (controller.text != user.name) {
+                  FirebaseAuth.instance.currentUser!
+                      .updateDisplayName(controller.text);
+                }
+              },
+              child: const Text('Save', style: TextStyle(color: Colors.white)),
+            ),
+          ],
         ),
         body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                ClipOval(
-                  child: _image != null
-                      ? Image.file(
-                          _image!,
-                          width: 150,
-                          height: 150,
-                          fit: BoxFit.cover,
-                        )
-                      : CircleAvatar(
-                          backgroundImage: getImageFromUrl(user.coverImageUrl),
-                          radius: 80,
-                        ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 30, bottom: 10),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image(
+                    image: _image != null
+                        ? FileImage(_image!)
+                        : getImageFromUrl(user.coverImageUrl),
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                TextButton(
-                  onPressed: () async {
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 30),
+                child: GestureDetector(
+                  onTap: () async {
                     final image = await imagePicker.pickImage(
                       source: ImageSource.gallery,
                       imageQuality: 50,
@@ -99,52 +89,33 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       _image = newImage;
                     });
                   },
-                  child: const Text(
-                    'Edit profile image',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  child: const Text('Change photo'),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  child: TextField(
-                    controller: controller,
-                    cursorColor: Colors.grey,
-                    style: const TextStyle(fontSize: 30),
-                    textAlign: TextAlign.center,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: TextField(
+                  controller: controller,
+                  cursorColor: Colors.grey,
+                  style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 }
-
-final songList = [
-  {
-    'title': 'Account',
-  },
-  {
-    'title': 'Data Saver',
-  },
-  {
-    'title': 'Languages',
-  },
-  {
-    'title': 'Playback',
-  },
-  {
-    'title': 'Social',
-  },
-];
