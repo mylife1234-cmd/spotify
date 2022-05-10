@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spotify/components/profile/profile_component.dart';
 import 'package:spotify/pages/playlist_view.dart';
 import 'package:spotify/utils/helper.dart';
 
 import '../components/library/list_item.dart';
 import '../providers/data_provider.dart';
 import 'artist_view.dart';
+import 'edit_profile.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key, required this.image, required this.label})
-      : super(key: key);
+  const ProfilePage({
+    Key? key,
+    required this.image,
+    required this.label,
+  }) : super(key: key);
 
   final ImageProvider image;
   final String label;
@@ -42,10 +45,42 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 15, top: 20),
-                  child: ProfileComponent(
-                    label: widget.label,
-                    image: widget.image,
+                  padding: const EdgeInsets.only(top: 20, bottom: 20),
+                  child: Text(
+                    widget.label,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(45),
+                      border: Border.all(width: 1.5, color: Colors.white54),
+                      color: Colors.black,
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    child: const Text(
+                      'Edit profile',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
+                  onTap: () => Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return const EditProfilePage();
+                    },
+                  )),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 15, top: 35),
+                  child: Text(
+                    'Playlists',
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 ),
                 ...favoritePlaylists.map((item) {

@@ -9,14 +9,14 @@ import 'package:provider/provider.dart';
 import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/utils/helper.dart';
 
-class EditProfilesPage extends StatefulWidget {
-  const EditProfilesPage({Key? key}) : super(key: key);
+class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({Key? key}) : super(key: key);
 
   @override
-  State<EditProfilesPage> createState() => _EditProfilesPageState();
+  State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
-class _EditProfilesPageState extends State<EditProfilesPage> {
+class _EditProfilePageState extends State<EditProfilePage> {
   final controller = TextEditingController();
 
   final imagePicker = ImagePicker();
