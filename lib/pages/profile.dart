@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/profile/profile_component.dart';
-import 'package:spotify/components/profile/profile_image.dart';
 import 'package:spotify/pages/playlist_view.dart';
 import 'package:spotify/utils/helper.dart';
 
@@ -26,83 +25,47 @@ class _ProfilePageState extends State<ProfilePage> {
     final favoritePlaylists = [
       ...context.watch<DataProvider>().favoritePlaylists,
     ];
+
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.black),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  alignment: Alignment.center,
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SafeArea(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: ProfileImage(
-                                imageSize: 130,
-                                image: widget.image,
-                                imageOpacity: 1,
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 10, top: 20),
-                                child: Column(
-                                  children: [
-                                    ProfileComponent(
-                                      label: widget.label,
-                                      image: widget.image,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 20, left: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: favoritePlaylists.map((item) {
-                                  return GestureDetector(
-                                    child: ListItem(
-                                      title: item.name,
-                                      subtitle: item.runtimeType.toString(),
-                                      coverUrl: item.coverImageUrl,
-                                      isSquareCover:
-                                          item.runtimeType.toString() !=
-                                              'Artist',
-                                    ),
-                                    onTap: () {
-                                      onTap(item);
-                                    },
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                            if (favoritePlaylists.length == 3)
-                              const SizedBox(height: 140),
-                            if (favoritePlaylists.length == 2)
-                              const SizedBox(height: 200),
-                            if (favoritePlaylists.length == 1)
-                              const SizedBox(height: 250)
-                          ],
-                        ),
-                      ),
-                    ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: CircleAvatar(
+                    radius: 130 / 2,
+                    backgroundImage: widget.image,
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 15, top: 20),
+                  child: ProfileComponent(
+                    label: widget.label,
+                    image: widget.image,
+                  ),
+                ),
+                ...favoritePlaylists.map((item) {
+                  return GestureDetector(
+                    child: ListItem(
+                      title: item.name,
+                      subtitle: item.runtimeType.toString(),
+                      coverUrl: item.coverImageUrl,
+                      isSquareCover: item.runtimeType.toString() != 'Artist',
+                    ),
+                    onTap: () => onTap(item),
+                  );
+                }).toList(),
+                if (favoritePlaylists.length == 3) const SizedBox(height: 140),
+                if (favoritePlaylists.length == 2) const SizedBox(height: 200),
+                if (favoritePlaylists.length == 1) const SizedBox(height: 250)
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
