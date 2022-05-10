@@ -118,7 +118,6 @@ class _AlbumViewState extends State<AlbumView> {
         }
       });
     }
-
     if (_loading || songList.isEmpty) {
       return const LoadingScreen();
     }

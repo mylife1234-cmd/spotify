@@ -44,7 +44,6 @@ class _SearchAllState extends State<SearchAll> {
       ...context.watch<DataProvider>().systemPlaylists,
       ...context.watch<DataProvider>().customizedPlaylists,
     ];
-
     recentSearch = [
       ...context.watch<DataProvider>().recentSearchList,
     ];

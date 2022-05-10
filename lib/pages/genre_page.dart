@@ -95,6 +95,8 @@ class _GenrePageState extends State<GenrePage> {
                     // Colors.transparent,
                     Colors.black.withOpacity(0.5),
                     Colors.black.withOpacity(1),
+                    Colors.black.withOpacity(0.5),
+                    Colors.black.withOpacity(0.5),
                   ]),
             ),
           ),
@@ -125,7 +127,6 @@ class _GenrePageState extends State<GenrePage> {
                           .read<MusicProvider>()
                           .updateCurrentPlaylist(item.id, 'Song');
                     }
-                    context.read<DataProvider>().addToRecentSearchList(item);
                     context.read<MusicProvider>().playNewSong(item);
                   },
                   child: GridItem(
