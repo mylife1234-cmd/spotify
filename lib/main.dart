@@ -95,7 +95,7 @@ class _MainState extends State<Main> {
   void initState() {
     super.initState();
 
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    FirebaseAuth.instance.userChanges().listen((User? user) {
       if (user != null) {
         if (!user.emailVerified) {
           setState(() {

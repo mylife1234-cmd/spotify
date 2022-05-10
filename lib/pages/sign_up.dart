@@ -182,14 +182,34 @@ class _SignUpPageState extends State<SignUpPage> {
 
         initUser(credential, results['name']!);
 
+        credential.user!.reload();
+
         Navigator.pop(context);
       });
     } on FirebaseAuthException catch (e) {
+      String message = '';
+
       if (e.code == 'weak-password') {
-        debugPrint('The password provided is too weak.');
+        message = 'The password provided is too weak.';
       } else if (e.code == 'email-already-in-use') {
-        debugPrint('The account already exists for that email.');
+        message = 'The account already exists for that email.';
       }
+
+      debugPrint(message);
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     } catch (e) {
       debugPrint(e.toString());
     }
