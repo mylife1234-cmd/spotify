@@ -13,7 +13,7 @@ class User {
   });
 
   final String id;
-  final String name;
+  String name;
   String coverImageUrl;
   final List favoriteAlbumIdList;
   final List favoritePlaylistIdList;

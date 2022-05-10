@@ -335,6 +335,12 @@ class DataProvider extends ChangeNotifier {
         .update({'recentPlayedIdList': []});
   }
 
+  void updateUserName(String name) {
+    user.name = name;
+
+    notifyListeners();
+  }
+
   void updateUserAvatar(String url) {
     user.coverImageUrl = url;
 

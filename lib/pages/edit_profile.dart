@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 if (controller.text != user.name) {
                   FirebaseAuth.instance.currentUser!
                       .updateDisplayName(controller.text);
+
+                  context.read<DataProvider>().updateUserName(controller.text);
                 }
 
                 if (_image != null) {
@@ -85,8 +88,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   setState(() {
                     _loading = false;
                   });
-                  Navigator.pop(context);
                 }
+
+                Navigator.pop(context);
               },
               child: const Text('Save', style: TextStyle(color: Colors.white)),
             ),
@@ -117,18 +121,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       source: ImageSource.gallery,
                       imageQuality: 50,
                     );
+
                     final bytes = await image!.readAsBytes();
+
                     setState(() {
                       _image = bytes;
                     });
                   },
-                  child: const Text(
-                    'Change photo',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15,
-                    ),
-                  ),
+                  child: const Text('Change photo'),
                 ),
               ),
               Padding(
