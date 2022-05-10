@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spotify/components/album/animate_label.dart';
-import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/components/profile/profile_component.dart';
 import 'package:spotify/components/profile/profile_image.dart';
 import 'package:spotify/pages/playlist_view.dart';
+import 'package:spotify/utils/helper.dart';
 
 import '../components/library/list_item.dart';
 import '../providers/data_provider.dart';
@@ -22,54 +21,16 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late ScrollController scrollController;
-  double imageSize = 0;
-  double initialImageSize = 150;
-  double containerHeight = 300;
-  double containerInitialHeight = 300;
-  double imageOpacity = 1;
-  bool showTopBar = false;
-  final Color _color = Colors.black;
-
-  @override
-  void initState() {
-    imageSize = initialImageSize;
-    scrollController = ScrollController()
-      ..addListener(() {
-        imageSize = initialImageSize - scrollController.offset;
-
-        containerHeight = containerInitialHeight - scrollController.offset;
-        if (containerHeight < 0) {
-          containerHeight = 0;
-        }
-        imageOpacity = imageSize / initialImageSize;
-        if (scrollController.offset > 150) {
-          showTopBar = true;
-        } else {
-          showTopBar = false;
-        }
-        // print(imageSize);
-        setState(() {});
-      });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final favoritePlaylists = [
       ...context.watch<DataProvider>().favoritePlaylists,
     ];
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.black),
       body: Stack(
         children: [
           SingleChildScrollView(
-            controller: scrollController,
             child: Column(
               children: [
                 Container(
@@ -78,18 +39,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(
-                        height: 19,
-                      ),
                       SafeArea(
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 20),
+                              padding: const EdgeInsets.only(top: 5),
                               child: ProfileImage(
-                                imageSize: initialImageSize,
+                                imageSize: 130,
                                 image: widget.image,
-                                imageOpacity: imageOpacity,
+                                imageOpacity: 1,
                               ),
                             ),
                             SizedBox(
@@ -144,67 +102,13 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-          Positioned(
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              color:
-                  showTopBar ? _color.withOpacity(0.85) : _color.withOpacity(0),
-              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
-              child: SafeArea(
-                child: SizedBox(
-                  height: 40,
-                  width: MediaQuery.of(context).size.width,
-                  // alignment: Alignment.center,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.center,
-                    children: [
-                      const Positioned(
-                        left: -5,
-                        child: BackIconButton(),
-                      ),
-                      AnimateLabel(label: widget.label, isShow: showTopBar),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
   }
 
-  // Widget _buildListView(list) {
-  //   return ListView.builder(
-  //     itemCount: list.length,
-  //     itemBuilder: (context, index) {
-  //       final item = list[index];
-  //
-  //       return GestureDetector(
-  //         child: ListItem(
-  //           title: item.name,
-  //           subtitle: item.runtimeType.toString(),
-  //           coverUrl: item.coverImageUrl,
-  //           isSquareCover: item.runtimeType.toString() != 'Artist',
-  //         ),
-  //         onTap: () {
-  //           onTap(item);
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
-
   void onTap(item) {
-    final ImageProvider image;
-
-    if (item.coverImageUrl.startsWith('https')) {
-      image = NetworkImage(item.coverImageUrl);
-    } else {
-      image = AssetImage(item.coverImageUrl);
-    }
-
+    final image = getImageFromUrl(item.coverImageUrl);
     Navigator.push(
       context,
       MaterialPageRoute(

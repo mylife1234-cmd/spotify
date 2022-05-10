@@ -99,7 +99,7 @@ class _GenrePageState extends State<GenrePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 10, left: 10, top: 60),
+            padding: const EdgeInsets.only(right: 10, left: 10, top: 70),
             child: GridView.count(
               controller: scrollController,
               crossAxisCount: 2,

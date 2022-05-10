@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spotify/components/profile/edit_profile_button.dart';
 import 'package:spotify/pages/edit_profile.dart';
 
 class ProfileComponent extends StatelessWidget {
@@ -14,101 +13,37 @@ class ProfileComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 20),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Center(
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         GestureDetector(
-          child: const Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            child: Center(
-              child: ProfileButton(
-                title: 'Edit profile',
-                active: false,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 35),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(45),
+                border: Border.all(width: 1.5, color: Colors.white54),
+                color: Colors.black,
               ),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: const Text('Edit profile', style: TextStyle(fontSize: 12)),
             ),
           ),
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) {
-              //return const SearchPlayList();
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
               return const EditProfilesPage();
             }));
           },
         ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                children: const [
-                  Text(
-                    '20',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Followers',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                children: const [
-                  Text(
-                    '12',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Follow',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+        const Text(
+          'Playlists',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 10),
-        const Center(
-          child: Text(
-            'Playlists',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ]),
+      ],
     );
   }
 }
