@@ -9,6 +9,7 @@ import 'package:spotify/pages/share_page.dart';
 
 import '../models/song.dart';
 import '../providers/data_provider.dart';
+import '../providers/music_provider.dart';
 import '../utils/db.dart';
 import '../utils/helper.dart';
 import 'album_view.dart';
@@ -181,7 +182,16 @@ class _SongActionState extends State<SongAction> {
     );
   }
 
-  void _doActionAddToQueue() {}
+  Future _doActionAddToQueue() async {
+    if (widget.song.audioUrl == '') {
+      widget.song.audioUrl =
+          await getFileFromFirebase('/song/audio/${widget.song.id}.mp3');
+    }
+
+    context.read<MusicProvider>().addToPlaylist(widget.song);
+
+    Navigator.maybePop(context);
+  }
 
   void _doActionAddPlaylist() {}
 
