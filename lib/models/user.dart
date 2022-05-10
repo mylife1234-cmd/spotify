@@ -14,7 +14,7 @@ class User {
 
   final String id;
   final String name;
-  final String coverImageUrl;
+  String coverImageUrl;
   final List favoriteAlbumIdList;
   final List favoritePlaylistIdList;
   final List favoriteSongIdList;

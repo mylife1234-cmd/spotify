@@ -9,14 +9,7 @@ import 'artist_view.dart';
 import 'edit_profile.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({
-    Key? key,
-    required this.image,
-    required this.label,
-  }) : super(key: key);
-
-  final ImageProvider image;
-  final String label;
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -26,8 +19,10 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final favoritePlaylists = [
-      ...context.watch<DataProvider>().favoritePlaylists,
+      ...context.watch<DataProvider>().favoritePlaylists
     ];
+
+    final user = context.watch<DataProvider>().user;
 
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.black),
@@ -41,13 +36,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.only(top: 5),
                   child: CircleAvatar(
                     radius: 130 / 2,
-                    backgroundImage: widget.image,
+                    backgroundImage: getImageFromUrl(user.coverImageUrl),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 20),
                   child: Text(
-                    widget.label,
+                    user.name,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

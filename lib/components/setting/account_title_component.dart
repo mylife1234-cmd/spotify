@@ -55,7 +55,7 @@ class AccountTitle extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
               //return const SearchPlayList();
-              return ProfilePage(image: image, label: user.name);
+              return const ProfilePage();
             }),
           );
         },

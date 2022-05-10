@@ -19,7 +19,7 @@ class LibraryHeader extends StatelessWidget {
       GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return ProfilePage(image: image, label: user.name);
+            return const ProfilePage();
           }));
         },
         child: Row(

@@ -334,4 +334,10 @@ class DataProvider extends ChangeNotifier {
         .ref('/users/${user.id}')
         .update({'recentPlayedIdList': []});
   }
+
+  void updateUserAvatar(String url) {
+    user.coverImageUrl = url;
+
+    notifyListeners();
+  }
 }

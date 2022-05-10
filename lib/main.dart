@@ -98,7 +98,7 @@ class _MainState extends State<Main> {
       });
 
       if (user != null) {
-        getUserData(user.uid, user.displayName);
+        getUserData(user.uid, user.displayName, user.photoURL);
       }
     });
   }
@@ -175,8 +175,8 @@ class _MainState extends State<Main> {
     );
   }
 
-  Future<void> getUserData(String id, String? name) async {
-    final user = await Database.getUserById(id, name!);
+  Future<void> getUserData(String id, String? name, String? avatarUrl) async {
+    final user = await Database.getUserById(id, name!, avatarUrl);
 
     context.read<DataProvider>().setUser(user);
 

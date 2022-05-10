@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:spotify/pages/loading.dart';
 import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/utils/helper.dart';
 
@@ -21,13 +21,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   final imagePicker = ImagePicker();
 
-  File? _image;
+  Uint8List? _image;
+
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
     final user = context.read<DataProvider>().user;
 
     controller.text = user.name;
+
+    if (_loading) {
+      return const LoadingScreen();
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -47,10 +53,41 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
           actions: [
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 if (controller.text != user.name) {
                   FirebaseAuth.instance.currentUser!
                       .updateDisplayName(controller.text);
+                }
+
+                if (_image != null) {
+                  final ref = FirebaseStorage.instance.ref('user');
+
+                  setState(() {
+                    _loading = true;
+                  });
+
+                  final list = await ref.listAll();
+
+                  if (list.items.any((e) => e.name == '${user.id}.jpg')) {
+                    await ref.child('${user.id}.jpg').delete();
+                  }
+
+                  final metadata = SettableMetadata(contentType: 'image/jpeg');
+
+                  await ref.child('${user.id}.jpg').putData(_image!, metadata);
+
+                  final url =
+                      await ref.child('${user.id}.jpg').getDownloadURL();
+
+                  context.read<DataProvider>().updateUserAvatar(url);
+
+                  FirebaseAuth.instance.currentUser!.updatePhotoURL(url);
+
+                  setState(() {
+                    _loading = false;
+                  });
+
+                  Navigator.pop(context);
                 }
               },
               child: const Text('Save', style: TextStyle(color: Colors.white)),
@@ -66,7 +103,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   borderRadius: BorderRadius.circular(100),
                   child: Image(
                     image: _image != null
-                        ? FileImage(_image!)
+                        ? MemoryImage(_image!)
                         : getImageFromUrl(user.coverImageUrl),
                     width: 200,
                     height: 200,
@@ -83,10 +120,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       imageQuality: 50,
                     );
 
-                    final newImage = File(image!.path);
+                    final bytes = await image!.readAsBytes();
 
                     setState(() {
-                      _image = newImage;
+                      _image = bytes;
                     });
                   },
                   child: const Text('Change photo'),

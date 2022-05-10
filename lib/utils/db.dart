@@ -75,7 +75,7 @@ class Database {
     return playlist;
   }
 
-  static Future<User> getUserById(String id, String name) async {
+  static Future<User> getUserById(String id, String name, String? url) async {
     final res = await FirebaseDatabase.instance.ref('/users/$id').get();
 
     final map = Map<String, dynamic>.from(res.value as Map);
@@ -83,7 +83,7 @@ class Database {
     final user = User(
       id: id,
       name: name,
-      coverImageUrl: map['coverImageUrl'],
+      coverImageUrl: url ?? map['coverImageUrl'],
       favoriteAlbumIdList: map['favoriteAlbumIdList'] ?? [],
       favoritePlaylistIdList: map['favoritePlaylistIdList'] ?? [],
       favoriteSongIdList: map['favoriteSongIdList'] ?? [],
@@ -175,6 +175,7 @@ class Database {
 
     return artist;
   }
+
   static Future<String> getArtistName(String id) async {
     final res = await FirebaseDatabase.instance.ref('/artists/$id/name').get();
 
@@ -280,7 +281,7 @@ class Database {
         artistIdList: value['artistIdList'],
         albumId: value['albumId'],
         genreIdList: value['genreIdList'],
-        audioUrl: "",
+        audioUrl: '',
       ));
     });
 
