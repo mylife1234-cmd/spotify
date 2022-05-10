@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/pages/playlist_view.dart';
@@ -5,7 +6,6 @@ import 'package:spotify/utils/helper.dart';
 
 import '../components/library/list_item.dart';
 import '../providers/data_provider.dart';
-import 'artist_view.dart';
 import 'edit_profile.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -18,14 +18,26 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final favoritePlaylists = [
-      ...context.watch<DataProvider>().favoritePlaylists
+    final playlists = [
+      ...context.watch<DataProvider>().favoritePlaylists,
+      ...context.watch<DataProvider>().customizedPlaylists,
     ];
 
     final user = context.watch<DataProvider>().user;
 
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.black),
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        leading: IconButton(
+          iconSize: 24,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(CupertinoIcons.chevron_back),
+        ),
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
@@ -78,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 ),
-                ...favoritePlaylists.map((item) {
+                ...playlists.map((item) {
                   return GestureDetector(
                     child: ListItem(
                       title: item.name,
@@ -89,9 +101,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     onTap: () => onTap(item),
                   );
                 }).toList(),
-                if (favoritePlaylists.length == 3) const SizedBox(height: 140),
-                if (favoritePlaylists.length == 2) const SizedBox(height: 200),
-                if (favoritePlaylists.length == 1) const SizedBox(height: 250)
+                if (playlists.length == 3) const SizedBox(height: 140),
+                if (playlists.length == 2) const SizedBox(height: 200),
+                if (playlists.length == 1) const SizedBox(height: 250)
               ],
             ),
           ),
@@ -104,23 +116,13 @@ class _ProfilePageState extends State<ProfilePage> {
     final image = getImageFromUrl(item.coverImageUrl);
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) {
-          if (item.runtimeType.toString() == 'Playlist') {
-            return PlaylistView(
-                id: item.id,
-                image: image,
-                label: item.name,
-                songIdList: item.songIdList);
-          }
-          return ArtistView(
-              id: item.id,
-              image: image,
-              label: item.name,
-              description: item.description,
-              songIdList: item.songIdList);
-        },
-      ),
+      MaterialPageRoute(builder: (context) {
+        return PlaylistView(
+            id: item.id,
+            image: image,
+            label: item.name,
+            songIdList: item.songIdList);
+      }),
     );
   }
 }

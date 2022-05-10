@@ -126,7 +126,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       _image = bytes;
                     });
                   },
-                  child: const Text('Change photo'),
+                  child: const Text(
+                    'Change photo',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
+                    ),
+                  ),
                 ),
               ),
               Padding(
