@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify/components/auth/login_button.dart';
 import 'package:spotify/pages/login.dart';
 import 'package:spotify/pages/reset_password.dart';
 import 'package:spotify/pages/sign_up.dart';
+import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/utils/helper.dart';
 
 class StartPage extends StatelessWidget {
@@ -112,7 +114,16 @@ class StartPage extends StatelessWidget {
                             final userCredential = await FirebaseAuth.instance
                                 .signInWithCredential(credential);
 
-                            initUser(userCredential);
+                            final id = Provider.of<DataProvider>(
+                              context,
+                              listen: false,
+                            ).user.id;
+
+                            if (id == '') {
+                              initUser(userCredential);
+
+                              userCredential.user!.reload();
+                            }
                           } catch (e) {
                             debugPrint(e.toString());
                           }
