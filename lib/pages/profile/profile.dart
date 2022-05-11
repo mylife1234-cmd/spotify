@@ -124,10 +124,12 @@ class _ProfilePageState extends State<ProfilePage> {
       context,
       MaterialPageRoute(builder: (context) {
         return PlaylistView(
-            id: item.id,
-            image: image,
-            label: item.name,
-            songIdList: item.songIdList);
+          id: item.id,
+          image: image,
+          label: item.name,
+          songIdList: item.songIdList,
+          type: item.type,
+        );
       }),
     );
   }

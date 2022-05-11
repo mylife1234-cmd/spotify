@@ -21,13 +21,14 @@ class PlaylistView extends StatefulWidget {
     required this.image,
     required this.label,
     required this.id,
+    required this.type,
   }) : super(key: key);
 
   final List? songIdList;
   final ImageProvider image;
   final String label;
   final String id;
-
+  final String type;
   @override
   State<PlaylistView> createState() => _PlaylistViewState();
 }
@@ -196,11 +197,13 @@ class _PlaylistViewState extends State<PlaylistView> {
                                         .read<DataProvider>()
                                         .toggleFavoritePlaylist(snapshot.data);
                                   },
+                                  type: widget.type,
                                 );
                               }
                               return PlaylistComponent(
                                 label: widget.label,
                                 id: widget.id,
+                                type: widget.type,
                               );
                             },
                           ),
@@ -216,8 +219,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                           await loadPlaylist();
                           context.read<MusicProvider>().playNewSong(item);
                           context.read<DataProvider>().addToRecentPlayedList(
-                              await Database.getPlaylistById(widget.id)
-                          );
+                              await Database.getPlaylistById(widget.id));
                         },
                         child: SongTile(song: item),
                       );
@@ -269,8 +271,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                       await loadPlaylist();
                       context.read<MusicProvider>().playWithIndex(0);
                       context.read<DataProvider>().addToRecentPlayedList(
-                          await Database.getPlaylistById(widget.id)
-                      );
+                          await Database.getPlaylistById(widget.id));
                     }),
                   ],
                 ),

@@ -134,6 +134,7 @@ class _HomePageState extends State<HomePage> {
                 image: getImageFromUrl(item.coverImageUrl),
                 songIdList: item.songIdList,
                 size: 120,
+                type: item.type,
               ),
             );
           case 'Artist':
