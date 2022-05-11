@@ -12,6 +12,7 @@ class PlaylistCard extends StatelessWidget {
     required this.image,
     this.songIdList,
     required this.size,
+    required this.type,
   }) : super(key: key);
 
   final String id;
@@ -19,6 +20,7 @@ class PlaylistCard extends StatelessWidget {
   final ImageProvider image;
   final List? songIdList;
   final double size;
+  final String type;
   @override
   Widget build(BuildContext context) {
     final customizedPlaylist = context
@@ -37,6 +39,7 @@ class PlaylistCard extends StatelessWidget {
               image: image,
               label: label,
               songIdList: songIdList,
+              type: type,
             ),
           ),
         );

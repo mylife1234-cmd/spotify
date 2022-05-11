@@ -218,8 +218,7 @@ class _AlbumViewState extends State<AlbumView> {
                           await loadPlaylist();
                           context.read<MusicProvider>().playNewSong(item);
                           context.read<DataProvider>().addToRecentPlayedList(
-                            await Database.getAlbumById(widget.id)
-                          );
+                              await Database.getAlbumById(widget.id));
                         },
                         child: SongTile(song: item),
                       );
@@ -271,8 +270,7 @@ class _AlbumViewState extends State<AlbumView> {
                       await loadPlaylist();
                       context.read<MusicProvider>().playWithIndex(0);
                       context.read<DataProvider>().addToRecentPlayedList(
-                          await Database.getAlbumById(widget.id)
-                      );
+                          await Database.getAlbumById(widget.id));
                     }),
                   ],
                 ),

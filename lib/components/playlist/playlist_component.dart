@@ -9,18 +9,20 @@ class PlaylistComponent extends StatelessWidget {
     required this.label,
     required this.id,
     this.onTap,
+    required this.type,
   }) : super(key: key);
 
   final String label;
   final String id;
   final void Function()? onTap;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
     final favoritePlaylistList =
         context.watch<DataProvider>().favoritePlaylists;
 
-    final isLikedSongsPlayLists = context.watch<DataProvider>().user.id == id;
+    final isUserPlayLists = type == 'user';
 
     final isFavorite = favoritePlaylistList.any((element) => element.id == id);
 
@@ -52,7 +54,7 @@ class PlaylistComponent extends StatelessWidget {
         const SizedBox(height: 22),
         Row(
           children: [
-            if (isLikedSongsPlayLists == false)
+            if (isUserPlayLists == false)
               GestureDetector(
                 onTap: onTap,
                 child: Padding(

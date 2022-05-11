@@ -300,6 +300,7 @@ class _SearchAllState extends State<SearchAll> {
                 image: image,
                 label: item.name,
                 songIdList: item.songIdList,
+                type: item.type,
               );
 
             case 'Album':
