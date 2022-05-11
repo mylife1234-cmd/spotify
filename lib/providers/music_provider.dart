@@ -300,12 +300,12 @@ class MusicProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void insertQueueItem(index, item) {
-    _audioHandler.insertQueueItem(index, item);
+  Future insertQueueItem(index, item) async {
+    await _audioHandler.insertQueueItem(index, item);
   }
 
-  Future removeQueueItemAt(index) {
-    return _audioHandler.removeQueueItemAt(index);
+  Future removeQueueItemAt(index) async {
+    await _audioHandler.removeQueueItemAt(index);
   }
 }
 

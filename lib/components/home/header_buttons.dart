@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/components/home/history_button.dart';
-import 'package:spotify/pages/recently_played.dart';
 
 import 'settings_button.dart';
 

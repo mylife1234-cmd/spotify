@@ -95,11 +95,11 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
 
                   final item = playlist[currentIndex + 1 + oldIndex];
 
-                  context
+                  await context
                       .read<MusicProvider>()
                       .removeQueueItemAt(currentIndex + 1 + oldIndex);
 
-                  context
+                  await context
                       .read<MusicProvider>()
                       .insertQueueItem(currentIndex + 1 + newIndex, item);
                 },
