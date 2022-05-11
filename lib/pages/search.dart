@@ -28,20 +28,11 @@ class _SearchPageState extends State<SearchPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: ListView(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Search',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Icon(Icons.camera_alt_outlined, size: 26)
-                  ],
+              const Padding(
+                padding: EdgeInsets.only(top: 20, bottom: 10),
+                child: Text(
+                  'Search',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(
@@ -65,18 +56,12 @@ class _SearchPageState extends State<SearchPage> {
                     );
                   },
                   textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.black,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.black),
                   decoration: InputDecoration(
                     hintText: 'Search for something',
                     hintStyle: const TextStyle(color: Colors.black),
                     fillColor: Colors.white,
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      color: Colors.black,
-                    ),
+                    prefixIcon: const Icon(Icons.search, color: Colors.black),
                     contentPadding: EdgeInsets.zero,
                     filled: true,
                     border: OutlineInputBorder(
@@ -85,116 +70,100 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 15),
-                      child: Text(
-                        'Genres',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    GridView.builder(
-                      itemCount: genres.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1.75,
-                        mainAxisSpacing: 15,
-                        crossAxisSpacing: 15,
-                      ),
-                      shrinkWrap: true,
-                      controller: ScrollController(keepScrollOffset: false),
-                      itemBuilder: (BuildContext context, int index) {
-                        final item = genres[index];
+              const Padding(
+                padding: EdgeInsets.only(top: 20, bottom: 15),
+                child: Text(
+                  'Genres',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: 1.75,
+                mainAxisSpacing: 15,
+                crossAxisSpacing: 15,
+                shrinkWrap: true,
+                controller: ScrollController(keepScrollOffset: false),
+                children: genres.map((item) {
+                  final image = getImageFromUrl(item.coverImageUrl);
 
-                        final image = getImageFromUrl(item.coverImageUrl);
-
-                        return GestureDetector(
-                          child: FutureBuilder<PaletteGenerator>(
-                            future: PaletteGenerator.fromImageProvider(image),
-                            builder: (context, snapshot) {
-                              return ClipRRect(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: const Alignment(0.8, 0),
-                                      colors: snapshot.hasData
-                                          ? [
-                                              snapshot
-                                                  .data!.dominantColor!.color
-                                                  .withOpacity(0.8),
-                                              snapshot
-                                                  .data!.dominantColor!.color
-                                                  .withOpacity(0.6)
-                                            ]
-                                          : [Colors.black, Colors.black12],
-                                    ),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Positioned(
-                                        top: 15,
-                                        left: 15,
-                                        child: ConstrainedBox(
-                                          constraints: BoxConstraints(
-                                            maxWidth: size.width / 4.5,
-                                          ),
-                                          child: Text(
-                                            item.name,
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: 30,
-                                        right: -20,
-                                        child: RotationTransition(
-                                          turns: const AlwaysStoppedAnimation(
-                                            25 / 360,
-                                          ),
-                                          child: Image(
-                                            image: image,
-                                            height: 80,
-                                            width: 80,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => GenrePage(
-                                  name: item.name,
-                                  image: getImageFromUrl(item.coverImageUrl),
-                                  id: item.id,
-                                ),
+                  return GestureDetector(
+                    child: FutureBuilder<PaletteGenerator>(
+                      future: PaletteGenerator.fromImageProvider(image),
+                      builder: (context, snapshot) {
+                        return ClipRRect(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: const Alignment(0.8, 0),
+                                colors: snapshot.hasData
+                                    ? [
+                                        snapshot.data!.dominantColor!.color
+                                            .withOpacity(0.8),
+                                        snapshot.data!.dominantColor!.color
+                                            .withOpacity(0.6)
+                                      ]
+                                    : [Colors.black, Colors.black12],
                               ),
-                            );
-                          },
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Stack(
+                              children: <Widget>[
+                                Positioned(
+                                  top: 15,
+                                  left: 15,
+                                  child: ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                      maxWidth: size.width / 4.5,
+                                    ),
+                                    child: Text(
+                                      item.name,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 30,
+                                  right: -20,
+                                  child: RotationTransition(
+                                    turns: const AlwaysStoppedAnimation(
+                                      25 / 360,
+                                    ),
+                                    child: Image(
+                                      image: image,
+                                      height: 80,
+                                      width: 80,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         );
                       },
                     ),
-                  ],
-                ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GenrePage(
+                            name: item.name,
+                            image: image,
+                            id: item.id,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
               ),
             ],
           ),
