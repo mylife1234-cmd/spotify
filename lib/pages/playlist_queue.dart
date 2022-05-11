@@ -84,7 +84,7 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
                     onTap: () {
                       context.read<MusicProvider>().playNewSong(newSong);
                     },
-                    key: ValueKey(newSong),
+                    key: ValueKey(newSong.id),
                     child: SongInQueue(song: newSong, index: i),
                   );
                 },
