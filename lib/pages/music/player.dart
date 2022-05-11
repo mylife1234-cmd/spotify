@@ -27,56 +27,63 @@ class MusicPlayer extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: color,
-      body: ListView(
-        physics: const ClampingScrollPhysics(),
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: padding),
-            child: PlayerHeader(
-              onDismissed: () {
-                Navigator.maybePop(context);
-              },
-              song: song,
+      body: MediaQuery.removePadding(
+        context: context,
+        removeTop: size.height < 700,
+        child: ListView(
+          physics: const ClampingScrollPhysics(),
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: padding),
+              child: PlayerHeader(
+                onDismissed: () {
+                  Navigator.maybePop(context);
+                },
+                song: song,
+              ),
             ),
-          ),
-          Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: 24, vertical: padding * 0.8),
-            child: Image(image: image),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: InfoSection(
-              name: song.name,
-              description: song.description,
-              song: song,
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: 24, vertical: padding * 0.8),
+              child: Image(image: image),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: 18, right: 18, top: padding * 0.6, bottom: padding * 0.2),
-            child: const MusicSlider(),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 26),
-            child: ControllerSection(),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 24,
-              right: 22,
-              bottom: 12,
-              top: 16,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: InfoSection(
+                name: song.name,
+                description: song.description,
+                song: song,
+              ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ShareButton(song: song, size: 22),
-                QueueButton(song: song, size: 26),
-              ],
+            Padding(
+              padding: EdgeInsets.only(
+                  left: 18,
+                  right: 18,
+                  top: padding * 0.6,
+                  bottom: padding * 0.2),
+              child: const MusicSlider(),
             ),
-          )
-        ],
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 26),
+              child: ControllerSection(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 24,
+                right: 22,
+                bottom: 12,
+                top: 16,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ShareButton(song: song, size: 22),
+                  QueueButton(song: song, size: 26),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

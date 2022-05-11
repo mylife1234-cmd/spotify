@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../models/song.dart';
 import '../../pages/music/share_page.dart';
@@ -13,7 +12,6 @@ class ShareButton extends StatelessWidget {
 
   final Song song;
 
-  // Color color = Colors.black;
   final double size;
 
   @override
@@ -24,25 +22,13 @@ class ShareButton extends StatelessWidget {
         size: size,
       ),
       onTap: () async {
-        await SystemChrome.setEnabledSystemUIMode(
-          SystemUiMode.manual,
-          overlays: [
-            SystemUiOverlay.top,
-          ],
-        );
-
-        await Navigator.push(
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => SharePage(
               song: song,
             ),
           ),
-        );
-
-        await SystemChrome.setEnabledSystemUIMode(
-          SystemUiMode.manual,
-          overlays: [],
         );
       },
     );

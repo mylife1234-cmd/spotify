@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
@@ -69,25 +68,12 @@ class MiniPlayer extends StatelessWidget {
         visualDensity: VisualDensity.compact,
         minVerticalPadding: 12,
         onTap: () async {
-          await SystemChrome.setEnabledSystemUIMode(
-            SystemUiMode.manual,
-            overlays: [],
-          );
-
-          await showMaterialModalBottomSheet(
+          showMaterialModalBottomSheet(
             context: context,
             builder: (context) {
               return const MusicPlayer();
             },
             duration: const Duration(milliseconds: 250),
-          );
-
-          await SystemChrome.setEnabledSystemUIMode(
-            SystemUiMode.manual,
-            overlays: [
-              SystemUiOverlay.top,
-              SystemUiOverlay.bottom,
-            ],
           );
         },
       ),

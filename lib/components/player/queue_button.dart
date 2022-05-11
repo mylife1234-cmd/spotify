@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:spotify/pages/music/playlist_queue.dart';
 
 import '../../models/song.dart';
@@ -13,7 +12,6 @@ class QueueButton extends StatelessWidget {
 
   final Song song;
 
-  // Color color = Colors.black;
   final double size;
 
   @override
@@ -24,12 +22,7 @@ class QueueButton extends StatelessWidget {
         size: size,
       ),
       onTap: () async {
-        await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-            overlays: [
-              SystemUiOverlay.top,
-            ]);
-
-        await Navigator.push(
+        Navigator.push(
           context,
           PageRouteBuilder(
             pageBuilder: (context, a1, a2) {
@@ -42,9 +35,6 @@ class QueueButton extends StatelessWidget {
             reverseTransitionDuration: const Duration(milliseconds: 150),
           ),
         );
-
-        await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-            overlays: []);
       },
     );
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_button.dart';
 import 'package:spotify/providers/music_provider.dart';
@@ -40,23 +39,13 @@ class PlayerHeader extends StatelessWidget {
             song: song,
             size: 20,
             onPressed: () async {
-              await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-                  overlays: [
-                    SystemUiOverlay.top,
-                  ]);
-
-              await Navigator.push(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SongAction(
                     song: song,
                   ),
                 ),
-              );
-
-              await SystemChrome.setEnabledSystemUIMode(
-                SystemUiMode.manual,
-                overlays: [],
               );
             },
           )

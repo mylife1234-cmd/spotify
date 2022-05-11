@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/share/song_info.dart';
@@ -198,13 +197,9 @@ class _SongActionState extends State<SongAction> {
   Future _doActionViewAlbum() async {
     Navigator.popUntil(context, (route) => route.isFirst);
 
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.top,
-      SystemUiOverlay.bottom,
-    ]);
     final album = await Database.getAlbumById(widget.song.albumId);
 
-    await Navigator.push(
+    Navigator.push(
       tabNavKeys[tabController.index].currentContext!,
       MaterialPageRoute(
         builder: (context) => AlbumView(
@@ -216,19 +211,11 @@ class _SongActionState extends State<SongAction> {
         ),
       ),
     );
-
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.top,
-    ]);
   }
 
   Future<void> _doActionViewArtist() async {
     Navigator.popUntil(context, (route) => route.isFirst);
 
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.top,
-      SystemUiOverlay.bottom,
-    ]);
     final artist = await Database.getArtistById(widget.song.artistIdList[0]);
 
     Navigator.push(
@@ -243,10 +230,6 @@ class _SongActionState extends State<SongAction> {
         ),
       ),
     );
-
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.top,
-    ]);
   }
 }
 
