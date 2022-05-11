@@ -50,13 +50,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  bulleted_list:
-    dependency: "direct main"
-    description:
-      name: bulleted_list
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1+0.1a"
   cached_network_image:
     dependency: "direct main"
     description:
@@ -134,13 +127,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  disk_space:
-    dependency: "direct main"
-    description:
-      name: disk_space
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.1"
   fake_async:
     dependency: transitive
     description:
@@ -569,13 +555,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.11.1"
-  percent_indicator:
-    dependency: "direct main"
-    description:
-      name: percent_indicator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.1"
   platform:
     dependency: transitive
     description:
@@ -651,13 +630,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
-  storage_info:
-    dependency: "direct main"
-    description:
-      name: storage_info
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1"
   stream_channel:
     dependency: transitive
     description:
