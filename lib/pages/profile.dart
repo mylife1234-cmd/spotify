@@ -42,69 +42,75 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: CircleAvatar(
-                    radius: 130 / 2,
-                    backgroundImage: getImageFromUrl(user.coverImageUrl),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 20),
-                  child: Text(
-                    user.name,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: CircleAvatar(
+                      radius: 130 / 2,
+                      backgroundImage: getImageFromUrl(user.coverImageUrl),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(45),
-                      border: Border.all(width: 1.5, color: Colors.white54),
-                      color: Colors.black,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    child: const Text(
-                      'Edit profile',
-                      style: TextStyle(fontSize: 12),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 20),
+                    child: Text(
+                      user.name,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  onTap: () => Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const EditProfilePage();
-                    },
-                  )),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 15, top: 35),
-                  child: Text(
-                    'Playlists',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                ...playlists.map((item) {
-                  return GestureDetector(
-                    child: ListItem(
-                      title: item.name,
-                      subtitle: item.runtimeType.toString(),
-                      coverUrl: item.coverImageUrl,
-                      isSquareCover: item.runtimeType.toString() != 'Artist',
+                  GestureDetector(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(45),
+                        border: Border.all(width: 1.5, color: Colors.white54),
+                        color: Colors.black,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                      child: const Text(
+                        'Edit profile',
+                        style: TextStyle(fontSize: 12),
+                      ),
                     ),
-                    onTap: () => onTap(item),
-                  );
-                }).toList(),
-                if (playlists.length == 3) const SizedBox(height: 140),
-                if (playlists.length == 2) const SizedBox(height: 200),
-                if (playlists.length == 1) const SizedBox(height: 250)
-              ],
+                    onTap: () => Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const EditProfilePage();
+                      },
+                    )),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 15, top: 35),
+                    child: Text(
+                      'Playlists',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ...playlists.map((item) {
+                    return GestureDetector(
+                      child: ListItem(
+                        title: item.name,
+                        subtitle: item.runtimeType.toString(),
+                        coverUrl: item.coverImageUrl,
+                        isSquareCover: item.runtimeType.toString() != 'Artist',
+                      ),
+                      onTap: () => onTap(item),
+                    );
+                  }).toList(),
+                  if (playlists.length == 3) const SizedBox(height: 140),
+                  if (playlists.length == 2) const SizedBox(height: 200),
+                  if (playlists.length == 1) const SizedBox(height: 250)
+                ],
+              ),
             ),
           ),
         ),
