@@ -207,6 +207,10 @@ class _MainState extends State<Main> {
   }
 
   Future<void> getUserData(String id, String? name, String? avatarUrl) async {
+    if (Provider.of<DataProvider>(context, listen: false).user.id != '') {
+      return;
+    }
+
     final user = await Database.getUserById(id, name!, avatarUrl);
 
     context.read<DataProvider>().setUser(user);
