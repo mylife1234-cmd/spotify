@@ -28,6 +28,8 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
 
     final remainingQueue = queue.sublist(currentIndex + 1);
 
+    final playlistName = context.watch<MusicProvider>().currentPlaylistName;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -41,70 +43,73 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
           icon: const Icon(Icons.close),
         ),
         title: Text(
-          widget.title ?? 'Playlist',
+          playlistName,
           style: Theme.of(context).textTheme.headline6,
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                child: Text(
-                  'Playing Now',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+        child: SafeArea(
+          top: false,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    'Playing Now',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-              PlayingSongTile(song: currentSong),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                child: Text(
-                  'Next Song',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+                PlayingSongTile(song: currentSong),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    'Next Song',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-              ReorderableListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                buildDefaultDragHandles: false,
-                itemCount: remainingQueue.length,
-                itemBuilder: (context, i) {
-                  final newSong = remainingQueue[i];
+                ReorderableListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  buildDefaultDragHandles: false,
+                  itemCount: remainingQueue.length,
+                  itemBuilder: (context, i) {
+                    final newSong = remainingQueue[i];
 
-                  return GestureDetector(
-                    onTap: () {
-                      context.read<MusicProvider>().playNewSong(newSong);
-                    },
-                    key: ValueKey(newSong.id),
-                    child: SongInQueue(song: newSong, index: i),
-                  );
-                },
-                onReorder: (int oldIndex, int newIndex) async {
-                  if (oldIndex < newIndex) {
-                    newIndex -= 1;
-                  }
+                    return GestureDetector(
+                      onTap: () {
+                        context.read<MusicProvider>().playNewSong(newSong);
+                      },
+                      key: ValueKey(newSong.id),
+                      child: SongInQueue(song: newSong, index: i),
+                    );
+                  },
+                  onReorder: (int oldIndex, int newIndex) async {
+                    if (oldIndex < newIndex) {
+                      newIndex -= 1;
+                    }
 
-                  final item = playlist[currentIndex + 1 + oldIndex];
+                    final item = playlist[currentIndex + 1 + oldIndex];
 
-                  await context
-                      .read<MusicProvider>()
-                      .removeQueueItemAt(currentIndex + 1 + oldIndex);
+                    await context
+                        .read<MusicProvider>()
+                        .removeQueueItemAt(currentIndex + 1 + oldIndex);
 
-                  await context
-                      .read<MusicProvider>()
-                      .insertQueueItem(currentIndex + 1 + newIndex, item);
-                },
-              )
-            ],
+                    await context
+                        .read<MusicProvider>()
+                        .insertQueueItem(currentIndex + 1 + newIndex, item);
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -28,6 +28,16 @@ class Database {
     });
   }
 
+  static void initPlaylist(String name) {
+    // FirebaseDatabase.instance.ref('/users').child(id).set({
+    //   'createdAt': creationTime.toIso8601String(),
+    // });
+    FirebaseDatabase.instance
+        .ref('/playlists')
+        .push()
+        .set({'name': name, 'type': 'user'});
+  }
+
   static Future<Song> getSongById(String id) async {
     final res = await FirebaseDatabase.instance.ref('/songs/$id').get();
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify/utils/db.dart';
 
 class PlaylistCreationPage extends StatefulWidget {
   const PlaylistCreationPage({Key? key, this.handlePlaylistCreation})
@@ -87,12 +88,13 @@ class _PlaylistCreationPageState extends State<PlaylistCreationPage> {
                 ),
                 onTap: () {
                   if (_newPlaylistName != '') {
-                    widget.handlePlaylistCreation!({
-                      'title': _newPlaylistName,
-                      'subtitle': 'Playlist',
-                      'cover': 'assets/images/default-cover.png',
-                      'type': 'playlist'
-                    });
+                    // widget.handlePlaylistCreation!({
+                    //   'title': _newPlaylistName,
+                    //   'subtitle': 'Playlist',
+                    //   'cover': 'assets/images/default-cover.png',
+                    //   'type': 'playlist'
+                    // });
+                    Database.initPlaylist(_newPlaylistName);
                     setState(() {
                       _newPlaylistName = '';
                     });
