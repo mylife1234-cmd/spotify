@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
+import 'package:spotify/components/search/genre_card.dart';
 import 'package:spotify/pages/search_all.dart';
 import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/utils/helper.dart';
+
 import 'genre_page.dart';
 
 class SearchPage extends StatefulWidget {
@@ -18,8 +20,6 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     final genres = context.watch<DataProvider>().genres;
 
     return SafeArea(
@@ -90,76 +90,39 @@ class _SearchPageState extends State<SearchPage> {
                 children: genres.map((item) {
                   final image = getImageFromUrl(item.coverImageUrl);
 
-                  return GestureDetector(
-                    child: FutureBuilder<PaletteGenerator>(
-                      future: PaletteGenerator.fromImageProvider(image),
-                      builder: (context, snapshot) {
-                        return ClipRRect(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: const Alignment(0.8, 0),
-                                colors: snapshot.hasData
-                                    ? [
-                                        snapshot.data!.dominantColor!.color
-                                            .withOpacity(0.8),
-                                        snapshot.data!.dominantColor!.color
-                                            .withOpacity(0.6)
-                                      ]
-                                    : [Colors.black, Colors.black12],
-                              ),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Stack(
-                              children: <Widget>[
-                                Positioned(
-                                  top: 15,
-                                  left: 15,
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      maxWidth: size.width / 4.5,
-                                    ),
-                                    child: Text(
-                                      item.name,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 30,
-                                  right: -20,
-                                  child: RotationTransition(
-                                    turns: const AlwaysStoppedAnimation(
-                                      25 / 360,
-                                    ),
-                                    child: Image(
-                                      image: image,
-                                      height: 80,
-                                      width: 80,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                  return FutureBuilder<PaletteGenerator>(
+                    future: PaletteGenerator.fromImageProvider(image),
+                    builder: (context, snapshot) {
+                      final List<Color> colors = [];
+
+                      if (snapshot.hasData) {
+                        final color = snapshot.data!.dominantColor!.color;
+
+                        colors.addAll(
+                          [color.withOpacity(0.8), color.withOpacity(0.6)],
                         );
-                      },
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => GenrePage(
-                            name: item.name,
-                            image: image,
-                            id: item.id,
-                          ),
+                      } else {
+                        colors.addAll([Colors.black, Colors.black12]);
+                      }
+
+                      return GestureDetector(
+                        child: GenreCard(
+                          title: item.name,
+                          image: image,
+                          colors: colors,
                         ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => GenrePage(
+                                name: item.name,
+                                image: image,
+                                id: item.id,
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
                   );
