@@ -80,11 +80,12 @@ class Database {
     }
 
     final playlist = Playlist(
-        id: id,
-        name: map['name'],
-        coverImageUrl: coverImageUrl,
-        songIdList: map['songIdList'],
-        type: map['type']);
+      id: id,
+      name: map['name'],
+      coverImageUrl: coverImageUrl,
+      songIdList: map['songIdList'] ?? [],
+      type: map['type'],
+    );
 
     return playlist;
   }

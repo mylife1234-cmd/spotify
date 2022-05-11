@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spotify/utils/db.dart';
+import 'package:provider/provider.dart';
+import 'package:spotify/providers/data_provider.dart';
 
 class PlaylistCreationPage extends StatefulWidget {
   const PlaylistCreationPage({Key? key, this.handlePlaylistCreation})
@@ -94,7 +95,10 @@ class _PlaylistCreationPageState extends State<PlaylistCreationPage> {
                     //   'cover': 'assets/images/default-cover.png',
                     //   'type': 'playlist'
                     // });
-                    Database.initPlaylist(_newPlaylistName);
+                    // Database.initPlaylist(_newPlaylistName);
+                    context
+                        .read<DataProvider>()
+                        .creatNewPlaylist(_newPlaylistName);
                     setState(() {
                       _newPlaylistName = '';
                     });

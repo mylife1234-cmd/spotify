@@ -379,4 +379,30 @@ class DataProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void creatNewPlaylist(String playlistName) {
+    final Playlist newPlaylist = Playlist(
+      id: _user.id.toString() + _customizedPlaylists.length.toString(),
+      name: playlistName,
+      coverImageUrl: 'assets/images/default-cover.png',
+      type: 'user',
+      songIdList: [],
+    );
+
+    _customizedPlaylists.add(newPlaylist);
+
+    notifyListeners();
+
+    FirebaseDatabase.instance.ref('/playlists').child(newPlaylist.id).set({
+      'name': playlistName,
+      'type': 'user',
+      'coverImageUrl': newPlaylist.coverImageUrl,
+    });
+
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'customizedPlaylistIdList':
+          _customizedPlaylists.map<String>((e) => e.id).toList()
+    });
+  }
+
 }

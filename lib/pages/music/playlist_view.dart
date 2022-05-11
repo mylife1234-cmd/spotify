@@ -42,7 +42,6 @@ class _PlaylistViewState extends State<PlaylistView> {
   double containerInitialHeight = 500;
   double imageOpacity = 1;
   bool showTopBar = false;
-
   Color _color = Colors.black;
 
   List<Song> songList = [];
@@ -92,6 +91,11 @@ class _PlaylistViewState extends State<PlaylistView> {
         });
       });
     }
+    if (widget.type == 'user' && widget.songIdList == null) {
+      setState(() {
+        _loading = false;
+      });
+    }
   }
 
   Future loadPlaylist() async {
@@ -119,9 +123,10 @@ class _PlaylistViewState extends State<PlaylistView> {
       });
     }
 
-    if (_loading || songList.isEmpty) {
+    if (_loading) {
       return const LoadingScreen();
     }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -202,6 +207,14 @@ class _PlaylistViewState extends State<PlaylistView> {
                                     setState(() {
                                       songList = [...songList, ...newSongs];
                                     });
+                                    for (int i = 0 ; i < songList.length; i++){
+                                      if (songList[i].audioUrl == '') {
+                                        songList[i].audioUrl =
+                                        await getFileFromFirebase('/song/audio/${songList[i].id}.mp3');
+                                      }
+
+                                      context.read<MusicProvider>().addToPlaylist(songList[i]);
+                                    }
                                   },
                                   label: widget.label,
                                   id: widget.id,

@@ -149,7 +149,7 @@ class _AddSongState extends State<AddSong> {
                         .read<DataProvider>()
                         .addSongToPlaylist(item.id, snapshot.data);
                     setState(() {
-                      chosenSongs.insert(0, item);
+                      chosenSongs.add(item);
                       searchResult = playlists
                         ..removeWhere((element) => element.id == item.id);
                     });
