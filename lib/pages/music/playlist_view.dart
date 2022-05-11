@@ -122,7 +122,8 @@ class _PlaylistViewState extends State<PlaylistView> {
     if (_loading || songList.isEmpty) {
       return const LoadingScreen();
     }
-
+    // widget.type == user ? if (context.watch<DataProvider>().)
+    //     :
     return Scaffold(
       body: Stack(
         children: [
@@ -198,9 +199,11 @@ class _PlaylistViewState extends State<PlaylistView> {
                                         .toggleFavoritePlaylist(snapshot.data);
                                   },
                                   type: widget.type,
+                                  songList: songList,
                                 );
                               }
                               return PlaylistComponent(
+                                songList: songList,
                                 label: widget.label,
                                 id: widget.id,
                                 type: widget.type,

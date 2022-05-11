@@ -242,6 +242,34 @@ class DataProvider extends ChangeNotifier {
     });
   }
 
+  void addSongToPlaylist(String songId, Playlist playlist) {
+    // print(_customizedPlaylists
+    //     .firstWhere((element) => element.id == playlist.id)
+    //     .songIdList
+    //     .toList()
+    //   ..add(songId));
+    final index =
+        _customizedPlaylists.indexWhere((element) => element.id == playlist.id);
+
+    final newPlaylist = Playlist(
+        id: playlist.id,
+        name: playlist.name,
+        coverImageUrl: playlist.coverImageUrl,
+        songIdList: _customizedPlaylists
+            .firstWhere((element) => element.id == playlist.id)
+            .songIdList
+            .toList()
+          ..add(songId),
+        type: playlist.type);
+    _customizedPlaylists
+      ..removeWhere((element) => element.id == playlist.id)
+      ..insert(index, newPlaylist);
+    notifyListeners();
+    FirebaseDatabase.instance
+        .ref('/playlists/${playlist.id}')
+        .update({'songIdList': newPlaylist.songIdList.toList()});
+  }
+
   void deleteFromRecentSearchList(item) {
     _recentSearchList.removeWhere((element) => element.id == item.id);
     notifyListeners();

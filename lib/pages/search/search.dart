@@ -48,7 +48,6 @@ class SearchPage extends StatelessWidget {
                 controller: ScrollController(keepScrollOffset: false),
                 children: genres.map((item) {
                   final image = getImageFromUrl(item.coverImageUrl);
-
                   return FutureBuilder<PaletteGenerator>(
                     future: PaletteGenerator.fromImageProvider(image),
                     builder: (context, snapshot) {

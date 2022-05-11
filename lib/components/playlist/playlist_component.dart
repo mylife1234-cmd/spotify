@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:spotify/pages/music/add_song.dart';
 
+import '../../models/song.dart';
 import '../../providers/data_provider.dart';
+import '../../utils/helper.dart';
 
 class PlaylistComponent extends StatelessWidget {
   const PlaylistComponent({
@@ -9,14 +12,14 @@ class PlaylistComponent extends StatelessWidget {
     required this.label,
     required this.id,
     this.onTap,
-    required this.type,
+    required this.type, required this.songList,
   }) : super(key: key);
 
   final String label;
   final String id;
   final void Function()? onTap;
   final String type;
-
+  final List <Song> songList;
   @override
   Widget build(BuildContext context) {
     final favoritePlaylistList =
@@ -25,7 +28,8 @@ class PlaylistComponent extends StatelessWidget {
     final isUserPlayLists = type == 'user';
 
     final isFavorite = favoritePlaylistList.any((element) => element.id == id);
-
+    final user = context.watch<DataProvider>().user;
+    // final image = getImageFromUrl(user.coverImageUrl);
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 20, top: 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -39,26 +43,31 @@ class PlaylistComponent extends StatelessWidget {
           padding: const EdgeInsets.only(top: 15),
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Image(
+            children: [
+              const Image(
                 image: AssetImage('assets/images/logo_spotify.png'),
                 width: 20,
                 height: 20,
               ),
-              SizedBox(width: 7),
-              Text('Spotify',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+              const SizedBox(width: 7),
+              if (isUserPlayLists)
+                const Text('My playlist',
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold))
+              else
+                const Text('Spotify',
+                    style:
+                        TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
             ],
           ),
         ),
         const SizedBox(height: 22),
         Row(
           children: [
-            if (isUserPlayLists == false)
+            if (!isUserPlayLists)
               GestureDetector(
                 onTap: onTap,
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 15),
+                  padding: const EdgeInsets.only(right: 18),
                   child: Icon(
                     isFavorite
                         ? Icons.favorite_rounded
@@ -69,6 +78,24 @@ class PlaylistComponent extends StatelessWidget {
                 ),
               ),
             const Icon(Icons.more_horiz, size: 22),
+            if (isUserPlayLists && user.id != id)
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>
+                    AddSong(id: id, songList: songList,)),
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 18, right: 18),
+                  child: Icon(
+                    Icons.add_circle_outline,
+                    color: Colors.white,
+                    size: 22,
+                  ),
+                ),
+              ),
           ],
         )
       ]),
