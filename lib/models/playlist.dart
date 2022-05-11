@@ -9,10 +9,13 @@ class Playlist {
 
   final String id;
   final String name;
-  final String coverImageUrl;
+  String coverImageUrl;
   List songIdList;
   final String type;
   void updateSongIdList(String id) {
     songIdList = [...songIdList, id];
   }
+  // void updateCoverImageUrl(String url) {
+  //   coverImageUrl = url;
+  // }
 }

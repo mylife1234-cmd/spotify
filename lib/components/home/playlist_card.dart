@@ -25,9 +25,8 @@ class PlaylistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final customizedPlaylist = context
         .watch<DataProvider>()
-        .user
-        .customizedPlaylistIdList
-        .contains(id);
+        .customizedPlaylists
+        .any((element) => element.id == id);
 
     return GestureDetector(
       onTap: () {

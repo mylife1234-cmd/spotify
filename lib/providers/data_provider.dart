@@ -248,18 +248,6 @@ class DataProvider extends ChangeNotifier {
     });
   }
 
-  void addSongToPlaylist(String songId, Playlist playlist) {
-    final newPlaylist = _customizedPlaylists
-        .firstWhere((element) => element.id == playlist.id)
-      ..updateSongIdList(songId);
-
-    FirebaseDatabase.instance
-        .ref('/playlists/${playlist.id}')
-        .update({'songIdList': newPlaylist.songIdList});
-
-    notifyListeners();
-  }
-
   void deleteFromRecentSearchList(item) {
     _recentSearchList.removeWhere((element) => element.id == item.id);
 
@@ -380,6 +368,18 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addSongToPlaylist(String songId, Playlist playlist) {
+    final newPlaylist = _customizedPlaylists
+        .firstWhere((element) => element.id == playlist.id)
+      ..updateSongIdList(songId);
+
+    FirebaseDatabase.instance
+        .ref('/playlists/${playlist.id}')
+        .update({'songIdList': newPlaylist.songIdList});
+
+    notifyListeners();
+  }
+
   void creatNewPlaylist(String playlistName) {
     final Playlist newPlaylist = Playlist(
       id: _user.id.toString() + _customizedPlaylists.length.toString(),
@@ -403,5 +403,17 @@ class DataProvider extends ChangeNotifier {
       'customizedPlaylistIdList':
           _customizedPlaylists.map<String>((e) => e.id).toList()
     });
+  }
+
+  void updateCoverImageUrlPlaylist(String url, String playlistId) {
+    _customizedPlaylists
+        .firstWhere((element) => element.id == playlistId)
+        .coverImageUrl = url;
+
+    notifyListeners();
+
+    FirebaseDatabase.instance
+        .ref('/playlists/$playlistId')
+        .update({'coverImageUrl': url});
   }
 }

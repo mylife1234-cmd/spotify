@@ -48,6 +48,10 @@ class _PlaylistViewState extends State<PlaylistView> {
 
   bool _loading = true;
 
+  bool isUserCreatePlaylist = false;
+
+  // late ImageProvider imagePlaylist;
+
   @override
   void initState() {
     imageSize = initialImageSize;
@@ -122,6 +126,18 @@ class _PlaylistViewState extends State<PlaylistView> {
         }
       });
     }
+    // if (widget.type == 'user' &&
+    //     widget.id != context.watch<DataProvider>().user.id) {
+    //   isUserCreatePlaylist = true;
+    // }
+    // if (isUserCreatePlaylist && songList.isNotEmpty) {
+    //   imagePlaylist = getImageFromUrl(songList[0].coverImageUrl);
+    //   context.read<DataProvider>().updateCoverImageUrlPlaylist(
+    //       songList[0].coverImageUrl, widget.id);
+    // } else {
+    //   imagePlaylist = widget.image;
+    // }
+
 
     if (_loading) {
       return const LoadingScreen();
