@@ -42,6 +42,8 @@ class _LibraryPageState extends State<LibraryPage> {
 
     final favoriteSongs = context.watch<DataProvider>().favoriteSongs;
 
+    final userPlaylist = context.watch<DataProvider>().customizedPlaylists;
+
     final Playlist likedSongs = Playlist(
       id: context.watch<DataProvider>().user.id,
       name: 'Liked Songs',
@@ -49,14 +51,21 @@ class _LibraryPageState extends State<LibraryPage> {
       songIdList: favoriteSongs.map((e) => e.id).toList(),
       type: 'user',
     );
-
-    final List list = [
+    List list;
+    favoriteSongs.isNotEmpty ?  list = [
       ...favoritePlaylists,
       ...favoriteArtists,
       ...favoriteAlbums,
+      ...userPlaylist,
       likedSongs
-    ];
+    ] :
 
+    list = [
+      ...favoritePlaylists,
+      ...favoriteArtists,
+      ...favoriteAlbums,
+      ...userPlaylist,
+    ];
     final filteredList = list
         .where((element) =>
             _currentFilterOption == -1 ||
