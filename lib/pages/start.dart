@@ -112,7 +112,7 @@ class StartPage extends StatelessWidget {
                             final userCredential = await FirebaseAuth.instance
                                 .signInWithCredential(credential);
 
-                            initUser(userCredential, 'User');
+                            initUser(userCredential);
                           } catch (e) {
                             debugPrint(e.toString());
                           }

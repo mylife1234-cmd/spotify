@@ -7,7 +7,6 @@ import 'package:flutter_cache_manager_firebase/flutter_cache_manager_firebase.da
 import 'package:palette_generator/palette_generator.dart';
 
 import '../models/song.dart';
-import '../models/user.dart' as model;
 import 'db.dart';
 
 Future<Color?> getColorFromImage(ImageProvider imageProvider) async {
@@ -80,19 +79,9 @@ MediaItem convertSongToMediaItem(Song song) {
   );
 }
 
-void initUser(UserCredential credential, String name) {
-  final user = model.User(
-    id: credential.user!.uid,
-    name: credential.user!.displayName ?? name,
-    coverImageUrl: credential.user!.photoURL ?? '',
-    favoriteAlbumIdList: [],
-    favoritePlaylistIdList: [],
-    favoriteSongIdList: [],
-    customizedPlaylistIdList: [],
-    favoriteArtistIdList: [],
-    recentPlayedIdList: [],
-    recentSearchIdList: [],
+void initUser(UserCredential credential) {
+  Database.initUser(
+    credential.user!.uid,
+    credential.user!.metadata.creationTime!,
   );
-
-  Database.setUser(user);
 }
