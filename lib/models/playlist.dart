@@ -13,6 +13,6 @@ class Playlist {
   List songIdList;
   final String type;
   void updateSongIdList(String id) {
-    songIdList =[...songIdList, id];
+    songIdList = [...songIdList, id];
   }
 }

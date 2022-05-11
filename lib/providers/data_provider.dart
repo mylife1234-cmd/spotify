@@ -404,5 +404,4 @@ class DataProvider extends ChangeNotifier {
           _customizedPlaylists.map<String>((e) => e.id).toList()
     });
   }
-
 }

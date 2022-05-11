@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/song.dart';
-import '../../providers/data_provider.dart';
 import '../../providers/music_provider.dart';
 import '../../utils/helper.dart';
 
@@ -53,7 +52,7 @@ class SongSuggested extends StatelessWidget {
           if (currentPlaylistId != song.id) {
             if (song.audioUrl == '') {
               song.audioUrl =
-              await getFileFromFirebase('/song/audio/${song.id}.mp3');
+                  await getFileFromFirebase('/song/audio/${song.id}.mp3');
             }
 
             await context.read<MusicProvider>().loadPlaylist([song]);

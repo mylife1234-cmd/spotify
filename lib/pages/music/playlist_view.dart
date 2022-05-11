@@ -207,13 +207,16 @@ class _PlaylistViewState extends State<PlaylistView> {
                                     setState(() {
                                       songList = [...songList, ...newSongs];
                                     });
-                                    for (int i = 0 ; i < songList.length; i++){
+                                    for (int i = 0; i < songList.length; i++) {
                                       if (songList[i].audioUrl == '') {
                                         songList[i].audioUrl =
-                                        await getFileFromFirebase('/song/audio/${songList[i].id}.mp3');
+                                            await getFileFromFirebase(
+                                                '/song/audio/${songList[i].id}.mp3');
                                       }
 
-                                      context.read<MusicProvider>().addToPlaylist(songList[i]);
+                                      context
+                                          .read<MusicProvider>()
+                                          .addToPlaylist(songList[i]);
                                     }
                                   },
                                   label: widget.label,

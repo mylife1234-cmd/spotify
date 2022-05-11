@@ -52,20 +52,20 @@ class _LibraryPageState extends State<LibraryPage> {
       type: 'user',
     );
     List list;
-    favoriteSongs.isNotEmpty ?  list = [
-      ...favoritePlaylists,
-      ...favoriteArtists,
-      ...favoriteAlbums,
-      ...userPlaylist,
-      likedSongs
-    ] :
-
-    list = [
-      ...favoritePlaylists,
-      ...favoriteArtists,
-      ...favoriteAlbums,
-      ...userPlaylist,
-    ];
+    favoriteSongs.isNotEmpty
+        ? list = [
+            ...favoritePlaylists,
+            ...favoriteArtists,
+            ...favoriteAlbums,
+            ...userPlaylist,
+            likedSongs
+          ]
+        : list = [
+            ...favoritePlaylists,
+            ...favoriteArtists,
+            ...favoriteAlbums,
+            ...userPlaylist,
+          ];
     final filteredList = list
         .where((element) =>
             _currentFilterOption == -1 ||
