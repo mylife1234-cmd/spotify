@@ -5,8 +5,8 @@ import 'package:spotify/components/search/recent_search_item.dart';
 
 import 'package:spotify/providers/data_provider.dart';
 
-import '../components/library/close_button.dart';
-import '../components/library/filter_button.dart';
+import '../../components/library/close_button.dart';
+import '../../components/library/filter_button.dart';
 
 class RecentlyPlayed extends StatefulWidget {
   const RecentlyPlayed({Key? key}) : super(key: key);

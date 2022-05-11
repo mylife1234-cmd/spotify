@@ -5,7 +5,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/player/favorite_button.dart';
 import 'package:spotify/components/player/play_button.dart';
-import 'package:spotify/pages/player.dart';
+import 'package:spotify/pages/music/player.dart';
 import 'package:spotify/providers/music_provider.dart';
 
 import '../../models/song.dart';

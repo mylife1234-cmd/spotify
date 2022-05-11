@@ -4,12 +4,12 @@ import 'package:spotify/components/home/artist_card.dart';
 import 'package:spotify/components/home/header_buttons.dart';
 import 'package:spotify/components/home/home_header.dart';
 import 'package:spotify/components/home/playlist_card.dart';
-import 'package:spotify/pages/loading.dart';
+import 'package:spotify/pages/others/loading.dart';
 import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/utils/helper.dart';
 
-import '../components/home/album_card.dart';
-import '../utils/db.dart';
+import '../../components/home/album_card.dart';
+import '../../utils/db.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

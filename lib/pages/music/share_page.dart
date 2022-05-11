@@ -4,7 +4,7 @@ import 'package:spotify/components/share/media_button.dart';
 import 'package:spotify/components/share/song_info.dart';
 import 'package:spotify/models/song.dart';
 
-import '../utils/helper.dart';
+import '../../utils/helper.dart';
 
 class SharePage extends StatefulWidget {
   const SharePage({Key? key, required this.song}) : super(key: key);

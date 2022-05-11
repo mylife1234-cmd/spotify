@@ -6,9 +6,9 @@ import 'package:spotify/components/player/info_section.dart';
 import 'package:spotify/components/player/queue_button.dart';
 import 'package:spotify/components/player/slider.dart';
 
-import '../components/player/share_button.dart';
-import '../providers/music_provider.dart';
-import '../utils/helper.dart';
+import '../../components/player/share_button.dart';
+import '../../providers/music_provider.dart';
+import '../../utils/helper.dart';
 
 class MusicPlayer extends StatelessWidget {
   const MusicPlayer({Key? key}) : super(key: key);

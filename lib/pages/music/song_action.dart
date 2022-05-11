@@ -5,13 +5,13 @@ import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/share/song_info.dart';
 import 'package:spotify/main.dart';
-import 'package:spotify/pages/share_page.dart';
+import 'package:spotify/pages/music/share_page.dart';
 
-import '../models/song.dart';
-import '../providers/data_provider.dart';
-import '../providers/music_provider.dart';
-import '../utils/db.dart';
-import '../utils/helper.dart';
+import '../../models/song.dart';
+import '../../providers/data_provider.dart';
+import '../../providers/music_provider.dart';
+import '../../utils/db.dart';
+import '../../utils/helper.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
 

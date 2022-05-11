@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:spotify/pages/playlist_queue.dart';
+import 'package:spotify/pages/music/playlist_queue.dart';
 
 import '../../models/song.dart';
 

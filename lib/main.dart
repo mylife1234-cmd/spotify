@@ -7,15 +7,15 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/player/mini_player.dart';
-import 'package:spotify/pages/home.dart';
-import 'package:spotify/pages/library.dart';
-import 'package:spotify/pages/search.dart';
-import 'package:spotify/pages/start.dart';
-import 'package:spotify/pages/verification.dart';
+import 'package:spotify/pages/auth/start.dart';
+import 'package:spotify/pages/auth/verification.dart';
+import 'package:spotify/pages/home/home.dart';
+import 'package:spotify/pages/library/library.dart';
 import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/providers/music_provider.dart';
 import 'package:spotify/utils/db.dart';
 
+import 'pages/search/search.dart';
 import 'utils/audio_handler.dart';
 
 GetIt getIt = GetIt.instance;

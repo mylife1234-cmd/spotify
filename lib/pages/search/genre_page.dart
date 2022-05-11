@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/library/grid_item.dart';
 import 'package:spotify/providers/data_provider.dart';
-import '../components/album/animate_label.dart';
-import '../components/artist/back_button.dart';
-import '../models/song.dart';
-import '../providers/music_provider.dart';
-import '../utils/helper.dart';
+import '../../components/album/animate_label.dart';
+import '../../components/artist/back_button.dart';
+import '../../models/song.dart';
+import '../../providers/music_provider.dart';
+import '../../utils/helper.dart';
 
 class GenrePage extends StatefulWidget {
   const GenrePage({

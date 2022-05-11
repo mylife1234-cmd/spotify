@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spotify/pages/profile.dart';
+import 'package:spotify/pages/profile/profile.dart';
 
-import '../../pages/recently_played.dart';
+import '../../pages/home/recently_played.dart';
 import '../../providers/data_provider.dart';
 import '../../providers/music_provider.dart';
 

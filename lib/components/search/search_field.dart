@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../pages/search_all.dart';
+import '../../pages/search/search_all.dart';
 
 class SearchField extends StatelessWidget {
   SearchField({Key? key}) : super(key: key);

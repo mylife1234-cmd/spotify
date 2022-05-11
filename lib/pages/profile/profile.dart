@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spotify/pages/playlist_view.dart';
+import 'package:spotify/pages/music/playlist_view.dart';
 import 'package:spotify/utils/helper.dart';
 
-import '../components/library/list_item.dart';
-import '../providers/data_provider.dart';
+import '../../components/library/list_item.dart';
+import '../../providers/data_provider.dart';
 import 'edit_profile.dart';
 
 class ProfilePage extends StatefulWidget {

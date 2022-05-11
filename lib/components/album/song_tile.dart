@@ -4,7 +4,7 @@ import 'package:spotify/components/actions/action_button.dart';
 import 'package:spotify/utils/helper.dart';
 
 import '../../models/song.dart';
-import '../../pages/song_action.dart';
+import '../../pages/music/song_action.dart';
 import '../../providers/music_provider.dart';
 
 class SongTile extends StatelessWidget {

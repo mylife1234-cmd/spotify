@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:spotify/pages/verification.dart';
+import 'package:spotify/pages/auth/verification.dart';
 
-import '../components/auth/input_field.dart';
-import '../components/auth/next_button.dart';
-import '../utils/helper.dart';
+import '../../components/auth/input_field.dart';
+import '../../components/auth/next_button.dart';
+import '../../utils/helper.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);

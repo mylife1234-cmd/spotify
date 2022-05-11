@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:spotify/components/queue/playing_song.dart';
 import 'package:spotify/components/queue/song_in_queue.dart';
 
-import '../providers/music_provider.dart';
-import '../utils/helper.dart';
+import '../../providers/music_provider.dart';
+import '../../utils/helper.dart';
 
 class PlaylistQueue extends StatefulWidget {
   const PlaylistQueue({Key? key, this.title}) : super(key: key);

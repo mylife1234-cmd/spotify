@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../models/song.dart';
-import '../../pages/share_page.dart';
+import '../../pages/music/share_page.dart';
 
 class ShareButton extends StatelessWidget {
   const ShareButton({

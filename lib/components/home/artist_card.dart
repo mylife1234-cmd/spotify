@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../pages/artist_view.dart';
+import '../../pages/music/artist_view.dart';
 
 class ArtistCard extends StatelessWidget {
   const ArtistCard({

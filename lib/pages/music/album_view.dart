@@ -1,38 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:spotify/components/album/album_component.dart';
+import 'package:spotify/components/album/animate_label.dart';
+import 'package:spotify/components/album/opacity_image.dart';
 import 'package:spotify/components/album/play_button.dart';
-import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/back_button.dart';
-import 'package:spotify/components/playlist/playlist_component.dart';
-import 'package:spotify/pages/loading.dart';
+import 'package:spotify/providers/data_provider.dart';
 
-import '../components/album/animate_label.dart';
-import '../components/album/opacity_image.dart';
-import '../models/song.dart';
-import '../providers/data_provider.dart';
-import '../providers/music_provider.dart';
-import '../utils/db.dart';
-import '../utils/helper.dart';
+import '../../components/album/song_tile.dart';
+import '../../models/song.dart';
+import '../../providers/music_provider.dart';
+import '../../utils/db.dart';
+import '../../utils/helper.dart';
+import '../others/loading.dart';
 
-class PlaylistView extends StatefulWidget {
-  const PlaylistView({
-    Key? key,
-    this.songIdList,
-    required this.image,
-    required this.label,
-    required this.id,
-  }) : super(key: key);
+class AlbumView extends StatefulWidget {
+  const AlbumView(
+      {Key? key,
+      required this.image,
+      required this.label,
+      this.songIdList,
+      required this.description,
+      required this.id})
+      : super(key: key);
 
-  final List? songIdList;
   final ImageProvider image;
+
   final String label;
+  final String description;
+  final List? songIdList;
   final String id;
 
   @override
-  State<PlaylistView> createState() => _PlaylistViewState();
+  State<AlbumView> createState() => _AlbumViewState();
 }
 
-class _PlaylistViewState extends State<PlaylistView> {
+class _AlbumViewState extends State<AlbumView> {
   late ScrollController scrollController;
   double imageSize = 0;
   double initialImageSize = 250;
@@ -42,9 +45,7 @@ class _PlaylistViewState extends State<PlaylistView> {
   bool showTopBar = false;
 
   Color _color = Colors.black;
-
   List<Song> songList = [];
-
   bool _loading = true;
 
   @override
@@ -74,12 +75,6 @@ class _PlaylistViewState extends State<PlaylistView> {
     fetchSongs();
   }
 
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
-  }
-
   Future<void> fetchSongs() async {
     if (widget.songIdList != null) {
       Future.wait(
@@ -107,6 +102,12 @@ class _PlaylistViewState extends State<PlaylistView> {
   }
 
   @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (_color == Colors.black) {
       getColorFromImage(widget.image).then((color) {
@@ -117,11 +118,9 @@ class _PlaylistViewState extends State<PlaylistView> {
         }
       });
     }
-
     if (_loading || songList.isEmpty) {
       return const LoadingScreen();
     }
-
     return Scaffold(
       body: Stack(
         children: [
@@ -149,14 +148,15 @@ class _PlaylistViewState extends State<PlaylistView> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(
-                  height: 50,
+                  height: 19,
                 ),
                 SafeArea(
-                    child: OpacityImage(
-                  imageOpacity: imageOpacity,
-                  imageSize: imageSize,
-                  image: widget.image,
-                )),
+                  child: OpacityImage(
+                    imageOpacity: imageOpacity,
+                    imageSize: imageSize,
+                    image: widget.image,
+                  ),
+                ),
               ],
             ),
           ),
@@ -183,22 +183,24 @@ class _PlaylistViewState extends State<PlaylistView> {
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Column(
                         children: [
-                          SizedBox(height: initialImageSize + 31),
+                          SizedBox(height: initialImageSize),
                           FutureBuilder(
-                            future: Database.getPlaylistById(widget.id),
+                            future: Database.getAlbumById(widget.id),
                             builder: (context, AsyncSnapshot snapshot) {
                               if (snapshot.hasData) {
-                                return PlaylistComponent(
+                                return AlbumComponent(
+                                  description: widget.description,
                                   label: widget.label,
                                   id: widget.id,
                                   onTap: () {
                                     context
                                         .read<DataProvider>()
-                                        .toggleFavoritePlaylist(snapshot.data);
+                                        .toggleFavoriteAlbum(snapshot.data);
                                   },
                                 );
                               }
-                              return PlaylistComponent(
+                              return AlbumComponent(
+                                description: widget.description,
                                 label: widget.label,
                                 id: widget.id,
                               );
@@ -216,7 +218,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                           await loadPlaylist();
                           context.read<MusicProvider>().playNewSong(item);
                           context.read<DataProvider>().addToRecentPlayedList(
-                              await Database.getPlaylistById(widget.id)
+                            await Database.getAlbumById(widget.id)
                           );
                         },
                         child: SongTile(song: item),
@@ -269,7 +271,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                       await loadPlaylist();
                       context.read<MusicProvider>().playWithIndex(0);
                       context.read<DataProvider>().addToRecentPlayedList(
-                          await Database.getPlaylistById(widget.id)
+                          await Database.getAlbumById(widget.id)
                       );
                     }),
                   ],

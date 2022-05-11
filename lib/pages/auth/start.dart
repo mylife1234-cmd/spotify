@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/auth/login_button.dart';
-import 'package:spotify/pages/login.dart';
-import 'package:spotify/pages/reset_password.dart';
-import 'package:spotify/pages/sign_up.dart';
+import 'package:spotify/pages/auth/login.dart';
+import 'package:spotify/pages/auth/reset_password.dart';
+import 'package:spotify/pages/auth/sign_up.dart';
 import 'package:spotify/providers/data_provider.dart';
 import 'package:spotify/utils/helper.dart';
 
