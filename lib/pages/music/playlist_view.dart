@@ -13,6 +13,7 @@ import '../../providers/data_provider.dart';
 import '../../providers/music_provider.dart';
 import '../../utils/db.dart';
 import '../../utils/helper.dart';
+import 'add_song.dart';
 
 class PlaylistView extends StatefulWidget {
   const PlaylistView({
@@ -71,7 +72,6 @@ class _PlaylistViewState extends State<PlaylistView> {
         setState(() {});
       });
     super.initState();
-
     fetchSongs();
   }
 
@@ -122,8 +122,6 @@ class _PlaylistViewState extends State<PlaylistView> {
     if (_loading || songList.isEmpty) {
       return const LoadingScreen();
     }
-    // widget.type == user ? if (context.watch<DataProvider>().)
-    //     :
     return Scaffold(
       body: Stack(
         children: [
@@ -191,6 +189,20 @@ class _PlaylistViewState extends State<PlaylistView> {
                             builder: (context, AsyncSnapshot snapshot) {
                               if (snapshot.hasData) {
                                 return PlaylistComponent(
+                                  addSong: () async {
+                                    final newSongs = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddSong(
+                                          id: widget.id,
+                                          songList: songList,
+                                        ),
+                                      ),
+                                    );
+                                    setState(() {
+                                      songList = [...songList, ...newSongs];
+                                    });
+                                  },
                                   label: widget.label,
                                   id: widget.id,
                                   onTap: () {

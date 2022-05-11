@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spotify/pages/music/add_song.dart';
-
 import '../../models/song.dart';
 import '../../providers/data_provider.dart';
-import '../../utils/helper.dart';
 
 class PlaylistComponent extends StatelessWidget {
   const PlaylistComponent({
@@ -12,14 +9,17 @@ class PlaylistComponent extends StatelessWidget {
     required this.label,
     required this.id,
     this.onTap,
-    required this.type, required this.songList,
+    required this.type,
+    required this.songList,
+    this.addSong,
   }) : super(key: key);
 
   final String label;
   final String id;
   final void Function()? onTap;
+  final void Function()? addSong;
   final String type;
-  final List <Song> songList;
+  final List<Song> songList;
   @override
   Widget build(BuildContext context) {
     final favoritePlaylistList =
@@ -65,7 +65,7 @@ class PlaylistComponent extends StatelessWidget {
           children: [
             if (!isUserPlayLists)
               GestureDetector(
-                onTap: onTap,
+                onTap: addSong,
                 child: Padding(
                   padding: const EdgeInsets.only(right: 18),
                   child: Icon(
@@ -80,13 +80,7 @@ class PlaylistComponent extends StatelessWidget {
             const Icon(Icons.more_horiz, size: 22),
             if (isUserPlayLists && user.id != id)
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>
-                    AddSong(id: id, songList: songList,)),
-                  );
-                },
+                onTap: addSong,
                 child: const Padding(
                   padding: EdgeInsets.only(left: 18, right: 18),
                   child: Icon(

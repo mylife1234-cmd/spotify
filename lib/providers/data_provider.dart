@@ -209,7 +209,9 @@ class DataProvider extends ChangeNotifier {
     } else {
       _favoriteAlbums.add(album);
     }
+
     notifyListeners();
+
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'favoriteAlbumIdList': _favoriteAlbums.map<String>((e) => e.id).toList()
     });
@@ -223,7 +225,9 @@ class DataProvider extends ChangeNotifier {
         _favoritePlaylists.add(playlist);
       }
     }
+
     notifyListeners();
+
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'favoritePlaylistIdList':
           _favoritePlaylists.map<String>((e) => e.id).toList()
@@ -236,43 +240,31 @@ class DataProvider extends ChangeNotifier {
     } else {
       _favoriteArtists.add(artist);
     }
+
     notifyListeners();
+
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'favoriteArtistIdList': _favoriteArtists.map<String>((e) => e.id).toList()
     });
   }
 
   void addSongToPlaylist(String songId, Playlist playlist) {
-    // print(_customizedPlaylists
-    //     .firstWhere((element) => element.id == playlist.id)
-    //     .songIdList
-    //     .toList()
-    //   ..add(songId));
-    final index =
-        _customizedPlaylists.indexWhere((element) => element.id == playlist.id);
+    final newPlaylist = _customizedPlaylists
+        .firstWhere((element) => element.id == playlist.id)
+      ..updateSongIdList(songId);
 
-    final newPlaylist = Playlist(
-        id: playlist.id,
-        name: playlist.name,
-        coverImageUrl: playlist.coverImageUrl,
-        songIdList: _customizedPlaylists
-            .firstWhere((element) => element.id == playlist.id)
-            .songIdList
-            .toList()
-          ..add(songId),
-        type: playlist.type);
-    _customizedPlaylists
-      ..removeWhere((element) => element.id == playlist.id)
-      ..insert(index, newPlaylist);
-    notifyListeners();
     FirebaseDatabase.instance
         .ref('/playlists/${playlist.id}')
-        .update({'songIdList': newPlaylist.songIdList.toList()});
+        .update({'songIdList': newPlaylist.songIdList});
+
+    notifyListeners();
   }
 
   void deleteFromRecentSearchList(item) {
     _recentSearchList.removeWhere((element) => element.id == item.id);
+
     notifyListeners();
+
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'recentSearchIdList': _recentSearchList.map<String>((e) {
         switch (e.runtimeType.toString()) {
@@ -293,7 +285,9 @@ class DataProvider extends ChangeNotifier {
     _recentSearchList
       ..removeWhere((element) => element.id == item.id)
       ..insert(0, item);
+
     notifyListeners();
+
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'recentSearchIdList': _recentSearchList.map<String>((e) {
         switch (e.runtimeType.toString()) {
@@ -314,6 +308,7 @@ class DataProvider extends ChangeNotifier {
     _recentSearchList.clear();
 
     notifyListeners();
+
     FirebaseDatabase.instance
         .ref('/users/${user.id}')
         .update({'recentSearchIdList': []});
@@ -323,10 +318,13 @@ class DataProvider extends ChangeNotifier {
     _recentPlayedList
       ..removeWhere((element) => element.id == item.id)
       ..insert(0, item);
+
     if (_recentPlayedList.length > 25) {
       _recentPlayedList.removeAt(_recentPlayedList.length - 1);
     }
+
     notifyListeners();
+
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'recentPlayedIdList': _recentPlayedList.map<String>((e) {
         switch (e.runtimeType.toString()) {
@@ -343,7 +341,9 @@ class DataProvider extends ChangeNotifier {
 
   void deleteFromPlayedList(item) {
     _recentPlayedList.removeWhere((element) => element.id == item.id);
+
     notifyListeners();
+
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'recentPlayedIdList': _recentPlayedList.map<String>((e) {
         switch (e.runtimeType.toString()) {
@@ -362,6 +362,7 @@ class DataProvider extends ChangeNotifier {
     _recentPlayedList.clear();
 
     notifyListeners();
+
     FirebaseDatabase.instance
         .ref('/users/${user.id}')
         .update({'recentPlayedIdList': []});

@@ -19,7 +19,7 @@ class _AddSongState extends State<AddSong> {
   List playlists = [];
   List searchResult = [];
   bool isSearch = false;
-
+  List<Song> chosenSongs = [];
   @override
   void initState() {
     isSearch = false;
@@ -78,7 +78,8 @@ class _AddSongState extends State<AddSong> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () =>
+                        Navigator.pop<List<Song>>(context, chosenSongs),
                     child: const Text(
                       'Cancel',
                       style: TextStyle(
@@ -148,8 +149,9 @@ class _AddSongState extends State<AddSong> {
                         .read<DataProvider>()
                         .addSongToPlaylist(item.id, snapshot.data);
                     setState(() {
-                      searchResult = playlists..
-                        removeWhere((element) => element.id == item.id);
+                      chosenSongs.insert(0, item);
+                      searchResult = playlists
+                        ..removeWhere((element) => element.id == item.id);
                     });
                   },
                   icon: const Icon(Icons.add_circle_outline),
