@@ -27,14 +27,16 @@ class DataProvider extends ChangeNotifier {
   final List<Artist> _artists = [];
   final List<Artist> _favoriteArtists = [];
 
+  final List<Song> _songs = [];
   final List<Song> _favoriteSongs = [];
+
   final List<Album> _albums = [];
   final List<Album> _favoriteAlbums = [];
 
   final List<Playlist> _favoritePlaylists = [];
   final List<Playlist> _customizedPlaylists = [];
   final List<Playlist> _systemPlaylists = [];
-  final List<Song> _songs = [];
+
   final List _recentSearchList = [];
   final List _recentPlayedList = [];
 
@@ -83,6 +85,7 @@ class DataProvider extends ChangeNotifier {
     _artists.clear();
     _favoriteArtists.clear();
 
+    _songs.clear();
     _favoriteSongs.clear();
 
     _albums.clear();
@@ -91,6 +94,7 @@ class DataProvider extends ChangeNotifier {
     _favoritePlaylists.clear();
     _customizedPlaylists.clear();
     _systemPlaylists.clear();
+
     _recentSearchList.clear();
     _recentPlayedList.clear();
   }
