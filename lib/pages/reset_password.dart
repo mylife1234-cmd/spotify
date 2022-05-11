@@ -54,16 +54,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   }
 
   Future sendLink() async {
-    await showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(
-          color: Color(0xff57b660),
-        ),
-      ),
-    );
-
     try {
       final userSignInMethods =
           await FirebaseAuth.instance.fetchSignInMethodsForEmail(_email);
