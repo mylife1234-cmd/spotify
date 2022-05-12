@@ -137,7 +137,6 @@ class _SongActionState extends State<SongAction> {
                         return ActionTile(
                           title: item.title,
                           leading: item.leading,
-                          color: _color,
                           onTap: item.onTap,
                         );
                       }).toList(),

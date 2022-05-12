@@ -38,11 +38,11 @@ class _PlaylistActionState extends State<PlaylistAction> {
   Widget build(BuildContext context) {
     final isFavorite = context
         .watch<DataProvider>()
-        .favoriteAlbums
+        .favoritePlaylists
         .any((e) => e.id == widget.playlist.id);
 
     final listAction = [
-      Action(
+      if (widget.playlist.type == 'system') Action(
         'Like',
         Icon(
           isFavorite ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
@@ -51,6 +51,7 @@ class _PlaylistActionState extends State<PlaylistAction> {
         ),
         _doActionLike,
       ),
+
     ];
 
     return Scaffold(
@@ -91,7 +92,6 @@ class _PlaylistActionState extends State<PlaylistAction> {
                         return ActionTile(
                           title: item.title,
                           leading: item.leading,
-                          color: _color,
                           onTap: item.onTap,
                         );
                       }).toList(),

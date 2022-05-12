@@ -91,7 +91,6 @@ class _AlbumActionState extends State<AlbumAction> {
                         return ActionTile(
                           title: item.title,
                           leading: item.leading,
-                          color: _color,
                           onTap: item.onTap,
                         );
                       }).toList(),

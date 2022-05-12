@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/playlist.dart';
 import '../../models/song.dart';
+import '../../pages/music/playlist/playlist_action.dart';
 import '../../providers/data_provider.dart';
 
 class PlaylistComponent extends StatelessWidget {
@@ -24,7 +25,8 @@ class PlaylistComponent extends StatelessWidget {
 
     final isUserPlayLists = playlist.type == 'user';
 
-    final isFavorite = favoritePlaylistList.any((element) => element.id == playlist.id);
+    final isFavorite =
+        favoritePlaylistList.any((element) => element.id == playlist.id);
 
     final user = context.watch<DataProvider>().user;
 
@@ -75,8 +77,19 @@ class PlaylistComponent extends StatelessWidget {
                   ),
                 ),
               ),
-            const Icon(Icons.more_horiz, size: 22),
-            if (isUserPlayLists && user.id != playlist.id)
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push(
+                  MaterialPageRoute(
+                    builder: (context) => PlaylistAction(
+                      playlist: playlist,
+                    ),
+                  ),
+                );
+              },
+              child: const Icon(Icons.more_horiz, size: 22),
+            ),
+            if (isUserPlayLists && '${user.id}0' != playlist.id)
               GestureDetector(
                 onTap: addSong,
                 child: const Padding(

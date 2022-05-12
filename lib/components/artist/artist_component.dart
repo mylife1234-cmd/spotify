@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 import '../../models/artist.dart';
+import '../../pages/music/artist/artist_action.dart';
 import '../../providers/data_provider.dart';
 
 class ArtistComponent extends StatelessWidget {
@@ -60,9 +62,18 @@ class ArtistComponent extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 15),
-            const Icon(
-              Icons.more_horiz,
-              size: 22,
+            GestureDetector(
+              onTap: (){
+                Navigator.of(context, rootNavigator: true).push(
+                  MaterialPageRoute(
+                    builder: (context) => ArtistAction(artist: artist),
+                  ),
+                );
+              },
+              child: const Icon(
+                Icons.more_horiz,
+                size: 22,
+              ),
             ),
           ],
         ),

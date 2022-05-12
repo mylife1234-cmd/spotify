@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/album.dart';
+import '../../pages/music/album/album_action.dart';
 import '../../providers/data_provider.dart';
 
 class AlbumComponent extends StatelessWidget {
@@ -64,9 +65,20 @@ class AlbumComponent extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 15),
-            const Icon(
-              Icons.more_horiz,
-              size: 22,
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push(
+                  MaterialPageRoute(
+                    builder: (context) => AlbumAction(
+                      album: album,
+                    ),
+                  ),
+                );
+              },
+              child: const Icon(
+                Icons.more_horiz,
+                size: 22,
+              ),
             ),
           ],
         )

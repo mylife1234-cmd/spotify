@@ -32,9 +32,11 @@ class ItemInfo extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 15, bottom: 30),
+          padding: const EdgeInsets.only(top: 15, bottom: 15),
           child: Text(
-            item.description,
+            item.runtimeType.toString() == 'Playlist'
+                ? 'Playlist'
+                : item.description,
             style: Theme.of(context).textTheme.caption,
           ),
         ),

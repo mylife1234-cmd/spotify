@@ -4,13 +4,11 @@ class ActionTile extends StatelessWidget {
   const ActionTile({
     Key? key,
     required this.title,
-    required this.color,
     required this.leading,
     this.onTap,
   }) : super(key: key);
 
   final String title;
-  final Color color;
   final Widget leading;
   final void Function()? onTap;
 
