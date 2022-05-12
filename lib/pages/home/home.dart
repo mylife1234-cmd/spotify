@@ -138,11 +138,8 @@ class _HomePageState extends State<HomePage> {
             return Padding(
               padding: const EdgeInsets.only(right: 15),
               child: ArtistCard(
-                id: item.id,
-                label: item.name,
+                artist: item,
                 image: getImageFromUrl(item.coverImageUrl),
-                description: item.description,
-                songIdList: item.songIdList,
                 size: 120,
               ),
             );

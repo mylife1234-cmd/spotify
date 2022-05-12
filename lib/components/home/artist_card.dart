@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:spotify/models/artist.dart';
 
 import '../../pages/music/artist_view.dart';
 
 class ArtistCard extends StatelessWidget {
   const ArtistCard({
     Key? key,
-    required this.label,
+    required this.artist,
     required this.image,
-    this.songIdList,
-    required this.description,
-    required this.id,
     required this.size,
   }) : super(key: key);
 
-  final String label;
+  final Artist artist;
   final ImageProvider image;
-  final List? songIdList;
-  final String description;
-  final String id;
   final double size;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,13 +22,7 @@ class ArtistCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ArtistView(
-              id: id,
-              image: image,
-              label: label,
-              songIdList: songIdList,
-              description: description,
-            ),
+            builder: (context) => ArtistView(artist: artist, image: image),
           ),
         );
       },
@@ -53,7 +43,7 @@ class ArtistCard extends StatelessWidget {
             const SizedBox(height: 9),
             Center(
               child: Text(
-                label,
+                artist.name,
                 textAlign: TextAlign.center,
                 style:
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),

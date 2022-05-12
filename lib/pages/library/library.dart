@@ -241,12 +241,7 @@ class _LibraryPageState extends State<LibraryPage> {
               description: item.description,
             );
           }
-          return ArtistView(
-              id: item.id,
-              image: image,
-              label: item.name,
-              description: item.description,
-              songIdList: item.songIdList);
+          return ArtistView(artist: item, image: image);
         },
       ),
     );

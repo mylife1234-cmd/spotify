@@ -4,6 +4,7 @@ import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/artist_component.dart';
 import 'package:spotify/components/artist/back_button.dart';
+import 'package:spotify/models/artist.dart';
 import 'package:spotify/providers/data_provider.dart';
 
 import '../../components/album/animate_label.dart';
@@ -17,18 +18,12 @@ import '../others/loading.dart';
 class ArtistView extends StatefulWidget {
   const ArtistView({
     Key? key,
+    required this.artist,
     required this.image,
-    required this.label,
-    this.songIdList,
-    required this.description,
-    required this.id,
   }) : super(key: key);
 
+  final Artist artist;
   final ImageProvider image;
-  final String label;
-  final List? songIdList;
-  final String description;
-  final String id;
 
   @override
   State<ArtistView> createState() => _ArtistViewState();
@@ -75,9 +70,9 @@ class _ArtistViewState extends State<ArtistView> {
   }
 
   Future<void> fetchSongs() async {
-    if (widget.songIdList != null) {
+    if (widget.artist.songIdList.isNotEmpty) {
       Future.wait(
-        widget.songIdList!.map((id) => Database.getSongById(id)),
+        widget.artist.songIdList.map((id) => Database.getSongById(id)),
       ).then((songs) {
         setState(() {
           songList = songs;
@@ -91,12 +86,12 @@ class _ArtistViewState extends State<ArtistView> {
     final currentPlaylistId =
         Provider.of<MusicProvider>(context, listen: false).currentPlaylistId;
 
-    if (songList.isNotEmpty && currentPlaylistId != widget.id) {
+    if (songList.isNotEmpty && currentPlaylistId != widget.artist.id) {
       await context.read<MusicProvider>().loadPlaylist(songList);
 
       context
           .read<MusicProvider>()
-          .updateCurrentPlaylist(widget.id, widget.label);
+          .updateCurrentPlaylist(widget.artist.id, widget.artist.name);
     }
   }
 
@@ -184,28 +179,15 @@ class _ArtistViewState extends State<ArtistView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize),
-                          FutureBuilder(
-                            future: Database.getArtistById(widget.id),
-                            builder:
-                                (context, AsyncSnapshot<dynamic> snapshot) {
-                              if (snapshot.hasData) {
-                                return ArtistComponent(
-                                    id: widget.id,
-                                    label: widget.label,
-                                    description: widget.description,
-                                    onTap: () {
-                                      context
-                                          .read<DataProvider>()
-                                          .toggleFavoriteArtist(snapshot.data);
-                                    });
-                              }
-                              return ArtistComponent(
-                                id: widget.id,
-                                label: widget.label,
-                                description: widget.description,
-                              );
-                            },
-                          )
+                          ArtistComponent(
+                              id: widget.artist.id,
+                              label: widget.artist.name,
+                              description: widget.artist.description,
+                              onTap: () {
+                                context
+                                    .read<DataProvider>()
+                                    .toggleFavoriteArtist(widget.artist);
+                              })
                         ],
                       ),
                     ),
@@ -221,9 +203,7 @@ class _ArtistViewState extends State<ArtistView> {
                                 context.read<MusicProvider>().playNewSong(item);
                                 context
                                     .read<DataProvider>()
-                                    .addToRecentPlayedList(
-                                        await Database.getArtistById(
-                                            widget.id));
+                                    .addToRecentPlayedList(widget.artist);
                               },
                               child: SongTile(song: item),
                             );
@@ -255,7 +235,10 @@ class _ArtistViewState extends State<ArtistView> {
                         left: -5,
                         child: BackIconButton(),
                       ),
-                      AnimateLabel(label: widget.label, isShow: showTopBar),
+                      AnimateLabel(
+                        label: widget.artist.name,
+                        isShow: showTopBar,
+                      ),
                       // Positioned(
                       //   right: 5,
                       //   bottom:
@@ -288,8 +271,9 @@ class _ArtistViewState extends State<ArtistView> {
                     PLayButton(onTap: () async {
                       await loadPlaylist();
                       context.read<MusicProvider>().playWithIndex(0);
-                      context.read<DataProvider>().addToRecentPlayedList(
-                          await Database.getArtistById(widget.id));
+                      context
+                          .read<DataProvider>()
+                          .addToRecentPlayedList(widget.artist);
                     }),
                   ],
                 ),
