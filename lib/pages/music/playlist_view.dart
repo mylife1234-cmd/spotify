@@ -138,7 +138,6 @@ class _PlaylistViewState extends State<PlaylistView> {
     //   imagePlaylist = widget.image;
     // }
 
-
     if (_loading) {
       return const LoadingScreen();
     }
@@ -237,7 +236,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                                   },
                                   label: widget.label,
                                   id: widget.id,
-                                  onTap: () {
+                                  toggleFavorite: () {
                                     context
                                         .read<DataProvider>()
                                         .toggleFavoritePlaylist(snapshot.data);

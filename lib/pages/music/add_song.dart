@@ -72,8 +72,9 @@ class _AddSongState extends State<AddSong> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () =>
-                        Navigator.pop<List<Song>>(context, chosenSongs),
+                    onTap: () {
+                      Navigator.pop<List<Song>>(context, chosenSongs);
+                    },
                     child: const Text(
                       'Cancel',
                       style: TextStyle(
@@ -141,8 +142,7 @@ class _AddSongState extends State<AddSong> {
 
               setState(() {
                 chosenSongs.add(item);
-                searchResult = playlists
-                  ..removeWhere((element) => element.id == item.id);
+                searchResult = playlists..removeWhere((e) => e.id == item.id);
               });
             },
             icon: const Icon(Icons.add_circle_outline),

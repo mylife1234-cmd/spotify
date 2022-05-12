@@ -8,15 +8,15 @@ class PlaylistComponent extends StatelessWidget {
     Key? key,
     required this.label,
     required this.id,
-    this.onTap,
     required this.type,
     required this.songList,
+    this.toggleFavorite,
     this.addSong,
   }) : super(key: key);
 
   final String label;
   final String id;
-  final void Function()? onTap;
+  final void Function()? toggleFavorite;
   final void Function()? addSong;
   final String type;
   final List<Song> songList;
@@ -42,7 +42,7 @@ class PlaylistComponent extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(top: 15, bottom: 22),
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -52,22 +52,21 @@ class PlaylistComponent extends StatelessWidget {
                 height: 20,
               ),
               const SizedBox(width: 7),
-              if (isUserPlayLists)
-                const Text('My playlist',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold))
-              else
-                const Text('Spotify',
-                    style:
-                        TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+              Text(
+                isUserPlayLists ? 'My playlist' : 'Spotify',
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
             ],
           ),
         ),
-        const SizedBox(height: 22),
         Row(
           children: [
             if (!isUserPlayLists)
               GestureDetector(
-                onTap: addSong,
+                onTap: toggleFavorite,
                 child: Padding(
                   padding: const EdgeInsets.only(right: 18),
                   child: Icon(
