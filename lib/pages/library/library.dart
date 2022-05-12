@@ -232,13 +232,7 @@ class _LibraryPageState extends State<LibraryPage> {
       MaterialPageRoute(
         builder: (context) {
           if (item.runtimeType.toString() == 'Playlist') {
-            return PlaylistView(
-              id: item.id,
-              image: image,
-              label: item.name,
-              songIdList: item.songIdList,
-              type: item.type,
-            );
+            return PlaylistView(playlist: item, image: image);
           }
           if (item.runtimeType.toString() == 'Album') {
             return AlbumView(

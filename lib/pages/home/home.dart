@@ -129,12 +129,9 @@ class _HomePageState extends State<HomePage> {
             return Padding(
               padding: const EdgeInsets.only(right: 15),
               child: PlaylistCard(
-                id: item.id,
-                label: item.name,
+                playlist: item,
                 image: getImageFromUrl(item.coverImageUrl),
-                songIdList: item.songIdList,
                 size: 120,
-                type: item.type,
               ),
             );
           case 'Artist':

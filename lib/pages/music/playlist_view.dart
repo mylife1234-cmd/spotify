@@ -4,6 +4,7 @@ import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/components/playlist/playlist_component.dart';
+import 'package:spotify/models/playlist.dart';
 import 'package:spotify/pages/others/loading.dart';
 
 import '../../components/album/animate_label.dart';
@@ -18,18 +19,13 @@ import 'add_song.dart';
 class PlaylistView extends StatefulWidget {
   const PlaylistView({
     Key? key,
-    this.songIdList,
+    required this.playlist,
     required this.image,
-    required this.label,
-    required this.id,
-    required this.type,
   }) : super(key: key);
 
-  final List? songIdList;
+  final Playlist playlist;
   final ImageProvider image;
-  final String label;
-  final String id;
-  final String type;
+
   @override
   State<PlaylistView> createState() => _PlaylistViewState();
 }
@@ -74,6 +70,7 @@ class _PlaylistViewState extends State<PlaylistView> {
         // print(imageSize);
         setState(() {});
       });
+
     super.initState();
     fetchSongs();
   }
@@ -85,9 +82,9 @@ class _PlaylistViewState extends State<PlaylistView> {
   }
 
   Future<void> fetchSongs() async {
-    if (widget.songIdList != null) {
+    if (widget.playlist.songIdList.isNotEmpty) {
       Future.wait(
-        widget.songIdList!.map((id) => Database.getSongById(id)),
+        widget.playlist.songIdList.map((id) => Database.getSongById(id)),
       ).then((songs) {
         setState(() {
           songList = songs;
@@ -95,7 +92,7 @@ class _PlaylistViewState extends State<PlaylistView> {
         });
       });
     }
-    if (widget.type == 'user' && widget.songIdList == null) {
+    if (widget.playlist.type == 'user' && widget.playlist.songIdList.isEmpty) {
       setState(() {
         _loading = false;
       });
@@ -106,12 +103,12 @@ class _PlaylistViewState extends State<PlaylistView> {
     final currentPlaylistId =
         Provider.of<MusicProvider>(context, listen: false).currentPlaylistId;
 
-    if (songList.isNotEmpty && currentPlaylistId != widget.id) {
+    if (songList.isNotEmpty && currentPlaylistId != widget.playlist.id) {
       await context.read<MusicProvider>().loadPlaylist(songList);
 
       context
           .read<MusicProvider>()
-          .updateCurrentPlaylist(widget.id, widget.label);
+          .updateCurrentPlaylist(widget.playlist.id, widget.playlist.name);
     }
   }
 
@@ -204,55 +201,43 @@ class _PlaylistViewState extends State<PlaylistView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize + 31),
-                          FutureBuilder(
-                            future: Database.getPlaylistById(widget.id),
-                            builder: (context, AsyncSnapshot snapshot) {
-                              if (snapshot.hasData) {
-                                return PlaylistComponent(
-                                  addSong: () async {
-                                    final newSongs = await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddSong(
-                                          id: widget.id,
-                                          songList: songList,
-                                        ),
-                                      ),
-                                    );
-                                    setState(() {
-                                      songList = [...songList, ...newSongs];
-                                    });
-                                    for (int i = 0; i < songList.length; i++) {
-                                      if (songList[i].audioUrl == '') {
-                                        songList[i].audioUrl =
-                                            await getFileFromFirebase(
-                                                '/song/audio/${songList[i].id}.mp3');
-                                      }
-
-                                      context
-                                          .read<MusicProvider>()
-                                          .addToPlaylist(songList[i]);
-                                    }
-                                  },
-                                  label: widget.label,
-                                  id: widget.id,
-                                  toggleFavorite: () {
-                                    context
-                                        .read<DataProvider>()
-                                        .toggleFavoritePlaylist(snapshot.data);
-                                  },
-                                  type: widget.type,
-                                  songList: songList,
-                                );
-                              }
-                              return PlaylistComponent(
-                                songList: songList,
-                                label: widget.label,
-                                id: widget.id,
-                                type: widget.type,
+                          PlaylistComponent(
+                            addSong: () async {
+                              final newSongs = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AddSong(
+                                    id: widget.playlist.id,
+                                    songList: songList,
+                                  ),
+                                ),
                               );
+
+                              setState(() {
+                                songList = [...songList, ...newSongs];
+                              });
+
+                              for (final song in songList) {
+                                if (song.audioUrl == '') {
+                                  song.audioUrl = await getFileFromFirebase(
+                                    '/song/audio/${song.id}.mp3',
+                                  );
+                                }
+                                context
+                                    .read<MusicProvider>()
+                                    .addToPlaylist(song);
+                              }
                             },
-                          ),
+                            label: widget.playlist.name,
+                            id: widget.playlist.id,
+                            toggleFavorite: () {
+                              context
+                                  .read<DataProvider>()
+                                  .toggleFavoritePlaylist(widget.playlist);
+                            },
+                            type: widget.playlist.type,
+                            songList: songList,
+                          )
                         ],
                       ),
                     ),
@@ -264,8 +249,9 @@ class _PlaylistViewState extends State<PlaylistView> {
                         onTap: () async {
                           await loadPlaylist();
                           context.read<MusicProvider>().playNewSong(item);
-                          context.read<DataProvider>().addToRecentPlayedList(
-                              await Database.getPlaylistById(widget.id));
+                          context
+                              .read<DataProvider>()
+                              .addToRecentPlayedList(widget.playlist);
                         },
                         child: SongTile(song: item),
                       );
@@ -296,7 +282,10 @@ class _PlaylistViewState extends State<PlaylistView> {
                         left: -5,
                         child: BackIconButton(),
                       ),
-                      AnimateLabel(label: widget.label, isShow: showTopBar),
+                      AnimateLabel(
+                        label: widget.playlist.name,
+                        isShow: showTopBar,
+                      ),
                     ],
                   ),
                 ),
@@ -316,8 +305,9 @@ class _PlaylistViewState extends State<PlaylistView> {
                     PLayButton(onTap: () async {
                       await loadPlaylist();
                       context.read<MusicProvider>().playWithIndex(0);
-                      context.read<DataProvider>().addToRecentPlayedList(
-                          await Database.getPlaylistById(widget.id));
+                      context
+                          .read<DataProvider>()
+                          .addToRecentPlayedList(widget.playlist);
                     }),
                   ],
                 ),

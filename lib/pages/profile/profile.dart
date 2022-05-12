@@ -123,13 +123,7 @@ class _ProfilePageState extends State<ProfilePage> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
-        return PlaylistView(
-          id: item.id,
-          image: image,
-          label: item.name,
-          songIdList: item.songIdList,
-          type: item.type,
-        );
+        return PlaylistView(playlist: item, image: image);
       }),
     );
   }

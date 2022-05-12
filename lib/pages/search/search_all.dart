@@ -295,13 +295,7 @@ class _SearchAllState extends State<SearchAll> {
         builder: (context) {
           switch (item.runtimeType.toString()) {
             case 'Playlist':
-              return PlaylistView(
-                id: item.id,
-                image: image,
-                label: item.name,
-                songIdList: item.songIdList,
-                type: item.type,
-              );
+              return PlaylistView(playlist: item, image: image);
 
             case 'Album':
               return AlbumView(
