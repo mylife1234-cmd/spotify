@@ -217,16 +217,16 @@ class _PlaylistViewState extends State<PlaylistView> {
                                 songList = [...songList, ...newSongs];
                               });
 
-                              for (final song in songList) {
-                                if (song.audioUrl == '') {
-                                  song.audioUrl = await getFileFromFirebase(
-                                    '/song/audio/${song.id}.mp3',
-                                  );
-                                }
-                                context
-                                    .read<MusicProvider>()
-                                    .addToPlaylist(song);
-                              }
+                              // for (final song in songList) {
+                              //   if (song.audioUrl == '') {
+                              //     song.audioUrl = await getFileFromFirebase(
+                              //       '/song/audio/${song.id}.mp3',
+                              //     );
+                              //   }
+                              //   context
+                              //       .read<MusicProvider>()
+                              //       .addToPlaylist(song);
+                              // }
                             },
                             label: widget.playlist.name,
                             id: widget.playlist.id,

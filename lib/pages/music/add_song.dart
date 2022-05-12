@@ -4,6 +4,8 @@ import 'package:spotify/providers/data_provider.dart';
 
 import '../../components/playlist/song_suggestion.dart';
 import '../../models/song.dart';
+import '../../providers/music_provider.dart';
+import '../../utils/helper.dart';
 
 class AddSong extends StatefulWidget {
   const AddSong({Key? key, required this.id, required this.songList})
@@ -135,14 +137,20 @@ class _AddSongState extends State<AddSong> {
         return SongSuggestion(
           song: item,
           trailing: IconButton(
-            onPressed: () {
+            onPressed: () async {
               context
                   .read<DataProvider>()
                   .addSongToPlaylist(item.id, widget.id);
+              if (item.audioUrl == '') {
+                item.audioUrl = await getFileFromFirebase(
+                  '/song/audio/${item.id}.mp3',
+                );
+              }
+              context.read<MusicProvider>().addToPlaylist(item);
 
               setState(() {
-                chosenSongs.add(item);
                 searchResult = playlists..removeWhere((e) => e.id == item.id);
+                chosenSongs.add(item);
               });
             },
             icon: const Icon(Icons.add_circle_outline),
