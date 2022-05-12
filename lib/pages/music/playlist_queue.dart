@@ -101,7 +101,7 @@ class _PlaylistQueueState extends State<PlaylistQueue> {
 
                     await context
                         .read<MusicProvider>()
-                        .removeQueueItemAt(currentIndex + 1 + oldIndex);
+                        .removeSongFromQueue(convertMediaItemToSong(item));
 
                     await context
                         .read<MusicProvider>()

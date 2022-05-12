@@ -324,6 +324,12 @@ class MusicProvider extends ChangeNotifier {
     await _audioHandler.removeQueueItemAt(index);
   }
 
+  Future removeSongFromQueue(Song song) async {
+    final index = currentPlaylist.indexWhere((e) => e.id == song.id);
+
+    await removeQueueItemAt(index);
+  }
+
   Future _updateLyric(Song song) async {
     try {
       final mp3Bytes = await File(song.audioUrl).readAsBytes();

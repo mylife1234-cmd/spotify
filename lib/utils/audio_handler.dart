@@ -68,8 +68,8 @@ class MyAudioHandler extends BaseAudioHandler {
   Future<void> removeQueueItemAt(int index) async {
     await _playlist.removeAt(index);
 
-    final newQueue = queue.value..removeAt(index);
-    queue.add(newQueue);
+    // final newQueue = queue.value..removeAt(index);
+    // queue.add(newQueue);
   }
 
   @override
@@ -78,8 +78,8 @@ class MyAudioHandler extends BaseAudioHandler {
       final audioSource = _createAudioSource(mediaItem);
       await _playlist.insert(index, audioSource);
 
-      final newQueue = queue.value..insert(index, mediaItem);
-      queue.add(newQueue);
+      // final newQueue = queue.value..insert(index, mediaItem);
+      // queue.add(newQueue);
     }
   }
 
