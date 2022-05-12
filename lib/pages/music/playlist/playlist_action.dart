@@ -65,6 +65,17 @@ class _PlaylistActionState extends State<PlaylistAction> {
             size: 22,
           ),
           _doActionEdit,
+        ),
+      if (widget.playlist.type == 'user' &&
+          widget.playlist.id != '${context.watch<DataProvider>().user.id}0')
+        Action(
+          'Delete Playlist',
+          const Icon(
+            // Icons.delete,
+            Icons.close,
+            size: 22,
+          ),
+          _doActionDelete,
         )
     ];
 
@@ -153,6 +164,12 @@ class _PlaylistActionState extends State<PlaylistAction> {
       },
       duration: const Duration(milliseconds: 250),
     );
+  }
+
+  void _doActionDelete() {
+    context.read<DataProvider>().deletePlaylist(widget.playlist.id);
+    // Navigator.popUntil(context, (route) => route.settings.name == '/library');
+    Navigator.popUntil(context, (route)  => route.isFirst);
   }
 }
 

@@ -396,8 +396,14 @@ class DataProvider extends ChangeNotifier {
   }
 
   void createNewPlaylist(String playlistName) {
+    String newId = _user.id.toString() + (_customizedPlaylists.length + 1).toString();
+    int n = 2;
+    while (_customizedPlaylists.any((element) => element.id == newId)){
+      newId = _user.id.toString()  + (customizedPlaylists.length + n).toString();
+      n ++;
+    }
     final Playlist newPlaylist = Playlist(
-      id: _user.id.toString() + (_customizedPlaylists.length + 1).toString(),
+      id: newId,
       name: playlistName,
       coverImageUrl: 'assets/images/default-cover.png',
       type: 'user',
@@ -430,6 +436,17 @@ class DataProvider extends ChangeNotifier {
     FirebaseDatabase.instance.ref('/playlists/$playlistId').update({
       'name': newName,
     });
+  }
+
+  void deletePlaylist(String playlistId) {
+    _customizedPlaylists.removeWhere((element) => element.id == playlistId);
+
+    notifyListeners();
+    FirebaseDatabase.instance.ref('/users/${user.id}').update({
+      'customizedPlaylistIdList':
+          _customizedPlaylists.map<String>((e) => e.id).toList()
+    });
+    FirebaseDatabase.instance.ref('/playlists/$playlistId').set({});
   }
 
   void updateCoverImageUrlPlaylist(String url, String playlistId) {
