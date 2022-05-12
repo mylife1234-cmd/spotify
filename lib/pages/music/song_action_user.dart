@@ -63,14 +63,15 @@ class _SongActionUserState extends State<SongActionUser> {
         ),
         _doActionLike,
       ),
-      Action(
-        'Remove form this Playlist',
-        const Icon(
-          CupertinoIcons.xmark_circle,
-          size: 22,
+      if (widget.playlist.id != '${context.watch<DataProvider>().user.id}0')
+        Action(
+          'Remove from this Playlist',
+          const Icon(
+            CupertinoIcons.xmark_circle,
+            size: 22,
+          ),
+          _doActionRemoveFromPlaylist,
         ),
-        _doActionRemoveFromPlaylist,
-      ),
       Action(
         'Share',
         const Icon(
