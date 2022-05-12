@@ -49,7 +49,7 @@ class SongTile extends StatelessWidget {
         trailing: ActionButton(
           song: song,
           size: 20,
-          onPressed: () {
+          onTap: () {
             Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute(
                 builder: (context) => SongAction(song: song),

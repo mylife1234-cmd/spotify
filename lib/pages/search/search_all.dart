@@ -236,7 +236,7 @@ class _SearchAllState extends State<SearchAll> {
                 trailing: ActionButton(
                   song: item,
                   size: 20,
-                  onPressed: () {
+                  onTap: () {
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
                         builder: (context) => SongAction(song: item),

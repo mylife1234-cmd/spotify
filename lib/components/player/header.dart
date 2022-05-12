@@ -20,34 +20,42 @@ class PlayerHeader extends StatelessWidget {
       padding: const EdgeInsets.only(
         left: 15,
         right: 15,
+        top: 8,
+        bottom: 8,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GestureDetector(
-            onTap: onDismissed,
-            child: const Icon(
-              Icons.keyboard_arrow_down,
-              size: 30,
+          SizedBox(
+            width: 30,
+            child: GestureDetector(
+              onTap: onDismissed,
+              child: const Icon(
+                Icons.keyboard_arrow_down,
+                size: 30,
+              ),
             ),
           ),
           Text(
             name,
             style: const TextStyle(fontWeight: FontWeight.w500),
           ),
-          ActionButton(
-            song: song,
-            size: 20,
-            onPressed: () async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SongAction(
-                    song: song,
+          SizedBox(
+            width: 30,
+            child: ActionButton(
+              song: song,
+              size: 20,
+              onTap: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SongAction(
+                      song: song,
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           )
         ],
       ),

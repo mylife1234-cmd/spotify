@@ -62,7 +62,7 @@ class SongTileUser extends StatelessWidget {
           //     ),
           //   );
           // },
-          onPressed: deleteSong,
+          onTap: deleteSong,
         ),
         contentPadding: EdgeInsets.zero,
         dense: true,
