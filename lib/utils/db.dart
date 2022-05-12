@@ -26,6 +26,11 @@ class Database {
     FirebaseDatabase.instance.ref('/users').child(id).set({
       'createdAt': creationTime.toIso8601String(),
     });
+    FirebaseDatabase.instance.ref('/playlists').child('${id}0').set({
+      'name': 'Liked Songs',
+      'type': 'user',
+      'coverImageUrl': 'assets/images/favorite.png',
+    });
   }
 
   static void initPlaylist(String name) {

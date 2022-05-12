@@ -198,6 +198,10 @@ class DataProvider extends ChangeNotifier {
 
     notifyListeners();
 
+    FirebaseDatabase.instance.ref('/playlists/${user.id}0').update({
+      'songIdList': _favoriteSongs.map<String>((e) => e.id).toList()
+    });
+
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'favoriteSongIdList': _favoriteSongs.map<String>((e) => e.id).toList()
     });
@@ -382,7 +386,7 @@ class DataProvider extends ChangeNotifier {
 
   void createNewPlaylist(String playlistName) {
     final Playlist newPlaylist = Playlist(
-      id: _user.id.toString() + _customizedPlaylists.length.toString(),
+      id: _user.id.toString() + (_customizedPlaylists.length + 1).toString() ,
       name: playlistName,
       coverImageUrl: 'assets/images/default-cover.png',
       type: 'user',
