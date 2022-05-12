@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/widgets.dart';
+import 'package:id3/id3.dart';
 
 import '../main.dart';
 import '../models/song.dart';
@@ -40,8 +43,10 @@ class MusicProvider extends ChangeNotifier {
 
   bool get isLastSong => _isLastSong;
 
-  ProgressState _progressState =
-      ProgressState(current: Duration.zero, total: Duration.zero);
+  ProgressState _progressState = ProgressState(
+    current: Duration.zero,
+    total: Duration.zero,
+  );
 
   ProgressState get progressState => _progressState;
 
@@ -56,6 +61,10 @@ class MusicProvider extends ChangeNotifier {
   String _currentPlaylistName = '';
 
   String get currentPlaylistName => _currentPlaylistName;
+
+  String _lyric = '';
+
+  String get lyric => _lyric;
 
   void _initialize() {
     _playlistListener();
@@ -150,7 +159,9 @@ class MusicProvider extends ChangeNotifier {
       final current = _progressState.current;
 
       _progressState = ProgressState(
-          current: current, total: mediaItem?.duration ?? Duration.zero);
+        current: current,
+        total: mediaItem?.duration ?? Duration.zero,
+      );
 
       notifyListeners();
     });
@@ -159,11 +170,17 @@ class MusicProvider extends ChangeNotifier {
   void _currentSongListener() {
     _audioHandler.mediaItem.listen((mediaItem) {
       if (mediaItem != null) {
-        _currentSong = convertMediaItemToSong(mediaItem);
+        final song = convertMediaItemToSong(mediaItem);
 
-        _updateSkipButtons();
+        if (currentSong == null || song.id != _currentSong!.id) {
+          _currentSong = song;
 
-        updateColor(_currentSong!);
+          _updateLyric(song);
+
+          _updateSkipButtons();
+
+          updateColor(_currentSong!);
+        }
       }
     });
   }
@@ -173,8 +190,7 @@ class MusicProvider extends ChangeNotifier {
 
     // updateColor(newSong);
 
-    final index =
-        _currentPlaylist.indexWhere((element) => element.id == newSong.id);
+    final index = _currentPlaylist.indexWhere((e) => e.id == newSong.id);
 
     playWithIndex(index);
   }
@@ -306,6 +322,26 @@ class MusicProvider extends ChangeNotifier {
 
   Future removeQueueItemAt(index) async {
     await _audioHandler.removeQueueItemAt(index);
+  }
+
+  Future _updateLyric(Song song) async {
+    try {
+      final mp3Bytes = await File(song.audioUrl).readAsBytes();
+
+      final mp3Instance = MP3Instance(mp3Bytes)..parseTagsSync();
+
+      final tag = mp3Instance.getMetaTags();
+
+      _lyric = tag!['USLT']['lyrics'];
+
+      notifyListeners();
+    } on Exception catch (e) {
+      _lyric = '';
+
+      notifyListeners();
+
+      debugPrint(e.toString());
+    }
   }
 }
 

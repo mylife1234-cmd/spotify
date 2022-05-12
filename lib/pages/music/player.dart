@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:spotify/components/player/controller_section.dart';
 import 'package:spotify/components/player/header.dart';
 import 'package:spotify/components/player/info_section.dart';
+import 'package:spotify/components/player/lyric_section.dart';
 import 'package:spotify/components/player/queue_button.dart';
 import 'package:spotify/components/player/slider.dart';
 
@@ -81,7 +82,8 @@ class MusicPlayer extends StatelessWidget {
                   QueueButton(song: song, size: 26),
                 ],
               ),
-            )
+            ),
+            const LyricSection(),
           ],
         ),
       ),
