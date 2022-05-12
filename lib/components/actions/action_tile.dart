@@ -22,8 +22,8 @@ class ActionTile extends StatelessWidget {
         title: Text(
           title,
           style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
           ),
         ),
         leading: leading,

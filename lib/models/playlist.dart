@@ -8,7 +8,7 @@ class Playlist {
   });
 
   final String id;
-  final String name;
+  String name;
   String coverImageUrl;
   List songIdList;
   final String type;
@@ -18,7 +18,6 @@ class Playlist {
   }
 
   void deleteSongFromIdList(String id) {
-    songIdList  = [...songIdList]..remove(id);
+    songIdList = [...songIdList]..remove(id);
   }
-
 }

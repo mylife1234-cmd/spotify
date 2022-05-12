@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/share/item_info.dart';
+import 'package:spotify/pages/music/playlist/edit_name.dart';
 
 import '../../../models/playlist.dart';
 import '../../../providers/data_provider.dart';
@@ -42,16 +44,28 @@ class _PlaylistActionState extends State<PlaylistAction> {
         .any((e) => e.id == widget.playlist.id);
 
     final listAction = [
-      if (widget.playlist.type == 'system') Action(
-        'Like',
-        Icon(
-          isFavorite ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
-          size: 22,
-          color: isFavorite ? Colors.green : Colors.white,
+      if (widget.playlist.type == 'system')
+        Action(
+          'Like',
+          Icon(
+            isFavorite
+                ? Icons.favorite_rounded
+                : Icons.favorite_outline_rounded,
+            size: 22,
+            color: isFavorite ? Colors.green : Colors.white,
+          ),
+          _doActionLike,
         ),
-        _doActionLike,
-      ),
-
+      if (widget.playlist.type == 'user' &&
+          widget.playlist.id != '${context.watch<DataProvider>().user.id}0')
+        Action(
+          'Edit name Playlist',
+          const Icon(
+            Icons.edit,
+            size: 22,
+          ),
+          _doActionEdit,
+        )
     ];
 
     return Scaffold(
@@ -123,6 +137,23 @@ class _PlaylistActionState extends State<PlaylistAction> {
     context.read<DataProvider>().toggleFavoritePlaylist(widget.playlist);
   }
 
+  void _doActionEdit() {
+    showCupertinoModalBottomSheet(
+      useRootNavigator: true,
+      context: context,
+      builder: (context) {
+        return EditNamePlaylist(
+          editPlaylistName: (newPlaylistName) {
+            setState(() {
+              widget.playlist.name = newPlaylistName;
+            });
+          },
+          playlistId: widget.playlist.id,
+        );
+      },
+      duration: const Duration(milliseconds: 250),
+    );
+  }
 }
 
 class Action {

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../models/playlist.dart';
 import '../../models/song.dart';
 import '../../pages/music/playlist/playlist_action.dart';
@@ -95,7 +97,7 @@ class PlaylistComponent extends StatelessWidget {
                 child: const Padding(
                   padding: EdgeInsets.only(left: 18, right: 18),
                   child: Icon(
-                    Icons.add_circle_outline,
+                    Icons.playlist_add,
                     color: Colors.white,
                     size: 22,
                   ),

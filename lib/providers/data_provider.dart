@@ -420,6 +420,18 @@ class DataProvider extends ChangeNotifier {
     });
   }
 
+  void editNamePlaylist(String playlistId, String newName) {
+    _customizedPlaylists
+        .firstWhere((element) => element.id == playlistId)
+        .name = newName;
+
+    notifyListeners();
+
+    FirebaseDatabase.instance.ref('/playlists/$playlistId').update({
+      'name': newName,
+    });
+  }
+
   void updateCoverImageUrlPlaylist(String url, String playlistId) {
     _customizedPlaylists
         .firstWhere((element) => element.id == playlistId)
