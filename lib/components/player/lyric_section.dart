@@ -23,6 +23,7 @@ class LyricSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         color: color,
       ),
+      width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

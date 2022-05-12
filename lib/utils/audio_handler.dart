@@ -46,21 +46,26 @@ class MyAudioHandler extends BaseAudioHandler {
   Future<void> addQueueItems(List<MediaItem> mediaItems) async {
     final audioSource = mediaItems.map(_createAudioSource);
 
-    _playlist = ConcatenatingAudioSource(children: audioSource.toList());
+    // _playlist = ConcatenatingAudioSource(children: audioSource.toList());
 
-    await _audioPlayer.setAudioSource(_playlist);
+    // await _audioPlayer.setAudioSource(_playlist);
 
-    queue.add(mediaItems);
+    await _playlist.clear();
+
+    await _playlist.addAll(audioSource.toList());
+
+    // queue.add(mediaItems);
   }
 
   @override
   Future<void> addQueueItem(MediaItem mediaItem) async {
     if (!queue.value.contains(mediaItem)) {
       final audioSource = _createAudioSource(mediaItem);
+
       await _playlist.add(audioSource);
 
-      final newQueue = queue.value..add(mediaItem);
-      queue.add(newQueue);
+      // final newQueue = queue.value..add(mediaItem);
+      // queue.add(newQueue);
     }
   }
 
@@ -76,6 +81,7 @@ class MyAudioHandler extends BaseAudioHandler {
   Future<void> insertQueueItem(int index, MediaItem mediaItem) async {
     if (!queue.value.contains(mediaItem)) {
       final audioSource = _createAudioSource(mediaItem);
+
       await _playlist.insert(index, audioSource);
 
       // final newQueue = queue.value..insert(index, mediaItem);

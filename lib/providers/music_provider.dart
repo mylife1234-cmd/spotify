@@ -338,7 +338,11 @@ class MusicProvider extends ChangeNotifier {
 
       final tag = mp3Instance.getMetaTags();
 
-      _lyric = tag!['USLT']['lyrics'];
+      if (tag != null && tag['USLT'] != null && tag['USLT']['lyrics'] != null) {
+        _lyric = tag['USLT']!['lyrics'];
+      } else {
+        _lyric = '';
+      }
 
       notifyListeners();
     } on Exception catch (e) {
