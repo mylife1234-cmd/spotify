@@ -248,9 +248,8 @@ class _PlaylistViewState extends State<PlaylistView> {
                             ? SongTile(song: item)
                             : SongTileUser(
                                 deleteSong: () async {
-                                  final deleteSong = await Navigator.of(context,
-                                          rootNavigator: true)
-                                      .push(
+                                  final deleteSong = await Navigator.push(
+                                    context,
                                     MaterialPageRoute(
                                       builder: (context) => SongActionUser(
                                         song: item,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import '../../models/artist.dart';
 import '../../pages/music/artist/artist_action.dart';
 import '../../providers/data_provider.dart';
@@ -63,8 +62,9 @@ class ArtistComponent extends StatelessWidget {
             ),
             const SizedBox(width: 15),
             GestureDetector(
-              onTap: (){
-                Navigator.of(context, rootNavigator: true).push(
+              onTap: () {
+                Navigator.push(
+                  context,
                   MaterialPageRoute(
                     builder: (context) => ArtistAction(artist: artist),
                   ),

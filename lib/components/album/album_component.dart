@@ -67,11 +67,10 @@ class AlbumComponent extends StatelessWidget {
             const SizedBox(width: 15),
             GestureDetector(
               onTap: () {
-                Navigator.of(context, rootNavigator: true).push(
+                Navigator.push(
+                  context,
                   MaterialPageRoute(
-                    builder: (context) => AlbumAction(
-                      album: album,
-                    ),
+                    builder: (context) => AlbumAction(album: album),
                   ),
                 );
               },

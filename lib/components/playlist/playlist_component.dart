@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -81,11 +80,10 @@ class PlaylistComponent extends StatelessWidget {
               ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context, rootNavigator: true).push(
+                Navigator.push(
+                  context,
                   MaterialPageRoute(
-                    builder: (context) => PlaylistAction(
-                      playlist: playlist,
-                    ),
+                    builder: (context) => PlaylistAction(playlist: playlist),
                   ),
                 );
               },
