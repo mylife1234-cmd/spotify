@@ -7,13 +7,13 @@ import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/providers/data_provider.dart';
 
-import '../../components/album/song_tile.dart';
-import '../../models/album.dart';
-import '../../models/song.dart';
-import '../../providers/music_provider.dart';
-import '../../utils/db.dart';
-import '../../utils/helper.dart';
-import '../others/loading.dart';
+import '../../../components/album/song_tile.dart';
+import '../../../models/album.dart';
+import '../../../models/song.dart';
+import '../../../providers/music_provider.dart';
+import '../../../utils/db.dart';
+import '../../../utils/helper.dart';
+import '../../others/loading.dart';
 
 class AlbumView extends StatefulWidget {
   const AlbumView({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/models/playlist.dart';
-import 'package:spotify/pages/music/playlist_view.dart';
+import 'package:spotify/pages/music/playlist/playlist_view.dart';
 
 class PlaylistCard extends StatelessWidget {
   const PlaylistCard({

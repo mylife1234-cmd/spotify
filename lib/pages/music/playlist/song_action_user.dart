@@ -7,13 +7,13 @@ import 'package:spotify/main.dart';
 import 'package:spotify/models/playlist.dart';
 import 'package:spotify/pages/music/share_page.dart';
 
-import '../../models/song.dart';
-import '../../providers/data_provider.dart';
-import '../../providers/music_provider.dart';
-import '../../utils/db.dart';
-import '../../utils/helper.dart';
-import 'album_view.dart';
-import 'artist_view.dart';
+import '../../../models/song.dart';
+import '../../../providers/data_provider.dart';
+import '../../../providers/music_provider.dart';
+import '../../../utils/db.dart';
+import '../../../utils/helper.dart';
+import '../album/album_view.dart';
+import '../artist/artist_view.dart';
 
 class SongActionUser extends StatefulWidget {
   const SongActionUser({

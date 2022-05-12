@@ -8,13 +8,13 @@ import 'package:spotify/components/library/header.dart';
 import 'package:spotify/components/library/list_item.dart';
 import 'package:spotify/components/library/view_mode.dart';
 import 'package:spotify/models/playlist.dart';
-import 'package:spotify/pages/music/playlist_view.dart';
+import 'package:spotify/pages/music/playlist/playlist_view.dart';
 
 import './playlist_creation.dart';
 import '../../providers/data_provider.dart';
 import '../../utils/helper.dart';
-import '../music/album_view.dart';
-import '../music/artist_view.dart';
+import '../music/album/album_view.dart';
+import '../music/artist/artist_view.dart';
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({Key? key}) : super(key: key);

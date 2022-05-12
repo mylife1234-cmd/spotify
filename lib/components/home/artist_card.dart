@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/models/artist.dart';
 
-import '../../pages/music/artist_view.dart';
+import '../../pages/music/artist/artist_view.dart';
 
 class ArtistCard extends StatelessWidget {
   const ArtistCard({

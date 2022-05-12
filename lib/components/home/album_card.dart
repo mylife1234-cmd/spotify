@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/models/album.dart';
-import 'package:spotify/pages/music/album_view.dart';
+import 'package:spotify/pages/music/album/album_view.dart';
 
 class AlbumCard extends StatelessWidget {
   const AlbumCard({

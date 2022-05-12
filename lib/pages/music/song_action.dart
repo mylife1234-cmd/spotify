@@ -11,8 +11,8 @@ import '../../providers/data_provider.dart';
 import '../../providers/music_provider.dart';
 import '../../utils/db.dart';
 import '../../utils/helper.dart';
-import 'album_view.dart';
-import 'artist_view.dart';
+import 'album/album_view.dart';
+import 'artist/artist_view.dart';
 
 class SongAction extends StatefulWidget {
   const SongAction({Key? key, required this.song}) : super(key: key);

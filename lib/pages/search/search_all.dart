@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:spotify/components/search/recent_search_item.dart';
 import 'package:spotify/components/search/search_item.dart';
 import 'package:spotify/components/search/song_search.dart';
-import 'package:spotify/pages/music/playlist_view.dart';
+import 'package:spotify/pages/music/playlist/playlist_view.dart';
 import 'package:spotify/pages/music/song_action.dart';
 import 'package:spotify/providers/data_provider.dart';
 
@@ -11,8 +11,8 @@ import '../../components/actions/action_button.dart';
 import '../../components/library/close_button.dart';
 import '../../components/library/filter_button.dart';
 import '../../utils/helper.dart';
-import '../music/album_view.dart';
-import '../music/artist_view.dart';
+import '../music/album/album_view.dart';
+import '../music/artist/artist_view.dart';
 
 class SearchAll extends StatefulWidget {
   const SearchAll({Key? key}) : super(key: key);

@@ -6,16 +6,16 @@ import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/components/playlist/playlist_component.dart';
 import 'package:spotify/components/playlist/song_tile_user.dart';
 import 'package:spotify/models/playlist.dart';
-import 'package:spotify/pages/music/song_action_user.dart';
+import 'package:spotify/pages/music/playlist/song_action_user.dart';
 import 'package:spotify/pages/others/loading.dart';
 
-import '../../components/album/animate_label.dart';
-import '../../components/album/opacity_image.dart';
-import '../../models/song.dart';
-import '../../providers/data_provider.dart';
-import '../../providers/music_provider.dart';
-import '../../utils/db.dart';
-import '../../utils/helper.dart';
+import '../../../components/album/animate_label.dart';
+import '../../../components/album/opacity_image.dart';
+import '../../../models/song.dart';
+import '../../../providers/data_provider.dart';
+import '../../../providers/music_provider.dart';
+import '../../../utils/db.dart';
+import '../../../utils/helper.dart';
 import 'add_song.dart';
 
 class PlaylistView extends StatefulWidget {

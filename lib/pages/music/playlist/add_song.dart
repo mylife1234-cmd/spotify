@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/providers/data_provider.dart';
 
-import '../../components/playlist/song_suggestion.dart';
-import '../../models/song.dart';
-import '../../providers/music_provider.dart';
-import '../../utils/helper.dart';
+import '../../../components/playlist/song_suggestion.dart';
+import '../../../models/song.dart';
+import '../../../providers/music_provider.dart';
+import '../../../utils/helper.dart';
 
 class AddSong extends StatefulWidget {
   const AddSong({Key? key, required this.id, required this.songList})

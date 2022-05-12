@@ -7,13 +7,13 @@ import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/models/artist.dart';
 import 'package:spotify/providers/data_provider.dart';
 
-import '../../components/album/animate_label.dart';
-import '../../components/album/opacity_image.dart';
-import '../../models/song.dart';
-import '../../providers/music_provider.dart';
-import '../../utils/db.dart';
-import '../../utils/helper.dart';
-import '../others/loading.dart';
+import '../../../components/album/animate_label.dart';
+import '../../../components/album/opacity_image.dart';
+import '../../../models/song.dart';
+import '../../../providers/music_provider.dart';
+import '../../../utils/db.dart';
+import '../../../utils/helper.dart';
+import '../../others/loading.dart';
 
 class ArtistView extends StatefulWidget {
   const ArtistView({
