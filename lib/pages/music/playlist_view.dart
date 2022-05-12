@@ -144,39 +144,41 @@ class _PlaylistViewState extends State<PlaylistView> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            height: containerHeight,
-            width: MediaQuery.of(context).size.width,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  _color.withOpacity(1),
-                  _color.withOpacity(0.7),
-                  _color.withOpacity(0.5),
-                  _color.withOpacity(0.3),
-                  // Colors.black.withOpacity(0.1),
-                  // Colors.transparent,
-                  Colors.black.withOpacity(0.5),
-                  Colors.black.withOpacity(1),
+          SingleChildScrollView(
+            child: Container(
+              height: containerHeight,
+              width: MediaQuery.of(context).size.width,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    _color.withOpacity(1),
+                    _color.withOpacity(0.7),
+                    _color.withOpacity(0.5),
+                    _color.withOpacity(0.3),
+                    // Colors.black.withOpacity(0.1),
+                    // Colors.transparent,
+                    Colors.black.withOpacity(0.5),
+                    Colors.black.withOpacity(1),
+                  ],
+                ),
+              ),
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 35,
+                  ),
+                  SafeArea(
+                      child: OpacityImage(
+                    imageOpacity: imageOpacity,
+                    imageSize: imageSize,
+                    image: widget.image,
+                  )),
                 ],
               ),
-            ),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 35,
-                ),
-                SafeArea(
-                    child: OpacityImage(
-                  imageOpacity: imageOpacity,
-                  imageSize: imageSize,
-                  image: widget.image,
-                )),
-              ],
             ),
           ),
           SafeArea(
