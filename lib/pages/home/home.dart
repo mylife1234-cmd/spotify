@@ -154,19 +154,15 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     return AlbumCard(
-                      id: item.id,
-                      label: item.name,
+                      album: item,
                       image: getImageFromUrl(item.coverImageUrl),
-                      songIdList: item.songIdList,
                       description: snapshot.data,
                       size: 120,
                     );
                   }
                   return AlbumCard(
-                    id: item.id,
-                    label: item.name,
+                    album: item,
                     image: getImageFromUrl(item.coverImageUrl),
-                    songIdList: item.songIdList,
                     description: item.description,
                     size: 120,
                   );

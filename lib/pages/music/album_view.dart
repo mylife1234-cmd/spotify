@@ -8,6 +8,7 @@ import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/providers/data_provider.dart';
 
 import '../../components/album/song_tile.dart';
+import '../../models/album.dart';
 import '../../models/song.dart';
 import '../../providers/music_provider.dart';
 import '../../utils/db.dart';
@@ -15,21 +16,16 @@ import '../../utils/helper.dart';
 import '../others/loading.dart';
 
 class AlbumView extends StatefulWidget {
-  const AlbumView(
-      {Key? key,
-      required this.image,
-      required this.label,
-      this.songIdList,
-      required this.description,
-      required this.id})
-      : super(key: key);
+  const AlbumView({
+    Key? key,
+    required this.album,
+    required this.image,
+    required this.description,
+  }) : super(key: key);
 
+  final Album album;
   final ImageProvider image;
-
-  final String label;
   final String description;
-  final List? songIdList;
-  final String id;
 
   @override
   State<AlbumView> createState() => _AlbumViewState();
@@ -76,9 +72,9 @@ class _AlbumViewState extends State<AlbumView> {
   }
 
   Future<void> fetchSongs() async {
-    if (widget.songIdList != null) {
+    if (widget.album.songIdList.isNotEmpty) {
       Future.wait(
-        widget.songIdList!.map((id) => Database.getSongById(id)),
+        widget.album.songIdList.map((id) => Database.getSongById(id)),
       ).then((songs) {
         setState(() {
           songList = songs;
@@ -92,12 +88,12 @@ class _AlbumViewState extends State<AlbumView> {
     final currentPlaylistId =
         Provider.of<MusicProvider>(context, listen: false).currentPlaylistId;
 
-    if (songList.isNotEmpty && currentPlaylistId != widget.id) {
+    if (songList.isNotEmpty && currentPlaylistId != widget.album.id) {
       await context.read<MusicProvider>().loadPlaylist(songList);
 
       context
           .read<MusicProvider>()
-          .updateCurrentPlaylist(widget.id, widget.label);
+          .updateCurrentPlaylist(widget.album.id, widget.album.name);
     }
   }
 
@@ -184,28 +180,16 @@ class _AlbumViewState extends State<AlbumView> {
                       child: Column(
                         children: [
                           SizedBox(height: initialImageSize),
-                          FutureBuilder(
-                            future: Database.getAlbumById(widget.id),
-                            builder: (context, AsyncSnapshot snapshot) {
-                              if (snapshot.hasData) {
-                                return AlbumComponent(
-                                  description: widget.description,
-                                  label: widget.label,
-                                  id: widget.id,
-                                  onTap: () {
-                                    context
-                                        .read<DataProvider>()
-                                        .toggleFavoriteAlbum(snapshot.data);
-                                  },
-                                );
-                              }
-                              return AlbumComponent(
-                                description: widget.description,
-                                label: widget.label,
-                                id: widget.id,
-                              );
+                          AlbumComponent(
+                            description: widget.description,
+                            label: widget.album.name,
+                            id: widget.album.id,
+                            onTap: () {
+                              context
+                                  .read<DataProvider>()
+                                  .toggleFavoriteAlbum(widget.album);
                             },
-                          ),
+                          )
                         ],
                       ),
                     ),
@@ -217,8 +201,9 @@ class _AlbumViewState extends State<AlbumView> {
                         onTap: () async {
                           await loadPlaylist();
                           context.read<MusicProvider>().playNewSong(item);
-                          context.read<DataProvider>().addToRecentPlayedList(
-                              await Database.getAlbumById(widget.id));
+                          context
+                              .read<DataProvider>()
+                              .addToRecentPlayedList(widget.album);
                         },
                         child: SongTile(song: item),
                       );
@@ -249,7 +234,10 @@ class _AlbumViewState extends State<AlbumView> {
                         left: -5,
                         child: BackIconButton(),
                       ),
-                      AnimateLabel(label: widget.label, isShow: showTopBar),
+                      AnimateLabel(
+                        label: widget.album.name,
+                        isShow: showTopBar,
+                      ),
                     ],
                   ),
                 ),
@@ -269,8 +257,9 @@ class _AlbumViewState extends State<AlbumView> {
                     PLayButton(onTap: () async {
                       await loadPlaylist();
                       context.read<MusicProvider>().playWithIndex(0);
-                      context.read<DataProvider>().addToRecentPlayedList(
-                          await Database.getAlbumById(widget.id));
+                      context
+                          .read<DataProvider>()
+                          .addToRecentPlayedList(widget.album);
                     }),
                   ],
                 ),

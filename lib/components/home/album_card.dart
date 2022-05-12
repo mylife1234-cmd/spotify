@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:spotify/models/album.dart';
 import 'package:spotify/pages/music/album_view.dart';
 
 class AlbumCard extends StatelessWidget {
   const AlbumCard({
     Key? key,
-    required this.label,
+    required this.album,
     required this.image,
-    this.songIdList,
     required this.description,
-    required this.id,
     required this.size,
   }) : super(key: key);
 
-  final String label;
+  final Album album;
   final ImageProvider image;
-  final List? songIdList;
   final String description;
-  final String id;
   final double size;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,10 +24,8 @@ class AlbumCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => AlbumView(
-              id: id,
+              album: album,
               image: image,
-              label: label,
-              songIdList: songIdList,
               description: description,
             ),
           ),
@@ -43,7 +39,7 @@ class AlbumCard extends StatelessWidget {
             Image(image: image, width: size, height: size, fit: BoxFit.cover),
             const SizedBox(height: 12),
             Text(
-              label,
+              album.name,
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,

@@ -236,11 +236,10 @@ class _LibraryPageState extends State<LibraryPage> {
           }
           if (item.runtimeType.toString() == 'Album') {
             return AlbumView(
-                id: item.id,
-                image: image,
-                label: item.name,
-                description: item.description,
-                songIdList: item.songIdList);
+              album: item,
+              image: image,
+              description: item.description,
+            );
           }
           return ArtistView(
               id: item.id,

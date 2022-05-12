@@ -203,10 +203,8 @@ class _SongActionState extends State<SongAction> {
       tabNavKeys[tabController.index].currentContext!,
       MaterialPageRoute(
         builder: (context) => AlbumView(
-          id: album.id,
+          album: album,
           image: getImageFromUrl(album.coverImageUrl),
-          label: album.name,
-          songIdList: album.songIdList,
           description: album.description,
         ),
       ),

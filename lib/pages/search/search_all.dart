@@ -299,11 +299,9 @@ class _SearchAllState extends State<SearchAll> {
 
             case 'Album':
               return AlbumView(
-                id: item.id,
+                album: item,
                 image: image,
-                label: item.name,
                 description: item.description,
-                songIdList: item.songIdList,
               );
 
             default:
