@@ -29,9 +29,7 @@ class _PlaylistActionState extends State<PlaylistAction> {
 
     getColorFromImage(image).then((color) {
       if (color != null) {
-        setState(() {
-          _color = color;
-        });
+        setState(() => _color = color);
       }
     });
   }
@@ -42,6 +40,11 @@ class _PlaylistActionState extends State<PlaylistAction> {
         .watch<DataProvider>()
         .favoritePlaylists
         .any((e) => e.id == widget.playlist.id);
+
+    final user = context.watch<DataProvider>().user;
+
+    final editable =
+        widget.playlist.type == 'user' && widget.playlist.id != '${user.id}0';
 
     final listAction = [
       if (widget.playlist.type == 'system')
@@ -56,25 +59,16 @@ class _PlaylistActionState extends State<PlaylistAction> {
           ),
           _doActionLike,
         ),
-      if (widget.playlist.type == 'user' &&
-          widget.playlist.id != '${context.watch<DataProvider>().user.id}0')
+      if (editable)
         Action(
           'Edit name Playlist',
-          const Icon(
-            Icons.edit,
-            size: 22,
-          ),
+          const Icon(Icons.edit, size: 22),
           _doActionEdit,
         ),
-      if (widget.playlist.type == 'user' &&
-          widget.playlist.id != '${context.watch<DataProvider>().user.id}0')
+      if (editable)
         Action(
           'Delete Playlist',
-          const Icon(
-            // Icons.delete,
-            Icons.close,
-            size: 22,
-          ),
+          const Icon(Icons.close, size: 22),
           _doActionDelete,
         )
     ];
@@ -90,26 +84,25 @@ class _PlaylistActionState extends State<PlaylistAction> {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      _color.withOpacity(0.6),
-                      _color.withOpacity(0.5),
-                      _color.withOpacity(0.4),
-                      _color.withOpacity(0.3),
-                      Colors.black.withOpacity(0.2),
-                      Colors.black.withOpacity(0.3),
-                      Colors.black.withOpacity(0.4),
-                      Colors.black.withOpacity(0.5),
-                      Colors.black.withOpacity(0.6),
-                    ]),
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    _color.withOpacity(0.6),
+                    _color.withOpacity(0.5),
+                    _color.withOpacity(0.4),
+                    _color.withOpacity(0.3),
+                    Colors.black.withOpacity(0.2),
+                    Colors.black.withOpacity(0.3),
+                    Colors.black.withOpacity(0.4),
+                    Colors.black.withOpacity(0.5),
+                    Colors.black.withOpacity(0.6),
+                  ],
+                ),
               ),
               child: SafeArea(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 44,
-                    ),
+                    const SizedBox(height: 44),
                     ItemInfo(item: widget.playlist),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,9 +125,7 @@ class _PlaylistActionState extends State<PlaylistAction> {
               child: IconButton(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                onPressed: () => Navigator.pop(context),
                 icon: const Icon(CupertinoIcons.chevron_back),
               ),
             ),
@@ -169,7 +160,7 @@ class _PlaylistActionState extends State<PlaylistAction> {
   void _doActionDelete() {
     context.read<DataProvider>().deletePlaylist(widget.playlist.id);
     // Navigator.popUntil(context, (route) => route.settings.name == '/library');
-    Navigator.popUntil(context, (route)  => route.isFirst);
+    Navigator.popUntil(context, (route) => route.isFirst);
   }
 }
 

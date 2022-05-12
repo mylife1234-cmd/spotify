@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/share/item_info.dart';
 
-
 import '../../../models/artist.dart';
 import '../../../providers/data_provider.dart';
 import '../../../utils/helper.dart';
@@ -28,9 +27,7 @@ class _ArtistActionState extends State<ArtistAction> {
 
     getColorFromImage(image).then((color) {
       if (color != null) {
-        setState(() {
-          _color = color;
-        });
+        setState(() => _color = color);
       }
     });
   }
@@ -65,26 +62,25 @@ class _ArtistActionState extends State<ArtistAction> {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      _color.withOpacity(0.6),
-                      _color.withOpacity(0.5),
-                      _color.withOpacity(0.4),
-                      _color.withOpacity(0.3),
-                      Colors.black.withOpacity(0.2),
-                      Colors.black.withOpacity(0.3),
-                      Colors.black.withOpacity(0.4),
-                      Colors.black.withOpacity(0.5),
-                      Colors.black.withOpacity(0.6),
-                    ]),
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    _color.withOpacity(0.6),
+                    _color.withOpacity(0.5),
+                    _color.withOpacity(0.4),
+                    _color.withOpacity(0.3),
+                    Colors.black.withOpacity(0.2),
+                    Colors.black.withOpacity(0.3),
+                    Colors.black.withOpacity(0.4),
+                    Colors.black.withOpacity(0.5),
+                    Colors.black.withOpacity(0.6),
+                  ],
+                ),
               ),
               child: SafeArea(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 44,
-                    ),
+                    const SizedBox(height: 44),
                     ItemInfo(item: widget.artist),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,9 +103,7 @@ class _ArtistActionState extends State<ArtistAction> {
               child: IconButton(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                onPressed: () => Navigator.pop(context),
                 icon: const Icon(CupertinoIcons.chevron_back),
               ),
             ),
@@ -122,7 +116,6 @@ class _ArtistActionState extends State<ArtistAction> {
   void _doActionLike() {
     context.read<DataProvider>().toggleFavoriteArtist(widget.artist);
   }
-
 }
 
 class Action {

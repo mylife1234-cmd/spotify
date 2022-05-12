@@ -305,7 +305,7 @@ class DataProvider extends ChangeNotifier {
         .update({'recentSearchIdList': []});
   }
 
-  void addToRecentPlayedList(item) {
+  void addToRecentlyPlayedList(item) {
     _recentPlayedList
       ..removeWhere((element) => element.id == item.id)
       ..insert(0, item);
@@ -396,11 +396,12 @@ class DataProvider extends ChangeNotifier {
   }
 
   void createNewPlaylist(String playlistName) {
-    String newId = _user.id.toString() + (_customizedPlaylists.length + 1).toString();
+    String newId =
+        _user.id.toString() + (_customizedPlaylists.length + 1).toString();
     int n = 2;
-    while (_customizedPlaylists.any((element) => element.id == newId)){
-      newId = _user.id.toString()  + (customizedPlaylists.length + n).toString();
-      n ++;
+    while (_customizedPlaylists.any((e) => e.id == newId)) {
+      newId = _user.id.toString() + (customizedPlaylists.length + n).toString();
+      n++;
     }
     final Playlist newPlaylist = Playlist(
       id: newId,
@@ -426,7 +427,7 @@ class DataProvider extends ChangeNotifier {
     });
   }
 
-  void editNamePlaylist(String playlistId, String newName) {
+  void editPlaylistName(String playlistId, String newName) {
     _customizedPlaylists
         .firstWhere((element) => element.id == playlistId)
         .name = newName;
@@ -449,7 +450,7 @@ class DataProvider extends ChangeNotifier {
     FirebaseDatabase.instance.ref('/playlists/$playlistId').set({});
   }
 
-  void updateCoverImageUrlPlaylist(String url, String playlistId) {
+  void updatePlaylistCoverUrl(String url, String playlistId) {
     _customizedPlaylists
         .firstWhere((element) => element.id == playlistId)
         .coverImageUrl = url;

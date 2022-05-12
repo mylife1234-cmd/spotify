@@ -203,7 +203,7 @@ class _AlbumViewState extends State<AlbumView> {
                           context.read<MusicProvider>().playNewSong(item);
                           context
                               .read<DataProvider>()
-                              .addToRecentPlayedList(widget.album);
+                              .addToRecentlyPlayedList(widget.album);
                         },
                         child: SongTile(song: item),
                       );
@@ -259,7 +259,7 @@ class _AlbumViewState extends State<AlbumView> {
                       context.read<MusicProvider>().playWithIndex(0);
                       context
                           .read<DataProvider>()
-                          .addToRecentPlayedList(widget.album);
+                          .addToRecentlyPlayedList(widget.album);
                     }),
                   ],
                 ),

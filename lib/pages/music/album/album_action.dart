@@ -27,9 +27,7 @@ class _AlbumActionState extends State<AlbumAction> {
 
     getColorFromImage(image).then((color) {
       if (color != null) {
-        setState(() {
-          _color = color;
-        });
+        setState(() => _color = color);
       }
     });
   }
@@ -64,26 +62,25 @@ class _AlbumActionState extends State<AlbumAction> {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      _color.withOpacity(0.6),
-                      _color.withOpacity(0.5),
-                      _color.withOpacity(0.4),
-                      _color.withOpacity(0.3),
-                      Colors.black.withOpacity(0.2),
-                      Colors.black.withOpacity(0.3),
-                      Colors.black.withOpacity(0.4),
-                      Colors.black.withOpacity(0.5),
-                      Colors.black.withOpacity(0.6),
-                    ]),
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    _color.withOpacity(0.6),
+                    _color.withOpacity(0.5),
+                    _color.withOpacity(0.4),
+                    _color.withOpacity(0.3),
+                    Colors.black.withOpacity(0.2),
+                    Colors.black.withOpacity(0.3),
+                    Colors.black.withOpacity(0.4),
+                    Colors.black.withOpacity(0.5),
+                    Colors.black.withOpacity(0.6),
+                  ],
+                ),
               ),
               child: SafeArea(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 44,
-                    ),
+                    const SizedBox(height: 44),
                     ItemInfo(item: widget.album),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,9 +103,7 @@ class _AlbumActionState extends State<AlbumAction> {
               child: IconButton(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                onPressed: () => Navigator.pop(context),
                 icon: const Icon(CupertinoIcons.chevron_back),
               ),
             ),
@@ -121,7 +116,6 @@ class _AlbumActionState extends State<AlbumAction> {
   void _doActionLike() {
     context.read<DataProvider>().toggleFavoriteAlbum(widget.album);
   }
-
 }
 
 class Action {

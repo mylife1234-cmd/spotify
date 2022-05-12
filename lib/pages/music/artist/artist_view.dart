@@ -203,7 +203,7 @@ class _ArtistViewState extends State<ArtistView> {
                                 context.read<MusicProvider>().playNewSong(item);
                                 context
                                     .read<DataProvider>()
-                                    .addToRecentPlayedList(widget.artist);
+                                    .addToRecentlyPlayedList(widget.artist);
                               },
                               child: SongTile(song: item),
                             );
@@ -273,7 +273,7 @@ class _ArtistViewState extends State<ArtistView> {
                       context.read<MusicProvider>().playWithIndex(0);
                       context
                           .read<DataProvider>()
-                          .addToRecentPlayedList(widget.artist);
+                          .addToRecentlyPlayedList(widget.artist);
                     }),
                   ],
                 ),

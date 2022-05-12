@@ -92,7 +92,7 @@ class _EditNamePlaylistState extends State<EditNamePlaylist> {
                   if (_newPlaylistName != '') {
                     context
                         .read<DataProvider>()
-                        .editNamePlaylist(widget.playlistId, _newPlaylistName);
+                        .editPlaylistName(widget.playlistId, _newPlaylistName);
                     setState(() {
                       _newPlaylistName = '';
                     });
