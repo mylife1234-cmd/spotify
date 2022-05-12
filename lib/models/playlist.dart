@@ -13,7 +13,12 @@ class Playlist {
   List songIdList;
   final String type;
 
-  void updateSongIdList(String id) {
+  void addSongToListIdSong(String id) {
     songIdList = [...songIdList, id];
   }
+
+  void deleteSongFromIdList(String id) {
+    songIdList  = [...songIdList]..remove(id);
+  }
+
 }

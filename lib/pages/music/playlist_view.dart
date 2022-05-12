@@ -4,7 +4,9 @@ import 'package:spotify/components/album/play_button.dart';
 import 'package:spotify/components/album/song_tile.dart';
 import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/components/playlist/playlist_component.dart';
+import 'package:spotify/components/playlist/song_tile_user.dart';
 import 'package:spotify/models/playlist.dart';
+import 'package:spotify/pages/music/song_action_user.dart';
 import 'package:spotify/pages/others/loading.dart';
 
 import '../../components/album/animate_label.dart';
@@ -213,17 +215,6 @@ class _PlaylistViewState extends State<PlaylistView> {
                                 ),
                               );
 
-                              // for (final song in songList) {
-                              //   if (song.audioUrl == '') {
-                              //     song.audioUrl = await getFileFromFirebase(
-                              //       '/song/audio/${song.id}.mp3',
-                              //     );
-                              //   }
-                              //   context
-                              //       .read<MusicProvider>()
-                              //       .addToPlaylist(song);
-                              // }
-
                               setState(() {
                                 songList = [...songList, ...newSongs];
                               });
@@ -253,7 +244,28 @@ class _PlaylistViewState extends State<PlaylistView> {
                               .read<DataProvider>()
                               .addToRecentPlayedList(widget.playlist);
                         },
-                        child: SongTile(song: item),
+                        child: widget.playlist.type == 'system'
+                            ? SongTile(song: item)
+                            : SongTileUser(
+                                deleteSong: () async {
+                                  final deleteSong = await Navigator.of(context,
+                                          rootNavigator: true)
+                                      .push(
+                                    MaterialPageRoute(
+                                      builder: (context) => SongActionUser(
+                                        song: item,
+                                        playlist: widget.playlist,
+                                      ),
+                                    ),
+                                  );
+                                  setState(() {
+                                    songList = [
+                                      ...songList..remove(deleteSong)
+                                    ];
+                                  });
+                                },
+                                song: item,
+                                playlist: widget.playlist),
                       );
                     }).toList(),
                   ),

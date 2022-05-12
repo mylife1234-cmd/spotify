@@ -198,9 +198,8 @@ class DataProvider extends ChangeNotifier {
 
     notifyListeners();
 
-    FirebaseDatabase.instance.ref('/playlists/${user.id}0').update({
-      'songIdList': _favoriteSongs.map<String>((e) => e.id).toList()
-    });
+    FirebaseDatabase.instance.ref('/playlists/${user.id}0').update(
+        {'songIdList': _favoriteSongs.map<String>((e) => e.id).toList()});
 
     FirebaseDatabase.instance.ref('/users/${user.id}').update({
       'favoriteSongIdList': _favoriteSongs.map<String>((e) => e.id).toList()
@@ -375,7 +374,19 @@ class DataProvider extends ChangeNotifier {
   void addSongToPlaylist(String songId, String playlistId) {
     final newPlaylist = _customizedPlaylists
         .firstWhere((element) => element.id == playlistId)
-      ..updateSongIdList(songId);
+      ..addSongToListIdSong(songId);
+
+    FirebaseDatabase.instance
+        .ref('/playlists/$playlistId')
+        .update({'songIdList': newPlaylist.songIdList});
+
+    notifyListeners();
+  }
+
+  void deleteSongFromPlaylist(String playlistId, String songId) {
+    final newPlaylist = _customizedPlaylists
+        .firstWhere((element) => element.id == playlistId)
+      ..deleteSongFromIdList(songId);
 
     FirebaseDatabase.instance
         .ref('/playlists/$playlistId')
@@ -386,7 +397,7 @@ class DataProvider extends ChangeNotifier {
 
   void createNewPlaylist(String playlistName) {
     final Playlist newPlaylist = Playlist(
-      id: _user.id.toString() + (_customizedPlaylists.length + 1).toString() ,
+      id: _user.id.toString() + (_customizedPlaylists.length + 1).toString(),
       name: playlistName,
       coverImageUrl: 'assets/images/default-cover.png',
       type: 'user',

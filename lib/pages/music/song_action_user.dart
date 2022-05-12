@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/share/song_info.dart';
 import 'package:spotify/main.dart';
+import 'package:spotify/models/playlist.dart';
 import 'package:spotify/pages/music/share_page.dart';
 
 import '../../models/song.dart';
@@ -14,15 +15,20 @@ import '../../utils/helper.dart';
 import 'album_view.dart';
 import 'artist_view.dart';
 
-class SongAction extends StatefulWidget {
-  const SongAction({Key? key, required this.song}) : super(key: key);
+class SongActionUser extends StatefulWidget {
+  const SongActionUser({
+    Key? key,
+    required this.song,
+    required this.playlist,
+  }) : super(key: key);
   final Song song;
+  final Playlist playlist;
 
   @override
-  _SongActionState createState() => _SongActionState();
+  _SongActionUserState createState() => _SongActionUserState();
 }
 
-class _SongActionState extends State<SongAction> {
+class _SongActionUserState extends State<SongActionUser> {
   Color _color = Colors.black;
 
   @override
@@ -58,6 +64,14 @@ class _SongActionState extends State<SongAction> {
         _doActionLike,
       ),
       Action(
+        'Remove form this Playlist',
+        const Icon(
+          CupertinoIcons.xmark_circle,
+          size: 22,
+        ),
+        _doActionRemoveFromPlaylist,
+      ),
+      Action(
         'Share',
         const Icon(
           Icons.ios_share,
@@ -73,14 +87,6 @@ class _SongActionState extends State<SongAction> {
         ),
         _doActionViewArtist,
       ),
-      // Action(
-      //   'Add to playlist',
-      //   const Icon(
-      //     CupertinoIcons.music_note_list,
-      //     size: 22,
-      //   ),
-      //   _doActionAddPlaylist,
-      // ),
       Action(
         'Add to queue',
         const Icon(
@@ -192,7 +198,12 @@ class _SongActionState extends State<SongAction> {
     Navigator.maybePop(context);
   }
 
-  // void _doActionAddPlaylist() {}
+  void _doActionRemoveFromPlaylist() {
+    context
+        .read<DataProvider>()
+        .deleteSongFromPlaylist(widget.playlist.id, widget.song.id);
+    Navigator.pop<Song>(context, widget.song);
+  }
 
   Future _doActionViewAlbum() async {
     Navigator.popUntil(context, (route) => route.isFirst);
