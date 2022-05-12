@@ -1,33 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../models/playlist.dart';
 import '../../models/song.dart';
 import '../../providers/data_provider.dart';
 
 class PlaylistComponent extends StatelessWidget {
   const PlaylistComponent({
     Key? key,
-    required this.label,
-    required this.id,
-    required this.type,
     required this.songList,
     this.toggleFavorite,
     this.addSong,
+    required this.playlist,
   }) : super(key: key);
 
-  final String label;
-  final String id;
   final void Function()? toggleFavorite;
   final void Function()? addSong;
-  final String type;
+  final Playlist playlist;
   final List<Song> songList;
   @override
   Widget build(BuildContext context) {
     final favoritePlaylistList =
         context.watch<DataProvider>().favoritePlaylists;
 
-    final isUserPlayLists = type == 'user';
+    final isUserPlayLists = playlist.type == 'user';
 
-    final isFavorite = favoritePlaylistList.any((element) => element.id == id);
+    final isFavorite = favoritePlaylistList.any((element) => element.id == playlist.id);
 
     final user = context.watch<DataProvider>().user;
 
@@ -37,7 +34,7 @@ class PlaylistComponent extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Center(
           child: Text(
-            label,
+            playlist.name,
             style: Theme.of(context).textTheme.caption,
           ),
         ),
@@ -79,7 +76,7 @@ class PlaylistComponent extends StatelessWidget {
                 ),
               ),
             const Icon(Icons.more_horiz, size: 22),
-            if (isUserPlayLists && user.id != id)
+            if (isUserPlayLists && user.id != playlist.id)
               GestureDetector(
                 onTap: addSong,
                 child: const Padding(

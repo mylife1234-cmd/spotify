@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/components/artist/back_button.dart';
 import 'package:spotify/components/share/media_button.dart';
-import 'package:spotify/components/share/song_info.dart';
+import 'package:spotify/components/share/item_info.dart';
 import 'package:spotify/models/song.dart';
 
 import '../../utils/helper.dart';
@@ -74,7 +74,7 @@ class _SharePageState extends State<SharePage> {
                     const SizedBox(
                       height: 35,
                     ),
-                    SongInfo(song: widget.song),
+                    ItemInfo(item: widget.song),
                     _buildGridViewMedia(),
                   ],
                 ),

@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/artist.dart';
 import '../../providers/data_provider.dart';
 
 class ArtistComponent extends StatelessWidget {
   const ArtistComponent({
     Key? key,
-    required this.label,
-    required this.description,
-    required this.id,
     this.onTap,
+    required this.artist,
   }) : super(key: key);
 
-  final String label;
-  final String description;
-  final String id;
+  final Artist artist;
   final void Function()? onTap;
 
   @override
@@ -22,7 +19,7 @@ class ArtistComponent extends StatelessWidget {
     final isFavorite = context
         .watch<DataProvider>()
         .favoriteArtists
-        .any((element) => element.id == id);
+        .any((element) => element.id == artist.id);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -30,7 +27,7 @@ class ArtistComponent extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: 13, right: 25, top: 20, bottom: 10),
           child: Text(
-            label,
+            artist.name,
             style: const TextStyle(
               fontSize: 45,
               fontWeight: FontWeight.bold,
@@ -44,7 +41,7 @@ class ArtistComponent extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(left: 15, right: 20, top: 10),
         child: Text(
-          description,
+          artist.description,
           style: Theme.of(context).textTheme.caption,
         ),
       ),

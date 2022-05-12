@@ -182,9 +182,7 @@ class _ArtistViewState extends State<ArtistView> {
                         children: [
                           SizedBox(height: initialImageSize),
                           ArtistComponent(
-                              id: widget.artist.id,
-                              label: widget.artist.name,
-                              description: widget.artist.description,
+                              artist: widget.artist,
                               onTap: () {
                                 context
                                     .read<DataProvider>()

@@ -183,9 +183,7 @@ class _AlbumViewState extends State<AlbumView> {
                         children: [
                           SizedBox(height: initialImageSize),
                           AlbumComponent(
-                            description: widget.description,
-                            label: widget.album.name,
-                            id: widget.album.id,
+                            album: widget.album,
                             onTap: () {
                               context
                                   .read<DataProvider>()

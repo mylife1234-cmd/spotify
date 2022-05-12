@@ -3,39 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/share/item_info.dart';
-import 'package:spotify/main.dart';
-import 'package:spotify/models/playlist.dart';
-import 'package:spotify/pages/music/share_page.dart';
 
-import '../../../models/song.dart';
+import '../../../models/playlist.dart';
 import '../../../providers/data_provider.dart';
-import '../../../providers/music_provider.dart';
-import '../../../utils/db.dart';
 import '../../../utils/helper.dart';
-import '../album/album_view.dart';
-import '../artist/artist_view.dart';
 
-class SongActionUser extends StatefulWidget {
-  const SongActionUser({
-    Key? key,
-    required this.song,
-    required this.playlist,
-  }) : super(key: key);
-  final Song song;
+class PlaylistAction extends StatefulWidget {
+  const PlaylistAction({Key? key, required this.playlist}) : super(key: key);
   final Playlist playlist;
 
   @override
-  _SongActionUserState createState() => _SongActionUserState();
+  _PlaylistActionState createState() => _PlaylistActionState();
 }
 
-class _SongActionUserState extends State<SongActionUser> {
+class _PlaylistActionState extends State<PlaylistAction> {
   Color _color = Colors.black;
 
   @override
   void initState() {
     super.initState();
 
-    final image = getImageFromUrl(widget.song.coverImageUrl);
+    final image = getImageFromUrl(widget.playlist.coverImageUrl);
 
     getColorFromImage(image).then((color) {
       if (color != null) {
@@ -50,8 +38,8 @@ class _SongActionUserState extends State<SongActionUser> {
   Widget build(BuildContext context) {
     final isFavorite = context
         .watch<DataProvider>()
-        .favoriteSongs
-        .any((e) => e.id == widget.song.id);
+        .favoriteAlbums
+        .any((e) => e.id == widget.playlist.id);
 
     final listAction = [
       Action(
@@ -63,47 +51,6 @@ class _SongActionUserState extends State<SongActionUser> {
         ),
         _doActionLike,
       ),
-      if (widget.playlist.id != '${context.watch<DataProvider>().user.id}0')
-        Action(
-          'Remove from this Playlist',
-          const Icon(
-            CupertinoIcons.xmark_circle,
-            size: 22,
-          ),
-          _doActionRemoveFromPlaylist,
-        ),
-      Action(
-        'Share',
-        const Icon(
-          Icons.ios_share,
-          size: 22,
-        ),
-        _doActionShare,
-      ),
-      Action(
-        'View artist',
-        const Icon(
-          CupertinoIcons.person,
-          size: 22,
-        ),
-        _doActionViewArtist,
-      ),
-      Action(
-        'Add to queue',
-        const Icon(
-          CupertinoIcons.text_badge_plus,
-          size: 22,
-        ),
-        _doActionAddToQueue,
-      ),
-      Action(
-        'View album',
-        const Icon(
-          CupertinoIcons.music_albums,
-          size: 22,
-        ),
-        _doActionViewAlbum,
-      )
     ];
 
     return Scaffold(
@@ -137,7 +84,7 @@ class _SongActionUserState extends State<SongActionUser> {
                     const SizedBox(
                       height: 44,
                     ),
-                    ItemInfo(item: widget.song),
+                    ItemInfo(item: widget.playlist),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: listAction.map((item) {
@@ -173,70 +120,9 @@ class _SongActionUserState extends State<SongActionUser> {
   }
 
   void _doActionLike() {
-    context.read<DataProvider>().toggleFavoriteSong(widget.song);
+    context.read<DataProvider>().toggleFavoritePlaylist(widget.playlist);
   }
 
-  void _doActionShare() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SharePage(
-          song: widget.song,
-        ),
-      ),
-    );
-  }
-
-  Future _doActionAddToQueue() async {
-    if (widget.song.audioUrl == '') {
-      widget.song.audioUrl =
-          await getFileFromFirebase('/song/audio/${widget.song.id}.mp3');
-    }
-
-    context.read<MusicProvider>().addToPlaylist(widget.song);
-
-    Navigator.maybePop(context);
-  }
-
-  void _doActionRemoveFromPlaylist() {
-    context
-        .read<DataProvider>()
-        .deleteSongFromPlaylist(widget.playlist.id, widget.song.id);
-    Navigator.pop<Song>(context, widget.song);
-  }
-
-  Future _doActionViewAlbum() async {
-    Navigator.popUntil(context, (route) => route.isFirst);
-
-    final album = await Database.getAlbumById(widget.song.albumId);
-
-    Navigator.push(
-      tabNavKeys[tabController.index].currentContext!,
-      MaterialPageRoute(
-        builder: (context) => AlbumView(
-          album: album,
-          image: getImageFromUrl(album.coverImageUrl),
-          description: album.description,
-        ),
-      ),
-    );
-  }
-
-  Future<void> _doActionViewArtist() async {
-    Navigator.popUntil(context, (route) => route.isFirst);
-
-    final artist = await Database.getArtistById(widget.song.artistIdList[0]);
-
-    Navigator.push(
-      tabNavKeys[tabController.index].currentContext!,
-      MaterialPageRoute(
-        builder: (context) => ArtistView(
-          artist: artist,
-          image: getImageFromUrl(artist.coverImageUrl),
-        ),
-      ),
-    );
-  }
 }
 
 class Action {

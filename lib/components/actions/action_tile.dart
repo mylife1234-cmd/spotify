@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../models/song.dart';
-
 class ActionTile extends StatelessWidget {
   const ActionTile({
     Key? key,
     required this.title,
-    required this.song,
     required this.color,
     required this.leading,
     this.onTap,
   }) : super(key: key);
 
   final String title;
-  final Song song;
   final Color color;
   final Widget leading;
   final void Function()? onTap;

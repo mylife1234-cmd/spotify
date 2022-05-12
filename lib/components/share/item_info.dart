@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../models/song.dart';
 import '../../utils/helper.dart';
 
-class SongInfo extends StatelessWidget {
-  const SongInfo({Key? key, required this.song}) : super(key: key);
+class ItemInfo extends StatelessWidget {
+  const ItemInfo({Key? key, required this.item}) : super(key: key);
 
-  final Song song;
+  final dynamic item;
 
   @override
   Widget build(BuildContext context) {
-    final image = getImageFromUrl(song.coverImageUrl);
+    final image = getImageFromUrl(item.coverImageUrl);
 
     return Column(
       children: [
@@ -24,7 +23,7 @@ class SongInfo extends StatelessWidget {
           width: 180,
           padding: const EdgeInsets.only(top: 25),
           child: Text(
-            song.name,
+            item.name,
             textAlign: TextAlign.center,
             style: const TextStyle(
                 letterSpacing: 0.2, fontSize: 18, fontWeight: FontWeight.bold),
@@ -35,7 +34,7 @@ class SongInfo extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 15, bottom: 30),
           child: Text(
-            song.description,
+            item.description,
             style: Theme.of(context).textTheme.caption,
           ),
         ),

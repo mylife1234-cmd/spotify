@@ -3,33 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/components/actions/action_tile.dart';
 import 'package:spotify/components/share/item_info.dart';
-import 'package:spotify/main.dart';
-import 'package:spotify/pages/music/share_page.dart';
 
-import '../../models/song.dart';
-import '../../providers/data_provider.dart';
-import '../../providers/music_provider.dart';
-import '../../utils/db.dart';
-import '../../utils/helper.dart';
-import 'album/album_view.dart';
-import 'artist/artist_view.dart';
+import '../../../models/album.dart';
+import '../../../providers/data_provider.dart';
+import '../../../utils/helper.dart';
 
-class SongAction extends StatefulWidget {
-  const SongAction({Key? key, required this.song}) : super(key: key);
-  final Song song;
+class AlbumAction extends StatefulWidget {
+  const AlbumAction({Key? key, required this.album}) : super(key: key);
+  final Album album;
 
   @override
-  _SongActionState createState() => _SongActionState();
+  _AlbumActionState createState() => _AlbumActionState();
 }
 
-class _SongActionState extends State<SongAction> {
+class _AlbumActionState extends State<AlbumAction> {
   Color _color = Colors.black;
 
   @override
   void initState() {
     super.initState();
 
-    final image = getImageFromUrl(widget.song.coverImageUrl);
+    final image = getImageFromUrl(widget.album.coverImageUrl);
 
     getColorFromImage(image).then((color) {
       if (color != null) {
@@ -44,8 +38,8 @@ class _SongActionState extends State<SongAction> {
   Widget build(BuildContext context) {
     final isFavorite = context
         .watch<DataProvider>()
-        .favoriteSongs
-        .any((e) => e.id == widget.song.id);
+        .favoriteAlbums
+        .any((e) => e.id == widget.album.id);
 
     final listAction = [
       Action(
@@ -57,46 +51,6 @@ class _SongActionState extends State<SongAction> {
         ),
         _doActionLike,
       ),
-      Action(
-        'Share',
-        const Icon(
-          Icons.ios_share,
-          size: 22,
-        ),
-        _doActionShare,
-      ),
-      Action(
-        'View artist',
-        const Icon(
-          CupertinoIcons.person,
-          size: 22,
-        ),
-        _doActionViewArtist,
-      ),
-      // Action(
-      //   'Add to playlist',
-      //   const Icon(
-      //     CupertinoIcons.music_note_list,
-      //     size: 22,
-      //   ),
-      //   _doActionAddPlaylist,
-      // ),
-      Action(
-        'Add to queue',
-        const Icon(
-          CupertinoIcons.text_badge_plus,
-          size: 22,
-        ),
-        _doActionAddToQueue,
-      ),
-      Action(
-        'View album',
-        const Icon(
-          CupertinoIcons.music_albums,
-          size: 22,
-        ),
-        _doActionViewAlbum,
-      )
     ];
 
     return Scaffold(
@@ -130,7 +84,7 @@ class _SongActionState extends State<SongAction> {
                     const SizedBox(
                       height: 44,
                     ),
-                    ItemInfo(item: widget.song),
+                    ItemInfo(item: widget.album),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: listAction.map((item) {
@@ -166,65 +120,9 @@ class _SongActionState extends State<SongAction> {
   }
 
   void _doActionLike() {
-    context.read<DataProvider>().toggleFavoriteSong(widget.song);
+    context.read<DataProvider>().toggleFavoriteAlbum(widget.album);
   }
 
-  void _doActionShare() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SharePage(
-          song: widget.song,
-        ),
-      ),
-    );
-  }
-
-  Future _doActionAddToQueue() async {
-    if (widget.song.audioUrl == '') {
-      widget.song.audioUrl =
-          await getFileFromFirebase('/song/audio/${widget.song.id}.mp3');
-    }
-
-    context.read<MusicProvider>().addToPlaylist(widget.song);
-
-    Navigator.maybePop(context);
-  }
-
-  // void _doActionAddPlaylist() {}
-
-  Future _doActionViewAlbum() async {
-    Navigator.popUntil(context, (route) => route.isFirst);
-
-    final album = await Database.getAlbumById(widget.song.albumId);
-
-    Navigator.push(
-      tabNavKeys[tabController.index].currentContext!,
-      MaterialPageRoute(
-        builder: (context) => AlbumView(
-          album: album,
-          image: getImageFromUrl(album.coverImageUrl),
-          description: album.description,
-        ),
-      ),
-    );
-  }
-
-  Future<void> _doActionViewArtist() async {
-    Navigator.popUntil(context, (route) => route.isFirst);
-
-    final artist = await Database.getArtistById(widget.song.artistIdList[0]);
-
-    Navigator.push(
-      tabNavKeys[tabController.index].currentContext!,
-      MaterialPageRoute(
-        builder: (context) => ArtistView(
-          artist: artist,
-          image: getImageFromUrl(artist.coverImageUrl),
-        ),
-      ),
-    );
-  }
 }
 
 class Action {

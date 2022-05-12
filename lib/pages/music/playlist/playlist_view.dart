@@ -221,14 +221,12 @@ class _PlaylistViewState extends State<PlaylistView> {
                                 songList = [...songList, ...newSongs];
                               });
                             },
-                            label: widget.playlist.name,
-                            id: widget.playlist.id,
+                            playlist: widget.playlist,
                             toggleFavorite: () {
                               context
                                   .read<DataProvider>()
                                   .toggleFavoritePlaylist(widget.playlist);
                             },
-                            type: widget.playlist.type,
                             songList: songList,
                           )
                         ],
