@@ -74,7 +74,17 @@ class _AddSongState extends State<AddSong> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      for (final song in chosenSongs) {
+                        if (song.audioUrl == '') {
+                          song.audioUrl = await getFileFromFirebase(
+                            '/song/audio/${song.id}.mp3',
+                          );
+                        }
+                        context
+                            .read<MusicProvider>()
+                            .addToPlaylist(song);
+                      }
                       Navigator.pop<List<Song>>(context, chosenSongs);
                     },
                     child: const Text(
@@ -141,12 +151,6 @@ class _AddSongState extends State<AddSong> {
               context
                   .read<DataProvider>()
                   .addSongToPlaylist(item.id, widget.id);
-              if (item.audioUrl == '') {
-                item.audioUrl = await getFileFromFirebase(
-                  '/song/audio/${item.id}.mp3',
-                );
-              }
-              context.read<MusicProvider>().addToPlaylist(item);
 
               setState(() {
                 searchResult = playlists..removeWhere((e) => e.id == item.id);

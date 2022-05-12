@@ -213,10 +213,6 @@ class _PlaylistViewState extends State<PlaylistView> {
                                 ),
                               );
 
-                              setState(() {
-                                songList = [...songList, ...newSongs];
-                              });
-
                               // for (final song in songList) {
                               //   if (song.audioUrl == '') {
                               //     song.audioUrl = await getFileFromFirebase(
@@ -227,6 +223,10 @@ class _PlaylistViewState extends State<PlaylistView> {
                               //       .read<MusicProvider>()
                               //       .addToPlaylist(song);
                               // }
+
+                              setState(() {
+                                songList = [...songList, ...newSongs];
+                              });
                             },
                             label: widget.playlist.name,
                             id: widget.playlist.id,
