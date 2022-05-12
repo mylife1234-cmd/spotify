@@ -157,10 +157,34 @@ class _PlaylistActionState extends State<PlaylistAction> {
     );
   }
 
-  void _doActionDelete() {
-    context.read<DataProvider>().deletePlaylist(widget.playlist.id);
-    // Navigator.popUntil(context, (route) => route.settings.name == '/library');
-    Navigator.popUntil(context, (route) => route.isFirst);
+  Future<void> _doActionDelete() async {
+    final option = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Are you sure'),
+          content: const Text('Do you want to delete this playlist?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Delete'),
+            )
+          ],
+        );
+      },
+    );
+
+    if (option) {
+      context.read<DataProvider>().deletePlaylist(widget.playlist.id);
+
+      Navigator.popUntil(context, (route) => route.isFirst);
+    } else {
+      Navigator.pop(context);
+    }
   }
 }
 
