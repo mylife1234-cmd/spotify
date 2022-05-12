@@ -19,20 +19,15 @@ class _AddSongState extends State<AddSong> {
   List searchResult = [];
   bool isSearch = false;
   List<Song> chosenSongs = [];
-  @override
-  void initState() {
-    isSearch = false;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     playlists = context.watch<DataProvider>().songs;
-    for (int i = 0; i < widget.songList.length; i++) {
-      if (playlists.any((element) => element.id == widget.songList[i].id)) {
-        playlists.removeWhere((element) => element.id == widget.songList[i].id);
-      }
+
+    for (final song in widget.songList) {
+      playlists.removeWhere((e) => e.id == song.id);
     }
+
     if (!isSearch) {
       searchResult = playlists..sort((a, b) => a.name.compareTo(b.name));
     }
