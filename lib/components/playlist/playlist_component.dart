@@ -28,7 +28,9 @@ class PlaylistComponent extends StatelessWidget {
     final isUserPlayLists = type == 'user';
 
     final isFavorite = favoritePlaylistList.any((element) => element.id == id);
+
     final user = context.watch<DataProvider>().user;
+
     // final image = getImageFromUrl(user.coverImageUrl);
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 20, top: 20),

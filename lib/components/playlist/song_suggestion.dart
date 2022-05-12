@@ -5,8 +5,8 @@ import '../../models/song.dart';
 import '../../providers/music_provider.dart';
 import '../../utils/helper.dart';
 
-class SongSuggested extends StatelessWidget {
-  const SongSuggested({
+class SongSuggestion extends StatelessWidget {
+  const SongSuggestion({
     Key? key,
     required this.song,
     required this.trailing,

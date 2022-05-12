@@ -368,19 +368,19 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addSongToPlaylist(String songId, Playlist playlist) {
+  void addSongToPlaylist(String songId, String playlistId) {
     final newPlaylist = _customizedPlaylists
-        .firstWhere((element) => element.id == playlist.id)
+        .firstWhere((element) => element.id == playlistId)
       ..updateSongIdList(songId);
 
     FirebaseDatabase.instance
-        .ref('/playlists/${playlist.id}')
+        .ref('/playlists/$playlistId')
         .update({'songIdList': newPlaylist.songIdList});
 
     notifyListeners();
   }
 
-  void creatNewPlaylist(String playlistName) {
+  void createNewPlaylist(String playlistName) {
     final Playlist newPlaylist = Playlist(
       id: _user.id.toString() + _customizedPlaylists.length.toString(),
       name: playlistName,

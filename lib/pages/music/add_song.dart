@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify/providers/data_provider.dart';
 
-import '../../components/playlist/song_suggested.dart';
+import '../../components/playlist/song_suggestion.dart';
 import '../../models/song.dart';
-import '../../utils/db.dart';
 
 class AddSong extends StatefulWidget {
   const AddSong({Key? key, required this.id, required this.songList})
@@ -137,32 +136,22 @@ class _AddSongState extends State<AddSong> {
       itemCount: list.length,
       itemBuilder: (context, index) {
         final item = list[index];
-        return FutureBuilder(
-          future: Database.getPlaylistById(widget.id),
-          builder: (context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.hasData) {
-              return SongSuggested(
-                song: item,
-                trailing: IconButton(
-                  onPressed: () {
-                    context
-                        .read<DataProvider>()
-                        .addSongToPlaylist(item.id, snapshot.data);
-                    setState(() {
-                      chosenSongs.add(item);
-                      searchResult = playlists
-                        ..removeWhere((element) => element.id == item.id);
-                    });
-                  },
-                  icon: const Icon(Icons.add_circle_outline),
-                ),
-              );
-            }
-            return SongSuggested(
-              song: item,
-              trailing: const Icon(Icons.add_circle_outline),
-            );
-          },
+        return SongSuggestion(
+          song: item,
+          trailing: IconButton(
+            onPressed: () {
+              context
+                  .read<DataProvider>()
+                  .addSongToPlaylist(item.id, widget.id);
+
+              setState(() {
+                chosenSongs.add(item);
+                searchResult = playlists
+                  ..removeWhere((element) => element.id == item.id);
+              });
+            },
+            icon: const Icon(Icons.add_circle_outline),
+          ),
         );
       },
     );

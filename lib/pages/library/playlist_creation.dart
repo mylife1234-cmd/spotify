@@ -98,7 +98,7 @@ class _PlaylistCreationPageState extends State<PlaylistCreationPage> {
                     // Database.initPlaylist(_newPlaylistName);
                     context
                         .read<DataProvider>()
-                        .creatNewPlaylist(_newPlaylistName);
+                        .createNewPlaylist(_newPlaylistName);
                     setState(() {
                       _newPlaylistName = '';
                     });

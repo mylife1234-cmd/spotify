@@ -51,7 +51,9 @@ class _LibraryPageState extends State<LibraryPage> {
       songIdList: favoriteSongs.map((e) => e.id).toList(),
       type: 'user',
     );
+
     List list;
+
     favoriteSongs.isNotEmpty
         ? list = [
             ...favoritePlaylists,
@@ -66,6 +68,7 @@ class _LibraryPageState extends State<LibraryPage> {
             ...favoriteAlbums,
             ...userPlaylist,
           ];
+
     final filteredList = list
         .where((element) =>
             _currentFilterOption == -1 ||
