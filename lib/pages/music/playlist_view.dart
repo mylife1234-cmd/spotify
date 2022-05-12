@@ -166,7 +166,7 @@ class _PlaylistViewState extends State<PlaylistView> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(
-                  height: 50,
+                  height: 35,
                 ),
                 SafeArea(
                     child: OpacityImage(

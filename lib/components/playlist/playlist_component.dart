@@ -33,7 +33,7 @@ class PlaylistComponent extends StatelessWidget {
 
     // final image = getImageFromUrl(user.coverImageUrl);
     return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 20, top: 20),
+      padding: const EdgeInsets.only(left: 15, right: 20, top: 9),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Center(
           child: Text(
@@ -42,7 +42,7 @@ class PlaylistComponent extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 15, bottom: 22),
+          padding: const EdgeInsets.only(top: 15, bottom: 20),
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
