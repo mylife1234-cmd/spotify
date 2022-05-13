@@ -17,6 +17,8 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Test
 
+Tất cả file và chi tiết về phần kiểm thử nhóm để trong thư mục test
+
 Implemented 18 end-to-end test cases (/test/e2e_tests).
 
 ![img](/test/e2e_tests/Log-in/Log-in.png)
