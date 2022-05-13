@@ -49,20 +49,23 @@ class SongTileUser extends StatelessWidget {
           image: image,
           fit: BoxFit.cover,
         ),
-        trailing: ActionButton(
-          song: song,
-          size: 20,
-          // onPressed: () {
-          //   Navigator.of(context, rootNavigator: true).push(
-          //     MaterialPageRoute(
-          //       builder: (context) => SongActionUser(
-          //         song: song,
-          //         playlist: playlist,
-          //       ),
-          //     ),
-          //   );
-          // },
-          onTap: deleteSong,
+        trailing: Padding(
+          padding: const EdgeInsets.all(10),
+          child: ActionButton(
+            song: song,
+            size: 20,
+            // onPressed: () {
+            //   Navigator.of(context, rootNavigator: true).push(
+            //     MaterialPageRoute(
+            //       builder: (context) => SongActionUser(
+            //         song: song,
+            //         playlist: playlist,
+            //       ),
+            //     ),
+            //   );
+            // },
+            onTap: deleteSong,
+          ),
         ),
         contentPadding: EdgeInsets.zero,
         dense: true,

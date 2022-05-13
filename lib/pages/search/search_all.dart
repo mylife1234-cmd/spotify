@@ -233,16 +233,19 @@ class _SearchAllState extends State<SearchAll> {
         return item.runtimeType.toString() == 'Song'
             ? SongSearch(
                 song: item,
-                trailing: ActionButton(
-                  song: item,
-                  size: 20,
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(
-                        builder: (context) => SongAction(song: item),
-                      ),
-                    );
-                  },
+                trailing: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: ActionButton(
+                    song: item,
+                    size: 20,
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                          builder: (context) => SongAction(song: item),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               )
             : GestureDetector(

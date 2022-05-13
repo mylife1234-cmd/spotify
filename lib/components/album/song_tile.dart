@@ -46,16 +46,19 @@ class SongTile extends StatelessWidget {
           image: image,
           fit: BoxFit.cover,
         ),
-        trailing: ActionButton(
-          song: song,
-          size: 20,
-          onTap: () {
-            Navigator.of(context, rootNavigator: true).push(
-              MaterialPageRoute(
-                builder: (context) => SongAction(song: song),
-              ),
-            );
-          },
+        trailing: Padding(
+          padding: const EdgeInsets.all(10),
+          child: ActionButton(
+            song: song,
+            size: 20,
+            onTap: () {
+              Navigator.of(context, rootNavigator: true).push(
+                MaterialPageRoute(
+                  builder: (context) => SongAction(song: song),
+                ),
+              );
+            },
+          ),
         ),
         contentPadding: EdgeInsets.zero,
         dense: true,
