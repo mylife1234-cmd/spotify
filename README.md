@@ -18,7 +18,9 @@ samples, guidance on mobile development, and a full API reference.
 ## Test
 
 Tất cả file và chi tiết về phần kiểm thử nhóm để trong thư mục test
+
 10 test đầu: https://drive.google.com/drive/folders/1d01f8pK9rEafSzrI7WRDBkxRuGEV-skE?usp=sharing
+
 8 test sau (Kèm video): https://drive.google.com/drive/folders/1Chp26jNMNKSvcatb26GxcP_uYJQF-vxp?usp=sharing
 
 Implemented 18 end-to-end test cases (/test/e2e_tests).
