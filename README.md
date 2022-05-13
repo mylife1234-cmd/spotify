@@ -17,6 +17,8 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Test
 
+Implemented 18 end-to-end test cases (/test/e2e_tests).
+
 ![img](/test/e2e_tests/Log-in/Log-in.png)
 ![img](/test/e2e_tests/Log-out/Log-out.png)
 ![img](/test/e2e_tests/Test-go-to-Profile/Test-go-to-Profile.png)
@@ -35,5 +37,3 @@ samples, guidance on mobile development, and a full API reference.
 ![Test search playlist](https://user-images.githubusercontent.com/62343946/168162659-fca3012e-0885-4d46-b4c6-aa67de66766c.png)
 ![Test search song](https://user-images.githubusercontent.com/62343946/168162674-99ca8bd2-74c7-40ad-b510-8683b59ca354.png)
 ![Test tạo một playlist mới](https://user-images.githubusercontent.com/62343946/168162697-734ec856-8bd1-4969-8e60-d31c18810309.png)
-
-
