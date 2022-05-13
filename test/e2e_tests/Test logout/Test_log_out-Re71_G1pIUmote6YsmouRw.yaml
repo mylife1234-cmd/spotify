@@ -1,0 +1,70 @@
+id: FrmQvOdtmkSkNfhlj5_2MQ
+projectId: hSZim_BvFE-0YsnbZhQzFw
+projectName: My first Project
+created: 2022-05-12T19:19:41.0720135Z
+owner: Cường Vũ Mạnh
+protocol: 1
+tests:
+- id: Re71_G1pIUmote6YsmouRw
+  name: Test log out
+  description: Test log out
+  platform: Android
+  type: Mobile
+  driverType: Appium_Android
+  version: 0.1
+  creationDate: 2022-05-12T14:55:28.0000000
+  modificationDate: 2022-05-12T17:38:08.0000000
+  settings:
+    automationAssistant: true
+    deviceId: emulator-5554
+    appId: u9XdKWgGEEaLpSHnrB-J0g
+    stepSleepTime: 500
+    stepTimeout: 15000
+    stepSleepTiming: Before
+    stepFailureBehaviorType: Abort
+    stepTakeScreenshotConditionType: Failure
+  application:
+    id: u9XdKWgGEEaLpSHnrB-J0g
+    androidActivity: com.ryanheise.audioservice.AudioServiceActivity
+    androidPackage: com.int3120.group22.spotify
+    name: spotify1
+    platform: Android
+  steps:
+  - id: 1FcQhdZihk6CQ7h-wrVfgw
+    enabled: true
+    invertResult: false
+    order: 1
+    repeat: 1
+    type: Action
+    elementId: 06pkOedL4U-c_VcGJXTBhg
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  parameters: []
+auxTests: []
+elements:
+- id: 06pkOedL4U-c_VcGJXTBhg
+  name: ANDROID.VIEW.VIEW
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.ScrollView/android.view.View[4]
+    priority: 0
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.ScrollView[1]/android.view.View[4]
+    priority: 1
+projectParameters: []
+addons: []

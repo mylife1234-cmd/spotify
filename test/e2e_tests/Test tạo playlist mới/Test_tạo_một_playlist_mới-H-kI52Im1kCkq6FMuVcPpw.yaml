@@ -1,0 +1,201 @@
+id: mNLguolchk-EA2QEw07wKA
+projectId: hSZim_BvFE-0YsnbZhQzFw
+projectName: My first Project
+created: 2022-05-12T19:18:15.5071609Z
+owner: Cường Vũ Mạnh
+protocol: 1
+tests:
+- id: H-kI52Im1kCkq6FMuVcPpw
+  name: Test tạo một playlist mới
+  description: Test tạo một playlist mới
+  platform: Android
+  type: Mobile
+  driverType: Appium_Android
+  version: 0.1
+  creationDate: 2022-05-12T18:19:38.0000000
+  modificationDate: 2022-05-12T18:24:36.0000000
+  settings:
+    automationAssistant: true
+    deviceId: emulator-5554
+    appId: u9XdKWgGEEaLpSHnrB-J0g
+    stepSleepTime: 500
+    stepTimeout: 15000
+    stepSleepTiming: Before
+    stepFailureBehaviorType: Abort
+    stepTakeScreenshotConditionType: Failure
+  application:
+    id: u9XdKWgGEEaLpSHnrB-J0g
+    androidActivity: com.ryanheise.audioservice.AudioServiceActivity
+    androidPackage: com.int3120.group22.spotify
+    name: spotify1
+    platform: Android
+  steps:
+  - id: UWw4m5YXpEmqCiqKclaVtw
+    enabled: true
+    invertResult: false
+    order: 1
+    repeat: 1
+    type: Action
+    elementId: 9lvdhTMtHEybapBgjjWyJA
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: TXtObuGl9UCO-t84P1CFxA
+    enabled: true
+    invertResult: false
+    order: 2
+    repeat: 1
+    type: Action
+    elementId: GTVOZlQ_0060_d6uRB_DuQ
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: J8ucUKJgwEO-AGE4-DnGFg
+    enabled: true
+    invertResult: false
+    order: 3
+    repeat: 1
+    type: Action
+    elementId: 32KXIOugvk-DTxPx4UHeLg
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: Sw48H0vM4ky54KtpxO1HpQ
+    enabled: true
+    invertResult: false
+    order: 4
+    repeat: 1
+    type: Action
+    elementId: 32KXIOugvk-DTxPx4UHeLg
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
+      source: System
+    parameterMaps:
+    - name: keys
+      value: liked
+      direction: Input
+    conditions: []
+    validations: []
+    contexts: []
+  - id: lGFKaBJiqECtgoew6wRq_g
+    enabled: true
+    invertResult: false
+    order: 5
+    repeat: 1
+    type: Action
+    elementId: l_XIounmMU6gPobuWLdOPA
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  parameters: []
+auxTests: []
+elements:
+- id: 9lvdhTMtHEybapBgjjWyJA
+  name: Your Library, Tab 3 of 3
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.view.View[@content-desc = 'Your Library, Tab 3 of 3']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View/android.view.View[4]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[4]
+    priority: 2
+- id: GTVOZlQ_0060_d6uRB_DuQ
+  name: ANDROID.VIEW.VIEW2
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.view.View/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View/android.view.View[2]
+    priority: 0
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[2]
+    priority: 1
+- id: 32KXIOugvk-DTxPx4UHeLg
+  name: Playlist name
+  type:
+    id: jUwODgyNjAyNzk2NTk3MTM
+    name: android.widget.EditText
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.EditText[@text = 'Playlist name']
+    priority: 0
+  - name: XPATH
+    value: //android.widget.EditText
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.EditText[1]
+    priority: 2
+- id: l_XIounmMU6gPobuWLdOPA
+  name: Create
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.view.View[@content-desc = 'Create']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View/android.view.View
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]
+    priority: 2
+projectParameters: []
+addons: []

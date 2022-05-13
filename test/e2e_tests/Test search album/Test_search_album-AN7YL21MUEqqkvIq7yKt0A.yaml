@@ -1,0 +1,227 @@
+id: Y-lh2ncfQ0qjsurWFBPepA
+projectId: hSZim_BvFE-0YsnbZhQzFw
+projectName: My first Project
+created: 2022-05-12T19:17:47.9242943Z
+owner: Cường Vũ Mạnh
+protocol: 1
+tests:
+- id: AN7YL21MUEqqkvIq7yKt0A
+  name: Test search album
+  description: Test search album
+  platform: Android
+  type: Mobile
+  driverType: Appium_Android
+  version: 0.1
+  creationDate: 2022-05-12T09:54:40.0000000
+  modificationDate: 2022-05-12T18:47:53.0000000
+  settings:
+    automationAssistant: true
+    deviceId: emulator-5554
+    appId: u9XdKWgGEEaLpSHnrB-J0g
+    stepSleepTime: 500
+    stepTimeout: 15000
+    stepSleepTiming: Before
+    stepFailureBehaviorType: Abort
+    stepTakeScreenshotConditionType: Failure
+  application:
+    id: u9XdKWgGEEaLpSHnrB-J0g
+    androidActivity: com.ryanheise.audioservice.AudioServiceActivity
+    androidPackage: com.int3120.group22.spotify
+    name: spotify1
+    platform: Android
+  steps:
+  - id: AudQfv7zbUKUKAi-XlaLVw
+    enabled: true
+    invertResult: false
+    order: 1
+    repeat: 1
+    type: Action
+    elementId: xpRY35cdek2cdVjpQzSPEQ
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: 0F3UdZR6kkyAUuazUfifhg
+    enabled: true
+    invertResult: false
+    order: 2
+    repeat: 1
+    type: Action
+    elementId: XIh_nz66mk-BeBaNHdWgyw
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: lfE0I2z4k0uavDgX7kwHWw
+    enabled: true
+    invertResult: false
+    order: 3
+    repeat: 1
+    type: Action
+    elementId: XIh_nz66mk-BeBaNHdWgyw
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
+      source: System
+    parameterMaps:
+    - name: keys
+      value: Search for something
+      direction: Input
+    conditions: []
+    validations: []
+    contexts: []
+  - id: TMVMgSOAlE-WSovclt9Ndw
+    enabled: true
+    invertResult: false
+    order: 4
+    repeat: 1
+    type: Action
+    elementId: SPTr-PxIO0u1_DrF0VdxPQ
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: Y34rbfPuwE-zW8E_S9PBkg
+    enabled: true
+    invertResult: false
+    order: 5
+    repeat: 1
+    type: Action
+    elementId: SPTr-PxIO0u1_DrF0VdxPQ
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
+      source: System
+    parameterMaps:
+    - name: keys
+      value: c
+      direction: Input
+    conditions: []
+    validations: []
+    contexts: []
+  - id: q-kWYQ_VQ06kFuNmjtZwoA
+    enabled: true
+    invertResult: false
+    order: 6
+    repeat: 1
+    type: Action
+    elementId: gJHhIAi_40ac7_qkeWYwwg
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  parameters: []
+auxTests: []
+elements:
+- id: xpRY35cdek2cdVjpQzSPEQ
+  name: Search, Tab 2 of 3
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.view.View[@content-desc = 'Search, Tab 2 of 3']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View/android.view.View[3]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[3]
+    priority: 2
+- id: XIh_nz66mk-BeBaNHdWgyw
+  name: Search for something
+  type:
+    id: jUwODgyNjAyNzk2NTk3MTM
+    name: android.widget.EditText
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.EditText[@text = 'Search for something']
+    priority: 1
+  - name: XPATH
+    value: //android.widget.EditText
+    priority: 0
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.EditText[1]
+    priority: 2
+- id: SPTr-PxIO0u1_DrF0VdxPQ
+  name: Search for something, Search
+  type:
+    id: jUwODgyNjAyNzk2NTk3MTM
+    name: android.widget.EditText
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.EditText[@text = 'Search for something, Search']
+    priority: 1
+  - name: XPATH
+    value: //android.widget.EditText
+    priority: 0
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.EditText[1]
+    priority: 2
+- id: gJHhIAi_40ac7_qkeWYwwg
+  name: Albums
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.view.View[@content-desc = 'Albums']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View[5]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.HorizontalScrollView[1]/android.view.View[5]
+    priority: 2
+projectParameters: []
+addons: []
