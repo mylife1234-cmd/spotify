@@ -17,13 +17,13 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Test
 
-Tất cả file và chi tiết về phần kiểm thử nhóm để trong thư mục test
+Implemented 18 end-to-end test cases using [TestProject](https://testproject.io) (/test/e2e_tests).
 
-10 test đầu: https://drive.google.com/drive/folders/1d01f8pK9rEafSzrI7WRDBkxRuGEV-skE?usp=sharing
+First 10 test cases: https://drive.google.com/drive/folders/1d01f8pK9rEafSzrI7WRDBkxRuGEV-skE?usp=sharing
 
-8 test sau (Kèm video): https://drive.google.com/drive/folders/1Chp26jNMNKSvcatb26GxcP_uYJQF-vxp?usp=sharing
+Next 8 test cases (With video): https://drive.google.com/drive/folders/1Chp26jNMNKSvcatb26GxcP_uYJQF-vxp?usp=sharing
 
-Implemented 18 end-to-end test cases (/test/e2e_tests).
+Here are the results of the 18 test cases mentioned above.
 
 ![img](/test/e2e_tests/Log-in/Log-in.png)
 ![img](/test/e2e_tests/Log-out/Log-out.png)
